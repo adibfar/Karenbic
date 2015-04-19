@@ -1,0 +1,86 @@
+﻿<!-- Start Top Menu-->
+<div class="top-header hidden-xs" ng-controller="TopMenuController">
+    <ul class="menu">
+        <li class="menu-item" ng-click="itemMenuClicked($event)">
+            <a>
+                <i class="icon-verification5" style="padding:5px 0;"></i>
+                سفارشات
+            </a>
+            <ul class="sub-menu" style="width:400px;">
+                <li class="sub-menu-item">
+                    <a>
+                        <i class="icon-notepad30"></i>
+                        سفارشات جدید
+                    </a>
+                </li>
+                <li class="sub-menu-item">
+                    <a>
+                        <i class="icon-checklist4"></i>
+                        سفارشات در دست اقدام
+                    </a>
+                </li>
+                <li class="sub-menu-item">
+                    <a>
+                        <i class="icon-list40"></i>
+                        سفارشات انجام شده
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item" ng-click="itemMenuClicked($event)">
+            <a>
+                <i class="icon-folders4" style="font-size:60px;"></i>
+                تراکنش های مالی
+            </a>
+            <ul class="sub-menu" style="width:350px;">
+                <li class="sub-menu-item">
+                    <a>
+                        <i class="icon-money111"></i>
+                        صورت حساب مشتریان
+                    </a>
+                </li>
+                <li class="sub-menu-item">
+                    <a>
+                        <i class="icon-paper-bill"></i>
+                        ثبت مغایرت مالی
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item" ng-click="itemMenuClicked($event)">
+            <a>
+                <i class="icon-responsive12" style="font-size:60px;"></i>
+                مدیریت فرم ها
+            </a>
+        </li>
+        <li class="menu-item" ng-click="itemMenuClicked($event)">
+            <a>
+                <i class="icon-avatar19" style="padding:5px 0;"></i>
+                مشتریان
+            </a>
+        </li>
+        <li class="menu-item" ng-click="itemMenuClicked($event)">
+            <a>
+                <i class="icon-document199" style="padding:5px 0;"></i>
+                لیست قیمت
+            </a>
+        </li>
+        <li class="menu-item" ng-click="itemMenuClicked($event)">
+            <a>
+                <i class="icon-message" style="font-size:60px;"></i>
+                پیام ها
+            </a>
+        </li>
+        <li class="menu-item menu-item-last" ng-click="itemMenuClicked($event)">
+            <a>
+                <i class="icon-two185" style="padding:5px 0;"></i>
+                تنظیمات
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- End Top Menu-->
+
+<!-- Start Page Content -->
+<div ui-view=""></div>
+<!-- End Page Content -->

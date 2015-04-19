@@ -1,0 +1,33 @@
+﻿<div id="center-content">
+    <!-- Start Loading Bar -->
+    <div class="loading-bar"></div>
+    <!-- End Loading Bar -->
+
+    <!-- Start Top Navbar -->
+    <div class="top-navbar">
+        <a class="home-nav icon-home176"></a>
+        <a class="public-nav icon-flatscreen"></a>
+        <div class="user-section">
+            <div class="icon-male157"></div>
+            <span class="user-name">علیرضا حسینی</span>
+            <a class="icon-closed69"></a>
+        </div>
+        <a class="design-nav" ng-class="{'active': isDesignPortal()}" ui-sref="app.design.dashboard">پورتال سفارشات طراحی</a>
+        <a class="print-nav" ng-class="{'active': isPrintPortal()}" ui-sref="app.print">پورتال سفارشات چاپ</a>
+        <div class="mobile-navbar icon-text156 visible-xs"></div>
+    </div>
+    <!-- End Top Navbar -->
+
+    <!-- Start Page Content -->
+    <div ui-view=""></div>
+    <!-- End Page Content -->
+
+    <!-- Start Footer -->
+    <div id="footer">
+        <div class="text1">
+            کلیه حقوق مادی و معنوی این پرتال متعلق به شرکت نوآوران کارن می باشد. هرگونه کپی برداری و یا سوء استفاده از آن پیگرد قانونی دارد .
+        </div>
+        <a class="text2">www.StudioParsia.com</a>
+    </div>
+    <!-- End Footer -->
+</div>

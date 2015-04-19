@@ -207,3 +207,7 @@ FakesAssemblies/
 
 #Images Folder
 [Ii]mages/
+
+#Compiled CSS Files
+Karenbic/Styles/Admin.css
+Karenbic/Styles/Admin.css.map

@@ -1,0 +1,150 @@
+﻿.top-header {
+    background-color: #fff;
+    border-bottom: 1px solid #cecece;
+    height: 92px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 57px;
+    z-index: 1;
+
+    -moz-box-shadow: #c2c2c2 0px 1px 5px;
+    -webkit-box-shadow: #c2c2c2 0px 1px 5px;
+    box-shadow: #c2c2c2 0px 1px 5px;
+
+    /* Custom, iPhone Retina */
+	@media only screen and (min-width : 320px) {
+        top: 83px;
+	}
+	/* Extra Small Devices, Phones */
+	@media only screen and (min-width : 480px) {
+        top: 83px;
+	}
+	/* Small Devices, Tablets */
+	@media only screen and (min-width : 768px) {
+        top: 83px;
+	}
+	/* Medium Devices, Desktops */
+	@media only screen and (min-width : 992px) {
+        top: 57px;
+	}
+	/* Large Devices, Wide Screens */
+	@media only screen and (min-width : 1200px) {
+        top: 57px;
+	}
+
+    .menu {
+        border-bottom: 1px solid #cecece;
+        font: {
+            family: yekan;
+            size: 14px;
+        }
+        list-style : none;
+        height: 92px;
+        margin: 0;
+        padding: 5px 10px;
+        text-align: center;
+
+        .menu-item {
+            border-left:  1px solid #cecece;
+            cursor: pointer;
+            float: right;
+            height: 82px;
+            position: relative;
+            width: 14%;
+
+            & > a {
+                color: #333;
+                display: block;
+                text-decoration: none;
+                -moz-transition: color 300ms ease-out;
+                -webkit-transition: color 300ms ease-out;
+                -o-transition: color 300ms ease-out;
+                transition: color 300ms ease-out;
+
+                &:hover {
+                    color: #95cb2d;
+                    -moz-transition: color 300ms ease-in;
+                    -webkit-transition: color 300ms ease-in;
+                    -o-transition: color 300ms ease-in;
+                    transition: color 300ms ease-in;
+                }
+
+                & > i {
+                    display: block;
+                    font-size: 50px;
+                    height: 60px;
+                }
+            }
+
+            &.menu-item-last {
+                border-left: none;
+            }
+
+            &.clicked {
+                & > a {
+                    color: #95cb2d;
+                }
+            }
+
+            &.active {
+                & > a {
+                    color: #95cb2d;
+                }
+            }
+        }
+
+        .sub-menu {
+            bottom: -30px;
+            display: none;
+            font: {
+                family: yekan;
+                size: 13px;
+            }
+            height: 20px;
+            list-style : none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+        }
+
+        .sub-menu-item {
+            cursor: pointer;
+            display: block;
+            float: right;
+            margin-left: 10px;
+
+            & > a {
+                color: #333;
+                display: block;
+                text-decoration: none;
+                -moz-transition: color 300ms ease-out;
+                -webkit-transition: color 300ms ease-out;
+                -o-transition: color 300ms ease-out;
+                transition: color 300ms ease-out;
+
+                &:hover {
+                    color: #95cb2d;
+                    -moz-transition: color 300ms ease-in;
+                    -webkit-transition: color 300ms ease-in;
+                    -o-transition: color 300ms ease-in;
+                    transition: color 300ms ease-in;
+                }
+
+                & > i {
+                    display: inline-block;
+                    font-size: 17px;
+                    position: relative; 
+                    top: 3px;
+                }
+            }
+
+            &.active {
+                & > a {
+                    color: #95cb2d;
+                }
+            }
+        }
+
+    }
+}

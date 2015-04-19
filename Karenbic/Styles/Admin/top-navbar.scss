@@ -1,0 +1,326 @@
+﻿.top-navbar {
+    background-color: #fff;
+    border-bottom: 1px solid #dfdfdf;
+    height: 57px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+
+    /* Custom, iPhone Retina */
+	@media only screen and (min-width : 320px) {
+        height: 83px;
+	}
+	/* Extra Small Devices, Phones */
+	@media only screen and (min-width : 480px) {
+        height: 83px;
+	}
+	/* Small Devices, Tablets */
+	@media only screen and (min-width : 768px) {
+        height: 83px;
+	}
+	/* Medium Devices, Desktops */
+	@media only screen and (min-width : 992px) {
+        height: 57px;
+	}
+	/* Large Devices, Wide Screens */
+	@media only screen and (min-width : 1200px) {
+        height: 57px;
+	}
+
+    .home-nav {
+        background-color: #545454;
+        color: #fff;
+        cursor: pointer;
+        display: block;
+        font-size: 20px;
+        height: 26px;
+        padding: 3px;
+        position: absolute;
+        right: 15px;
+        text-decoration: none;
+        top: 15px;
+        width: 26px;
+        -moz-transition: background 300ms ease-out;
+        -webkit-transition: background 300ms ease-out;
+        -o-transition: background 300ms ease-out;
+        transition: background 300ms ease-out;
+
+        &:hover {
+            background-color: #55dd24;
+            -moz-transition: background 300ms ease-in;
+            -webkit-transition: background 300ms ease-in;
+            -o-transition: background 300ms ease-in;
+            transition: background 300ms ease-in;
+        }
+    }
+
+    .public-nav {
+        background-color: #545454;
+        color: #fff;
+        cursor: pointer;
+        display: block;
+        font-size: 20px;
+        height: 26px;
+        padding: 3px;
+        position: absolute;
+        right: 45px;
+        text-decoration: none;
+        top: 15px;
+        width: 26px;
+        -moz-transition: background 300ms ease-out;
+        -webkit-transition: background 300ms ease-out;
+        -o-transition: background 300ms ease-out;
+        transition: background 300ms ease-out;
+
+        &:hover {
+            background-color: #3691bb;
+            -moz-transition: background 300ms ease-in;
+            -webkit-transition: background 300ms ease-in;
+            -o-transition: background 300ms ease-in;
+            transition: background 300ms ease-in;
+        }
+    }
+
+    .user-section {
+        background-color: #efefef;
+        height: 26px;
+        left: 15px;
+        padding: 2px 31px;
+        position: absolute; 
+        top: 15px;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 215px;
+
+        /* Custom, iPhone Retina */
+	    @media only screen and (min-width : 320px) {
+            left: auto;
+            right: 76px;
+            width: 190px;
+	    }
+	    /* Extra Small Devices, Phones */
+	    @media only screen and (min-width : 480px) {
+            left: auto;
+            right: 76px;
+            width: 199px;
+	    }
+	    /* Small Devices, Tablets */
+	    @media only screen and (min-width : 768px) {
+            left: auto;
+            right: 76px;
+            width: 215px;
+	    }
+	    /* Medium Devices, Desktops */
+	    @media only screen and (min-width : 992px) {
+            left: 15px;
+            right: auto;
+            width: 215px;
+	    }
+	    /* Large Devices, Wide Screens */
+	    @media only screen and (min-width : 1200px) {
+            left: 15px;
+            right: auto;
+            width: 215px;
+	    }
+
+        .icon-male157 {
+            background-color: #5f5f5f;
+            color: #fff;
+            font-size: 20px;
+            height: 26px;
+            padding: 3px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 26px;
+        }
+
+        .icon-closed69 {
+            background-color: #efefef;
+            color: #5d5d5d;
+            cursor: pointer;
+            display: block;
+            font-size: 15px;
+            height: 26px;
+            left: 0;
+            padding: 6px;
+            position: absolute;
+            text-decoration: none;
+            top: 0;
+            width: 26px;
+            -moz-transition: color 300ms ease-out;
+            -webkit-transition: color 300ms ease-out;
+            -o-transition: color 300ms ease-out;
+            transition: color 300ms ease-out;
+
+            &:hover {
+                color: #da0000;
+                -moz-transition: color 300ms ease-in;
+                -webkit-transition: color 300ms ease-in;
+                -o-transition: color 300ms ease-in;
+                transition: color 300ms ease-in;
+            }
+        }
+
+        .user-name {
+            color: #787878;
+            font: {
+                family: tahoma;
+                size: 12px;
+            }
+        }
+    }
+
+    .design-nav {
+        background-color: #545454;
+        color: #b7b7b7;
+        cursor: pointer;
+        display: block;
+        font: {
+            family: yekan;
+            size: 13px;
+        }
+        height: 26px;
+        padding: 3px;
+        position: absolute;
+        right: 76px;
+        text-align: center;
+        text-decoration: none;
+        top: 15px;
+        width: 128px;
+        -moz-transition: background 300ms ease-out ,color 300ms ease-out;
+        -webkit-transition: background 300ms ease-out ,color 300ms ease-out;
+        -o-transition: background 300ms ease-out ,color 300ms ease-out;
+        transition: background 300ms ease-out ,color 300ms ease-out;
+
+        &:hover {
+            background-color: #95cb2d;
+            color: #fff;
+            -moz-transition: background 300ms ease-in , color 300ms ease-in;
+            -webkit-transition: background 300ms ease-in , color 300ms ease-in;
+            -o-transition: background 300ms ease-in , color 300ms ease-in;
+            transition: background 300ms ease-in , color 300ms ease-in;
+        }
+
+        &.active {
+            background-color: #95cb2d;
+            color: #fff;
+        }
+
+        /* Custom, iPhone Retina */
+	    @media only screen and (min-width : 320px) {
+            right: 15px;
+            top: 45px;
+            width: 124px;
+	    }
+	    /* Extra Small Devices, Phones */
+	    @media only screen and (min-width : 480px) {
+            right: 15px;
+            top: 45px;
+            width: 128px;
+	    }
+	    /* Small Devices, Tablets */
+	    @media only screen and (min-width : 768px) {
+            right: 15px;
+            top: 45px;
+            width: 136px;
+	    }
+	    /* Medium Devices, Desktops */
+	    @media only screen and (min-width : 992px) {
+            right: 76px;
+            top: 15px;
+            width: 128px;
+	    }
+	    /* Large Devices, Wide Screens */
+	    @media only screen and (min-width : 1200px) {
+            right: 76px;
+            top: 15px;
+            width: 128px;
+	    }
+    }
+
+    .print-nav {
+        background-color: #545454;
+        color: #b7b7b7;
+        cursor: pointer;
+        display: block;
+        font: {
+            family: yekan;
+            size: 13px;
+        }
+        height: 26px;
+        padding: 3px;
+        position: absolute;
+        right: 209px;
+        text-align: center;
+        text-decoration: none;
+        top: 15px;
+        width: 128px;
+        -moz-transition: background 300ms ease-out ,color 300ms ease-out;
+        -webkit-transition: background 300ms ease-out ,color 300ms ease-out;
+        -o-transition: background 300ms ease-out ,color 300ms ease-out;
+        transition: background 300ms ease-out ,color 300ms ease-out;
+
+        &:hover {
+            background-color: #17bed0;
+            color: #fff;
+            -moz-transition: background 300ms ease-in , color 300ms ease-in;
+            -webkit-transition: background 300ms ease-in , color 300ms ease-in;
+            -o-transition: background 300ms ease-in , color 300ms ease-in;
+            transition: background 300ms ease-in , color 300ms ease-in;
+        }
+
+        &.active {
+            background-color: #17bed0;
+            color: #fff;
+        }
+
+        /* Custom, iPhone Retina */
+	    @media only screen and (min-width : 320px) {
+            right: 142px;
+            top: 45px;
+            width: 124px;
+	    }
+	    /* Extra Small Devices, Phones */
+	    @media only screen and (min-width : 480px) {
+            right: 147px;
+            top: 45px;
+            width: 128px;
+	    }
+	    /* Small Devices, Tablets */
+	    @media only screen and (min-width : 768px) {
+            right: 155px;
+            top: 45px;
+            width: 136px;
+	    }
+	    /* Medium Devices, Desktops */
+	    @media only screen and (min-width : 992px) {
+            right: 209px;
+            top: 15px;
+            width: 128px;
+	    }
+	    /* Large Devices, Wide Screens */
+	    @media only screen and (min-width : 1200px) {
+            right: 209px;
+            top: 15px;
+            width: 128px;
+	    }
+    }
+
+    .mobile-navbar {
+        background-color: transparent;
+        color: #95cb2d;
+        cursor: pointer;
+        display: block;
+        font-size: 35px;
+        height: 39px;
+        left: 6px;
+        padding: 0;
+        position: absolute;
+        text-decoration: none;
+        top: 25px;
+        width: 39px;
+    }
+}

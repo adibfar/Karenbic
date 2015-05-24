@@ -1,0 +1,38 @@
+﻿.pagination {
+	margin-bottom: 0;
+	margin-top: 0;
+
+	& > li {
+		& > a {
+			background-color: transparent;
+			border: none;
+			color: #666;
+			cursor: pointer;
+			margin: 0 1px;
+			padding: 3px 8px;
+
+			-moz-border-radius: 50%;
+			-webkit-border-radius: 50%;
+			border-radius: 50%;
+		}
+
+		& > span {
+			background-color: transparent;
+			border: none;
+			cursor: pointer;
+			margin: 0 1px;
+			padding: 3px 8px;
+		}
+
+		&:hover > a,
+		&.active > a,
+		&.active:hover > a {
+			background-color: #7b7b7b;
+			color: #fff;
+		}
+
+		&:hover > span {
+			background-color: transparent;
+		}
+	}
+}

@@ -1,0 +1,473 @@
+﻿<style type="text/css">
+    .whirl.shadow::after  {
+        animation: none;
+    }
+
+    .panel-form-details {
+        -moz-border-radius: 8px 8px 0 0 !important;
+        -webkit-border-radius: 8px 8px 0 0 !important;
+        border-radius: 8px 8px 0 0 !important;
+        margin-bottom: 0 !important;
+        border-bottom: none !important;
+    }
+    .panel-new-field {
+        -moz-border-radius: 0 !important;
+        -webkit-border-radius: 0 !important;
+        border-radius: 0 !important;
+        margin-bottom: 0 !important;
+        border-bottom: none !important;
+    }
+    .panel-new-fields {
+        -moz-border-radius: 0 0 8px 8px !important;
+        -webkit-border-radius: 0 0 8px 8px !important;
+        border-radius: 0 0 8px 8px !important;
+    }
+
+    .field-items {
+        background-color: #f1f1f1;
+        border: 1px solid #bebebe;
+        height: 235px;
+    }
+        .field-items table {
+            margin-bottom: 0;
+        }
+        .field-items tr {
+            background-color: #fff;
+        }
+        .field-items tr td {
+            padding: 0 !important;
+        }
+        .field-items tr input[type=text] {
+            border: none;
+            width: 100%;
+        }
+        .field-items tr input[type=text].ng-invalid {
+			border: 1px solid #d9534f;
+		}
+
+    .table .btn-img-delete-1 {
+        position: relative;
+        top: -2px;
+    }
+    .table .btn-img-edit-1 {
+        margin-left: 2px;
+        margin-right: 3px;
+        position: relative;
+        top: -2px;
+    }
+
+    .sketch-sheets-ipad {
+        background: url('/Images/SketchSheets/iPad.png') no-repeat 0 0;
+        margin: 20px auto;
+        height: 1146px;
+        padding: 105px 51px;
+        width: 800px;
+    }
+    .sketch-sheets-iphone {
+        background: url('/Images/SketchSheets/iPhone.png') no-repeat 0 0;
+        margin: 20px auto;
+        height: 754px;
+        padding: 99px 27px;
+        width: 360px;
+    }
+
+    .gridster-item {
+        border: 1px solid #9f9f9f;
+        padding: 5px;
+        overflow: hidden;
+    }
+    .gridster-item .gridster-item-overlay{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        bottom: 10px;
+        left: 10px;
+        z-index: 10;
+    }
+    .gridster-item pre {
+        background-color: transparent;
+        border: none;
+        color: #737373;
+        font-family: Tahoma;
+        font-size: 13px;
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        white-space: pre-wrap;
+
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+        border-radius: 0;
+    }
+
+    .no-resize .gridster-item-resizable-handler {
+        display: none;
+    }
+    .no-resize-top .gridster-item-resizable-handler.handle-n,
+    .no-resize-top .gridster-item-resizable-handler.handle-ne,
+    .no-resize-top .gridster-item-resizable-handler.handle-nw {
+        display: none;
+    }
+    .no-resize-right .gridster-item-resizable-handler.handle-e,
+    .no-resize-right .gridster-item-resizable-handler.handle-ne,
+    .no-resize-right .gridster-item-resizable-handler.handle-se {
+        display: none;
+    }
+    .no-resize-bottom .gridster-item-resizable-handler.handle-s,
+    .no-resize-bottom .gridster-item-resizable-handler.handle-se,
+    .no-resize-bottom .gridster-item-resizable-handler.handle-sw {
+        display: none;
+    }
+    .no-resize-left .gridster-item-resizable-handler.handle-w,
+    .no-resize-left .gridster-item-resizable-handler.handle-nw,
+    .no-resize-left .gridster-item-resizable-handler.handle-sw {
+        display: none;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Start Form Details -->
+        <div class="panel panel-default panel-form-details"
+             ng-class="{'whirl': addLoading, 'shadow': addLoading}">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i></i>
+                    ثبت فرم جدید
+                </div>
+            </div>
+            <div class="panel-body">
+                <form name="formDetailsForm">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label">عنوان:</label>
+                                <input type="text" class="form-control"
+                                       ng-model="newForm.title" required="" />
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox c-checkbox checkbox-inline">
+                                    <label>
+                                        <input type="checkbox" ng-model="newForm.isShow">
+                                        <span></span>نمایش به کاربران
+                                    </label>
+                                </div>
+                                <div class="checkbox c-checkbox checkbox-inline"
+                                     style="margin-top:10px;">
+                                    <label>
+                                        <input type="checkbox" ng-model="newForm.specialCreativity">
+                                        <span></span>خلاقیت ویژه
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label">توضیحات:</label>
+                                <textarea class="form-control"
+                                          style="height:96px;resize:none;overflow:hidden;"
+                                          ng-model="newForm.description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- End Form Details -->
+
+        <!-- Start New Form Field -->
+        <div class="panel panel-default panel-new-field"
+             ng-class="{'whirl': addLoading || addFieldLoading, 'shadow': addLoading || addFieldLoadin}">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i></i>
+                    ثبت فیلد جدید
+                </div>
+            </div>
+            <div class="panel-body">
+                <form class="form-validate"
+                      name="addFieldForm"
+                      ng-submit="addField_step1()"
+                      ng-class="{'from-sumbited': addFieldFromSubmited == true}">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label">نوع فیلد:</label>
+                                <div class="form-group">
+                                    <select ddlist=""
+                                            list="formFieldTypes"
+                                            ng-model="formFieldType"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Start New Fields -->
+                    @Html.Partial("NewField_TextBox")
+                    @Html.Partial("NewField_TextArea")
+                    @Html.Partial("NewField_NumericStepper")
+                    @Html.Partial("NewField_ColorPicker")
+                    @Html.Partial("NewField_FileUploader")
+                    @Html.Partial("NewField_Checkbox")
+                    @Html.Partial("NewField_WebUrl")
+                    @Html.Partial("NewField_DatePicker")
+                    @Html.Partial("NewField_DropDown")
+                    @Html.Partial("NewField_MultipleChoice")
+                    @Html.Partial("NewField_CheckboxGroup")
+                    <!-- End New Fields -->
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="clearfix">
+                                <div class="pull-right">
+                                    <button type="submit"
+                                            class="btn btn-labeled btn-warning"
+                                            ng-click="addFieldFromSubmited = true">
+                                        <span class="btn-label btn-label-right">
+                                            <i class="fa fa-plus"></i>
+                                        </span>
+                                        ثبت
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- End New Form Field -->
+
+        <!-- Start Form Field List -->
+        <div class="panel panel-default panel-new-fields"
+             ng-class="{'whirl': addLoading, 'shadow': addLoading}">
+            <tabset style="min-height:500px;">
+                <tab>
+                    <tab-heading>
+                        <em class="icon-settings"></em>
+                        فیلد های ثبت شده
+                    </tab-heading>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px;">&nbsp;</th>
+                                    <th style="width:200px;">عنوان</th>
+                                    <th style="width:80px;">نوع فیلد</th>
+                                    <th>توضیحات</th>
+                                    <th style="width:70px;">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in newFields">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{item.data.title}}</td>
+                                    <td>{{item.type}}</td>
+                                    <td>{{item.data.description}}</td>
+                                    <td style="text-align:left;">
+                                        <button class="btn-img-delete-1" type="button" ng-click="removeField($index)"></button>
+                                        <button class="btn-img-edit-1" type="button" ng-click="editField($index)"></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </tab>
+                <tab class="visible-lg visible-md">
+                    <tab-heading>
+                        <em class="icon-screen-desktop"></em>
+                        پیش نمایش دسکتاپ
+                    </tab-heading>
+                    <form>
+                        <div gridster="gridsterOpts_desktop">
+                            <ul>
+                                <li gridster-item=""
+                                    size-x="item.desktop_position.sizeX"
+                                    size-y="item.desktop_position.sizeY"
+                                    row="item.desktop_position.row"
+                                    col="item.desktop_position.col"
+                                    ng-repeat="item in newFields">
+                                    @Html.Partial("DesktopPosition_TextBox")
+                                    @Html.Partial("DesktopPosition_TextArea")
+                                    @Html.Partial("DesktopPosition_NumericStepper")
+                                    @Html.Partial("DesktopPosition_ColorPicker")
+                                    @Html.Partial("DesktopPosition_FileUploader")
+                                    @Html.Partial("DesktopPosition_Checkbox")
+                                    @Html.Partial("DesktopPosition_WebUrl")
+                                    @Html.Partial("DesktopPosition_DatePicker")
+                                    @Html.Partial("DesktopPosition_DropDown")
+                                    @Html.Partial("DesktopPosition_MultipleChoice")
+                                    @Html.Partial("DesktopPosition_CheckboxGroup")
+                                    <div class="gridster-item-overlay"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </tab>
+                <tab class="visible-lg visible-md">
+                    <tab-heading>
+                        <em class="icon-screen-tablet"></em>
+                        پیش نمایش تبلت
+                    </tab-heading>
+                    <div class="sketch-sheets-ipad">
+                        <div gridster="gridsterOpts_tablet" style="background-color:#fff;border:1px solid #575656;">
+                            <ul>
+                                <li gridster-item=""
+                                    size-x="item.tablet_position.sizeX"
+                                    size-y="item.tablet_position.sizeY"
+                                    row="item.tablet_position.row"
+                                    col="item.tablet_position.col"
+                                    ng-repeat="item in newFields">
+                                    @Html.Partial("TabletPosition_TextBox")
+                                    @Html.Partial("TabletPosition_TextArea")
+                                    @Html.Partial("TabletPosition_NumericStepper")
+                                    @Html.Partial("TabletPosition_ColorPicker")
+                                    @Html.Partial("TabletPosition_FileUploader")
+                                    @Html.Partial("TabletPosition_Checkbox")
+                                    @Html.Partial("TabletPosition_WebUrl")
+                                    @Html.Partial("TabletPosition_DatePicker")
+                                    @Html.Partial("TabletPosition_DropDown")
+                                    @Html.Partial("TabletPosition_MultipleChoice")
+                                    @Html.Partial("TabletPosition_CheckboxGroup")
+                                    <div class="gridster-item-overlay"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </tab>
+                <tab class="visible-lg visible-md">
+                    <tab-heading>
+                        <em class="icon-screen-smartphone"></em>
+                        پیش نمایش موبایل
+                    </tab-heading>
+                    <div class="sketch-sheets-iphone">
+                        <div gridster="gridsterOpts_mobile" style="background-color:#fff;border:1px solid #575656;">
+                            <ul>
+                                <li class="no-resize-left no-resize-right"
+                                    gridster-item=""
+                                    size-x="item.mobile_position.sizeX"
+                                    size-y="item.mobile_position.sizeY"
+                                    row="item.mobile_position.row"
+                                    col="item.mobile_position.col"
+                                    ng-repeat="item in newFields">
+                                    @Html.Partial("MobilePosition_TextBox")
+                                    @Html.Partial("MobilePosition_TextArea")
+                                    @Html.Partial("MobilePosition_NumericStepper")
+                                    @Html.Partial("MobilePosition_ColorPicker")
+                                    @Html.Partial("MobilePosition_FileUploader")
+                                    @Html.Partial("MobilePosition_Checkbox")
+                                    @Html.Partial("MobilePosition_WebUrl")
+                                    @Html.Partial("MobilePosition_DatePicker")
+                                    @Html.Partial("MobilePosition_DropDown")
+                                    @Html.Partial("MobilePosition_MultipleChoice")
+                                    @Html.Partial("MobilePosition_CheckboxGroup")
+                                    <div class="gridster-item-overlay"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </tab>
+                <tab class="visible-lg visible-md">
+                    <tab-heading>
+                        <em class="icon-screen-desktop"></em>
+                        پیش نمایش فاکتور
+                    </tab-heading>
+                    <form>
+                        <div gridster="gridsterOpts_factor">
+                            <ul>
+                                <li class="no-resize"
+                                    gridster-item=""
+                                    size-x="item.factor_position.sizeX"
+                                    size-y="item.factor_position.sizeY"
+                                    row="item.factor_position.row"
+                                    col="item.factor_position.col"
+                                    ng-repeat="item in getFactorItems()">
+                                    <h5 style="font-family:yekan;font-size:18px;margin:10px;text-align:center;">{{item.data.title}}</h5>
+                                    <div class="gridster-item-overlay"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </tab>
+            </tabset>
+            <div class="panel-footer"
+                 style="border-top:1px solid #b5b5b5;">
+                <div class="clearfix">
+                    <div class="pull-right">
+                        <button class="btn btn-labeled btn-success" type="button"
+                                ng-click="createForm()"
+                                ng-class="{'disabled': formDetailsForm.$invalid || newFields.length == 0}">
+                            <span class="btn-label btn-label-right">
+                                <i class="fa fa-check"></i>
+                            </span>
+                            ثبت
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Form Field List -->
+    </div>
+</div>
+
+<!-- Start Edit Modal -->
+<script type="text/ng-template" id="/EditModalContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            ویرایش فیلد
+        </div>
+    </div>
+    <div class="modal-body" ng-class="{'whirl': editFieldLoading, 'shadow': editFieldLoading}">
+        <form class="form-validate"
+              name="editFieldFrom"
+              ng-class="{'from-sumbited': editFieldFromSubmited == true}">
+            @Html.Partial("EditField_TextBox")
+            @Html.Partial("EditField_TextArea")
+            @Html.Partial("EditField_NumericStepper")
+            @Html.Partial("EditField_ColorPicker")
+            @Html.Partial("EditField_FileUploader")
+            @Html.Partial("EditField_Checkbox")
+            @Html.Partial("EditField_WebUrl")
+            @Html.Partial("EditField_DatePicker")
+            @Html.Partial("EditField_DropDown")
+            @Html.Partial("EditField_MultipleChoice")
+            @Html.Partial("EditField_CheckBoxGroup")
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-right">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+                <button class="btn btn-labeled btn-warning"
+                        ng-click="save()"
+                        ng-disabled="editFieldLoading">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-pencil"></i>
+                    </span>
+                    ثبت
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End Edit Modal -->
+
+<!-- Start Remove Modal -->
+<script type="text/ng-template" id="removeDialog.html">
+    <div style="font-family:yekan;font-size:14px;">
+        <p>آیا از حذف اطلاعات اطمینان دارید?</p>
+        <div>
+            <button class="btn btn-default" ng-click="close()" type="button">خیر</button>
+            <button class="btn btn-primary" ng-click="confirm()" type="button">بلی</button>
+        </div>
+    </div>
+</script>
+<!-- End Remove Modal -->
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

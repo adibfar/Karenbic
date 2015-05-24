@@ -1,0 +1,53 @@
+﻿#footer {
+	background-color: #323232;
+	bottom: 0;
+	height: 36px;
+	left: 0;
+	padding: 8px 10px;
+	position: absolute;
+	right: 0;
+	/* Custom, iPhone Retina */
+	@media only screen and (min-width : 320px) {
+		height: 90px;
+	}
+	/* Extra Small Devices, Phones */
+	@media only screen and (min-width : 480px) {
+		height: 90px;
+	}
+	/* Small Devices, Tablets */
+	@media only screen and (min-width : 768px) {
+		height: 72px;
+	}
+	/* Medium Devices, Desktops */
+	@media only screen and (min-width : 992px) {
+		height: 36px;
+	}
+	/* Large Devices, Wide Screens */
+	@media only screen and (min-width : 1200px) {
+		height: 36px;
+	}
+
+	.privacy-text {
+		color: #fff;
+
+		font: {
+			family: tahoma;
+			size: 12px;
+		}
+
+		text-align: justify;
+	}
+
+	.creator-link {
+		bottom: 10px;
+		color: #fff;
+
+		font: {
+			family: tahoma;
+			size: 12px;
+		}
+
+		left: 10px;
+		position: absolute;
+	}
+}

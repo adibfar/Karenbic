@@ -1,0 +1,73 @@
+﻿<div class="row" ng-if="type == 7">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label class="control-label">عنوان:</label>
+            <input type="text"
+                   class="form-control text-danger"
+                   ng-model="field.title"
+                   required="" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">راهنما:</label>
+            <input type="file" nicefileinput="" id="pictureHelpFileInput"
+                   ng-file-select="addPictureHelpFile($files)" />
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label class="control-label">توضیحات:</label>
+            <textarea class="form-control"
+                      style="height:159px;resize:none;overflow:hidden;"
+                      ng-model="field.description"></textarea>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+        <div class="hidden-xs" style="height:29px;margin-bottom:5px;"></div>
+        <div class="form-group">
+            <div class="checkbox c-checkbox">
+                <label>
+                    <input type="checkbox" ng-model="field.isRequired">
+                    <span></span>این فیلد اجباری می باشد
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox c-checkbox">
+                <label>
+                    <input type="checkbox"
+                           ng-model="field.limits">
+                    <span></span>محدودیت تاریخی
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">تعداد روز قبل:</label>
+            <input type="text"
+                   style="width:60px;"
+                   min="0"
+                   max="356"
+                   stepper=""
+                   ng-model="field.min"
+                   ng-disabled="field.limits == false" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">تعداد روز بعد:</label>
+            <input type="text"
+                   style="width:60px;"
+                   min="0"
+                   max="356"
+                   stepper=""
+                   ng-model="field.max"
+                   ng-disabled="field.limits == false" />
+        </div>
+        <div class="form-group">
+            <div class="checkbox c-checkbox">
+                <label>
+                    <input type="checkbox"
+                           ng-model="field.showInFactor">
+                    <span></span>نمایش در فاکتور
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

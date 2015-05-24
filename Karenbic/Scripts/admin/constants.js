@@ -3,6 +3,7 @@
  * Define constants to inject across the application
  =========================================================*/
 App
+    .constant('APP_BASE_URI', '/Admin/')
     .constant('APP_PORTALS', {
         'design': 0,
         'print': 1
@@ -34,22 +35,39 @@ App
     })
     .constant('APP_REQUIRES', {
         scripts: {
-            'jquery': ['/Vendors/jquery-1.11.2/jquery-1.11.2.min.js', 'jquery-migrate-1.2.1.min.js'],
-            'icons': ['/Vendors/fontawesome/css/font-awesome.min.css', '/Vendors/simplelineicons/simple-line-icons.css'],
             'modernizr': ['/Vendors/modernizr/modernizr.js'],
+            'icons': ['/Vendors/fontawesome/css/font-awesome.min.css', '/Vendors/simplelineicons/simple-line-icons.css'],
             'fastclick': ['/Vendors/fastclick/fastclick.js'],
-            'chosen': ['/Vendors/chosen/chosen.jquery.min.js', '/Vendors/chosen/chosen.min.css'],
-            'filestyle': ['/Vendors/filestyle/bootstrap-filestyle.min.js'],
-            'csspiner': ['/Vendors/csspinner/csspinner.min.css'],
-            'animo': ['/Vendors/animo/animo.min.js'],
+            'animo': ['/Vendors/animo/animo.min.js', '/Vendors/animo/animateanimo.css'],
+            'whirl': ['/Vendors/whirl/whirl.css'],
+            'chosen': ['/Vendors/chosen/chosen.jquery.min.js', '/Vendors/chosen/chosen.css'],
+            'ddlist': ['/Vendors/ddlist/ddlist.min.js', '/Vendors/ddlist/ddlist.css'],
+            'stepper': ['/Vendors/Numeric-Stepper/jquery.stepper.min.js', '/Vendors/Numeric-Stepper/jquery.stepper.min.css'],
+            'nicefileinput': ['/Vendors/nicefileinput/jquery.nicefileinput.min.js', '/Vendors/nicefileinput/nicefileinput.css'],
+            'colorpicker': ['/Vendors/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js', '/Vendors/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css'],
             'classyloader': ['/Vendors/classyloader/js/jquery.classyloader.min.js'],
             'jquery-ui': ['/Vendors/jqueryui/js/jquery-ui-1.10.4.custom.min.js', '/Vendors/jqueryui/css/ui-lightness/jquery-ui-1.10.4.custom.min.css', , '/Vendors/touch-punch/jquery.ui.touch-punch.min.js'],
             'inputmask': ['/Vendors/inputmask/jquery.inputmask.bundle.min.js'],
-            'datatables': ['/Vendors/datatable/media/js/jquery.dataTables.min.js', '/Vendors/datatable/extensions/datatable-bootstrap/css/dataTables.bootstrap.css'],
             'mousewheel': ['/Vendors/scrollbar/js/minified/jquery.mousewheel-3.0.6.min.js'],
-            'scrollbar': ['/Vendors/scrollbar/css/jquery.mCustomScrollbar.css', '/Vendors/scrollbar/js/minified/jquery.mCustomScrollbar.min.js']
+            'scrollbar': ['/Vendors/scrollbar/css/jquery.mCustomScrollbar.css', '/Vendors/scrollbar/js/minified/jquery.mCustomScrollbar.min.js'],
+            'jquery-resize': ['/Vendors/jquery-resize/jquery.ba-resize.min.js']
         },
         modules: [
-            { name: 'toaster', files: ['/Vendors/toaster/toaster.js', '/Vendors/toaster/toaster.css'] }
+            {
+                name: 'toaster',
+                files: ['/Vendors/toaster/toaster.js',
+                  '/Vendors/toaster/toaster.css']
+            },
+            {
+                name: 'gridster',
+                files: ['/Vendors/angular-gridster/angular-gridster.min.js',
+                    '/Vendors/angular-gridster/angular-gridster.min.css']
+            },
+            {
+                name: 'ngDialog',
+                files: ['/Vendors/ngDialog/js/ngDialog.min.js',
+                    '/Vendors/ngDialog/css/ngDialog.min.css',
+                    '/Vendors/ngDialog/css/ngDialog-theme-default.min.css']
+            }
         ]
     });

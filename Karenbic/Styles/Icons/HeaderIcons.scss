@@ -9,7 +9,10 @@
 	font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+.top-header [class^="icon-"],
+.top-header [class*=" icon-"],
+.top-navbar [class^="icon-"], 
+.top-navbar [class*=" icon-"] {
 	font-family: 'HeaderIcon';
 	speak: none;
 	font-style: normal;

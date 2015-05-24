@@ -1,0 +1,36 @@
+﻿.nav-tabs {
+background-color: #fff;
+	border-bottom-color: #b5b5b5;
+
+	& > li {
+		font: {
+			family: yekan;
+			size: 15px;
+		}
+
+		& > a {
+			color: #b5b5b5;
+			margin-right: 0;
+			padding: 7px 10px;
+			border-radius: 0;
+			-moz-border-radius: 0;
+			-webkit-border-radius: 0;
+
+			em {
+				margin-left: 3px;
+				position: relative;
+				top: 3px;
+			}
+
+			&:hover {
+				border-bottom: none;
+			}
+		}
+
+		&.active {
+			& > a {
+				border-color: #b5b5b5 #b5b5b5 transparent #b5b5b5;
+			}
+		}
+	}
+}

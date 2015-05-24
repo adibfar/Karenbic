@@ -1,0 +1,74 @@
+﻿<div class="row" ng-if="formFieldType.value == 0">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label class="control-label">عنوان:</label>
+            <input type="text"
+                   class="form-control text-danger"
+                   ng-model="newField_TextBox.title"
+                   required="" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">مقدار اولیه:</label>
+            <input type="text" class="form-control" ng-model="newField_TextBox.defualt" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">راهنما:</label>
+            <input type="file" nicefileinput="" id="pictureHelpFileInput"
+                   ng-file-select="addPictureHelpFile($files)" />
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label class="control-label">توضیحات:</label>
+            <textarea class="form-control"
+                      style="height:159px;resize:none;overflow:hidden;"
+                      ng-model="newField_TextBox.description"></textarea>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+        <div class="hidden-xs" style="height:29px;margin-bottom:5px;"></div>
+        <div class="form-group">
+            <div class="checkbox c-checkbox">
+                <label>
+                    <input type="checkbox" ng-model="newField_TextBox.isRequired">
+                    <span></span>این فیلد اجباری می باشد
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox c-checkbox">
+                <label>
+                    <input type="checkbox"
+                           ng-model="newField_TextBox.characterLimits">
+                    <span></span>محدودیت کاراکتر
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+                    <input type="text" stepper=""
+                           ng-model="newField_TextBox.minCharacters"
+                           ng-disabled="newField_TextBox.characterLimits == false" />
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <label class="control-label" style="text-align:center;">الی</label>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+                    <input type="text" stepper=""
+                           ng-model="newField_TextBox.maxCharacters"
+                           ng-disabled="newField_TextBox.characterLimits == false" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox c-checkbox">
+                <label>
+                    <input type="checkbox"
+                           ng-model="newField_TextBox.showInFactor">
+                    <span></span>نمایش در فاکتور
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

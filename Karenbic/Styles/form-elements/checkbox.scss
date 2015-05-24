@@ -1,0 +1,78 @@
+﻿.c-checkbox {
+    margin-left: 4px;
+
+    * {
+        cursor: pointer;
+    }
+
+    label {
+        color: #737373;
+        font: {
+            family: Tahoma;
+            size: 13px;
+            weight: normal;
+        }
+        padding-right: 0;
+    }
+
+    input {
+        opacity: 0;
+        position: absolute;
+        margin-right: 0 !important;
+    }
+  
+    // the element that replaces the input
+    span {
+        background: transparent url('/Images/UI/checkbox-1.png') no-repeat 0 0;
+        display: inline-block;
+        height: 14px;
+        margin-left: 5px;
+        position: relative;
+        top: 3px;
+        width: 14px; 
+        &:before {
+            margin-right: 1px; // fa align trick
+        }
+    }
+
+    .form-inline & span {
+        margin-right: 0;
+    }
+}
+
+/* Checked state */
+.c-checkbox {
+    input[type=checkbox]:checked + span {
+        background: transparent url('/Images/UI/checkbox-1.png') no-repeat 0 -18px;
+    }
+
+    /* Disable state */
+    input[type=checkbox]:disabled + span {
+        background: transparent url('/Images/UI/checkbox-1.png') no-repeat 0 -18px;
+    }
+}
+
+.checkbox {
+    .form-horizontal & {
+    /* Custom, iPhone Retina */
+	    @media only screen and (min-width : 320px) {
+            padding-top: 7px;
+	    }
+	    /* Extra Small Devices, Phones */
+	    @media only screen and (min-width : 480px) {
+            padding-top: 7px;
+	    }
+	    /* Small Devices, Tablets */
+	    @media only screen and (min-width : 768px) {
+            padding-top: 0;
+	    }
+	    /* Medium Devices, Desktops */
+	    @media only screen and (min-width : 992px) {
+            padding-top: 0;
+	    }
+	    /* Large Devices, Wide Screens */
+	    @media only screen and (min-width : 1200px) {
+            padding-top: 0;
+	    }
+    }
+}

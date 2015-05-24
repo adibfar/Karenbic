@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.40302.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karenbic", "Karenbic\Karenbic.csproj", "{16C7D39B-B1ED-4167-B1D2-858C68E494A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karenbic.DomainClasses", "Karenbic.DomainClasses\Karenbic.DomainClasses.csproj", "{061BF5C1-9130-4070-A996-616B2E740073}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karenbic.DataAccess", "Karenbic.DataAccess\Karenbic.DataAccess.csproj", "{34E2DA3F-B376-4307-AA1C-9B34BD90B548}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{16C7D39B-B1ED-4167-B1D2-858C68E494A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16C7D39B-B1ED-4167-B1D2-858C68E494A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16C7D39B-B1ED-4167-B1D2-858C68E494A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{061BF5C1-9130-4070-A996-616B2E740073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{061BF5C1-9130-4070-A996-616B2E740073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{061BF5C1-9130-4070-A996-616B2E740073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{061BF5C1-9130-4070-A996-616B2E740073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34E2DA3F-B376-4307-AA1C-9B34BD90B548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34E2DA3F-B376-4307-AA1C-9B34BD90B548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34E2DA3F-B376-4307-AA1C-9B34BD90B548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34E2DA3F-B376-4307-AA1C-9B34BD90B548}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

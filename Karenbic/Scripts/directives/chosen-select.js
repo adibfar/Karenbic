@@ -17,7 +17,10 @@ App.directive('chosen', function() {
             element.trigger("chosen:updated");
         }, true);
 
-        element.chosen({ width: attrs['width'] });
+        element.chosen({
+            width: attrs['width'],
+            disable_search_threshold: 10
+        });
     };
 
     return {

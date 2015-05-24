@@ -1,0 +1,44 @@
+﻿html, body {
+    height: 100%;
+}
+
+#contents {
+    background: #5e5e5e;
+    min-height: 100%;
+    margin: 0 auto;
+}
+
+#center-content {
+    background-color: #f9f9f9;
+    direction: rtl;
+    margin: 0 auto;
+    min-height: 700px;
+    padding: 30px 15px 40px 15px;
+    position: relative;
+    width: 1024px;
+    /* Custom, iPhone Retina */
+	@media only screen and (min-width : 320px) {
+        width: 100%;
+        padding: 103px 20px 90px 20px;
+	}
+	/* Extra Small Devices, Phones */
+	@media only screen and (min-width : 480px) {
+        width: 100%;
+        padding: 103px 20px 90px 20px;
+	}
+	/* Small Devices, Tablets */
+	@media only screen and (min-width : 768px) {
+        width: 100%;
+        padding: 244px 20px 72px 20px;
+	}
+	/* Medium Devices, Desktops */
+	@media only screen and (min-width : 992px){
+        width: 100%;
+        padding: 218px 20px 36px 20px;
+	}
+	/* Large Devices, Wide Screens */
+	@media only screen and (min-width : 1200px){
+        width: 1024px;
+        padding: 218px 20px 36px 20px;
+	}
+}

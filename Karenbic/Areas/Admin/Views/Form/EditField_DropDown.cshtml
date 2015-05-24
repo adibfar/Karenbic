@@ -1,0 +1,83 @@
+﻿<div class="row" ng-if="type == 8">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="form-group">
+            <label class="control-label">عنوان:</label>
+            <input type="text"
+                   class="form-control"
+                   ng-model="field.title"
+                   required="" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">راهنما:</label>
+            <input type="file" nicefileinput="" id="pictureHelpFileInput"
+                   ng-file-select="addPictureHelpFile($files)" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">توضیحات:</label>
+            <textarea class="form-control"
+                      style="height:96px;resize:none;overflow:hidden;"
+                      ng-model="field.description"></textarea>
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label class="control-label">آیتم ها:</label>
+            <div class="field-items">
+                <table class="table table-bordered">
+                    <tr>
+                        <td>
+                            <input type="text" ng-model="newItem.title" />
+                        </td>
+                        <td style="width:27px;">
+                            <a class="btn-img-add-1"
+                               style="position:relative;top:3px;right:2px;"
+                               ng-click="addItem()"></a>
+                        </td>
+                    </tr>
+                </table>
+                <table class="table table-bordered">
+                    <tr ng-repeat="item in field.items">
+                        <td>
+                            <input type="text" ng-model="item.title" required="" />
+                        </td>
+                        <td style="width:27px;">
+                            <a class="btn-img-up-1"
+                               style="position:relative;top:4px;right:4px;"
+                               ng-click="moveUpItem($index)"></a>
+                        </td>
+                        <td style="width:27px;">
+                            <a class="btn-img-down-1"
+                               style="position:relative;top:4px;right:4px;"
+                               ng-click="moveDownItem($index)"></a>
+                        </td>
+                        <td style="width:27px;">
+                            <a class="btn-img-delete-2"
+                               style="position:relative;top:4px;right:4px;"
+                               ng-click="removeItem($index)"></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+        <div class="hidden-xs" style="height:29px;margin-bottom:5px;"></div>
+        <div class="form-group">
+            <div class="checkbox c-checkbox">
+                <label>
+                    <input type="checkbox" ng-model="field.isRequired">
+                    <span></span>این فیلد اجباری می باشد
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox c-checkbox">
+                <label>
+                    <input type="checkbox"
+                           ng-model="field.showInFactor">
+                    <span></span>نمایش در فاکتور
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

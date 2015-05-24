@@ -1,0 +1,48 @@
+.btn-labeled {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.btn-label {
+	position: relative;
+	background: transparent;
+	background: rgba(0, 0, 0, 0.05);
+	display: inline-block;
+	padding: 6px 8px;
+	left: -14px;
+
+	&.btn-label-right {
+		left: auto;
+		right: -14px;
+	}
+}
+
+.btn-lg .btn-label {
+	padding: 7px 10px;
+	left: -17px;
+
+	&.btn-label-right {
+		left: auto;
+		right: -17px;
+	}
+}
+
+.btn-sm .btn-label {
+	padding: 4px 7px;
+	left: -10px;
+
+	&.btn-label-right {
+		left: auto;
+		right: -10px;
+	}
+}
+
+.btn-xs .btn-label {
+	padding: 1px 5px;
+	left: -5px;
+
+	&.btn-label-right {
+		left: auto;
+		right: -5px;
+	}
+}

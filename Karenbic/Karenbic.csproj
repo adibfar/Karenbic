@@ -39,7 +39,71 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -49,6 +113,30 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -66,90 +154,17 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=__MvcPagesVersion__, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="WebGrease">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
-    </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <Private>True</Private>
-      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Owin">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin">
-      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security">
-      <HintPath>..\packages\Microsoft.Owin.Security.3.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Facebook">
-      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Google">
-      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Twitter">
-      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
-      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +174,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\DesignAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FormController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrintAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -170,35 +186,149 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <Content Include="Fonts\BNazanin.svg" />
+    <Content Include="Fonts\NexaBold.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\SketchSheets\iPad.png" />
+    <Content Include="Images\SketchSheets\iPhone.png" />
+    <Content Include="Images\UI\Button\btn-add-1.png" />
+    <Content Include="Images\UI\Button\btn-hide-1.png" />
+    <Content Include="Images\UI\Button\btn-search-1.png" />
+    <Content Include="Images\UI\Button\btn-search-2.png" />
+    <Content Include="Images\UI\Button\btn-up-1.png" />
+    <Content Include="Images\UI\Button\btn-delete-1.png" />
+    <Content Include="Images\UI\Button\btn-delete-2.png" />
+    <Content Include="Images\UI\Button\btn-edit-1.png" />
+    <Content Include="Images\UI\Button\btn-info-1.png" />
+    <Content Include="Images\UI\Button\btn-down-1.png" />
+    <Content Include="Images\UI\checkbox-1.png" />
+    <Content Include="Images\UI\hr-1.png" />
+    <Content Include="Images\UI\Pagination\btn-back-1.png" />
+    <Content Include="Images\UI\Pagination\btn-next-1.png" />
+    <Content Include="Images\UI\radio-btn-1.png" />
     <Content Include="Scripts\admin\app.init.js" />
     <Content Include="Scripts\admin\config.js" />
     <Content Include="Scripts\admin\constants.js" />
+    <Content Include="Scripts\admin\controllers\form-add.js" />
+    <Content Include="Scripts\admin\controllers\form-edit.js" />
+    <Content Include="Scripts\admin\controllers\form-list.js" />
     <Content Include="Scripts\admin\controllers\main.js" />
     <Content Include="Scripts\admin\controllers\top-menu.js" />
+    <Content Include="Scripts\directives\animate-enabled.js" />
     <Content Include="Scripts\directives\chosen-select.js" />
+    <Content Include="Scripts\directives\classy-loader.js" />
+    <Content Include="Scripts\directives\clear-storage.js" />
+    <Content Include="Scripts\directives\colorpicker.js" />
+    <Content Include="Scripts\directives\ddlist-select.js" />
+    <Content Include="Scripts\directives\load-css.js" />
+    <Content Include="Scripts\directives\nicefileinput.js" />
+    <Content Include="Scripts\directives\now.js" />
     <Content Include="Scripts\directives\scrollbar.js" />
+    <Content Include="Scripts\directives\stepper.js" />
     <Content Include="Scripts\services\browser.js" />
     <Content Include="Scripts\services\colors.js" />
-    <None Include="Styles\Admin\loading-bar.scss" />
+    <Content Include="Areas\Admin\Views\Form\Add.cshtml" />
+    <Content Include="Fonts\BNazanin.eot" />
+    <Content Include="Fonts\BNazanin.otf" />
+    <Content Include="Fonts\BNazanin.ttf" />
+    <Content Include="Fonts\BNazanin.woff" />
+    <Content Include="Areas\Admin\Views\Form\NewField_TextBox.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\NewField_TextArea.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\NewField_NumericStepper.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\NewField_ColorPicker.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\NewField_FileUploader.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\NewField_Checkbox.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\NewField_WebUrl.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\DesktopPosition_TextBox.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\DesktopPosition_TextArea.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\EditField_TextBox.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\EditField_TextArea.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\EditField_NumericStepper.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\EditField_ColorPicker.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\EditField_FileUploader.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\EditField_Checkbox.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\EditField_WebUrl.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\TabletPosition_TextBox.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\TabletPosition_TextArea.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\DesktopPosition_WebUrl.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\TabletPosition_WebUrl.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\MobilePosition_TextBox.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\MobilePosition_TextArea.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\MobilePosition_WebUrl.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\DesktopPosition_NumericStepper.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\TabletPosition_NumericStepper.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\MobilePosition_NumericStepper.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\DesktopPosition_Checkbox.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\TabletPosition_Checkbox.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\MobilePosition_Checkbox.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\DesktopPosition_ColorPicker.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\MobilePosition_ColorPicker.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\TabletPosition_ColorPicker.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\DesktopPosition_FileUploader.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\TabletPosition_FileUploader.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\MobilePosition_FileUploader.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\NewField_DropDown.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\EditField_DropDown.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\NewField_MultipleChoice.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\EditField_MultipleChoice.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\NewField_CheckboxGroup.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\EditField_CheckboxGroup.cshtml" />
+    <Content Include="Fonts\NexaBold.eot" />
+    <Content Include="Fonts\NexaBold.ttf" />
+    <Content Include="Fonts\NexaBold.woff" />
+    <Content Include="Areas\Admin\Views\Form\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\DesktopPosition_DropDown.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\TabletPosition_DropDown.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\MobilePosition_DropDown.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\DesktopPosition_MultipleChoice.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\TabletPosition_MultipleChoice.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\MobilePosition_MultipleChoice.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\DesktopPosition_CheckboxGroup.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\TabletPosition_CheckboxGroup.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\MobilePosition_CheckboxGroup.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\NewField_DatePicker.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\EditField_DatePicker.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\DesktopPosition_DatePicker.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\TabletPosition_DatePicker.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\MobilePosition_DatePicker.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\Edit.cshtml" />
+    <None Include="Styles\portal\loading-bar.scss" />
+    <Content Include="Scripts\services\route-helpers.js" />
     <Content Include="Styles\Icons\fonts\HeaderIcon.svg" />
     <Content Include="Fonts\BNAZANB.eot" />
     <Content Include="Fonts\BNAZANB.ttf" />
     <Content Include="Fonts\BNAZANB.woff" />
-    <Content Include="Fonts\BNazanin.eot" />
-    <Content Include="Fonts\BNazanin.ttf" />
-    <Content Include="Fonts\BNazanin.woff" />
     <Content Include="Fonts\yekan.eot" />
     <Content Include="Fonts\yekan.ttf" />
     <Content Include="Fonts\yekan.woff" />
     <Content Include="Styles\Icons\fonts\HeaderIcon.eot" />
     <Content Include="Styles\Icons\fonts\HeaderIcon.ttf" />
     <Content Include="Styles\Icons\fonts\HeaderIcon.woff" />
-    <Content Include="Styles\Admin\footer.scss" />
+    <Content Include="Styles\portal\footer.scss" />
     <Content Include="Areas\Admin\Views\PrintAdmin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DesignAdmin\Dashboard.cshtml" />
-    <Content Include="Styles\Admin\Skins\Blue\top-header.scss" />
-    <Content Include="Styles\FormElements\chosen.scss" />
+    <Content Include="Styles\vendors-reset-style\chosen.scss" />
+    <Content Include="Styles\form-elements\panels.scss" />
+    <Content Include="Styles\form-elements\label.scss" />
+    <Content Include="Styles\form-elements\input-text.scss" />
+    <Content Include="Styles\form-elements\checkbox.scss" />
+    <Content Include="Styles\form-elements\radio.scss" />
+    <Content Include="Styles\form-elements\break-space.scss" />
+    <Content Include="Styles\form-elements\input-group.scss" />
+    <Content Include="Styles\vendors-reset-style\ddlist.scss" />
+    <Content Include="Styles\form-elements\textarea.scss" />
+    <Content Include="Styles\form-elements\nav-tab.scss" />
+    <Content Include="Styles\form-elements\form-validation.scss" />
+    <Content Include="Styles\form-elements\table.scss" />
+    <Content Include="Styles\form-elements\button-image.scss" />
+    <Content Include="Styles\form-elements\animate.scss" />
+    <Content Include="Styles\form-elements\modal.scss" />
+    <Content Include="Styles\form-elements\button.scss" />
+    <Content Include="Styles\variables.scss" />
+    <Content Include="Styles\form-elements\button-labeled.scss" />
+    <Content Include="Styles\form-elements\button-mixin.scss" />
+    <Content Include="Styles\fonts\NexaBold.scss" />
+    <Content Include="Styles\form-elements\pagination.scss" />
     <None Include="Styles\Icons\HeaderIcons.scss" />
     <Content Include="Vendors\angular-1.3.15\angular-animate.js" />
     <Content Include="Vendors\angular-1.3.15\angular-animate.min.js" />
@@ -2427,7 +2557,11 @@
     <Content Include="Vendors\angular-storage\ngStorage.min.js" />
     <Content Include="Vendors\angular-ui-router\angular-ui-router.js" />
     <Content Include="Vendors\angular-ui-router\angular-ui-router.min.js" />
-    <Content Include="Vendors\animo\animate+animo.css" />
+    <Content Include="Vendors\angular-ui-utils\ui-utils-ieshiv.js" />
+    <Content Include="Vendors\angular-ui-utils\ui-utils-ieshiv.min.js" />
+    <Content Include="Vendors\angular-ui-utils\ui-utils.js" />
+    <Content Include="Vendors\angular-ui-utils\ui-utils.min.js" />
+    <Content Include="Vendors\animo\animateanimo.css" />
     <Content Include="Vendors\animo\animo.js" />
     <Content Include="Vendors\animo\animo.min.js" />
     <Content Include="Vendors\bootstrap-3.3.4\css\bootstrap-theme.css" />
@@ -2438,6 +2572,15 @@
     <Content Include="Vendors\bootstrap-3.3.4\js\bootstrap.js" />
     <Content Include="Vendors\bootstrap-3.3.4\js\bootstrap.min.js" />
     <Content Include="Vendors\bootstrap-3.3.4\js\npm.js" />
+    <Content Include="Vendors\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
+    <Content Include="Vendors\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
+    <Content Include="Vendors\bootstrap-colorpicker\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Vendors\bootstrap-colorpicker\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Vendors\bootstrap-colorpicker\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Vendors\bootstrap-colorpicker\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="Vendors\bootstrap-colorpicker\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Vendors\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
+    <Content Include="Vendors\bootstrap-colorpicker\js\bootstrap-colorpicker.min.js" />
     <Content Include="Vendors\bootstrap-rtl\bootstrap-rtl.css" />
     <Content Include="Vendors\bootstrap-rtl\bootstrap-rtl.min.css" />
     <Content Include="Vendors\chosen\chosen-sprite%402x.png" />
@@ -2445,14 +2588,25 @@
     <Content Include="Vendors\chosen\chosen.css" />
     <Content Include="Vendors\chosen\chosen.jquery.js" />
     <Content Include="Vendors\chosen\chosen.jquery.min.js" />
-    <Content Include="Vendors\chosen\chosen.min.css" />
     <Content Include="Vendors\classyloader\css\documentation.css" />
     <Content Include="Vendors\classyloader\index.html" />
     <Content Include="Vendors\classyloader\js\jquery.classyloader.js" />
     <Content Include="Vendors\classyloader\js\jquery.classyloader.min.js" />
-    <Content Include="Vendors\csspinner\csspinner.css" />
-    <Content Include="Vendors\csspinner\csspinner.min.css" />
-    <Content Include="Vendors\csspinner\src\images\csspinner.gif" />
+    <Content Include="Vendors\ddlist\ddlist.css" />
+    <Content Include="Vendors\ddlist\ddlist.js" />
+    <Content Include="Vendors\ddlist\ddlist.min.js" />
+    <Content Include="Vendors\angular-gridster\angular-gridster.min.css" />
+    <Content Include="Vendors\angular-gridster\angular-gridster.min.js" />
+    <Content Include="Vendors\gridster\jquery.gridster.css" />
+    <Content Include="Vendors\gridster\jquery.gridster.js" />
+    <Content Include="Vendors\gridster\jquery.gridster.min.css" />
+    <Content Include="Vendors\gridster\jquery.gridster.min.js" />
+    <Content Include="Vendors\gridster\jquery.gridster.with-extras.js" />
+    <Content Include="Vendors\gridster\jquery.gridster.with-extras.min.js" />
+    <Content Include="Vendors\jquery-resize\jquery.ba-resize.min.js" />
+    <Content Include="Vendors\ngDialog\css\ngDialog-theme-default.min.css" />
+    <Content Include="Vendors\ngDialog\css\ngDialog.min.css" />
+    <Content Include="Vendors\ngDialog\js\ngDialog.min.js" />
     <Content Include="Vendors\fastclick\fastclick.js" />
     <Content Include="Vendors\fontawesome\css\font-awesome.css" />
     <Content Include="Vendors\fontawesome\css\font-awesome.min.css" />
@@ -2488,6 +2642,14 @@
     <Content Include="Vendors\lodash-3.5.0\lodash.js" />
     <Content Include="Vendors\lodash-3.5.0\lodash.min.js" />
     <Content Include="Vendors\modernizr\modernizr.js" />
+    <Content Include="Vendors\nicefileinput\btn-1.png" />
+    <Content Include="Vendors\nicefileinput\jquery.nicefileinput.js" />
+    <Content Include="Vendors\nicefileinput\jquery.nicefileinput.min.js" />
+    <Content Include="Vendors\nicefileinput\nicefileinput.css" />
+    <Content Include="Vendors\Numeric-Stepper\jquery.stepper.css" />
+    <Content Include="Vendors\Numeric-Stepper\jquery.stepper.js" />
+    <Content Include="Vendors\Numeric-Stepper\jquery.stepper.min.css" />
+    <Content Include="Vendors\Numeric-Stepper\jquery.stepper.min.js" />
     <Content Include="Vendors\oclazyload\ocLazyLoad.js" />
     <Content Include="Vendors\oclazyload\ocLazyLoad.min.js" />
     <Content Include="Vendors\simplelineicons\fonts\Simple-Line-Icons.dev.svg" />
@@ -2501,6 +2663,7 @@
     <Content Include="Vendors\toaster\toaster.css" />
     <Content Include="Vendors\toaster\toaster.js" />
     <Content Include="Vendors\ui-bootstrap\ui-bootstrap-tpls-0.12.1.min.js" />
+    <Content Include="Vendors\whirl\whirl.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2511,14 +2674,19 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Styles\util.scss" />
+    <Content Include="Vendors\chosen\chosen.css.map" />
+    <Content Include="Styles\vendors-reset-style\nice-file-input.scss" />
+    <Content Include="Vendors\ddlist\ddlist.css.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\FormField\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Content\" />
+    <Folder Include="Content\FormField\" />
+    <Folder Include="Content\Upload\" />
     <Folder Include="Models\" />
-    <Folder Include="Styles\Admin\Skins\green\" />
     <Folder Include="Vendors\angular-1.3.15\i18n\ngLocale\" />
   </ItemGroup>
   <ItemGroup>
@@ -2750,11 +2918,11 @@
     <Content Include="Vendors\bootstrap-3.3.4\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Vendors\bootstrap-3.3.4\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Vendors\bootstrap-rtl\bootstrap-rtl.css.map" />
-    <Content Include="Styles\Admin.scss" />
-    <Content Include="Styles\Fonts\BNazanin-Bold.scss" />
-    <Content Include="Styles\Fonts\BNazanin.scss" />
-    <Content Include="Styles\Fonts\Yekan.scss" />
-    <Content Include="Styles\Admin\layout.scss" />
+    <Content Include="Styles\portal.scss" />
+    <Content Include="Styles\fonts\BNazanin-Bold.scss" />
+    <Content Include="Styles\fonts\BNazanin.scss" />
+    <Content Include="Styles\fonts\Yekan.scss" />
+    <Content Include="Styles\portal\layout.scss" />
     <Content Include="Vendors\fontawesome\fonts\fontawesome-webfont.eot" />
     <Content Include="Vendors\fontawesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="Vendors\fontawesome\fonts\fontawesome-webfont.woff" />
@@ -2791,50 +2959,22 @@
     <Content Include="Vendors\classyloader\css\fontawesome-webfont.woff" />
     <Content Include="Vendors\classyloader\license" />
     <Content Include="Vendors\classyloader\readme" />
-    <Content Include="Vendors\csspinner\src\jade\index.jade" />
-    <Content Include="Vendors\csspinner\src\less\core.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\bar\bar-follow.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\bar\bar.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\blade\blade.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\double-up\double-up.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\duo\duo.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\helicopter\helicopter.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\line\line-back-and-forth-grow.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\line\line-back-and-forth.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\line\line-grow.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\line\line.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\ringed\ringed.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\shadow\shadow-oval-left.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\shadow\shadow-oval-right.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\shadow\shadow.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\spherical\spherical-horizontal.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\spherical\spherical-vertical.less" />
-    <Content Include="Vendors\csspinner\src\less\spins\traditional\traditional.less" />
-    <Content Include="Vendors\csspinner\src\sass\csspinner.sass" />
-    <Content Include="Vendors\csspinner\src\scss\core.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\bar\bar-follow.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\bar\bar.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\blade\blade.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\double-up\double-up.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\duo\duo.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\helicopter\helicopter.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\line\line-back-and-forth-grow.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\line\line-back-and-forth.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\line\line-grow.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\line\line.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\ringed\ringed.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\shadow\shadow-oval-left.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\shadow\shadow-oval-right.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\shadow\shadow.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\spherical\spherical-horizontal.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\spherical\spherical-vertical.scss" />
-    <Content Include="Vendors\csspinner\src\scss\spins\traditional\traditional.scss" />
     <Content Include="Vendors\toaster\bower.json" />
     <Content Include="Vendors\toaster\LICENSE" />
     <Content Include="Vendors\toaster\README.md" />
     <Content Include="Vendors\animo\LICENSE" />
-    <Content Include="Styles\Admin\top-navbar.scss" />
-    <Content Include="Styles\Admin\top-header.scss" />
+    <Content Include="Styles\portal\top-navbar.scss" />
+    <Content Include="Styles\portal\top-header.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Karenbic.DataAccess\Karenbic.DataAccess.csproj">
+      <Project>{34e2da3f-b376-4307-aa1c-9b34bd90b548}</Project>
+      <Name>Karenbic.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Karenbic.DomainClasses\Karenbic.DomainClasses.csproj">
+      <Project>{061bf5c1-9130-4070-a996-616b2e740073}</Project>
+      <Name>Karenbic.DomainClasses</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

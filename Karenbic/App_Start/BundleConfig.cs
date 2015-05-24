@@ -20,8 +20,12 @@ namespace Karenbic
                 "~/Vendors/angular-1.3.15/angular-cookies.min.js",
                 "~/Vendors/angular-1.3.15/angular-animate.min.js",
                 "~/Vendors/angular-1.3.15/angular-touch.min.js",
+                "~/Vendors/angular-1.3.15/angular-resource.min.js",
+                "~/Vendors/angular-1.3.15/angular-sanitize.min.js",
                 // Angular UI Route
                 "~/Vendors/angular-ui-router/angular-ui-router.min.js",
+                // UI Utils
+                "~/Vendors/angular-ui-utils/ui-utils.min.js",
                 // Angular Storage
                 "~/Vendors/angular-storage/ngStorage.js",
                 // Angular File Upload
@@ -38,13 +42,32 @@ namespace Karenbic
             ));
 
             bundles.Add(new ScriptBundle("~/Scripts/admin/app").Include(
+                //Intialize
                 "~/Scripts/admin/app.init.js",
                 "~/Scripts/admin/config.js",
                 "~/Scripts/admin/constants.js",
+                // Services
                 "~/Scripts/services/browser.js",
                 "~/Scripts/services/colors.js",
-                "~/Scripts/admin/controllers/main.js"
-                //"~/Scripts/admin/modules/controllers/top-menu.js"
+                "~/Scripts/services/route-helpers.js",
+                //Directives
+                "~/Scripts/directives/animate-enabled.js",
+                "~/Scripts/directives/chosen-select.js",
+                "~/Scripts/directives/classy-loader.js",
+                "~/Scripts/directives/clear-storage.js",
+                "~/Scripts/directives/colorpicker.js",
+                "~/Scripts/directives/ddlist-select.js",
+                "~/Scripts/directives/load-css.js",
+                "~/Scripts/directives/nicefileinput.js",
+                "~/Scripts/directives/now.js",
+                "~/Scripts/directives/stepper.js",
+                "~/Scripts/directives/scrollbar.js",
+                //Controllers
+                "~/Scripts/admin/controllers/main.js",
+                "~/Scripts/admin/controllers/top-menu.js",
+                "~/Scripts/admin/controllers/form-add.js",
+                "~/Scripts/admin/controllers/form-edit.js",
+                "~/Scripts/admin/controllers/form-list.js"
             ));
 
             bundles.Add(new StyleBundle("~/Styles/AdminStyle").Include(
@@ -53,7 +76,7 @@ namespace Karenbic
                 "~/Styles/Admin.css"
             ));
 
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = false;
         }
     }
 }

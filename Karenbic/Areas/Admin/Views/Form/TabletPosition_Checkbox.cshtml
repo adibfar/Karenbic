@@ -1,0 +1,21 @@
+﻿<div class="container-fluid" ng-if="item.type == 5">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group"
+                 style="margin-top:25px;margin-bottom:6px;">
+                <div class="checkbox c-checkbox">
+                    <label>
+                        <input type="checkbox" disabled="disabled">
+                        <span></span>{{item.data.title}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+             ng-if="item.data.description != null && item.data.description != ''">
+            <div class="form-group">
+                <pre class="control-label text-muted">{{item.data.description}}</pre>
+            </div>
+        </div>
+    </div>
+</div>

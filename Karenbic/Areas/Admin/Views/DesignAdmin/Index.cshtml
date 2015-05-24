@@ -52,6 +52,20 @@
                 <i class="icon-responsive12" style="font-size:60px;"></i>
                 مدیریت فرم ها
             </a>
+            <ul class="sub-menu" style="width:400px;">
+                <li class="sub-menu-item">
+                    <a ui-sref="app.design.add-form">
+                        <i class="icon-notepad30"></i>
+                        ثبت فرم جدید
+                    </a>
+                </li>
+                <li class="sub-menu-item">
+                    <a ui-sref="app.design.forms-list">
+                        <i class="icon-notepad30"></i>
+                        فرم های ثبت شده
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="menu-item" ng-click="itemMenuClicked($event)">
             <a>
@@ -82,5 +96,5 @@
 <!-- End Top Menu-->
 
 <!-- Start Page Content -->
-<div ui-view=""></div>
+<div ui-view="" ng-class="app.viewAnimation"></div>
 <!-- End Page Content -->

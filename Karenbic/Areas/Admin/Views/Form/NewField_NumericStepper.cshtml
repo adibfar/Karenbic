@@ -1,0 +1,125 @@
+﻿<div class="row" ng-if="formFieldType.value == 2">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label class="control-label">عنوان:</label>
+            <input type="text" 
+                   class="form-control" 
+                   ng-model="newField_NumericStepper.title"
+                   required="" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">نوع عددی:</label>
+            <div class="radio-inline c-radio"
+                 style="padding-right:5px;">
+                <label>
+                    <input type="radio"
+                           ng-value="true"
+                           ng-model="newField_NumericStepper.isInt">
+                    <span></span>عدد صحیح
+                </label>
+            </div>
+            <div class="radio-inline c-radio"
+                 style="padding-right:5px;">
+                <label>
+                    <input type="radio"
+                           ng-value="false"
+                           ng-model="newField_NumericStepper.isInt">
+                    <span></span>عدد اعشاری
+                </label>
+            </div>
+        </div>
+        <div class="form-group" ng-if="newField_NumericStepper.isInt == true">
+            <label class="control-label">مقدار اولیه:</label>
+            <input type="text"
+                   style="width:50px;"
+                   stepper=""
+                   ng-model="newField_NumericStepper.defualt" />
+        </div>
+        <div class="form-group" ng-if="newField_NumericStepper.isInt == false">
+            <label class="control-label">مقدار اولیه:</label>
+            <input type="text"
+                   style="width:50px;"
+                   stepper=""
+                   number-type="float"
+                   ng-model="newField_NumericStepper.defualt" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">راهنما:</label>
+            <input type="file" nicefileinput="" id="pictureHelpFileInput"
+                   ng-file-select="addPictureHelpFile($files)" />
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label class="control-label">توضیحات:</label>
+            <textarea class="form-control"
+                      style="height:159px;resize:none;overflow:hidden;"
+                      ng-model="newField_NumericStepper.description"></textarea>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-5 col-sm-3 col-xs-12">
+        <div class="hidden-xs" style="height:29px;margin-bottom:5px;"></div>
+        <div class="form-group">
+            <div class="checkbox c-checkbox">
+                <label>
+                    <input type="checkbox" ng-model="newField_NumericStepper.isRequired">
+                    <span></span>این فیلد اجباری می باشد
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox c-checkbox">
+                <label>
+                    <input type="checkbox"
+                           ng-model="newField_NumericStepper.limits">
+                    <span></span>محدودیت عددی
+                </label>
+            </div>
+        </div>
+        <div class="form-group" ng-if="newField_NumericStepper.isInt == true">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+                    <input type="text" stepper=""
+                           ng-model="newField_NumericStepper.min"
+                           ng-disabled="newField_NumericStepper.limits == false" />
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <label class="control-label" style="text-align:center;">الی</label>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+                    <input type="text" stepper=""
+                           ng-model="newField_NumericStepper.max"
+                           ng-disabled="newField_NumericStepper.limits == false" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group" ng-if="newField_NumericStepper.isInt == false">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+                    <input type="text" stepper=""
+                           number-type="float"
+                           ng-model="newField_NumericStepper.min"
+                           ng-disabled="newField_NumericStepper.limits == false" />
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <label class="control-label" style="text-align:center;">الی</label>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+                    <input type="text" stepper=""
+                           ng-model="newField_NumericStepper.max"
+                           number-type="float"
+                           ng-disabled="newField_NumericStepper.limits == false" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox c-checkbox">
+                <label>
+                    <input type="checkbox"
+                           ng-model="newField_NumericStepper.showInFactor">
+                    <span></span>نمایش در فاکتور
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

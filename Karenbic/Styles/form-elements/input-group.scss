@@ -1,0 +1,25 @@
+﻿.input-group {
+    input[type=text]{
+        -moz-border-radius: 0 !important;
+        -webkit-border-radius: 0 !important;
+        border-radius: 0 !important;
+    }
+
+    .input-group-addon {
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+        border-radius: 0;
+        /*font: {
+            family: Tahoma;
+            size: 13px;
+            weight: normal;
+        }*/
+        height: 26px;
+        padding: 2px 5px;
+
+        &:last-child {
+            border-left: 1px solid #bebebe;
+            border-right: none;
+        }
+    }
+}

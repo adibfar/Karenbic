@@ -3,7 +3,7 @@
  * Define constants to inject across the application
  =========================================================*/
 App
-    .constant('APP_BASE_URI', '/Admin/')
+    .constant('APP_BASE_URI', '/Customer/')
     .constant('APP_PORTALS', {
         'design': 0,
         'print': 1
@@ -11,64 +11,24 @@ App
     .constant('APP_Portal_Menu', {
         menuItems_design: [
             {
-                text: "سفارشات",
-                sref: "#",
-                icon: "show-order",
-                submenu: [
-                  {
-                      text: "سفارشات جدید",
-                      sref: "app.dashboard"
-                  },
-                  {
-                      text: "سفارشات در دست اقدام",
-                      sref: "app.design.dashboard"
-                  },
-                  {
-                      text: "سفارشات انجام شده",
-                      sref: "app.design.dashboard"
-                  }
-                ]
-            },
-            {
-                text: "تراکنش مالی",
-                sref: "#",
-                icon: "financial-transaction",
-                submenu: [
-                  {
-                      text: "صورت حساب مشتریان",
-                      sref: "app.design.dashboard"
-                  },
-                  {
-                      text: "ثبت مغایرت مالی",
-                      sref: "app.design.dashboard"
-                  }
-                ]
-            },
-            {
-                text: "مدیریت فرم ها",
-                sref: "#",
-                icon: "form",
-                submenu: [
-                  {
-                      text: "ثبت فرم جدید",
-                      sref: "app.design.add-form"
-                  },
-                  {
-                      text: "فرم های ثبت شده",
-                      sref: "app.design.forms-list"
-                  }
-                ],
-                activedmenu: [
-                    {
-                        text: "ویرایش فرم",
-                        sref: "app.design.edit-form"
-                    }
-                ]
-            },
-            {
-                text: "مشتریان",
+                text: "پیش از سفارش",
                 sref: "app.design.dashboard",
-                icon: "customers"
+                icon: "pre-order"
+            },
+            {
+                text: "ثبت سفارش جدید",
+                sref: "app.design.dashboard",
+                icon: "order"
+            },
+            {
+                text: "صورت حساب",
+                sref: "app.design.dashboard",
+                icon: "billing"
+            },
+            {
+                text: "پیگیری سفارش",
+                sref: "app.design.dashboard",
+                icon: "order-track"
             },
             {
                 text: "لیست قیمت",
@@ -87,27 +47,42 @@ App
             }
         ],
         menuItems_print: [
-        {
-            text: "مدیریت فرم ها",
-            sref: "#",
-            icon: "form",
-            submenu: [
-              {
-                  text: "ثبت فرم جدید",
-                  sref: "app.print.add-form"
-              },
-              {
-                  text: "فرم های ثبت شده",
-                  sref: "app.print.forms-list"
-              }
-            ],
-            activedmenu: [
-                {
-                    text: "ویرایش فرم",
-                    sref: "app.print.edit-form"
-                }
-            ]
-        }]
+             {
+                 text: "پیش از سفارش",
+                 sref: "app.design.dashboard",
+                 icon: "pre-order"
+             },
+            {
+                text: "ثبت سفارش جدید",
+                sref: "app.design.dashboard",
+                icon: "order"
+            },
+            {
+                text: "صورت حساب",
+                sref: "app.design.dashboard",
+                icon: "billing"
+            },
+            {
+                text: "نمایش سفارشات",
+                sref: "app.design.dashboard",
+                icon: "show-order"
+            },
+            {
+                text: "لیست قیمت",
+                sref: "app.design.dashboard",
+                icon: "price-list"
+            },
+            {
+                text: "پیام ها",
+                sref: "app.design.dashboard",
+                icon: "message"
+            },
+            {
+                text: "تنظیمات",
+                sref: "app.design.dashboard",
+                icon: "setting"
+            }
+        ]
     })
     .constant('APP_COLORS', {
         'primary': '#5d9cec',

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Karenbic.Areas.Admin.Controllers
+namespace Karenbic.Areas.Customer.Controllers
 {
-    public class PrintAdminController : Controller
+    public class PrintPortalController : Controller
     {
         [HttpGet]
         public ActionResult Index()

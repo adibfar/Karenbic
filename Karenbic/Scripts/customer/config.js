@@ -22,67 +22,31 @@ App
                 .state('app', {
                     url: '/app',
                     abstract: true,
-                    templateUrl: helper.basepath('Admin'),
+                    templateUrl: helper.basepath('Portal'),
                     controller: 'AppController',
                     resolve: helper.resolveFor('fastclick', 'modernizr', 'icons', 'animo', 'classyloader', 'toaster', 'whirl')
                 })
                 .state('app.design', {
                     url: '/design',
                     abstract: true,
-                    templateUrl: helper.basepath('DesignAdmin'),
+                    templateUrl: helper.basepath('DesignPortal'),
                     controller: 'NullController'
                 })
                 .state('app.design.dashboard', {
                     url: '/dashboard',
-                    templateUrl: helper.basepath('DesignAdmin/Dashboard'),
+                    templateUrl: helper.basepath('DesignPortal/Dashboard'),
                     controller: 'NullController'
-                })
-                .state('app.design.add-form', {
-                    url: '/add-form',
-                    templateUrl: helper.basepath('Form/Add'),
-                    controller: 'AddFormController',
-                    resolve: helper.resolveFor('ddlist', 'chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster', 'ngDialog', 'colorpicker')
-                })
-                .state('app.design.edit-form', {
-                    url: '/edit-form/:id',
-                    templateUrl: helper.basepath('Form/Edit'),
-                    controller: 'EditFormController',
-                    resolve: helper.resolveFor('ddlist', 'chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster', 'ngDialog', 'colorpicker')
-                })
-                .state('app.design.forms-list', {
-                    url: '/forms-list',
-                    templateUrl: helper.basepath('Form/List'),
-                    controller: 'FormsListController',
-                    resolve: helper.resolveFor('ngDialog')
                 })
                 .state('app.print', {
                     url: '/print',
                     abstract: true,
-                    templateUrl: helper.basepath('PrintAdmin'),
+                    templateUrl: helper.basepath('PrintPortal'),
                     controller: 'NullController'
                 })
                 .state('app.print.dashboard', {
                     url: '/dashboard',
-                    templateUrl: helper.basepath('PrintAdmin/Dashboard'),
+                    templateUrl: helper.basepath('PrintPortal/Dashboard'),
                     controller: 'NullController'
-                })
-                .state('app.print.add-form', {
-                    url: '/add-form',
-                    templateUrl: helper.basepath('Form/Add'),
-                    controller: 'AddFormController',
-                    resolve: helper.resolveFor('ddlist', 'chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster', 'ngDialog', 'colorpicker')
-                })
-                .state('app.print.edit-form', {
-                    url: '/edit-form/:id',
-                    templateUrl: helper.basepath('Form/Edit'),
-                    controller: 'EditFormController',
-                    resolve: helper.resolveFor('ddlist', 'chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster', 'ngDialog', 'colorpicker')
-                })
-                .state('app.print.forms-list', {
-                    url: '/forms-list',
-                    templateUrl: helper.basepath('Form/List'),
-                    controller: 'FormsListController',
-                    resolve: helper.resolveFor('ngDialog')
                 });
 
     }]).config(['$ocLazyLoadProvider', 'APP_REQUIRES',

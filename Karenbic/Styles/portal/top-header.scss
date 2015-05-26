@@ -6,7 +6,8 @@
     position: absolute;
     right: 0;
     top: 57px;
-    z-index: 1;
+	overflow: hidden;
+    z-index: 3;
 
     -moz-box-shadow: #c2c2c2 0px 1px 5px;
     -webkit-box-shadow: #c2c2c2 0px 1px 5px;
@@ -39,19 +40,65 @@
             family: yekan;
             size: 14px;
         }
-        list-style : none;
         height: 92px;
-        margin: 0;
-        padding: 5px 10px;
-        text-align: center;
+        margin: 0 auto;
+		position: relative;
+		width: 1024px;
+		/* Custom, iPhone Retina */
+		@media only screen and (min-width : 320px) {
+			width: 100%;
+		}
+		/* Extra Small Devices, Phones */
+		@media only screen and (min-width : 480px) {
+			width: 100%;
+		}
+		/* Small Devices, Tablets */
+		@media only screen and (min-width : 768px) {
+			width: 100%;
+		}
+		/* Medium Devices, Desktops */
+		@media only screen and (min-width : 992px){
+			width: 100%;
+		}
+		/* Large Devices, Wide Screens */
+		@media only screen and (min-width : 1200px){
+			width: 1024px;
+		}
+
+		& > ul {
+			list-style : none;
+			margin: 0;
+			padding: 5px 10px;
+			text-align: center;
+		}
 
         .menu-item {
             border-left:  1px solid #cecece;
             cursor: pointer;
-            float: right;
+            display: inline-block;
             height: 82px;
-            position: relative;
-            width: 14%;
+            width: 13%;
+
+			/* Custom, iPhone Retina */
+			@media only screen and (min-width : 320px) {
+				width: 14%;
+			}
+			/* Extra Small Devices, Phones */
+			@media only screen and (min-width : 480px) {
+				width: 14%;
+			}
+			/* Small Devices, Tablets */
+			@media only screen and (min-width : 768px) {
+				width: 14%;
+			}
+			/* Medium Devices, Desktops */
+			@media only screen and (min-width : 992px) {
+				width: 13%;
+			}
+			/* Large Devices, Wide Screens */
+			@media only screen and (min-width : 1200px) {
+				width: 13%;
+			}
 
             & > a {
                 color: #333;
@@ -62,50 +109,68 @@
                 -o-transition: color 300ms ease-out;
                 transition: color 300ms ease-out;
 
-                &:hover {
-                    color: #95cb2d;
-                    -moz-transition: color 300ms ease-in;
-                    -webkit-transition: color 300ms ease-in;
-                    -o-transition: color 300ms ease-in;
-                    transition: color 300ms ease-in;
-                }
-
                 & > i {
                     display: block;
-                    font-size: 50px;
-                    height: 60px;
+					margin: 6px auto;
+                    height: 45px;
+					width: 56px;
+
+					&.billing {
+						background: transparent url(/Images/PortalMenu/billing.png) no-repeat center 0;
+					}
+					&.customers {
+						background: transparent url(/Images/PortalMenu/customers.png) no-repeat center 0;
+					}
+					&.financial-transaction {
+						background: transparent url(/Images/PortalMenu/financial-transaction.png) no-repeat center 0;
+					}
+					&.form {
+						background: transparent url(/Images/PortalMenu/form.png) no-repeat center 0;
+					}
+					&.message {
+						background: transparent url(/Images/PortalMenu/message.png) no-repeat center 0;
+					}
+					&.order {
+						background: transparent url(/Images/PortalMenu/order.png) no-repeat center 0;
+					}
+					&.order-track {
+						background: transparent url(/Images/PortalMenu/order-track.png) no-repeat center 0;
+					}
+					&.pre-order {
+						background: transparent url(/Images/PortalMenu/pre-order.png) no-repeat center 0;
+					}
+					&.price-list {
+						background: transparent url(/Images/PortalMenu/price-list.png) no-repeat center 0;
+					}
+					&.setting {
+						background: transparent url(/Images/PortalMenu/setting.png) no-repeat center 0;
+					}
+					&.show-order {
+						background: transparent url(/Images/PortalMenu/show-order.png) no-repeat center 0;
+					}
                 }
             }
 
             &.menu-item-last {
                 border-left: none;
             }
-
-            &.clicked {
-                & > a {
-                    color: #95cb2d;
-                }
-            }
-
-            &.active {
-                & > a {
-                    color: #95cb2d;
-                }
-            }
         }
 
         .sub-menu {
-            bottom: -30px;
+            bottom: -26px;
             display: none;
             font: {
                 family: yekan;
                 size: 13px;
             }
             height: 20px;
+			left: 7px;
             list-style : none;
             margin: 0;
             padding: 0;
             position: absolute;
+			right: 7px;
+			z-index: 2;
         }
 
         .sub-menu-item {
@@ -115,7 +180,7 @@
             margin-left: 10px;
 
             & > a {
-                color: #333;
+                color: #fff;
                 display: block;
                 text-decoration: none;
                 -moz-transition: color 300ms ease-out;
@@ -123,27 +188,29 @@
                 -o-transition: color 300ms ease-out;
                 transition: color 300ms ease-out;
 
-                &:hover {
-                    color: #95cb2d;
-                    -moz-transition: color 300ms ease-in;
-                    -webkit-transition: color 300ms ease-in;
-                    -o-transition: color 300ms ease-in;
-                    transition: color 300ms ease-in;
-                }
-
                 & > i {
                     display: inline-block;
                     font-size: 17px;
                     position: relative; 
                     top: 3px;
                 }
-            }
 
-            &.active {
-                & > a {
-                    color: #95cb2d;
+				&:hover {
+                    -moz-transition: color 300ms ease-in;
+                    -webkit-transition: color 300ms ease-in;
+                    -o-transition: color 300ms ease-in;
+                    transition: color 300ms ease-in;
                 }
             }
         }
+
+		.sub-menu-hiegh-lighter {
+			height: 33px;
+			position: absolute;
+			bottom: -33px;
+			left: 2px;
+			right: 2px;
+			z-index: 1;
+		}
     }
 }

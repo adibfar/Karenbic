@@ -1,0 +1,18 @@
+﻿.mobile-menu .menu {
+	.menu-item > a:hover,
+	.menu-item > a.active {
+		color: #9c87a7;
+		i {
+			background-position: center -48px;
+		}
+	}
+
+	.sub-menu-item > a:hover,
+	.sub-menu-item > a.active {
+		color: #9c87a7;
+	}
+
+	.sub-menu-hiegh-lighter {
+		background-color: #bca3ca;
+	}
+}

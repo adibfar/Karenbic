@@ -12,7 +12,9 @@
 .top-header [class^="icon-"],
 .top-header [class*=" icon-"],
 .top-navbar [class^="icon-"], 
-.top-navbar [class*=" icon-"] {
+.top-navbar [class*=" icon-"],
+.mobile-menu [class^="icon-"], 
+.mobile-menu [class*=" icon-"] {
 	font-family: 'HeaderIcon';
 	speak: none;
 	font-style: normal;

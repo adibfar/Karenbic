@@ -1,0 +1,218 @@
+﻿.mobile-menu {
+    background-color: #fff;
+    border-bottom: 1px solid #cecece;
+	bottom: 0;
+    left: -260px;
+    position: absolute;
+    top: 57px;
+    overflow: hidden;
+    width: 250px;
+    z-index: 2;
+
+    -moz-box-shadow: #c2c2c2 0px 1px 5px;
+    -webkit-box-shadow: #c2c2c2 0px 1px 5px;
+    box-shadow: #c2c2c2 0px 1px 5px;
+
+    /* Custom, iPhone Retina */
+	@media only screen and (min-width : 320px) {
+        top: 83px;
+	}
+    /* Extra Small Devices, Phones */
+	@media only screen and (min-width : 480px) {
+        top: 83px;
+	}
+    /* Small Devices, Tablets */
+	@media only screen and (min-width : 768px) {
+        top: 83px;
+	}
+    /* Medium Devices, Desktops */
+	@media only screen and (min-width : 992px) {
+        top: 57px;
+	}
+    /* Large Devices, Wide Screens */
+	@media only screen and (min-width : 1200px) {
+        top: 57px;
+	}
+
+    .menu {
+        font: {
+                family: yekan;
+                size: 14px;
+        }
+		list-style : none;
+        margin: 0;
+        padding: 5px 10px;
+        position: relative;
+		text-align: right;
+
+        .menu-item {
+            border-bottom:  1px solid #cecece;
+            cursor: pointer;
+			display: block;
+
+            & > a {
+                color: #333;
+                display: block;
+				height: 38px;
+                text-decoration: none;
+                -moz-transition: color 300ms ease-out;
+                -webkit-transition: color 300ms ease-out;
+                -o-transition: color 300ms ease-out;
+                transition: color 300ms ease-out;
+
+                & > i {
+                    display: inline-block;
+                    margin: 0 2px 0 9px;
+                    height: 24px;
+					position: relative;
+					top: 8px;
+                    width: 30px;
+
+                    &.billing {
+                        background: transparent url(/Images/PortalMobileMenu/billing.png) no-repeat center 0;
+                    }
+                    &.customers {
+                        background: transparent url(/Images/PortalMobileMenu/customers.png) no-repeat center 0;
+                    }
+                    &.financial-transaction {
+                        background: transparent url(/Images/PortalMobileMenu/financial-transaction.png) no-repeat center 0;
+                    }
+                    &.form {
+                        background: transparent url(/Images/PortalMobileMenu/form.png) no-repeat center 0;
+                    }
+                    &.message {
+                        background: transparent url(/Images/PortalMobileMenu/message.png) no-repeat center 0;
+                    }
+                    &.order {
+                        background: transparent url(/Images/PortalMobileMenu/order.png) no-repeat center 0;
+                    }
+                    &.order-track {
+                        background: transparent url(/Images/PortalMobileMenu/order-track.png) no-repeat center 0;
+                    }
+                    &.pre-order {
+                        background: transparent url(/Images/PortalMobileMenu/pre-order.png) no-repeat center 0;
+                    }
+                    &.price-list {
+                        background: transparent url(/Images/PortalMobileMenu/price-list.png) no-repeat center 0;
+                    }
+                    &.setting {
+                        background: transparent url(/Images/PortalMobileMenu/setting.png) no-repeat center 0;
+                    }
+                    &.show-order {
+                        background: transparent url(/Images/PortalMobileMenu/show-order.png) no-repeat center 0;
+                    }
+                }
+
+                &:hover {
+                    -moz-transition: color 300ms ease-in;
+                    -webkit-transition: color 300ms ease-in;
+                    -o-transition: color 300ms ease-in;
+                    transition: color 300ms ease-in;
+                }
+            }
+
+            &.menu-item-last {
+                border-bottom: none;
+            }
+
+            &.clicked {
+                & > a {
+                    color: #95cb2d;
+                }
+            }
+        }
+
+        .sub-menu {
+			border-right: 2px solid #cecece;
+            display: none;
+            font: {
+                    family: yekan;
+                    size: 13px;
+            }
+            list-style : none;
+            margin: 3px 33px 6px 3px;
+            padding: 3px 6px 6px 3px;
+        }
+
+        .sub-menu-item {
+			border-bottom: 1px solid #cecece;
+            cursor: pointer;
+            display: block;
+			padding: 2px 0 4px 0;
+
+            & > a {
+                color: #333;
+                display: block;
+                text-decoration: none;
+                -moz-transition: color 300ms ease-out;
+                -webkit-transition: color 300ms ease-out;
+                -o-transition: color 300ms ease-out;
+                transition: color 300ms ease-out;
+
+                & > i {
+                    display: inline-block;
+                    font-size: 17px;
+                    position: relative; 
+                    top: 3px;
+                }
+
+                &:hover {
+                    -moz-transition: color 300ms ease-in;
+                    -webkit-transition: color 300ms ease-in;
+                    -o-transition: color 300ms ease-in;
+                    transition: color 300ms ease-in;
+                }
+            }
+
+			&.sub-menu-item-last {
+				border-bottom: none;
+			}
+        }
+
+        .sub-menu-hiegh-lighter {
+            height: 33px;
+            position: absolute;
+            bottom: -33px;
+            left: 2px;
+            right: 2px;
+            z-index: 1;
+        }
+    }
+}
+
+.mobile-menu-overlay {
+	background-color: #666;
+    border-bottom: 1px solid #cecece;
+	bottom: 0;
+    left: 0;
+    position: absolute;
+	right: 0;
+    top: 57px;
+    overflow: hidden;
+    z-index: 1;
+
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	
+	/* Custom, iPhone Retina */
+	@media only screen and (min-width : 320px) {
+        top: 83px;
+	}
+    /* Extra Small Devices, Phones */
+	@media only screen and (min-width : 480px) {
+        top: 83px;
+	}
+    /* Small Devices, Tablets */
+	@media only screen and (min-width : 768px) {
+        top: 83px;
+	}
+    /* Medium Devices, Desktops */
+	@media only screen and (min-width : 992px) {
+        top: 57px;
+	}
+    /* Large Devices, Wide Screens */
+	@media only screen and (min-width : 1200px) {
+        top: 57px;
+	}
+}

@@ -92,37 +92,32 @@
         top: 15px;
         overflow: hidden;
         white-space: nowrap;
-        width: 215px;
+        width: 190px;
 
         /* Custom, iPhone Retina */
 	    @media only screen and (min-width : 320px) {
             left: auto;
             right: 76px;
-            width: 190px;
 	    }
 	    /* Extra Small Devices, Phones */
 	    @media only screen and (min-width : 480px) {
             left: auto;
             right: 76px;
-            width: 199px;
 	    }
 	    /* Small Devices, Tablets */
 	    @media only screen and (min-width : 768px) {
             left: auto;
             right: 76px;
-            width: 215px;
 	    }
 	    /* Medium Devices, Desktops */
 	    @media only screen and (min-width : 992px) {
             left: 15px;
             right: auto;
-            width: 215px;
 	    }
 	    /* Large Devices, Wide Screens */
 	    @media only screen and (min-width : 1200px) {
             left: 15px;
             right: auto;
-            width: 215px;
 	    }
 
         .icon-male157 {
@@ -177,52 +172,52 @@
         background: transparent url(/Images/PortalNavbar/design-nav.png) no-repeat 0 0;
         cursor: pointer;
         display: block;
-        height: 29px;
+        height: 27px;
         position: absolute;
         text-decoration: none;
         top: 15px;
-        width: 146px;
+        width: 128px;
 
         &:hover, &.active {
-            background-position: 0 -29px;
+            background-position: 0 -27px;
         }
 
         /* Custom, iPhone Retina */
 	    @media only screen and (min-width : 320px) {
-            right: 6px;
+            right: 13px;
             top: 45px;
 	    }
 	    /* Extra Small Devices, Phones */
 	    @media only screen and (min-width : 480px) {
-            right: 6px;
+            right: 13px;
             top: 45px;
 	    }
 	    /* Small Devices, Tablets */
 	    @media only screen and (min-width : 768px) {
-            right: 6px;
+            right: 13px;
             top: 45px;
 	    }
 	    /* Medium Devices, Desktops */
 	    @media only screen and (min-width : 992px) {
-            right: 70px;
+            right: 74px;
             top: 15px;
 	    }
 	    /* Large Devices, Wide Screens */
 	    @media only screen and (min-width : 1200px) {
-            right: 70px;
+            right: 74px;
             top: 15px;
 	    }
     }
 
     .print-nav {
-        background: transparent url(/Images/PortalNavbar/print-nav.png) no-repeat 0 -29px;
+        background: transparent url(/Images/PortalNavbar/print-nav.png) no-repeat 0 -27px;
         cursor: pointer;
         display: block;
-        height: 29px;
+        height: 27px;
         position: absolute;
         text-decoration: none;
         top: 15px;
-        width: 146px;
+        width: 136px;
 
         &:hover, &.active {
             background-position: 0 0;
@@ -230,27 +225,27 @@
 
         /* Custom, iPhone Retina */
 	    @media only screen and (min-width : 320px) {
-            right: 148px;
+            right: 132px;
             top: 45px;
 	    }
 	    /* Extra Small Devices, Phones */
 	    @media only screen and (min-width : 480px) {
-            right: 148px;
+            right: 132px;
             top: 45px;
 	    }
 	    /* Small Devices, Tablets */
 	    @media only screen and (min-width : 768px) {
-            right: 148px;
+            right: 132px;
             top: 45px;
 	    }
 	    /* Medium Devices, Desktops */
 	    @media only screen and (min-width : 992px) {
-            right: 212px;
+            right: 194px;
             top: 15px;
 	    }
 	    /* Large Devices, Wide Screens */
 	    @media only screen and (min-width : 1200px) {
-            right: 212px;
+            right: 194px;
             top: 15px;
 	    }
     }

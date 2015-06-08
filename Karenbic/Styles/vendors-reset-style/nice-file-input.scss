@@ -1,12 +1,12 @@
 ﻿.NFI-wrapper {
     border: 1px solid #989898;
-    height: 29px;
+    height: 25px;
     position: relative;
 	width: 100%;
 }
 
 .NFI-button {
-    background: transparent url(btn-1.png) no-repeat 0 0;
+    background: transparent url(btn-1.png) no-repeat 0 -2px;
     border: none;
     bottom: 0;
     cursor: pointer;
@@ -18,7 +18,7 @@
 }
 
 .NFI-button:hover, .NFI-button:focus {
-    background-position: 0 -31px;
+    background-position: 0 -33px;
 }
 
 .NFI-filename {

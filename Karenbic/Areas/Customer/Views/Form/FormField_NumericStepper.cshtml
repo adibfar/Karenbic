@@ -1,0 +1,42 @@
+﻿<div class="container-fluid" ng-if="item.type == 2">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group"
+                    style="margin-bottom:6px;">
+                <label class="control-label"
+                       ng-if="item.data.hasPictureHelpFile == false">
+                    {{item.data.title + ':'}}
+                    <span class="text-danger" ng-if="item.data.isRequired">*</span>
+                </label>
+                <label class="control-label"
+                       ng-if="item.data.hasPictureHelpFile == true"
+                       style="cursor:pointer;"
+                       tooltipster="" tooltipster-title="<img src='{{item.data.pictureHelpPath}}' />">
+                    {{item.data.title + ':'}}
+                    <span class="text-danger" ng-if="item.data.isRequired">*</span>
+                </label>
+                <br />
+                <input type="text"
+                       style="width:60px;"
+                       stepper=""
+                       ng-class="{'ng-invalid': fromSumbited == true && validateForm_Nummeric(item) == false}"
+                       ng-model="item.value"
+                       ng-if="item.data.isInt == true" />
+                <input type="text"
+                       style="width:60px;"
+                       stepper=""
+                       number-type="float"
+                       ng-class="{'ng-invalid': fromSumbited == true && validateForm_Nummeric(item) == false}"
+                       ng-model="item.value"
+                       ng-if="item.data.isFloat == true" />
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                ng-if="item.data.description != null && item.data.description != ''">
+            <div class="form-group">
+                <span class="fa fa-info-circle text-info"></span>
+                <pre class="control-label">{{item.data.description}}</pre>
+            </div>
+        </div>
+    </div>
+</div>

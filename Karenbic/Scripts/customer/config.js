@@ -24,7 +24,7 @@ App
                     abstract: true,
                     templateUrl: helper.basepath('Portal'),
                     controller: 'AppController',
-                    resolve: helper.resolveFor('fastclick', 'modernizr', 'icons', 'animo', 'classyloader', 'toaster', 'whirl')
+                    resolve: helper.resolveFor('fastclick', 'modernizr', 'icons', 'animo', 'classyloader', 'toaster', 'whirl', 'tooltipster')
                 })
                 .state('app.design', {
                     url: '/design',
@@ -37,6 +37,13 @@ App
                     templateUrl: helper.basepath('DesignPortal/Dashboard'),
                     controller: 'NullController'
                 })
+                .state('app.design.add-order', {
+                    url: '/add-order',
+                    templateUrl: helper.basepath('Order/Add'),
+                    controller: 'AddOrderController',
+                    resolve: helper.resolveFor('chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster',
+                        'colorpicker', 'jquery-ui', 'jquery-ui-datepicker', 'persian-date')
+                })
                 .state('app.print', {
                     url: '/print',
                     abstract: true,
@@ -47,6 +54,13 @@ App
                     url: '/dashboard',
                     templateUrl: helper.basepath('PrintPortal/Dashboard'),
                     controller: 'NullController'
+                })
+                .state('app.print.add-order', {
+                    url: '/add-order',
+                    templateUrl: helper.basepath('Order/Add'),
+                    controller: 'AddOrderController',
+                    resolve: helper.resolveFor('chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster',
+                        'colorpicker', 'jquery-ui-datepicker', 'persian-date')
                 });
 
     }]).config(['$ocLazyLoadProvider', 'APP_REQUIRES',

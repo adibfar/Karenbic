@@ -30,6 +30,22 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.FormField_WebUrl> FormFields_WebUrl{ get; set; }
         public DbSet<DomainClasses.FormField_DatePicker> FormFields_DatePicker { get; set; }
 
+        public DbSet<DomainClasses.Order> Orders { get; set; }
+        public DbSet<DomainClasses.PrintOrder> PrintOrders { get; set; }
+        public DbSet<DomainClasses.DesignOrder> DesignOrders { get; set; }
+        public DbSet<DomainClasses.Order_Value> Order_Values { get; set; }
+        public DbSet<DomainClasses.Order_Value_TextBox> Order_Values_TextBox { get; set; }
+        public DbSet<DomainClasses.Order_Value_TextArea> Order_Values_TextArea { get; set; }
+        public DbSet<DomainClasses.Order_Value_Numeric> Order_Values_Numeric { get; set; }
+        public DbSet<DomainClasses.Order_Value_ColorPicker> Order_Values_ColorPicker { get; set; }
+        public DbSet<DomainClasses.Order_Value_FileUploader> Order_Values_FileUploader { get; set; }
+        public DbSet<DomainClasses.Order_Value_Checkbox> Order_Values_Checkbox { get; set; }
+        public DbSet<DomainClasses.Order_Value_WebUrl> Order_Values_WebUrl { get; set; }
+        public DbSet<DomainClasses.Order_Value_DatePicker> Order_Values_DatePicker { get; set; }
+        public DbSet<DomainClasses.Order_Value_DropDown> Order_Values_DropDown { get; set; }
+        public DbSet<DomainClasses.Order_Value_RadioButtonGroup> Order_Values_RadioButtonGroup { get; set; }
+        public DbSet<DomainClasses.Order_Value_CheckboxGroup> Order_Values_CheckboxGroup { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new FormConfiguration());
@@ -42,6 +58,12 @@ namespace Karenbic.DataAccess
             modelBuilder.Configurations.Add(new FormField_RadioButtonGroup_ItemConfiguration());
             modelBuilder.Configurations.Add(new FormField_CheckBoxGroupConfiguration());
             modelBuilder.Configurations.Add(new FormField_CheckBoxGroup_ItemConfiguration());
+
+            modelBuilder.Configurations.Add(new OrderConfiguration());
+            modelBuilder.Configurations.Add(new Order_ValueConfiguration());
+            modelBuilder.Configurations.Add(new Order_Value_DropDownConfiguration());
+            modelBuilder.Configurations.Add(new Order_Value_RadioButtonGroupConfiguration());
+            modelBuilder.Configurations.Add(new Order_Value_CheckboxGroupConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

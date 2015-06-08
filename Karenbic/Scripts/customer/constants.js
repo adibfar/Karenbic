@@ -17,7 +17,7 @@ App
             },
             {
                 text: "ثبت سفارش جدید",
-                sref: "app.design.dashboard",
+                sref: "app.design.add-order",
                 icon: "order"
             },
             {
@@ -49,37 +49,37 @@ App
         menuItems_print: [
              {
                  text: "پیش از سفارش",
-                 sref: "app.design.dashboard",
+                 sref: "app.print.dashboard1",
                  icon: "pre-order"
              },
-            {
-                text: "ثبت سفارش جدید",
-                sref: "app.design.dashboard",
-                icon: "order"
-            },
+             {
+                 text: "ثبت سفارش جدید",
+                 sref: "app.print.add-order",
+                 icon: "order"
+             },
             {
                 text: "صورت حساب",
-                sref: "app.design.dashboard",
+                sref: "app.print.dashboard2",
                 icon: "billing"
             },
             {
                 text: "نمایش سفارشات",
-                sref: "app.design.dashboard",
+                sref: "app.print.dashboard3",
                 icon: "show-order"
             },
             {
                 text: "لیست قیمت",
-                sref: "app.design.dashboard",
+                sref: "app.print.dashboard3",
                 icon: "price-list"
             },
             {
                 text: "پیام ها",
-                sref: "app.design.dashboard",
+                sref: "app.print.dashboard3",
                 icon: "message"
             },
             {
                 text: "تنظیمات",
-                sref: "app.design.dashboard",
+                sref: "app.print.dashboard3",
                 icon: "setting"
             }
         ]
@@ -122,11 +122,14 @@ App
             'nicefileinput': ['/Vendors/nicefileinput/jquery.nicefileinput.min.js', '/Vendors/nicefileinput/nicefileinput.css'],
             'colorpicker': ['/Vendors/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js', '/Vendors/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css'],
             'classyloader': ['/Vendors/classyloader/js/jquery.classyloader.min.js'],
-            'jquery-ui': ['/Vendors/jqueryui/js/jquery-ui-1.10.4.custom.min.js', '/Vendors/jqueryui/css/ui-lightness/jquery-ui-1.10.4.custom.min.css', , '/Vendors/touch-punch/jquery.ui.touch-punch.min.js'],
+            'jquery-ui': ['/Vendors/jqueryui/js/jquery-ui-1.10.4.custom.min.js', '/Vendors/jqueryui/css/smoothness/jquery-ui-1.10.4.custom.min.css'],
             'inputmask': ['/Vendors/inputmask/jquery.inputmask.bundle.min.js'],
             'mousewheel': ['/Vendors/scrollbar/js/minified/jquery.mousewheel-3.0.6.min.js'],
             'scrollbar': ['/Vendors/scrollbar/css/jquery.mCustomScrollbar.css', '/Vendors/scrollbar/js/minified/jquery.mCustomScrollbar.min.js'],
-            'jquery-resize': ['/Vendors/jquery-resize/jquery.ba-resize.min.js']
+            'jquery-resize': ['/Vendors/jquery-resize/jquery.ba-resize.min.js'],
+            'jquery-ui-datepicker': ['/Vendors/jquery.ui.datepicker/jquery.ui.datepicker-cc.all.min.js'],
+            'tooltipster': ['/Vendors/tooltipster/js/jquery.tooltipster.min.js', '/Vendors/tooltipster/css/tooltipster.css', '/Vendors/tooltipster/css/themes/tooltipster-light.css'],
+            'persian-date': ['/Vendors/persian-date/persian-date-0.1.8.min.js']
         },
         modules: [
             {

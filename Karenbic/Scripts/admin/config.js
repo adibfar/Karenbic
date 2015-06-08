@@ -24,7 +24,7 @@ App
                     abstract: true,
                     templateUrl: helper.basepath('Admin'),
                     controller: 'AppController',
-                    resolve: helper.resolveFor('fastclick', 'modernizr', 'icons', 'animo', 'classyloader', 'toaster', 'whirl')
+                    resolve: helper.resolveFor('fastclick', 'modernizr', 'icons', 'animo', 'classyloader', 'toaster', 'whirl', 'tooltipster')
                 })
                 .state('app.design', {
                     url: '/design',

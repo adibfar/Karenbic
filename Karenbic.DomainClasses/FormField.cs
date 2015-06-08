@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,6 +32,23 @@ namespace Karenbic.DomainClasses
 
         public string PictureHelpFile { get; set; }
 
+        [NotMapped]
+        public string PictureHelpPath
+        {
+            get
+            {
+                return string.Format("/Content/FormField/{0}", PictureHelpFile);
+            }
+        }
+
+        [NotMapped]
+        public bool HasPictureHelpFile {
+            get
+            {
+                return !string.IsNullOrEmpty(PictureHelpFile);
+            }
+        }
+
         [Required]
         public bool CanDelete { get; set; }
 
@@ -40,5 +58,6 @@ namespace Karenbic.DomainClasses
         public virtual FormField_Position_Desktop DesktopPosition { get; set; }
         public virtual FormField_Position_Tablet TabletPosition { get; set; }
         public virtual FormField_Position_Mobile MobilePosition { get; set; }
+        public virtual ICollection<Order_Value> Orders_Value { get; set; }
     }
 }

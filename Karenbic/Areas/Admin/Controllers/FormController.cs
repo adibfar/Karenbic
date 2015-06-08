@@ -415,7 +415,8 @@ namespace Karenbic.Areas.Admin.Controllers
             DomainClasses.FormField_RadioButtonGroup[] radioButtonGroups,
             DomainClasses.FormField_RadioButtonGroup[] radioButtonGroups_new,
             DomainClasses.FormField_CheckBoxGroup[] checkBoxGroups,
-            DomainClasses.FormField_CheckBoxGroup[] checkBoxGroups_new)
+            DomainClasses.FormField_CheckBoxGroup[] checkBoxGroups_new,
+            int[] removedFields)
         {
             using (DataAccess.Context context = new DataAccess.Context())
             {
@@ -504,6 +505,17 @@ namespace Karenbic.Areas.Admin.Controllers
                                 item.PictureHelpFile = field.PictureHelpFile;
                             }
                         }
+                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                item.PictureHelpFile = string.Empty;
+                            }
+                        }
                     }
                 }
 
@@ -583,6 +595,17 @@ namespace Karenbic.Areas.Admin.Controllers
                                     HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
 
                                 item.PictureHelpFile = field.PictureHelpFile;
+                            }
+                        }
+                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                item.PictureHelpFile = string.Empty;
                             }
                         }
                     }
@@ -668,6 +691,17 @@ namespace Karenbic.Areas.Admin.Controllers
                                 item.PictureHelpFile = field.PictureHelpFile;
                             }
                         }
+                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                item.PictureHelpFile = string.Empty;
+                            }
+                        }
                     }
                 }
 
@@ -743,6 +777,17 @@ namespace Karenbic.Areas.Admin.Controllers
                                 item.PictureHelpFile = field.PictureHelpFile;
                             }
                         }
+                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                item.PictureHelpFile = string.Empty;
+                            }
+                        }
                     }
                 }
 
@@ -770,6 +815,7 @@ namespace Karenbic.Areas.Admin.Controllers
                         if (field.Formats != null && field.Formats.Count > 0)
                         {
                             newField.Formats = new List<DomainClasses.FileFormat>();
+
                             foreach (DomainClasses.FileFormat format in field.Formats)
                             {
                                 if (context.FileFormats.Any(x => x.Id == format.Id))
@@ -797,8 +843,8 @@ namespace Karenbic.Areas.Admin.Controllers
                             }
                         }
 
-                        field.Form = formItem;
-                        context.FormFields_FileUploader.Add(field);
+                        newField.Form = formItem;
+                        context.FormFields_FileUploader.Add(newField);
                     }
                 }
 
@@ -860,6 +906,17 @@ namespace Karenbic.Areas.Admin.Controllers
                                     HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
 
                                 item.PictureHelpFile = field.PictureHelpFile;
+                            }
+                        }
+                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                item.PictureHelpFile = string.Empty;
                             }
                         }
                     }
@@ -938,6 +995,17 @@ namespace Karenbic.Areas.Admin.Controllers
                                 item.PictureHelpFile = field.PictureHelpFile;
                             }
                         }
+                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                item.PictureHelpFile = string.Empty;
+                            }
+                        }
                     }
                 }
 
@@ -1011,6 +1079,17 @@ namespace Karenbic.Areas.Admin.Controllers
                                     HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
 
                                 item.PictureHelpFile = field.PictureHelpFile;
+                            }
+                        }
+                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                item.PictureHelpFile = string.Empty;
                             }
                         }
                     }
@@ -1093,6 +1172,17 @@ namespace Karenbic.Areas.Admin.Controllers
                                 item.PictureHelpFile = field.PictureHelpFile;
                             }
                         }
+                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                item.PictureHelpFile = string.Empty;
+                            }
+                        }
                     }
                 }
 
@@ -1157,27 +1247,56 @@ namespace Karenbic.Areas.Admin.Controllers
                         item.MobilePosition.Row = field.MobilePosition.Row;
 
                         //Remove Old Items
-                        foreach (DomainClasses.FormField_DropDown_Item dropDownItem in item.Items.ToList())
+                        if (item.Items.ToList().Count > 0)
                         {
-                            if (!field.Items.Any(x => x.Id == dropDownItem.Id))
+                            foreach (DomainClasses.FormField_DropDown_Item dropDownItem in item.Items.ToList())
                             {
-                                context.FormField_DropDown_Items.Remove(context.FormField_DropDown_Items.Find(dropDownItem.Id));
+                                if (field.Items != null && field.Items.Count > 0)
+                                {
+                                    if (!field.Items.Any(x => x.Id == dropDownItem.Id))
+                                    {
+                                        if (dropDownItem.CanDelete)
+                                        {
+                                            context.FormField_DropDown_Items.Remove(context.FormField_DropDown_Items.Find(dropDownItem.Id));
+                                        }
+                                        else
+                                        {
+                                            dropDownItem.ShowAdmin = false;
+                                            dropDownItem.ShowCustomer = false;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (dropDownItem.CanDelete)
+                                    {
+                                        context.FormField_DropDown_Items.Remove(context.FormField_DropDown_Items.Find(dropDownItem.Id));
+                                    }
+                                    else
+                                    {
+                                        dropDownItem.ShowAdmin = false;
+                                        dropDownItem.ShowCustomer = false;
+                                    }
+                                }
                             }
                         }
 
                         //Add New Items & Edit Old Items
-                        foreach (DomainClasses.FormField_DropDown_Item dropDownItem in field.Items.ToList())
+                        if (field.Items.ToList().Count > 0)
                         {
-                            if (!context.FormField_DropDown_Items.Any(x => x.Id == dropDownItem.Id))
+                            foreach (DomainClasses.FormField_DropDown_Item dropDownItem in field.Items.ToList())
                             {
-                                item.Items.Add(dropDownItem);
-                            }
-                            else
-                            {
-                                DomainClasses.FormField_DropDown_Item oldDropDownItem =
-                                    context.FormField_DropDown_Items.Find(dropDownItem.Id);
-                                oldDropDownItem.Title = dropDownItem.Title;
-                                oldDropDownItem.Order = dropDownItem.Order;
+                                if (!context.FormField_DropDown_Items.Any(x => x.Id == dropDownItem.Id))
+                                {
+                                    item.Items.Add(dropDownItem);
+                                }
+                                else
+                                {
+                                    DomainClasses.FormField_DropDown_Item oldDropDownItem =
+                                        context.FormField_DropDown_Items.Find(dropDownItem.Id);
+                                    oldDropDownItem.Title = dropDownItem.Title;
+                                    oldDropDownItem.Order = dropDownItem.Order;
+                                }
                             }
                         }
 
@@ -1194,6 +1313,17 @@ namespace Karenbic.Areas.Admin.Controllers
                                     HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
 
                                 item.PictureHelpFile = field.PictureHelpFile;
+                            }
+                        }
+                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                item.PictureHelpFile = string.Empty;
                             }
                         }
                     }
@@ -1260,27 +1390,56 @@ namespace Karenbic.Areas.Admin.Controllers
                         item.MobilePosition.Row = field.MobilePosition.Row;
 
                         //Remove Old Items
-                        foreach (DomainClasses.FormField_RadioButtonGroup_Item radioItem in item.Items.ToList())
+                        if (item.Items.ToList().Count > 0)
                         {
-                            if (!field.Items.Any(x => x.Id == radioItem.Id))
+                            foreach (DomainClasses.FormField_RadioButtonGroup_Item radioItem in item.Items.ToList())
                             {
-                                context.FormField_RadioButtonGroup_Items.Remove(context.FormField_RadioButtonGroup_Items.Find(radioItem.Id));
+                                if (field.Items != null && field.Items.Count > 0)
+                                {
+                                    if (!field.Items.Any(x => x.Id == radioItem.Id))
+                                    {
+                                        if (radioItem.CanDelete)
+                                        {
+                                            context.FormField_RadioButtonGroup_Items.Remove(context.FormField_RadioButtonGroup_Items.Find(radioItem.Id));
+                                        }
+                                        else
+                                        {
+                                            radioItem.ShowAdmin = false;
+                                            radioItem.ShowCustomer = false;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (radioItem.CanDelete)
+                                    {
+                                        context.FormField_RadioButtonGroup_Items.Remove(context.FormField_RadioButtonGroup_Items.Find(radioItem.Id));
+                                    }
+                                    else
+                                    {
+                                        radioItem.ShowAdmin = false;
+                                        radioItem.ShowCustomer = false;
+                                    }
+                                }
                             }
                         }
 
                         //Add New Items & Edit Old Items
-                        foreach (DomainClasses.FormField_RadioButtonGroup_Item radioItem in field.Items.ToList())
+                        if (field.Items.ToList().Count > 0)
                         {
-                            if (!context.FormField_RadioButtonGroup_Items.Any(x => x.Id == radioItem.Id))
+                            foreach (DomainClasses.FormField_RadioButtonGroup_Item radioItem in field.Items.ToList())
                             {
-                                item.Items.Add(radioItem);
-                            }
-                            else
-                            {
-                                DomainClasses.FormField_RadioButtonGroup_Item oldRadioItem = 
-                                    context.FormField_RadioButtonGroup_Items.Find(radioItem.Id);
-                                oldRadioItem.Title = radioItem.Title;
-                                oldRadioItem.Order = radioItem.Order;
+                                if (!context.FormField_RadioButtonGroup_Items.Any(x => x.Id == radioItem.Id))
+                                {
+                                    item.Items.Add(radioItem);
+                                }
+                                else
+                                {
+                                    DomainClasses.FormField_RadioButtonGroup_Item oldRadioItem =
+                                        context.FormField_RadioButtonGroup_Items.Find(radioItem.Id);
+                                    oldRadioItem.Title = radioItem.Title;
+                                    oldRadioItem.Order = radioItem.Order;
+                                }
                             }
                         }
 
@@ -1297,6 +1456,17 @@ namespace Karenbic.Areas.Admin.Controllers
                                     HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
 
                                 item.PictureHelpFile = field.PictureHelpFile;
+                            }
+                        }
+                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                item.PictureHelpFile = string.Empty;
                             }
                         }
                     }
@@ -1362,28 +1532,58 @@ namespace Karenbic.Areas.Admin.Controllers
                         item.MobilePosition.Row = field.MobilePosition.Row;
 
                         //Remove Old Items
-                        foreach (DomainClasses.FormField_CheckBoxGroup_Item checkboxItem in item.Items.ToList())
+                        if (item.Items.ToList().Count > 0)
                         {
-                            if (!field.Items.Any(x => x.Id == checkboxItem.Id))
+                            foreach (DomainClasses.FormField_CheckBoxGroup_Item checkboxItem in item.Items.ToList())
                             {
-                                context.FormField_CheckBoxGroup_Items.Remove(
-                                    context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id));
+                                if (field.Items != null && field.Items.Count > 0)
+                                {
+                                    if (!field.Items.Any(x => x.Id == checkboxItem.Id))
+                                    {
+                                        if (checkboxItem.CanDelete)
+                                        {
+                                            context.FormField_CheckBoxGroup_Items.Remove(
+                                                context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id));
+                                        }
+                                        else
+                                        {
+                                            checkboxItem.ShowAdmin = false;
+                                            checkboxItem.ShowCustomer = false;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (checkboxItem.CanDelete)
+                                    {
+                                        context.FormField_CheckBoxGroup_Items.Remove(
+                                            context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id));
+                                    }
+                                    else
+                                    {
+                                        checkboxItem.ShowAdmin = false;
+                                        checkboxItem.ShowCustomer = false;
+                                    }
+                                }
                             }
                         }
 
                         //Add New Items & Edit Old Items
-                        foreach (DomainClasses.FormField_CheckBoxGroup_Item checkboxItem in field.Items.ToList())
+                        if (field.Items.ToList().Count > 0)
                         {
-                            if (!context.FormField_CheckBoxGroup_Items.Any(x => x.Id == checkboxItem.Id))
+                            foreach (DomainClasses.FormField_CheckBoxGroup_Item checkboxItem in field.Items.ToList())
                             {
-                                item.Items.Add(checkboxItem);
-                            }
-                            else
-                            {
-                                DomainClasses.FormField_CheckBoxGroup_Item oldCheckboxItem =
-                                    context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id);
-                                oldCheckboxItem.Title = checkboxItem.Title;
-                                oldCheckboxItem.Order = checkboxItem.Order;
+                                if (!context.FormField_CheckBoxGroup_Items.Any(x => x.Id == checkboxItem.Id))
+                                {
+                                    item.Items.Add(checkboxItem);
+                                }
+                                else
+                                {
+                                    DomainClasses.FormField_CheckBoxGroup_Item oldCheckboxItem =
+                                        context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id);
+                                    oldCheckboxItem.Title = checkboxItem.Title;
+                                    oldCheckboxItem.Order = checkboxItem.Order;
+                                }
                             }
                         }
 
@@ -1401,6 +1601,40 @@ namespace Karenbic.Areas.Admin.Controllers
 
                                 item.PictureHelpFile = field.PictureHelpFile;
                             }
+                        }
+                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                item.PictureHelpFile = string.Empty;
+                            }
+                        }
+                    }
+                }
+
+                //Remove Fields
+                if (removedFields != null && removedFields.Length > 0)
+                {
+                    foreach (int id in removedFields)
+                    {
+                        DomainClasses.FormField field = context.FormFields.Find(id);
+                        if (field.CanDelete)
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile)))
+                            {
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                            }
+                            context.FormFields.Remove(field);
+                        }
+                        else
+                        {
+                            field.ShowAdmin = false;
                         }
                     }
                 }
@@ -1453,6 +1687,8 @@ namespace Karenbic.Areas.Admin.Controllers
                                     showCustomer = item.ShowCustomer,
                                     description = item.Description,
                                     pictureHelpFile = item.PictureHelpFile,
+                                    pictureHelpPath = item.PictureHelpPath,
+                                    hasPictureHelpFile = item.HasPictureHelpFile,
                                     canDelete = item.CanDelete,
                                     defualt = item.Defualt,
                                     isRequired = item.IsRequired,
@@ -1508,6 +1744,8 @@ namespace Karenbic.Areas.Admin.Controllers
                                     showCustomer = item.ShowCustomer,
                                     description = item.Description,
                                     pictureHelpFile = item.PictureHelpFile,
+                                    pictureHelpPath = item.PictureHelpPath,
+                                    hasPictureHelpFile = item.HasPictureHelpFile,
                                     canDelete = item.CanDelete,
                                     isRequired = item.IsRequired,
                                     characterLimits = item.CharacterLimits,
@@ -1563,6 +1801,8 @@ namespace Karenbic.Areas.Admin.Controllers
                                     showCustomer = item.ShowCustomer,
                                     description = item.Description,
                                     pictureHelpFile = item.PictureHelpFile,
+                                    pictureHelpPath = item.PictureHelpPath,
+                                    hasPictureHelpFile = item.HasPictureHelpFile,
                                     isInt = item.IsInt,
                                     isFloat = item.IsFloat,
                                     canDelete = item.CanDelete,
@@ -1619,6 +1859,8 @@ namespace Karenbic.Areas.Admin.Controllers
                                     showCustomer = item.ShowCustomer,
                                     description = item.Description,
                                     pictureHelpFile = item.PictureHelpFile,
+                                    pictureHelpPath = item.PictureHelpPath,
+                                    hasPictureHelpFile = item.HasPictureHelpFile,
                                     canDelete = item.CanDelete,
                                     isRequired = item.IsRequired
                                 },
@@ -1669,6 +1911,8 @@ namespace Karenbic.Areas.Admin.Controllers
                                     showCustomer = item.ShowCustomer,
                                     description = item.Description,
                                     pictureHelpFile = item.PictureHelpFile,
+                                    pictureHelpPath = item.PictureHelpPath,
+                                    hasPictureHelpFile = item.HasPictureHelpFile,
                                     canDelete = item.CanDelete,
                                     isRequired = item.IsRequired,
                                     sizeLimits = item.SizeLimits,
@@ -1727,6 +1971,8 @@ namespace Karenbic.Areas.Admin.Controllers
                                     showCustomer = item.ShowCustomer,
                                     description = item.Description,
                                     pictureHelpFile = item.PictureHelpFile,
+                                    pictureHelpPath = item.PictureHelpPath,
+                                    hasPictureHelpFile = item.HasPictureHelpFile,
                                     canDelete = item.CanDelete,
                                     showInFactor = item.ShowInFactor,
                                     factorOrder = item.FactorOrder
@@ -1777,6 +2023,8 @@ namespace Karenbic.Areas.Admin.Controllers
                                     showCustomer = item.ShowCustomer,
                                     description = item.Description,
                                     pictureHelpFile = item.PictureHelpFile,
+                                    pictureHelpPath = item.PictureHelpPath,
+                                    hasPictureHelpFile = item.HasPictureHelpFile,
                                     canDelete = item.CanDelete,
                                     isRequired = item.IsRequired
                                 },
@@ -1826,6 +2074,8 @@ namespace Karenbic.Areas.Admin.Controllers
                                     showCustomer = item.ShowCustomer,
                                     description = item.Description,
                                     pictureHelpFile = item.PictureHelpFile,
+                                    pictureHelpPath = item.PictureHelpPath,
+                                    hasPictureHelpFile = item.HasPictureHelpFile,
                                     canDelete = item.CanDelete,
                                     isRequired = item.IsRequired,
                                     limits = item.Limits,
@@ -1880,11 +2130,13 @@ namespace Karenbic.Areas.Admin.Controllers
                                     showCustomer = item.ShowCustomer,
                                     description = item.Description,
                                     pictureHelpFile = item.PictureHelpFile,
+                                    pictureHelpPath = item.PictureHelpPath,
+                                    hasPictureHelpFile = item.HasPictureHelpFile,
                                     canDelete = item.CanDelete,
                                     isRequired = item.IsRequired,
                                     showInFactor = item.ShowInFactor,
                                     factorOrder = item.FactorOrder,
-                                    items = item.Items.OrderBy(c => c.Order).Select(c => new
+                                    items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
                                     {
                                         id = c.Id,
                                         title = c.Title
@@ -1936,11 +2188,13 @@ namespace Karenbic.Areas.Admin.Controllers
                                     showCustomer = item.ShowCustomer,
                                     description = item.Description,
                                     pictureHelpFile = item.PictureHelpFile,
+                                    pictureHelpPath = item.PictureHelpPath,
+                                    hasPictureHelpFile = item.HasPictureHelpFile,
                                     canDelete = item.CanDelete,
                                     isRequired = item.IsRequired,
                                     showInFactor = item.ShowInFactor,
                                     factorOrder = item.FactorOrder,
-                                    items = item.Items.OrderBy(c => c.Order).Select(c => new
+                                    items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
                                     {
                                         id = c.Id,
                                         title = c.Title
@@ -1992,10 +2246,12 @@ namespace Karenbic.Areas.Admin.Controllers
                                     showCustomer = item.ShowCustomer,
                                     description = item.Description,
                                     pictureHelpFile = item.PictureHelpFile,
+                                    pictureHelpPath = item.PictureHelpPath,
+                                    hasPictureHelpFile = item.HasPictureHelpFile,
                                     canDelete = item.CanDelete,
                                     showInFactor = item.ShowInFactor,
                                     factorOrder = item.FactorOrder,
-                                    items = item.Items.OrderBy(c => c.Order).Select(c => new
+                                    items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
                                     {
                                         id = c.Id,
                                         title = c.Title
@@ -2056,7 +2312,7 @@ namespace Karenbic.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get(string title, int pageIndex = 1)
+        public ActionResult Get(bool isDesignForm, bool isPrintForm, string title, int pageIndex = 1)
         {
             if (pageIndex <= 0) pageIndex = 1;
             int pageSize = 20;
@@ -2065,6 +2321,8 @@ namespace Karenbic.Areas.Admin.Controllers
             using (DataAccess.Context context = new DataAccess.Context())
             {
                 IQueryable<DomainClasses.Form> query = context.Forms.AsQueryable();
+
+                query = query.Where(x => x.IsDesignForm == isDesignForm);
 
                 if (!string.IsNullOrEmpty(title))
                 {

@@ -14,10 +14,10 @@ namespace Karenbic.DomainClasses
         public bool Limits { get; set; }
 
         [Required]
-        public float Min { get; set; }
+        public int Min { get; set; }
 
         [Required]
-        public float Max { get; set; }
+        public int Max { get; set; }
 
         [Required]
         public bool ShowInFactor { get; set; }

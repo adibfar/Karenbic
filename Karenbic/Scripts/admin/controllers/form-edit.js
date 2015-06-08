@@ -11,57 +11,57 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             {
                 text: "TextBox",
                 value: 0,
-                imageSrc: "http://code.cwwonline.be/media/1011/apple512.png"
+                imageSrc: "/Images/FormField/text-box.png"
             },
             {
                 text: "TextArea",
                 value: 1,
-                imageSrc: "http://code.cwwonline.be/media/1011/apple512.png"
+                imageSrc: "/Images/FormField/text-area.png"
             },
             {
                 text: "Numeric Stepper",
                 value: 2,
-                imageSrc: "http://code.cwwonline.be/media/1011/apple512.png"
+                imageSrc: "/Images/FormField/numeric.png"
             },
             {
                 text: "Color Picker",
                 value: 3,
-                imageSrc: "http://code.cwwonline.be/media/1011/apple512.png"
+                imageSrc: "/Images/FormField/color-picker.png"
             },
             {
                 text: "File Uploader",
                 value: 4,
-                imageSrc: "http://code.cwwonline.be/media/1011/apple512.png"
+                imageSrc: "/Images/FormField/file-uploader.png"
             },
             {
                 text: "Checkbox",
                 value: 5,
-                imageSrc: "http://code.cwwonline.be/media/1011/apple512.png"
+                imageSrc: "/Images/FormField/check-box.png"
             },
             {
                 text: "Web Url",
                 value: 6,
-                imageSrc: "http://code.cwwonline.be/media/1011/apple512.png"
+                imageSrc: "/Images/FormField/web-url.png"
             },
             {
                 text: "Date Picker",
                 value: 7,
-                imageSrc: "http://code.cwwonline.be/media/1011/apple512.png"
+                imageSrc: "/Images/FormField/date-picker.png"
             },
             {
                 text: "Drop Down",
                 value: 8,
-                imageSrc: "http://code.cwwonline.be/media/1011/apple512.png"
+                imageSrc: "/Images/FormField/drop-down.png"
             },
             {
                 text: "Multiple Choice",
                 value: 9,
-                imageSrc: "http://code.cwwonline.be/media/1011/apple512.png"
+                imageSrc: "/Images/FormField/multiple-choice.png"
             },
             {
                 text: "Checkbox Group",
                 value: 10,
-                imageSrc: "http://code.cwwonline.be/media/1011/apple512.png"
+                imageSrc: "/Images/FormField/multiple-choice.png"
             }
         ];
 
@@ -174,7 +174,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             showInFactor: false,
             description: '',
             showCustomer: true,
-            pictureHelpFile: ''
+            pictureHelpFile: '',
+            pictureHelpPath: '',
+            hasPictureHelpFile: false
         };
 
         $scope.$watch(function () {
@@ -203,7 +205,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 maxCharacters: 0,
                 showInFactor: false,
                 description: '',
-                pictureHelpFile: ''
+                pictureHelpFile: '',
+                pictureHelpPath: '',
+                hasPictureHelpFile: false
             };
         };
         /*=-=-=-=-= End New TextBox =-=-=-=-=*/
@@ -219,7 +223,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             description: '',
             height: 120,
             showCustomer: true,
-            pictureHelpFile: ''
+            pictureHelpFile: '',
+            pictureHelpPath: '',
+            hasPictureHelpFile: false
         };
 
         $scope.$watch(function () {
@@ -248,7 +254,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 showInFactor: false,
                 description: '',
                 height: 120,
-                pictureHelpFile: ''
+                pictureHelpFile: '',
+                pictureHelpPath: '',
+                hasPictureHelpFile: false
             };
         };
         /*=-=-=-=-= End New TextArea =-=-=-=-=*/
@@ -265,7 +273,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             showInFactor: false,
             description: '',
             showCustomer: true,
-            pictureHelpFile: ''
+            pictureHelpFile: '',
+            pictureHelpPath: '',
+            hasPictureHelpFile: false
         };
 
         $scope.$watch(function () {
@@ -311,7 +321,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 max: 0,
                 showInFactor: false,
                 description: '',
-                pictureHelpFile: ''
+                pictureHelpFile: '',
+                pictureHelpPath: '',
+                hasPictureHelpFile: false
             };
         };
         /*=-=-=-=-= End New Numeric Stepper =-=-=-=-=*/
@@ -322,7 +334,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             isRequired: true,
             description: '',
             showCustomer: true,
-            pictureHelpFile: ''
+            pictureHelpFile: '',
+            pictureHelpPath: '',
+            hasPictureHelpFile: false
         };
 
         $scope.newField_ColorPicker_Reset = function () {
@@ -330,7 +344,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 title: '',
                 isRequired: true,
                 description: '',
-                pictureHelpFile: ''
+                pictureHelpFile: '',
+                pictureHelpPath: '',
+                hasPictureHelpFile: false
             };
         };
         /*=-=-=-=-= End New Color Picker =-=-=-=-=*/
@@ -345,7 +361,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             maxSize: 0,
             description: '',
             showCustomer: true,
-            pictureHelpFile: ''
+            pictureHelpFile: '',
+            pictureHelpPath: '',
+            hasPictureHelpFile: false
         };
 
         $scope.$watch(function () {
@@ -373,7 +391,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 minSize: 0,
                 maxSize: 0,
                 description: '',
-                pictureHelpFile: ''
+                pictureHelpFile: '',
+                pictureHelpPath: '',
+                hasPictureHelpFile: false
             };
         };
         /*=-=-=-=-= End New File Uploader =-=-=-=-=*/
@@ -384,7 +404,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             showInFactor: false,
             description: '',
             showCustomer: true,
-            pictureHelpFile: ''
+            pictureHelpFile: '',
+            pictureHelpPath: '',
+            hasPictureHelpFile: false
         };
 
         $scope.newField_Checkbox_Reset = function () {
@@ -392,7 +414,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 title: '',
                 showInFactor: false,
                 description: '',
-                pictureHelpFile: ''
+                pictureHelpFile: '',
+                pictureHelpPath: '',
+                hasPictureHelpFile: false
             };
         };
         /*=-=-=-=-= End New Checkbox =-=-=-=-=*/
@@ -403,7 +427,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             isRequired: true,
             description: '',
             showCustomer: true,
-            pictureHelpFile: ''
+            pictureHelpFile: '',
+            pictureHelpPath: '',
+            hasPictureHelpFile: false
         };
 
         $scope.newField_WebUrl_Reset = function () {
@@ -411,7 +437,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 title: '',
                 isRequired: true,
                 description: '',
-                pictureHelpFile: ''
+                pictureHelpFile: '',
+                pictureHelpPath: '',
+                hasPictureHelpFile: false
             };
         };
         /*=-=-=-=-= End New Web Url =-=-=-=-=*/
@@ -426,7 +454,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             showInFactor: false,
             description: '',
             showCustomer: true,
-            pictureHelpFile: ''
+            pictureHelpFile: '',
+            pictureHelpPath: '',
+            hasPictureHelpFile: false
         };
 
         $scope.newField_DatePicker_Reset = function () {
@@ -440,7 +470,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 max: 0,
                 showInFactor: false,
                 description: '',
-                pictureHelpFile: ''
+                pictureHelpFile: '',
+                pictureHelpPath: '',
+                hasPictureHelpFile: false
             };
         };
         /*=-=-=-=-= End New Date Picker =-=-=-=-=*/
@@ -457,7 +489,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             description: '',
             showCustomer: true,
             items: [],
-            pictureHelpFile: ''
+            pictureHelpFile: '',
+            pictureHelpPath: '',
+            hasPictureHelpFile: false
         };
 
         $scope.newField_DropDown_AddItem = function () {
@@ -495,7 +529,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 showInFactor: false,
                 description: '',
                 items: [],
-                pictureHelpFile: ''
+                pictureHelpFile: '',
+                pictureHelpPath: '',
+                hasPictureHelpFile: false
             };
         };
         /*=-=-=-=-= End New Drop Down =-=-=-=-=*/
@@ -512,7 +548,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             description: '',
             showCustomer: true,
             items: [],
-            pictureHelpFile: ''
+            pictureHelpFile: '',
+            pictureHelpPath: '',
+            hasPictureHelpFile: false
         };
 
         $scope.newField_MultipleChoice_AddItem = function () {
@@ -550,7 +588,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 showInFactor: false,
                 description: '',
                 items: [],
-                pictureHelpFile: ''
+                pictureHelpFile: '',
+                pictureHelpPath: '',
+                hasPictureHelpFile: false
             };
         };
         /*=-=-=-=-= End New Multiple Choice =-=-=-=-=*/
@@ -566,7 +606,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             description: '',
             showCustomer: true,
             items: [],
-            pictureHelpFile: ''
+            pictureHelpFile: '',
+            pictureHelpPath: '',
+            hasPictureHelpFile: false
         };
 
         $scope.newField_CheckboxGroup_AddItem = function () {
@@ -604,7 +646,9 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 showInFactor: false,
                 description: '',
                 items: [],
-                pictureHelpFile: ''
+                pictureHelpFile: '',
+                pictureHelpPath: '',
+                hasPictureHelpFile: false
             };
         };
         /*=-=-=-=-= End New Checkbox Group =-=-=-=-=*/
@@ -647,7 +691,11 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
         $scope.addField_step2 = function (pictureHelpFile) {
             switch ($scope.formFieldType.value) {
                 case 0:
-                    $scope.newField_TextBox.pictureHelpFile = pictureHelpFile;
+                    if (pictureHelpFile != '') {
+                        $scope.newField_TextBox.pictureHelpFile = pictureHelpFile;
+                        $scope.newField_TextBox.pictureHelpPath = '/Content/Upload/' + pictureHelpFile;
+                        $scope.newField_TextBox.hasPictureHelpFile = true;
+                    }
 
                     var obj = {
                         isNew: true,
@@ -690,6 +738,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         obj.mobile_position.sizeY = 9;
                     }
 
+                    obj.data.showCustomer = true;
+
                     $scope.form.fields.push(obj);
 
                     $scope.newField_TextBox_Reset();
@@ -697,7 +747,11 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     break;
 
                 case 1:
-                    $scope.newField_TextArea.pictureHelpFile = pictureHelpFile;
+                    if (pictureHelpFile != '') {
+                        $scope.newField_TextArea.pictureHelpFile = pictureHelpFile;
+                        $scope.newField_TextArea.pictureHelpPath = '/Content/Upload/' + pictureHelpFile;
+                        $scope.newField_TextArea.hasPictureHelpFile = true;
+                    }
 
                     var obj = {
                         isNew: true,
@@ -740,6 +794,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         obj.mobile_position.sizeY = 7 + (obj.data.height / 10);
                     }
 
+                    obj.data.showCustomer = true;
+
                     $scope.form.fields.push(obj);
 
                     $scope.newField_TextArea_Reset();
@@ -747,7 +803,11 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     break;
 
                 case 2:
-                    $scope.newField_NumericStepper.pictureHelpFile = pictureHelpFile;
+                    if (pictureHelpFile != '') {
+                        $scope.newField_NumericStepper.pictureHelpFile = pictureHelpFile;
+                        $scope.newField_NumericStepper.pictureHelpPath = '/Content/Upload/' + pictureHelpFile;
+                        $scope.newField_NumericStepper.hasPictureHelpFile = true;
+                    }
 
                     var obj = {
                         isNew: true,
@@ -790,6 +850,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         obj.mobile_position.sizeY = 9;
                     }
 
+                    obj.data.showCustomer = true;
+
                     $scope.form.fields.push(obj);
 
                     $scope.newField_NumericStepper_Reset();
@@ -797,7 +859,11 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     break;
 
                 case 3:
-                    $scope.newField_ColorPicker.pictureHelpFile = pictureHelpFile;
+                    if (pictureHelpFile != '') {
+                        $scope.newField_ColorPicker.pictureHelpFile = pictureHelpFile;
+                        $scope.newField_ColorPicker.pictureHelpPath = '/Content/Upload/' + pictureHelpFile;
+                        $scope.newField_ColorPicker.hasPictureHelpFile = true;
+                    }
 
                     var obj = {
                         isNew: true,
@@ -840,6 +906,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         obj.mobile_position.sizeY = 9;
                     }
 
+                    obj.data.showCustomer = true;
+
                     $scope.form.fields.push(obj);
 
                     $scope.newField_ColorPicker_Reset();
@@ -847,7 +915,11 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     break;
 
                 case 4:
-                    $scope.newField_FileUploader.pictureHelpFile = pictureHelpFile;
+                    if (pictureHelpFile != '') {
+                        $scope.newField_FileUploader.pictureHelpFile = pictureHelpFile;
+                        $scope.newField_FileUploader.pictureHelpPath = '/Content/Upload/' + pictureHelpFile;
+                        $scope.newField_FileUploader.hasPictureHelpFile = true;
+                    }
 
                     var obj = {
                         isNew: true,
@@ -890,6 +962,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         obj.mobile_position.sizeY = 9;
                     }
 
+                    obj.data.showCustomer = true;
+
                     $scope.form.fields.push(obj);
 
                     $scope.newField_FileUploader_Reset();
@@ -897,7 +971,11 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     break;
 
                 case 5:
-                    $scope.newField_Checkbox.pictureHelpFile = pictureHelpFile;
+                    if (pictureHelpFile != '') {
+                        $scope.newField_Checkbox.pictureHelpFile = pictureHelpFile;
+                        $scope.newField_Checkbox.pictureHelpPath = '/Content/Upload/' + pictureHelpFile;
+                        $scope.newField_Checkbox.hasPictureHelpFile = true;
+                    }
 
                     var obj = {
                         isNew: true,
@@ -940,6 +1018,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         obj.mobile_position.sizeY = 9;
                     }
 
+                    obj.data.showCustomer = true;
+
                     $scope.form.fields.push(obj);
 
                     $scope.newField_Checkbox_Reset();
@@ -947,7 +1027,11 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     break;
 
                 case 6:
-                    $scope.newField_WebUrl.pictureHelpFile = pictureHelpFile;
+                    if (pictureHelpFile != '') {
+                        $scope.newField_WebUrl.pictureHelpFile = pictureHelpFile;
+                        $scope.newField_WebUrl.pictureHelpPath = '/Content/Upload/' + pictureHelpFile;
+                        $scope.newField_WebUrl.hasPictureHelpFile = true;
+                    }
 
                     var obj = {
                         isNew: true,
@@ -990,6 +1074,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         obj.mobile_position.sizeY = 9;
                     }
 
+                    obj.data.showCustomer = true;
+
                     $scope.form.fields.push(obj);
 
                     $scope.newField_WebUrl_Reset();
@@ -997,7 +1083,11 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     break;
 
                 case 7:
-                    $scope.newField_DatePicker.pictureHelpFile = pictureHelpFile;
+                    if (pictureHelpFile != '') {
+                        $scope.newField_DatePicker.pictureHelpFile = pictureHelpFile;
+                        $scope.newField_DatePicker.pictureHelpPath = '/Content/Upload/' + pictureHelpFile;
+                        $scope.newField_DatePicker.hasPictureHelpFile = true;
+                    }
 
                     var obj = {
                         isNew: true,
@@ -1040,6 +1130,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         obj.mobile_position.sizeY = 9;
                     }
 
+                    obj.data.showCustomer = true;
+
                     $scope.form.fields.push(obj);
 
                     $scope.newField_DatePicker_Reset();
@@ -1047,7 +1139,11 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     break;
 
                 case 8:
-                    $scope.newField_DropDown.pictureHelpFile = pictureHelpFile;
+                    if (pictureHelpFile != '') {
+                        $scope.newField_DropDown.pictureHelpFile = pictureHelpFile;
+                        $scope.newField_DropDown.pictureHelpPath = '/Content/Upload/' + pictureHelpFile;
+                        $scope.newField_DropDown.hasPictureHelpFile = true;
+                    }
 
                     var data = _.clone($scope.newField_DropDown);
                     data.items = _.clone($scope.newField_DropDown.items);
@@ -1093,12 +1189,18 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         obj.mobile_position.sizeY = 9;
                     }
 
+                    obj.data.showCustomer = true;
+
                     $scope.form.fields.push(obj);
                     $scope.newField_DropDown_Reset();
                     break;
 
                 case 9:
-                    $scope.newField_MultipleChoice.pictureHelpFile = pictureHelpFile;
+                    if (pictureHelpFile != '') {
+                        $scope.newField_MultipleChoice.pictureHelpFile = pictureHelpFile;
+                        $scope.newField_MultipleChoice.pictureHelpPath = '/Content/Upload/' + pictureHelpFile;
+                        $scope.newField_MultipleChoice.hasPictureHelpFile = true;
+                    }
 
                     var data = _.clone($scope.newField_MultipleChoice);
                     data.items = _.clone($scope.newField_MultipleChoice.items);
@@ -1144,6 +1246,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         obj.mobile_position.sizeY = 6 + 3 * obj.data.items.length;
                     }
 
+                    obj.data.showCustomer = true;
+
                     $scope.form.fields.push(obj);
 
                     $scope.newField_MultipleChoice_Reset();
@@ -1151,7 +1255,11 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     break;
 
                 case 10:
-                    $scope.newField_CheckboxGroup.pictureHelpFile = pictureHelpFile;
+                    if (pictureHelpFile != '') {
+                        $scope.newField_CheckboxGroup.pictureHelpFile = pictureHelpFile;
+                        $scope.newField_CheckboxGroup.pictureHelpPath = '/Content/Upload/' + pictureHelpFile;
+                        $scope.newField_CheckboxGroup.hasPictureHelpFile = true;
+                    }
 
                     var data = _.clone($scope.newField_CheckboxGroup);
                     data.items = _.clone($scope.newField_CheckboxGroup.items);
@@ -1196,6 +1304,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         obj.tablet_position.sizeY = 6 + 3 * obj.data.items.length;
                         obj.mobile_position.sizeY = 6 + 3 * obj.data.items.length;
                     }
+
+                    obj.data.showCustomer = true;
 
                     $scope.form.fields.push(obj);
 
@@ -1250,7 +1360,6 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 $scope.field.fileTypes = [];
                 
                 for (i = 0; i < fileTypes.length; i++) {
-                    console.log(fileTypes[1].Id);
                     $scope.field.fileTypes.push(_.find($scope.fileFormats, function (item) {
                         return item.Id == fileTypes[i].Id
                     }));
@@ -1271,6 +1380,15 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 }
 
                 $scope.PictureHelpFile = $file;
+            };
+
+            $scope.removePictureHelpFile = function () {
+                $scope.PictureHelpFile = null;
+                $('#pictureHelpFileInput').val('');
+                $('#pictureHelpFileInput').closest('.form-group').find('input[type=text]').val('');
+                field.pictureHelpFile = '';
+                field.pictureHelpPath = '';
+                field.hasPictureHelpFile = false;
             };
 
             $scope.addItem = function () {
@@ -1314,6 +1432,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         file: $scope.PictureHelpFile
                     }).success(function (data, status, headers, config) {
                         field.pictureHelpFile = data;
+                        field.pictureHelpPath = '/Content/Upload/' + data;
+                        field.hasPictureHelpFile = true;
                         $scope.editFieldLoading = false;
                         $modalInstance.close(field);
                     }).error(function (data, status, headers, config) {
@@ -1477,7 +1597,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 radioButtonGroups: $scope.getFields(9, false),
                 radioButtonGroups_new: $scope.getFields(9, true),
                 checkBoxGroups: $scope.getFields(10, false),
-                checkBoxGroups_new: $scope.getFields(10, true)
+                checkBoxGroups_new: $scope.getFields(10, true),
+                removedFields: $scope.removedFields
             }).
             success(function (data, status, headers, config) {
                 $scope.addLoading = false;
@@ -1510,7 +1631,6 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             });
 
             var fields = _.map(filters, function (item) {
-                console.log(item.isNew);
                 var obj = {};
 
                 //Desktop Position
@@ -1717,14 +1837,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
         };
 
         $scope.resetForm = function () {
-            $scope.newForm = {
-                title: '',
-                link: '',
-                specialCreativity: false,
-                isShow: true,
-                description: ''
-            };
-
-            $scope.newFields = [];
+            $scope.fetchForm();
+            $scope.removedFields = [];
         };
     }]);

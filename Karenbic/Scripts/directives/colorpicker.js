@@ -17,6 +17,7 @@ App.directive('colorpicker', function () {
 
             $(element).colorpicker().on('changeColor.colorpicker', function (event) {
                 scope.ngModel = event.color.toHex();
+                scope.$apply();
             });
         }
     };

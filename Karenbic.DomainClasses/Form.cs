@@ -18,6 +18,22 @@ namespace Karenbic.DomainClasses
         public int Id{ get; set; }
 
         [Required]
+        public bool IsDesignForm { get; set; }
+
+        [NotMapped]
+        public bool IsPrintForm
+        {
+            get
+            {
+                return !IsDesignForm;
+            }
+            set
+            {
+                IsDesignForm = !value;
+            }
+        }
+
+        [Required]
         public string Title{ get; set; }
 
         [Required]
@@ -34,5 +50,7 @@ namespace Karenbic.DomainClasses
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 
         public virtual ICollection<FormField> Fields { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

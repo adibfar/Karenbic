@@ -9,6 +9,10 @@ namespace Karenbic.DataAccess
             HasRequired(x => x.DropDown)
                 .WithMany(x => x.Items)
                 .WillCascadeOnDelete(true);
+
+            HasMany(x => x.Orders_Value)
+                .WithOptional(x => x.Value)
+                .WillCascadeOnDelete(false);
         }
     }
 }

@@ -57,6 +57,7 @@ namespace Karenbic
                 "~/Scripts/directives/classy-loader.js",
                 "~/Scripts/directives/clear-storage.js",
                 "~/Scripts/directives/colorpicker.js",
+                "~/Scripts/directives/datepicker.js",
                 "~/Scripts/directives/ddlist-select.js",
                 "~/Scripts/directives/load-css.js",
                 "~/Scripts/directives/nicefileinput.js",
@@ -64,6 +65,7 @@ namespace Karenbic
                 "~/Scripts/directives/stepper.js",
                 "~/Scripts/directives/scrollbar.js",
                 "~/Scripts/directives/stopEvent.js",
+                "~/Scripts/directives/tooltipster.js",
                 //Controllers
                 "~/Scripts/admin/controllers/main.js",
                 "~/Scripts/admin/controllers/top-menu.js",
@@ -89,6 +91,7 @@ namespace Karenbic
                 "~/Scripts/directives/classy-loader.js",
                 "~/Scripts/directives/clear-storage.js",
                 "~/Scripts/directives/colorpicker.js",
+                "~/Scripts/directives/datepicker.js",
                 "~/Scripts/directives/ddlist-select.js",
                 "~/Scripts/directives/load-css.js",
                 "~/Scripts/directives/nicefileinput.js",
@@ -96,10 +99,12 @@ namespace Karenbic
                 "~/Scripts/directives/stepper.js",
                 "~/Scripts/directives/scrollbar.js",
                 "~/Scripts/directives/stopEvent.js",
+                "~/Scripts/directives/tooltipster.js",
                 //Controllers
                 "~/Scripts/customer/controllers/main.js",
                 "~/Scripts/customer/controllers/top-menu.js",
-                "~/Scripts/customer/controllers/mobile-menu.js"
+                "~/Scripts/customer/controllers/mobile-menu.js",
+                "~/Scripts/customer/controllers/order-add.js"
             ));
 
             bundles.Add(new StyleBundle("~/Styles/AdminStyle").Include(

@@ -58,6 +58,11 @@
     <Compile Include="FormField_RadioButtonGroupConfiguration.cs" />
     <Compile Include="FormField_RadioButtonGroup_ItemConfiguration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="OrderConfiguration.cs" />
+    <Compile Include="Order_ValueConfiguration.cs" />
+    <Compile Include="Order_Value_CheckboxGroupConfiguration.cs" />
+    <Compile Include="Order_Value_DropDownConfiguration.cs" />
+    <Compile Include="Order_Value_RadioButtonGroupConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

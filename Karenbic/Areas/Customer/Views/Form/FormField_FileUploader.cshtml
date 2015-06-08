@@ -1,0 +1,36 @@
+﻿<div class="container-fluid" ng-if="item.type == 4">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group"
+                 style="margin-bottom:1px;"
+                 ng-class="{'ng-invalid': fromSumbited == true && validateForm_FileUploader(item) == false}">
+                <label class="control-label"
+                       ng-if="item.data.hasPictureHelpFile == false">
+                    {{item.data.title + ':'}}
+                    <span class="text-danger" ng-if="item.data.isRequired">*</span>
+                </label>
+                <label class="control-label"
+                       ng-if="item.data.hasPictureHelpFile == true"
+                       style="cursor:pointer;"
+                       tooltipster="" tooltipster-title="<img src='{{item.data.pictureHelpPath}}' />">
+                    {{item.data.title + ':'}}
+                    <span class="text-danger" ng-if="item.data.isRequired">*</span>
+                </label>
+                <input type="file"
+                       nicefileinput=""
+                       ng-file-select="onFileSelect(item, $files)" />
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+             ng-if="item.data.description != null && item.data.description != ''">
+            <div class="form-group">
+                <span class="fa fa-info-circle text-info"></span>
+                <pre class="control-label text-muted">{{item.data.description}}</pre>
+            </div>
+        </div>
+    </div>
+    <div style="background-color:#f6f6f6;height:29px;position:absolute;top:23px;right:13px;left:13px;opacity:0.4;"
+         ng-if="item.uploading">
+        <img src="~/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
+    </div>
+</div>

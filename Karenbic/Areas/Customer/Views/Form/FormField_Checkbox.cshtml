@@ -1,0 +1,30 @@
+﻿<div class="container-fluid" ng-if="item.type == 5">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group"
+                 style="margin-top:25px;margin-bottom:-8px;">
+                <div class="checkbox c-checkbox">
+                    <label ng-if="item.data.hasPictureHelpFile == false">
+                        <input type="checkbox" ng-value="true" ng-model="item.value">
+                        <span></span>
+                        {{item.data.title}}
+                    </label>
+                    <label ng-if="item.data.hasPictureHelpFile == true"
+                           style="cursor:pointer;"
+                           tooltipster="" tooltipster-title="<img src='{{item.data.pictureHelpPath}}' />">
+                        <input type="checkbox" ng-value="true" ng-model="item.value">
+                        <span></span>
+                        {{item.data.title}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+             ng-if="item.data.description != null && item.data.description != ''">
+            <div class="form-group">
+                <span class="fa fa-info-circle text-info"></span>
+                <pre class="control-label text-muted">{{item.data.description}}</pre>
+            </div>
+        </div>
+    </div>
+</div>

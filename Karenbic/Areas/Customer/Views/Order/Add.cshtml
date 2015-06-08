@@ -1,0 +1,219 @@
+﻿<style type="text/css">
+    .whirl.shadow::after  {
+        z-index:13;
+    }
+    .whirl.shadow::before  {
+        z-index:13;
+    }
+
+    .icon-action-undo {
+        color: #5e5e5e;
+        cursor: pointer;
+        text-decoration: none;
+
+        -moz-transition: background-color 300ms ease-out;
+        -webkit-transition: background-color 300ms ease-out;
+        -o-transition: background-color 300ms ease-out;
+        transition: background-color 300ms ease-out;
+    }
+        .icon-action-undo:hover{
+            color: #FF7200;
+            text-decoration: none;
+
+            -moz-transition: background-color 300ms ease-in;
+            -webkit-transition: background-color 300ms ease-in;
+            -o-transition: background-color 300ms ease-in;
+            transition: background-color 300ms ease-in;
+        }
+
+    .forms-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-align: right;
+    }
+        .forms-list li {
+            display: inline-block;
+            margin: 0;
+            padding: 0 5px 5px 5px;
+            width: 33%;
+
+            -moz-transition: background-color 300ms ease-out;
+            -webkit-transition: background-color 300ms ease-out;
+            -o-transition: background-color 300ms ease-out;
+            transition: background-color 300ms ease-out;
+        }
+            .forms-list li a {
+                background-color: #b5b5b5;
+                color: #fff;
+                cursor: pointer;
+                display: block;
+                padding: 5px;
+                text-align: center;
+                text-decoration: none;
+
+                -moz-transition: background-color 300ms ease-out;
+                -webkit-transition: background-color 300ms ease-out;
+                -o-transition: background-color 300ms ease-out;
+                transition: background-color 300ms ease-out;
+            }
+             .forms-list li a:hover,
+             .forms-list li a.active {
+                background-color: #FF7200;
+
+                -moz-transition: background-color 300ms ease-in;
+                -webkit-transition: background-color 300ms ease-in;
+                -o-transition: background-color 300ms ease-in;
+                transition: background-color 300ms ease-in;
+            }
+
+    .gridster-item {
+        z-index: auto;
+    }
+        .gridster-item pre {
+            background-color: transparent;
+            border: none;
+            color: #afafaf;
+            display: inline;
+            font-family: Tahoma;
+            font-size: 12px;
+            font-weight: normal;
+            margin: 0 3px 0 0;
+            padding: 0;
+            white-space: pre-wrap;
+            -moz-border-radius: 0;
+            -webkit-border-radius: 0;
+            border-radius: 0;
+        }
+
+        .gridster-item .fa-info-circle {
+            color: #088dcc;
+            font-size: 18px;
+            position: relative;
+            top: 2px;
+        }
+
+    .mobile-view .gridster-item .container-fluid{
+        padding: 0;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default"
+             ng-class="{'whirl': addLoading || fetchFormsLoading || fetchFieldsLoading, 'shadow': addLoading || fetchFormsLoading || fetchFieldsLoading}">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <a class="icon-action-undo fa-2x"
+                       ng-click="unSelectForm()"
+                       ng-if="form.id != null"></a>
+                </div>
+                <div class="panel-title">
+                    <i></i>
+                    ثبت سفارش جدید
+                    <span ng-if="selectedForm != null">({{selectedForm.Title}})</span>
+                </div>
+            </div>
+            <div class="panel-body" style="min-height:600px;">
+                <ul class="forms-list">
+                    <li ng-repeat="item in forms"
+                        style="display:none;">
+                        <a ng-class="{'active': item.isActive}"
+                           ng-click="selectForm($event, item)">{{item.Title}}</a>
+                    </li>
+                </ul>
+                <form class="form-validate"
+                      ng-class="{'from-sumbited' : fromSumbited}"
+                      ng-if="form.id  != null">
+                    <div class="visible-lg visible-md"
+                         gridster="gridsterOpts_desktop">
+                        <ul>
+                            <li gridster-item=""
+                                size-x="item.desktop_position.sizeX"
+                                size-y="item.desktop_position.sizeY"
+                                row="item.desktop_position.row"
+                                col="item.desktop_position.col"
+                                ng-repeat="item in form.fields">
+                                @Html.Partial("../Form/FormField_TextBox")
+                                @Html.Partial("../Form/FormField_TextArea")
+                                @Html.Partial("../Form/FormField_NumericStepper")
+                                @Html.Partial("../Form/FormField_ColorPicker")
+                                @Html.Partial("../Form/FormField_FileUploader")
+                                @Html.Partial("../Form/FormField_Checkbox")
+                                @Html.Partial("../Form/FormField_WebUrl")
+                                @Html.Partial("../Form/FormField_DatePicker")
+                                @Html.Partial("../Form/FormField_DropDown")
+                                @Html.Partial("../Form/FormField_MultipleChoice")
+                                @Html.Partial("../Form/FormField_CheckboxGroup")
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="visible-sm" gridster="gridsterOpts_tablet">
+                        <ul>
+                            <li gridster-item=""
+                                size-x="item.tablet_position.sizeX"
+                                size-y="item.tablet_position.sizeY"
+                                row="item.tablet_position.row"
+                                col="item.tablet_position.col"
+                                ng-repeat="item in form.fields">
+                                @Html.Partial("../Form/FormField_TextBox")
+                                @Html.Partial("../Form/FormField_TextArea")
+                                @Html.Partial("../Form/FormField_NumericStepper")
+                                @Html.Partial("../Form/FormField_ColorPicker")
+                                @Html.Partial("../Form/FormField_FileUploader")
+                                @Html.Partial("../Form/FormField_Checkbox")
+                                @Html.Partial("../Form/FormField_WebUrl")
+                                @Html.Partial("../Form/FormField_DatePicker")
+                                @Html.Partial("../Form/FormField_DropDown")
+                                @Html.Partial("../Form/FormField_MultipleChoice")
+                                @Html.Partial("../Form/FormField_CheckboxGroup")
+                                <div class="gridster-item-overlay"></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mobile-view visible-xs" gridster="gridsterOpts_mobile">
+                        <ul>
+                            <li gridster-item=""
+                                size-x="item.mobile_position.sizeX"
+                                size-y="item.mobile_position.sizeY"
+                                row="item.mobile_position.row"
+                                col="item.mobile_position.col"
+                                ng-repeat="item in form.fields">
+                                @Html.Partial("../Form/FormField_TextBox")
+                                @Html.Partial("../Form/FormField_TextArea")
+                                @Html.Partial("../Form/FormField_NumericStepper")
+                                @Html.Partial("../Form/FormField_ColorPicker")
+                                @Html.Partial("../Form/FormField_FileUploader")
+                                @Html.Partial("../Form/FormField_Checkbox")
+                                @Html.Partial("../Form/FormField_WebUrl")
+                                @Html.Partial("../Form/FormField_DatePicker")
+                                @Html.Partial("../Form/FormField_DropDown")
+                                @Html.Partial("../Form/FormField_MultipleChoice")
+                                @Html.Partial("../Form/FormField_CheckboxGroup")
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-footer"
+                 style="border-top:1px solid #b5b5b5;"
+                 ng-if="form.id  != null">
+                <div class="clearfix">
+                    <div class="pull-right">
+                        <button class="btn btn-labeled btn-success" type="button"
+                                ng-click="send()">
+                            <span class="btn-label btn-label-right">
+                                <i class="fa fa-check"></i>
+                            </span>
+                            ثبت
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

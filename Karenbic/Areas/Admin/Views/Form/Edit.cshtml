@@ -1,6 +1,10 @@
 ﻿<style type="text/css">
     .whirl.shadow::after  {
         animation: none;
+        z-index:13;
+    }
+    .whirl.shadow::before  {
+        z-index:13;
     }
 
     .panel-form-details {
@@ -55,49 +59,66 @@
         position: relative;
         top: -2px;
     }
+    .table .btn-img-info-1 {
+        margin-left: 2px;
+        position: relative;
+        top: -2px;
+    }
 
     .sketch-sheets-ipad {
         background: url('/Images/SketchSheets/iPad.png') no-repeat 0 0;
         margin: 20px auto;
-        height: 1146px;
+        min-height: 1146px;
         padding: 105px 51px;
         width: 800px;
     }
     .sketch-sheets-iphone {
         background: url('/Images/SketchSheets/iPhone.png') no-repeat 0 0;
         margin: 20px auto;
-        height: 754px;
+        min-height: 754px;
         padding: 99px 27px;
         width: 360px;
     }
 
     .gridster-item {
         border: 1px solid #9f9f9f;
-        padding: 5px;
         overflow: hidden;
     }
         .gridster-item .gridster-item-overlay {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            bottom: 10px;
-            left: 10px;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
             z-index: 10;
         }
         .gridster-item pre {
             background-color: transparent;
             border: none;
-            color: #737373;
+            color: #afafaf;
+            display: inline;
             font-family: Tahoma;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: normal;
-            margin: 0;
+            margin: 0 3px 0 0;
             padding: 0;
             white-space: pre-wrap;
+
             -moz-border-radius: 0;
             -webkit-border-radius: 0;
             border-radius: 0;
         }
+
+        .gridster-item .fa-info-circle {
+            color: #088dcc;
+            font-size: 18px;
+            position: relative;
+            top: 2px;
+        }
+
+    .gridster-item-resizable-handler {
+        z-index: 11;
+    }
 
     .no-resize .gridster-item-resizable-handler {
         display: none;
@@ -145,7 +166,8 @@
                                        ng-model="form.title" required="" />
                             </div>
                             <div class="form-group">
-                                <div class="checkbox c-checkbox checkbox-inline">
+                                <div class="checkbox c-checkbox checkbox-inline"
+                                     style="margin-top:10px;padding-right:0;">
                                     <label>
                                         <input type="checkbox" ng-model="form.isShow">
                                         <span></span>نمایش به کاربران
@@ -164,7 +186,7 @@
                             <div class="form-group">
                                 <label class="control-label">توضیحات:</label>
                                 <textarea class="form-control"
-                                          style="height:96px;resize:none;overflow:hidden;"
+                                          style="height:86px;resize:none;overflow:hidden;"
                                           ng-model="form.description"></textarea>
                             </div>
                         </div>
@@ -227,6 +249,14 @@
                                         </span>
                                         ثبت
                                     </button>
+                                    <button class="btn btn-labeled btn-danger"
+                                            ng-if="PictureHelpFile != null"
+                                            ng-click="PictureHelpFile_Reset()">
+                                        <span class=" btn-label btn-label-right">
+                                            <i class="fa fa-times"></i>
+                                        </span>
+                                        حذف راهنما
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -251,18 +281,70 @@
                                 <tr>
                                     <th style="width:40px;">&nbsp;</th>
                                     <th style="width:200px;">عنوان</th>
-                                    <th style="width:80px;">نوع فیلد</th>
-                                    <th>توضیحات</th>
-                                    <th style="width:80px;">&nbsp;</th>
+                                    <th style="width:150px;">نوع فیلد</th>
+                                    <th class="visible-lg visible-md">توضیحات</th>
+                                    <th style="width:105px;">&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="item in form.fields">
                                     <td>{{$index + 1}}</td>
                                     <td>{{item.data.title}}</td>
-                                    <td>{{item.type}}</td>
-                                    <td>{{item.data.description}}</td>
+                                    <td>
+                                        <img src="/Images/FormField/text-box.png"
+                                             style="display:inline-block;height:25px;margin-left:2px;width:25px;"
+                                             ng-if="item.type == 0" />
+                                        <img src="/Images/FormField/text-area.png"
+                                             style="display:inline-block;height:25px;margin-left:2px;width:25px;"
+                                             ng-if="item.type == 1" />
+                                        <img src="/Images/FormField/numeric.png"
+                                             style="display:inline-block;height:25px;margin-left:2px;width:25px;"
+                                             ng-if="item.type == 2" />
+                                        <img src="/Images/FormField/color-picker.png"
+                                             style="display:inline-block;height:25px;margin-left:2px;width:25px;"
+                                             ng-if="item.type == 3" />
+                                        <img src="/Images/FormField/file-uploader.png"
+                                             style="display:inline-block;height:25px;margin-left:2px;width:25px;"
+                                             ng-if="item.type == 4" />
+                                        <img src="/Images/FormField/check-box.png"
+                                             style="display:inline-block;height:25px;margin-left:2px;width:25px;"
+                                             ng-if="item.type == 5" />
+                                        <img src="/Images/FormField/web-url.png"
+                                             style="display:inline-block;height:25px;margin-left:2px;width:25px;"
+                                             ng-if="item.type == 6" />
+                                        <img src="/Images/FormField/date-picker.png"
+                                             style="display:inline-block;height:25px;margin-left:2px;width:25px;"
+                                             ng-if="item.type == 7" />
+                                        <img src="/Images/FormField/drop-down.png"
+                                             style="display:inline-block;height:25px;margin-left:2px;width:25px;"
+                                             ng-if="item.type == 8" />
+                                        <img src="/Images/FormField/multiple-choice.png"
+                                             style="display:inline-block;height:25px;margin-left:2px;width:25px;"
+                                             ng-if="item.type == 9" />
+                                        <img src="/Images/FormField/multiple-choice.png"
+                                             style="display:inline-block;height:25px;margin-left:2px;width:25px;"
+                                             ng-if="item.type == 10" />
+
+                                        <span style="font-family:Calibri;" ng-if="item.type == 0">TextBox</span>
+                                        <span style="font-family:Calibri;" ng-if="item.type == 1">TextArea</span>
+                                        <span style="font-family:Calibri;" ng-if="item.type == 2">Numeric Stepper</span>
+                                        <span style="font-family:Calibri;" ng-if="item.type == 3">Color Picker</span>
+                                        <span style="font-family:Calibri;" ng-if="item.type == 4">File Uploader</span>
+                                        <span style="font-family:Calibri;" ng-if="item.type == 5">Checkbox</span>
+                                        <span style="font-family:Calibri;" ng-if="item.type == 6">Web Url</span>
+                                        <span style="font-family:Calibri;" ng-if="item.type == 7">Date Picker</span>
+                                        <span style="font-family:Calibri;" ng-if="item.type == 8">Drop Down</span>
+                                        <span style="font-family:Calibri;" ng-if="item.type == 9">Multiple Choice</span>
+                                        <span style="font-family:Calibri;" ng-if="item.type == 10">Checkbox Group</span>
+                                    </td>
+                                    <td class="visible-lg visible-md">
+                                        <span ng-if="item.data.description.length <= 70">{{item.data.description}}</span>
+                                        <span ng-if="item.data.description.length > 70">{{item.data.description.substr(0, 70) + ' ...'}}</span>
+                                    </td>
                                     <td style="text-align:left;">
+                                        <button class="btn-img-info-1" type="button" 
+                                                ng-if="item.data.hasPictureHelpFile == true"
+                                                tooltipster="" tooltipster-title="<img src='{{item.data.pictureHelpPath}}' />"></button>
                                         <button class="btn-img-delete-1" type="button" 
                                                 ng-click="removeField($index)"></button>
                                         <button class="btn-img-show-1" type="button"
@@ -292,18 +374,18 @@
                                     size-y="item.desktop_position.sizeY"
                                     row="item.desktop_position.row"
                                     col="item.desktop_position.col"
-                                    ng-repeat="item in form.fields">
-                                    @Html.Partial("DesktopPosition_TextBox")
-                                    @Html.Partial("DesktopPosition_TextArea")
-                                    @Html.Partial("DesktopPosition_NumericStepper")
-                                    @Html.Partial("DesktopPosition_ColorPicker")
-                                    @Html.Partial("DesktopPosition_FileUploader")
-                                    @Html.Partial("DesktopPosition_Checkbox")
-                                    @Html.Partial("DesktopPosition_WebUrl")
-                                    @Html.Partial("DesktopPosition_DatePicker")
-                                    @Html.Partial("DesktopPosition_DropDown")
-                                    @Html.Partial("DesktopPosition_MultipleChoice")
-                                    @Html.Partial("DesktopPosition_CheckboxGroup")
+                                    ng-repeat="item in form.fields  | filter : {data:{showCustomer:true}}">
+                                    @Html.Partial("FormField_TextBox")
+                                    @Html.Partial("FormField_TextArea")
+                                    @Html.Partial("FormField_NumericStepper")
+                                    @Html.Partial("FormField_ColorPicker")
+                                    @Html.Partial("FormField_FileUploader")
+                                    @Html.Partial("FormField_Checkbox")
+                                    @Html.Partial("FormField_WebUrl")
+                                    @Html.Partial("FormField_DatePicker")
+                                    @Html.Partial("FormField_DropDown")
+                                    @Html.Partial("FormField_MultipleChoice")
+                                    @Html.Partial("FormField_CheckboxGroup")
                                     <div class="gridster-item-overlay"></div>
                                 </li>
                             </ul>
@@ -323,18 +405,18 @@
                                     size-y="item.tablet_position.sizeY"
                                     row="item.tablet_position.row"
                                     col="item.tablet_position.col"
-                                    ng-repeat="item in form.fields">
-                                    @Html.Partial("TabletPosition_TextBox")
-                                    @Html.Partial("TabletPosition_TextArea")
-                                    @Html.Partial("TabletPosition_NumericStepper")
-                                    @Html.Partial("TabletPosition_ColorPicker")
-                                    @Html.Partial("TabletPosition_FileUploader")
-                                    @Html.Partial("TabletPosition_Checkbox")
-                                    @Html.Partial("TabletPosition_WebUrl")
-                                    @Html.Partial("TabletPosition_DatePicker")
-                                    @Html.Partial("TabletPosition_DropDown")
-                                    @Html.Partial("TabletPosition_MultipleChoice")
-                                    @Html.Partial("TabletPosition_CheckboxGroup")
+                                    ng-repeat="item in form.fields  | filter : {data:{showCustomer:true}}">
+                                    @Html.Partial("FormField_TextBox")
+                                    @Html.Partial("FormField_TextArea")
+                                    @Html.Partial("FormField_NumericStepper")
+                                    @Html.Partial("FormField_ColorPicker")
+                                    @Html.Partial("FormField_FileUploader")
+                                    @Html.Partial("FormField_Checkbox")
+                                    @Html.Partial("FormField_WebUrl")
+                                    @Html.Partial("FormField_DatePicker")
+                                    @Html.Partial("FormField_DropDown")
+                                    @Html.Partial("FormField_MultipleChoice")
+                                    @Html.Partial("FormField_CheckboxGroup")
                                     <div class="gridster-item-overlay"></div>
                                 </li>
                             </ul>
@@ -355,18 +437,18 @@
                                     size-y="item.mobile_position.sizeY"
                                     row="item.mobile_position.row"
                                     col="item.mobile_position.col"
-                                    ng-repeat="item in form.fields">
-                                    @Html.Partial("MobilePosition_TextBox")
-                                    @Html.Partial("MobilePosition_TextArea")
-                                    @Html.Partial("MobilePosition_NumericStepper")
-                                    @Html.Partial("MobilePosition_ColorPicker")
-                                    @Html.Partial("MobilePosition_FileUploader")
-                                    @Html.Partial("MobilePosition_Checkbox")
-                                    @Html.Partial("MobilePosition_WebUrl")
-                                    @Html.Partial("MobilePosition_DatePicker")
-                                    @Html.Partial("MobilePosition_DropDown")
-                                    @Html.Partial("MobilePosition_MultipleChoice")
-                                    @Html.Partial("MobilePosition_CheckboxGroup")
+                                    ng-repeat="item in form.fields  | filter : {data:{showCustomer:true}}">
+                                    @Html.Partial("FormField_TextBox")
+                                    @Html.Partial("FormField_TextArea")
+                                    @Html.Partial("FormField_NumericStepper")
+                                    @Html.Partial("FormField_ColorPicker")
+                                    @Html.Partial("FormField_FileUploader")
+                                    @Html.Partial("FormField_Checkbox")
+                                    @Html.Partial("FormField_WebUrl")
+                                    @Html.Partial("FormField_DatePicker")
+                                    @Html.Partial("FormField_DropDown")
+                                    @Html.Partial("FormField_MultipleChoice")
+                                    @Html.Partial("FormField_CheckboxGroup")
                                     <div class="gridster-item-overlay"></div>
                                 </li>
                             </ul>
@@ -387,7 +469,7 @@
                                     size-y="item.factor_position.sizeY"
                                     row="item.factor_position.row"
                                     col="item.factor_position.col"
-                                    ng-repeat="item in getFactorItems()">
+                                    ng-repeat="item in getFactorItems()  | filter : {data:{showCustomer:true}}">
                                     <h5 style="font-family:yekan;font-size:18px;margin:10px;text-align:center;">{{item.data.title}}</h5>
                                     <div class="gridster-item-overlay"></div>
                                 </li>
@@ -458,6 +540,15 @@
                         <i class="fa fa-pencil"></i>
                     </span>
                     ثبت
+                </button>
+                <button class="btn btn-labeled btn-danger"
+                        ng-if="field.hasPictureHelpFile == true || PictureHelpFile != null"
+                        ng-click="removePictureHelpFile()"
+                        ng-disabled="editFieldLoading">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    حذف راهنما
                 </button>
             </div>
         </div>

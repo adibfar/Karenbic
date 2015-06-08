@@ -21,6 +21,10 @@ namespace Karenbic.DataAccess
             HasRequired(x => x.Form)
                 .WithMany(x => x.Fields)
                 .WillCascadeOnDelete(true);
+
+            HasMany(x => x.Orders_Value)
+                .WithRequired(x => x.Field)
+                .WillCascadeOnDelete(false);
         }
     }
 }

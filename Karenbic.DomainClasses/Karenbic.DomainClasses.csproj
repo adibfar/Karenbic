@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesignOrder.cs" />
     <Compile Include="FileFormat.cs" />
     <Compile Include="Form.cs" />
     <Compile Include="FormField.cs" />
@@ -66,6 +67,20 @@
     <Compile Include="FormField_TextBox.cs" />
     <Compile Include="FormField_WebUrl.cs" />
     <Compile Include="FormField_Numeric.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="Order_Value.cs" />
+    <Compile Include="Order_Value_Checkbox.cs" />
+    <Compile Include="Order_Value_CheckboxGroup.cs" />
+    <Compile Include="Order_Value_ColorPicker.cs" />
+    <Compile Include="Order_Value_DatePicker.cs" />
+    <Compile Include="Order_Value_DropDown.cs" />
+    <Compile Include="Order_Value_FileUploader.cs" />
+    <Compile Include="Order_Value_Numeric.cs" />
+    <Compile Include="Order_Value_RadioButtonGroup.cs" />
+    <Compile Include="Order_Value_TextArea.cs" />
+    <Compile Include="Order_Value_TextBox.cs" />
+    <Compile Include="Order_Value_WebUrl.cs" />
+    <Compile Include="PrintOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

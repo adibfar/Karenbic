@@ -11,6 +11,11 @@ namespace Karenbic.DataAccess
 
         }
 
+        public DbSet<DomainClasses.Province> Province { get; set; }
+        public DbSet<DomainClasses.City> Cities { get; set; }
+
+        public DbSet<DomainClasses.Customer> Customers { get; set; }
+
         public DbSet<DomainClasses.FileFormat> FileFormats { get; set; }
 
         public DbSet<DomainClasses.Form> Forms { get; set; }
@@ -48,6 +53,11 @@ namespace Karenbic.DataAccess
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new ProvinceConfiguration());
+            modelBuilder.Configurations.Add(new CityConfiguration());
+
+            modelBuilder.Configurations.Add(new CustomerConfiguration());
+
             modelBuilder.Configurations.Add(new FormConfiguration());
             modelBuilder.Configurations.Add(new FormFieldConfiguration());
             modelBuilder.Configurations.Add(new FormField_FileUploaderConfiguration());
@@ -60,6 +70,7 @@ namespace Karenbic.DataAccess
             modelBuilder.Configurations.Add(new FormField_CheckBoxGroup_ItemConfiguration());
 
             modelBuilder.Configurations.Add(new OrderConfiguration());
+            modelBuilder.Configurations.Add(new DesignOrderConfiguration());
             modelBuilder.Configurations.Add(new Order_ValueConfiguration());
             modelBuilder.Configurations.Add(new Order_Value_DropDownConfiguration());
             modelBuilder.Configurations.Add(new Order_Value_RadioButtonGroupConfiguration());

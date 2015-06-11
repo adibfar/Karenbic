@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="City.cs" />
+    <Compile Include="Customer.cs" />
     <Compile Include="DesignOrder.cs" />
     <Compile Include="FileFormat.cs" />
     <Compile Include="Form.cs" />
@@ -67,6 +69,7 @@
     <Compile Include="FormField_TextBox.cs" />
     <Compile Include="FormField_WebUrl.cs" />
     <Compile Include="FormField_Numeric.cs" />
+    <Compile Include="Gender.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Order_Value.cs" />
     <Compile Include="Order_Value_Checkbox.cs" />
@@ -82,10 +85,17 @@
     <Compile Include="Order_Value_WebUrl.cs" />
     <Compile Include="PrintOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Province.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Karenbic.Api\Karenbic.Api.csproj">
+      <Project>{98958d15-d31c-4e38-9383-345a3bfef0bd}</Project>
+      <Name>Karenbic.Api</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

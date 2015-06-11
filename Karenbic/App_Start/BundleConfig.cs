@@ -62,17 +62,24 @@ namespace Karenbic
                 "~/Scripts/directives/load-css.js",
                 "~/Scripts/directives/nicefileinput.js",
                 "~/Scripts/directives/now.js",
+                "~/Scripts/directives/only-digits.js",
                 "~/Scripts/directives/stepper.js",
                 "~/Scripts/directives/scrollbar.js",
                 "~/Scripts/directives/stopEvent.js",
                 "~/Scripts/directives/tooltipster.js",
+                //Filters
+                "~/Scripts/filters/riyal-currency.js",
                 //Controllers
                 "~/Scripts/admin/controllers/main.js",
                 "~/Scripts/admin/controllers/top-menu.js",
                 "~/Scripts/admin/controllers/mobile-menu.js",
                 "~/Scripts/admin/controllers/form-add.js",
                 "~/Scripts/admin/controllers/form-edit.js",
-                "~/Scripts/admin/controllers/form-list.js"
+                "~/Scripts/admin/controllers/form-list.js",
+                "~/Scripts/admin/controllers/design-new-order-list.js",
+                "~/Scripts/admin/controllers/design-canceled-order-list.js",
+                "~/Scripts/admin/controllers/print-new-order-list.js",
+                "~/Scripts/admin/controllers/print-canceled-order-list.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Scripts/customer/app").Include(
@@ -96,10 +103,13 @@ namespace Karenbic
                 "~/Scripts/directives/load-css.js",
                 "~/Scripts/directives/nicefileinput.js",
                 "~/Scripts/directives/now.js",
+                "~/Scripts/directives/only-digits.js",
                 "~/Scripts/directives/stepper.js",
                 "~/Scripts/directives/scrollbar.js",
                 "~/Scripts/directives/stopEvent.js",
                 "~/Scripts/directives/tooltipster.js",
+                //Filters
+                "~/Scripts/filters/riyal-currency.js",
                 //Controllers
                 "~/Scripts/customer/controllers/main.js",
                 "~/Scripts/customer/controllers/top-menu.js",

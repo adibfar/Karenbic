@@ -60,7 +60,7 @@ App
                     templateUrl: helper.basepath('Order/Add'),
                     controller: 'AddOrderController',
                     resolve: helper.resolveFor('chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster',
-                        'colorpicker', 'jquery-ui-datepicker', 'persian-date')
+                        'colorpicker', 'jquery-ui', 'jquery-ui-datepicker', 'persian-date')
                 });
 
     }]).config(['$ocLazyLoadProvider', 'APP_REQUIRES',

@@ -48,11 +48,15 @@ namespace Karenbic.Areas.Customer.Controllers
                     isDesignOrder = true;
                     designOrder.Form = form;
                     designOrder.RegisterDate = DateTime.Now;
+                    designOrder.Customer = context.Customers.Find(1);
+                    //designOrder.Customer = context.Customers.Single(x => x.Username == User.Identity.Name);
                 }
                 else
                 {
                     printOrder.Form = form;
                     printOrder.RegisterDate = DateTime.Now;
+                    printOrder.Customer = context.Customers.Find(1);
+                    //printOrder.Customer = context.Customers.Single(x => x.Username == User.Identity.Name);
                 }
 
                 //TextBox
@@ -196,6 +200,22 @@ namespace Karenbic.Areas.Customer.Controllers
                                 item.Order = printOrder;
                             }
                             item.Field = field;
+
+                            //Change File Directory
+                            if (!string.IsNullOrEmpty(fileUploader.Value))
+                            {
+                                if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/Upload"), fileUploader.Value)))
+                                {
+                                    System.IO.File.Move(
+                                        string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), fileUploader.Value),
+                                        string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Order"), fileUploader.Value));
+
+                                    System.IO.File.Delete(string.Format("{0}/{1}",
+                                        HostingEnvironment.MapPath("/Content/Upload"), fileUploader.Value));
+                                }
+                            }
+                            
                             item.FileName = fileUploader.Value;
                             context.Order_Values_FileUploader.Add(item);
                         }

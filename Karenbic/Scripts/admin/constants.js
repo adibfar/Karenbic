@@ -17,7 +17,7 @@ App
                 submenu: [
                   {
                       text: "سفارشات جدید",
-                      sref: "app.dashboard"
+                      sref: "app.design.new-order-list"
                   },
                   {
                       text: "سفارشات در دست اقدام",
@@ -26,6 +26,10 @@ App
                   {
                       text: "سفارشات انجام شده",
                       sref: "app.design.dashboard"
+                  },
+                  {
+                      text: "سفارشات لغو شده",
+                      sref: "app.design.canceled-order-list"
                   }
                 ]
             },
@@ -87,27 +91,51 @@ App
             }
         ],
         menuItems_print: [
-        {
-            text: "مدیریت فرم ها",
-            sref: "#",
-            icon: "form",
-            submenu: [
-              {
-                  text: "ثبت فرم جدید",
-                  sref: "app.print.add-form"
-              },
-              {
-                  text: "فرم های ثبت شده",
-                  sref: "app.print.forms-list"
-              }
-            ],
-            activedmenu: [
-                {
-                    text: "ویرایش فرم",
-                    sref: "app.print.edit-form"
-                }
-            ]
-        }]
+            {
+                text: "سفارشات",
+                sref: "#",
+                icon: "show-order",
+                submenu: [
+                  {
+                      text: "سفارشات جدید",
+                      sref: "app.print.new-order-list"
+                  },
+                  {
+                      text: "ثبت وضعیت سفارشات",
+                      sref: "app.print.ongoing-order-list"
+                  },
+                  {
+                      text: "سفارشات انجام شده",
+                      sref: "app.print.dashboard"
+                  },
+                  {
+                      text: "سفارشات لغو شده",
+                      sref: "app.print.canceled-order-list"
+                  }
+                ]
+            },
+            {
+                text: "مدیریت فرم ها",
+                sref: "#",
+                icon: "form",
+                submenu: [
+                  {
+                      text: "ثبت فرم جدید",
+                      sref: "app.print.add-form"
+                  },
+                  {
+                      text: "فرم های ثبت شده",
+                      sref: "app.print.forms-list"
+                  }
+                ],
+                activedmenu: [
+                    {
+                        text: "ویرایش فرم",
+                        sref: "app.print.edit-form"
+                    }
+                ]
+            }
+        ]
     })
     .constant('APP_COLORS', {
         'primary': '#5d9cec',

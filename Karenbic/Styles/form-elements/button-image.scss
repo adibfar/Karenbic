@@ -10,6 +10,33 @@
 	background-position: 0px -23px;
 }
 
+.btn-img-cancel-1 {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: none;
+	background: transparent url(/Images/UI/Button/btn-cancel-1.png) no-repeat 0 0;
+	cursor: pointer;
+}
+.btn-img-cancel-1:hover, .btn-img-cancel-1:focus {
+	background-position: 0px -22px;
+}
+
+.btn-img-confirm-1 {
+	display: inline-block;
+	width: 21px;
+	height: 21px;
+	border: none;
+	background: transparent url(/Images/UI/Button/btn-confirm-1.png) no-repeat 0 0;
+	cursor: pointer;
+}
+.btn-img-confirm-1:hover, .btn-img-confirm-1:focus {
+	background-position: 0px -22px;
+}
+.btn-img-confirm-1.active {
+	background-position: 0px -44px;
+}
+
 .btn-img-down-1 {
 	display: inline-block;
 	width: 19px;

@@ -55,6 +55,18 @@ App
                     controller: 'FormsListController',
                     resolve: helper.resolveFor('ngDialog')
                 })
+                .state('app.design.new-order-list', {
+                    url: '/new-order-list',
+                    templateUrl: helper.basepath('DesignOrder/NewOrderList'),
+                    controller: 'NewDesignOrderListController',
+                    resolve: helper.resolveFor('ngDialog', 'jquery-ui', 'jquery-ui-datepicker')
+                })
+                .state('app.design.canceled-order-list', {
+                    url: '/canceled-order-list',
+                    templateUrl: helper.basepath('DesignOrder/CanceledOrderList'),
+                    controller: 'CanceledDesignOrderListController',
+                    resolve: helper.resolveFor('ngDialog', 'jquery-ui', 'jquery-ui-datepicker')
+                })
                 .state('app.print', {
                     url: '/print',
                     abstract: true,
@@ -83,6 +95,24 @@ App
                     templateUrl: helper.basepath('Form/List'),
                     controller: 'FormsListController',
                     resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.print.new-order-list', {
+                    url: '/new-order-list',
+                    templateUrl: helper.basepath('PrintOrder/NewOrderList'),
+                    controller: 'NewPrintOrderListController',
+                    resolve: helper.resolveFor('ngDialog', 'jquery-ui', 'jquery-ui-datepicker')
+                })
+                .state('app.print.ongoing-order-list', {
+                    url: '/ongoing-order-list',
+                    templateUrl: helper.basepath('PrintOrder/OngoingOrderList'),
+                    controller: 'NewPrintOrderListController',
+                    resolve: helper.resolveFor('ngDialog', 'jquery-ui', 'jquery-ui-datepicker')
+                })
+                .state('app.print.canceled-order-list', {
+                    url: '/canceled-order-list',
+                    templateUrl: helper.basepath('PrintOrder/CanceledOrderList'),
+                    controller: 'CanceledPrintOrderListController',
+                    resolve: helper.resolveFor('ngDialog', 'jquery-ui', 'jquery-ui-datepicker')
                 });
 
     }]).config(['$ocLazyLoadProvider', 'APP_REQUIRES',

@@ -174,9 +174,12 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\DesignAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DesignOrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\FormController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrintAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PrintOrderController.cs" />
     <Compile Include="Areas\Customer\Controllers\DesignOrderController.cs" />
     <Compile Include="Areas\Customer\Controllers\DesignPortalController.cs" />
     <Compile Include="Areas\Customer\Controllers\FormController.cs" />
@@ -248,6 +251,8 @@
     <Content Include="Images\SketchSheets\iPad.png" />
     <Content Include="Images\SketchSheets\iPhone.png" />
     <Content Include="Images\UI\Button\btn-add-1.png" />
+    <Content Include="Images\UI\Button\btn-cancel-1.png" />
+    <Content Include="Images\UI\Button\btn-confirm-1.png" />
     <Content Include="Images\UI\Button\btn-hide-1.png" />
     <Content Include="Images\UI\Button\btn-search-1.png" />
     <Content Include="Images\UI\Button\btn-search-2.png" />
@@ -265,11 +270,15 @@
     <Content Include="Scripts\admin\app.init.js" />
     <Content Include="Scripts\admin\config.js" />
     <Content Include="Scripts\admin\constants.js" />
+    <Content Include="Scripts\admin\controllers\design-canceled-order-list.js" />
+    <Content Include="Scripts\admin\controllers\design-new-order-list.js" />
     <Content Include="Scripts\admin\controllers\form-add.js" />
     <Content Include="Scripts\admin\controllers\form-edit.js" />
     <Content Include="Scripts\admin\controllers\form-list.js" />
     <Content Include="Scripts\admin\controllers\main.js" />
     <Content Include="Scripts\admin\controllers\mobile-menu.js" />
+    <Content Include="Scripts\admin\controllers\print-canceled-order-list.js" />
+    <Content Include="Scripts\admin\controllers\print-new-order-list.js" />
     <Content Include="Scripts\admin\controllers\top-menu.js" />
     <Content Include="Scripts\customer\app.init.js" />
     <Content Include="Scripts\customer\config.js" />
@@ -289,10 +298,12 @@
     <Content Include="Scripts\directives\load-css.js" />
     <Content Include="Scripts\directives\nicefileinput.js" />
     <Content Include="Scripts\directives\now.js" />
+    <Content Include="Scripts\directives\only-digits.js" />
     <Content Include="Scripts\directives\scrollbar.js" />
     <Content Include="Scripts\directives\stepper.js" />
     <Content Include="Scripts\directives\stopEvent.js" />
     <Content Include="Scripts\directives\tooltipster.js" />
+    <Content Include="Scripts\filters\riyal-currency.js" />
     <Content Include="Scripts\services\browser.js" />
     <Content Include="Scripts\services\colors.js" />
     <Content Include="Areas\Admin\Views\Form\Add.cshtml" />
@@ -367,6 +378,11 @@
     <Content Include="Areas\Admin\Views\Form\FormField_WebUrl.cshtml" />
     <Content Include="Styles\portal-them\pink\top-navbar.scss" />
     <Content Include="Styles\portal-them\blue\top-navbar.scss" />
+    <Content Include="Areas\Admin\Views\PrintOrder\NewOrderList.cshtml" />
+    <Content Include="Areas\Admin\Views\PrintOrder\CanceledOrderList.cshtml" />
+    <Content Include="Areas\Admin\Views\DesignOrder\NewOrderList.cshtml" />
+    <Content Include="Areas\Admin\Views\DesignOrder\CanceledOrderList.cshtml" />
+    <Content Include="Areas\Admin\Views\PrintOrder\OngoingOrderList.cshtml" />
     <None Include="Styles\portal\loading-bar.scss" />
     <Content Include="Scripts\services\route-helpers.js" />
     <Content Include="Styles\Icons\fonts\HeaderIcon.svg" />
@@ -2792,6 +2808,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Order\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Customer\Views\DesignOrder\" />
     <Folder Include="Areas\Customer\Views\Shared\" />

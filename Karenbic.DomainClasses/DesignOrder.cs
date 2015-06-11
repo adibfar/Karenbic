@@ -8,5 +8,12 @@ namespace Karenbic.DomainClasses
     [Table("tbl_DesignOrder")]
     public class DesignOrder : Order
     {
+        public DesignOrder()
+        {
+            Prepayment = 0;
+        }
+
+        [Required]
+        public decimal Prepayment { get; set; }
     }
 }

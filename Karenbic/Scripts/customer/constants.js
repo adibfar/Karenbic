@@ -22,8 +22,32 @@ App
             },
             {
                 text: "صورت حساب",
-                sref: "app.design.dashboard",
-                icon: "billing"
+                sref: "#",
+                icon: "billing",
+                submenu: [
+                    {
+                        text: "صورت حساب خدمات طراحی",
+                        sref: "app.design.factor-list"
+                    },
+                    {
+                        text: "فاکتور های صادر شده",
+                        sref: "app.design.factor-list1"
+                    }
+                ],
+                activedmenu: [
+                     {
+                         text: "یش نمایش فاکتور",
+                         sref: "app.design.payment-preview"
+                     },
+                    {
+                        text: "فاکتور پرداخت شده",
+                        sref: "app.design.checkout-payment"
+                    },
+                    {
+                        text: "خطا در پرداخت",
+                        sref: "app.design.error-payment"
+                    }
+                ]
             },
             {
                 text: "پیگیری سفارش",
@@ -47,20 +71,44 @@ App
             }
         ],
         menuItems_print: [
-             {
-                 text: "پیش از سفارش",
-                 sref: "app.print.dashboard1",
-                 icon: "pre-order"
-             },
-             {
-                 text: "ثبت سفارش جدید",
-                 sref: "app.print.add-order",
-                 icon: "order"
-             },
+            {
+                text: "پیش از سفارش",
+                sref: "app.print.dashboard1",
+                icon: "pre-order"
+            },
+            {
+                text: "ثبت سفارش جدید",
+                sref: "app.print.add-order",
+                icon: "order"
+            },
             {
                 text: "صورت حساب",
-                sref: "app.print.dashboard2",
-                icon: "billing"
+                sref: "#",
+                icon: "billing",
+                submenu: [
+                    {
+                        text: "صورت حساب خدمات چاپ",
+                        sref: "app.print.factor-list"
+                    },
+                    {
+                        text: "فاکتور های صادر شده",
+                        sref: "app.print.factor-list1"
+                    }
+                ],
+                activedmenu: [
+                    {
+                        text: "یش نمایش فاکتور",
+                        sref: "app.print.payment-preview"
+                    },
+                    {
+                        text: "فاکتور پرداخت شده",
+                        sref: "app.print.checkout-payment"
+                    },
+                    {
+                        text: "خطا در پرداخت",
+                        sref: "app.print.error-payment"
+                    }
+                ]
             },
             {
                 text: "نمایش سفارشات",

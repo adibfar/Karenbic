@@ -114,7 +114,14 @@ namespace Karenbic
                 "~/Scripts/customer/controllers/main.js",
                 "~/Scripts/customer/controllers/top-menu.js",
                 "~/Scripts/customer/controllers/mobile-menu.js",
-                "~/Scripts/customer/controllers/order-add.js"
+                "~/Scripts/customer/controllers/order-add.js",
+                "~/Scripts/customer/controllers/design-factor-list.js",
+                "~/Scripts/customer/controllers/design-payment-preview.js",
+                "~/Scripts/customer/controllers/design-payment-checkout.js",
+                "~/Scripts/customer/controllers/print-factor-list.js",
+                "~/Scripts/customer/controllers/print-payment-preview.js",
+                "~/Scripts/customer/controllers/print-payment-checkout.js",
+                "~/Scripts/customer/controllers/error-payment.js"
             ));
 
             bundles.Add(new StyleBundle("~/Styles/AdminStyle").Include(

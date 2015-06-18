@@ -96,7 +96,6 @@ namespace Karenbic.Areas.Admin.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-
         [HttpGet]
         public ActionResult OngoingOrderList()
         {
@@ -276,12 +275,29 @@ namespace Karenbic.Areas.Admin.Controllers
 
             using (DataAccess.Context context = new DataAccess.Context())
             {
-                DomainClasses.PrintOrder order = context.PrintOrders.Find(orderId);
+                DomainClasses.PrintOrder order = context.PrintOrders
+                    .Include(x => x.Factor)
+                    .Single(x => x.Id == orderId);
+
                 if (order.IsCanceled == false && price > 0)
                 {
                     order.IsConfirm = true;
                     order.ConfirmDate = DateTime.Now;
                     order.Price = price;
+
+                    if (order.Factor != null)
+                    {
+                        order.Factor.Price = price;
+                        order.Factor.RegisterDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        order.Factor = new DomainClasses.PrintFactor();
+                        order.Factor.Price = price;
+                        order.Factor.RegisterDate = DateTime.Now;
+                        order.Factor.Order = order;
+                    }
+
                     context.SaveChanges();
                     result = true;
                 }

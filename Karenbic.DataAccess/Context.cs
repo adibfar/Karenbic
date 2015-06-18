@@ -51,6 +51,17 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.Order_Value_RadioButtonGroup> Order_Values_RadioButtonGroup { get; set; }
         public DbSet<DomainClasses.Order_Value_CheckboxGroup> Order_Values_CheckboxGroup { get; set; }
 
+
+        public DbSet<DomainClasses.PrintFactor> PrintFactors { get; set; }
+        public DbSet<DomainClasses.PrepaymentDesignFactor> PrepaymentDesignFactors { get; set; }
+        public DbSet<DomainClasses.FinalDesignFactor> FinalDesignFactors { get; set; }
+        public DbSet<DomainClasses.Payment> Payments { get; set; }
+        public DbSet<DomainClasses.PrintPayment> PrintPayments { get; set; }
+        public DbSet<DomainClasses.PrintPaymentItem> PrintPaymentItems { get; set; }
+        public DbSet<DomainClasses.DesignPayment> DesignPayments { get; set; }
+        public DbSet<DomainClasses.PrepaymentDesignPaymentItem> PrepaymentDesignPaymentItems { get; set; }
+        public DbSet<DomainClasses.FinalDesignPaymentItem> FinalDesignPaymentItems { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ProvinceConfiguration());
@@ -70,11 +81,22 @@ namespace Karenbic.DataAccess
             modelBuilder.Configurations.Add(new FormField_CheckBoxGroup_ItemConfiguration());
 
             modelBuilder.Configurations.Add(new OrderConfiguration());
+            modelBuilder.Configurations.Add(new PrintOrderConfiguration());
             modelBuilder.Configurations.Add(new DesignOrderConfiguration());
             modelBuilder.Configurations.Add(new Order_ValueConfiguration());
             modelBuilder.Configurations.Add(new Order_Value_DropDownConfiguration());
             modelBuilder.Configurations.Add(new Order_Value_RadioButtonGroupConfiguration());
             modelBuilder.Configurations.Add(new Order_Value_CheckboxGroupConfiguration());
+
+            modelBuilder.Configurations.Add(new PrintFactorConfiguration());
+            modelBuilder.Configurations.Add(new PrepaymentDesignFactorConfiguration());
+            modelBuilder.Configurations.Add(new FinalDesignFactorConfiguration());
+            modelBuilder.Configurations.Add(new PaymentConfiguration());
+            modelBuilder.Configurations.Add(new PrintPaymentConfiguration());
+            modelBuilder.Configurations.Add(new PrintPaymentItemConfiguration());
+            modelBuilder.Configurations.Add(new DesignPaymentConfiguration());
+            modelBuilder.Configurations.Add(new PrepaymentDesignPaymentItemConfiguration());
+            modelBuilder.Configurations.Add(new FinalDesignPaymentItemConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

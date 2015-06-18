@@ -44,6 +44,28 @@ App
                     resolve: helper.resolveFor('chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster',
                         'colorpicker', 'jquery-ui', 'jquery-ui-datepicker', 'persian-date')
                 })
+                .state('app.design.factor-list', {
+                    url: '/factor-list',
+                    templateUrl: helper.basepath('FactorOfDesignOrder/List'),
+                    controller: 'FactorListOfDesignController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker', 'persian-date', 'ngDialog')
+                })
+                .state('app.design.payment-preview', {
+                    url: '/payment-preview/:id',
+                    templateUrl: helper.basepath('DesignPayment/Preview'),
+                    controller: 'DesignPaymentPreviewController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.design.checkout-payment', {
+                    url: '/checkout-payment/:id',
+                    templateUrl: helper.basepath('DesignPayment/Checkout'),
+                    controller: 'DesignPaymentCheckoutController'
+                })
+                .state('app.design.error-payment', {
+                    url: '/error-payment/:code',
+                    templateUrl: helper.basepath('Payment/Error'),
+                    controller: 'ErrorPaymentController'
+                })
                 .state('app.print', {
                     url: '/print',
                     abstract: true,
@@ -61,6 +83,28 @@ App
                     controller: 'AddOrderController',
                     resolve: helper.resolveFor('chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster',
                         'colorpicker', 'jquery-ui', 'jquery-ui-datepicker', 'persian-date')
+                })
+                .state('app.print.factor-list', {
+                    url: '/factor-list',
+                    templateUrl: helper.basepath('FactorOfPrintOrder/List'),
+                    controller: 'FactorListOfPrintController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker', 'persian-date', 'ngDialog')
+                })
+                .state('app.print.payment-preview', {
+                    url: '/payment-preview/:id',
+                    templateUrl: helper.basepath('PrintPayment/Preview'),
+                    controller: 'PrintPaymentPreviewController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.print.checkout-payment', {
+                    url: '/checkout-payment/:id',
+                    templateUrl: helper.basepath('PrintPayment/Checkout'),
+                    controller: 'PrintPaymentCheckoutController'
+                })
+                .state('app.print.error-payment', {
+                    url: '/error-payment/:code',
+                    templateUrl: helper.basepath('Payment/Error'),
+                    controller: 'ErrorPaymentController'
                 });
 
     }]).config(['$ocLazyLoadProvider', 'APP_REQUIRES',

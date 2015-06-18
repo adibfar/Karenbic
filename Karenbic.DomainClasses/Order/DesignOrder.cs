@@ -11,9 +11,23 @@ namespace Karenbic.DomainClasses
         public DesignOrder()
         {
             Prepayment = 0;
+            IsPaidPrepayment = false;
+            IsPaidFinal = false;
         }
 
         [Required]
         public decimal Prepayment { get; set; }
+
+        [Required]
+        public bool IsPaidPrepayment { get; set; }
+
+        [Required]
+        public bool IsPaidFinal { get; set; }
+
+        /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
+
+        public virtual PrepaymentDesignFactor PrepaymentFactor { get; set; }
+
+        public virtual FinalDesignFactor FinalFactor { get; set; }
     }
 }

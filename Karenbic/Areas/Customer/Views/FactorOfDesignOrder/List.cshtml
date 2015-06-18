@@ -1,0 +1,412 @@
+﻿<style type="text/css">
+    .whirl.shadow::after {
+        z-index: 13;
+    }
+    .whirl.shadow::before {
+        z-index: 13;
+    }
+
+    .dgvcn {
+        background-color: #f9f9f9;
+        border: 1px solid #6c6c6c;
+        margin-top: 20px;
+        min-height: 671px !important;
+    }
+        .dgvcn .table td {
+            vertical-align: middle;
+        }
+
+        .dgvcn .btn-img-credit-1 {
+            position: relative;
+            top: -2px;
+        }
+        .dgvcn .btn-img-info-1 {
+            margin-left: 2px;
+            margin-right: 3px;
+            position: relative;
+            top: -2px;
+        }
+
+    .pre {
+        background-color: transparent;
+        border: none;
+        color: #5e5e5e;
+        display: inline;
+        font-family: BNazanin;
+        font-size: 15.5px;
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        white-space: pre-wrap;
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+        border-radius: 0;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default"
+             ng-class="{'whirl': fetchLoading, 'shadow': fetchLoading}">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i></i>
+                    صورت حساب خدمات طراحی
+                </div>
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <div class="checkbox c-checkbox checkbox-inline"
+                                     style="margin-top:10px;padding-right:0;">
+                                    <label>
+                                        <input type="checkbox" ng-model="searchFields.isPaid">
+                                        <span></span>پرداخت شده
+                                    </label>
+                                </div>
+                                <div class="checkbox c-checkbox checkbox-inline"
+                                     style="margin-top:10px;">
+                                    <label>
+                                        <input type="checkbox" ng-model="searchFields.isNotPaid">
+                                        <span></span>پرداخت نشده
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label">تاریخ سفارش:</label>
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control ltr"
+                                                   ng-model="searchFields.startDate" jquery-datepicker="" />
+                                            <span class="input-group-addon icon-calendar"><i></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"
+                                         style="padding-left:0;padding-right:0;text-align:center;">
+                                        <label class="control-label" style="text-align:center;">الی</label>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control ltr"
+                                                   ng-model="searchFields.endDate" jquery-datepicker="" />
+                                            <span class="input-group-addon icon-calendar"><i></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <div class="hidden-xs" style="height:18px;margin-bottom:5px;"></div>
+                                <button class="btn-img-search-2" ng-click="search()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <hr class="hr1" />
+
+                <div class="table-responsive dgvcn">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="min-width:40px;width:40px;">&nbsp;</th>
+                                <th style="min-width:60px;width:60px;">شماره</th>
+                                <th style="min-width:80px;width:80px;">تاریخ</th>
+                                <th style="min-width:200px;">شرح سفارش</th>
+                                <th style="min-width:100px;width:100px;">مبلغ کل (ریال)</th>
+                                <th style="min-width:190px;width:190px;" colspan="3">مبلغ پیش پرداخت (ریال)</th>
+                                <th style="min-width:190px;width:190px;" colspan="3">مانده حساب (ریال)</th>
+                                <th style="min-width:60px;width:60px;">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in factors">
+                                <td><span style="margin-right:4px;">{{((pageIndex - 1) * 20) + $index + 1}}</span></td>
+                                <td>{{item.Code}}</td>
+                                <td style="direction:ltr;text-align:right;">{{item.PersianRegisterDate}}</td>
+                                <td>{{item.Form.Title}}</td>
+                                <td>{{item.Price | riyal}}</td>
+                                <td style="min-width:30px;width:30px;border-right:1px solid #D6D6D6;">
+                                    <div class="checkbox c-checkbox checkbox-inline"
+                                         style="margin-top:2px;padding-right:5px;"
+                                         ng-if="item.PrepaymentFactor.IsPaid == false">
+                                        <label>
+                                            <input type="checkbox" ng-value="true" ng-model="item.PrepaymentFactor.IsChecked">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>{{item.PrepaymentFactor.Price | riyal}}</td>
+                                <td>
+                                    <span class="text-danger" ng-if="item.PrepaymentFactor.IsPaid == false">پرداخت نشده</span>
+                                    <span class="text-success" ng-if="item.PrepaymentFactor.IsPaid == true">پرداخت شده</span>
+                                </td>
+                                <td style="min-width:30px;width:30px;border-right:1px solid #D6D6D6;">
+                                    <div class="checkbox c-checkbox checkbox-inline"
+                                         style="margin-top:2px;padding-right:5px;"
+                                         ng-if="item.FinalFactor.IsPaid == false">
+                                        <label>
+                                            <input type="checkbox" ng-value="true"
+                                                   ng-model="item.FinalFactor.IsChecked">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span>{{item.FinalFactor.Price | riyal}}</span>
+                                </td>
+                                <td>
+                                    <span class="text-danger" ng-if="item.FinalFactor.IsPaid == false">پرداخت نشده</span>
+                                    <span class="text-success" ng-if="item.FinalFactor.IsPaid == true">پرداخت شده</span>
+                                </td>
+                                <td style="text-align:left;">
+                                    <button class="btn-img-credit-1" type="button"
+                                            ng-click="paymentPreview($index)"
+                                            ng-if="item.PrepaymentFactor.IsPaid == false || item.FinalFactor.IsPaid == false"></button>
+                                    <button class="btn-img-info-1" type="button"
+                                            ng-click="showDetails($index)"></button>                                
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"></div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+                        <ul class="pagination pagination-sm" ng-show=" pageCount > 1">
+                            <li ng-class="{'disabled': pageIndex == 1}">
+                                <span ng-click="prevPage()">
+                                    <img src="/Images/UI/Pagination/btn-next-1.png" />
+                                </span>
+                            </li>
+                            <li ng-repeat="page in pages" ng-class="{'active': page == pageIndex}">
+                                <a ng-click="changePage($index)">{{page}}</a>
+                            </li>
+                            <li ng-class="{'disabled': pageIndex >= pageCount}">
+                                <span ng-click="nextPage()">
+                                    <img src="/Images/UI/Pagination/btn-back-1.png" />
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button class="btn btn-labeled btn-warning" type="button"
+                                        ng-click="paymentPreview_group()"
+                                        ng-class="{'disabled': anyFactorSelected() == false}"
+                                        ng-disabled="anyFactorSelected() == false">
+                                    <span class="btn-label btn-label-right">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    صدور فاکتور
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Start Factor Details Modal -->
+<script type="text/ng-template" id="/ShowDetailsContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            نمایش صورت حساب
+        </div>
+    </div>
+    <div class="modal-body" ng-class="{'whirl': fetchLoading , 'shadow': fetchLoading }">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>شرح سفارش :</span>
+                    &nbsp;
+                    <span class="text-muted">{{factor.Form.Title}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>شماره سفارش :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{factor.Code}}</span>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>تاریخ سفارش :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="direction:ltr;font-family:BNazanin;font-size:16px;">{{factor.Time + ' - ' + factor.PersianRegisterDate}}</span>
+                </div>
+            </div>
+        </div>
+
+        <hr class="hr1" />
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="table-responsive"
+                     style="min-height:300px;">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr ng-repeat="item in values | orderBy : 'Order' : reverse ">
+                                <td style="min-width:45px;width:45px;">
+                                    <span style="margin-right:4px;">{{$index + 1}}</span>
+                                </td>
+                                <td style="min-width:200px;width:200px;">{{item.Name}}</td>
+                                <td style="min-width:300px;" ng-if="item.Type == 0 || item.Type == 2 || item.Type == 8 || item.Type == 9">{{item.Value}}</td>
+                                <td style="min-width:300px;" ng-if="item.Type == 1"><pre class="pre">{{item.Value}}</pre></td>
+                                <td style="min-width:300px;" ng-if="item.Type == 3">
+                                    <span style="font-family:Tahoma;font-size:13px;">{{item.Value}} </span>
+                                    <i style="display:inline-block;height:16px;width:16px;margin-right:2px;position:relative;top:4px;background-color:{{item.Value}};"></i>
+                                </td>
+                                <td style="min-width:300px;" ng-if="item.Type == 4">
+                                    <a href="{{item.FilePath}}" target="_blank">{{item.Name}}</a>
+                                </td>
+                                <td style="min-width:300px;" ng-if="item.Type == 5">
+                                    <span ng-if="item.Value == true">دارد</span>
+                                    <span ng-if="item.Value == false">ندارد</span>
+                                </td>
+                                <td style="min-width:300px;" ng-if="item.Type == 6">
+                                    <a href="{{item.Value}}" target="_blank"
+                                       style="font-family:Tahoma;font-size:13px;">{{item.Value}}</a>
+                                </td>
+                                <td ng-if="item.Type == 7">
+                                    <span style="font-family:BNazanin;font-size:16px;">{{item.Value}}</span>
+                                </td>
+                                <td ng-if="item.Type == 10">
+                                    <div ng-repeat="value in item.Values">{{($index + 1) + '- ' + value}}</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End Factor Details Modal -->
+
+<!-- Start Payment Details Modal -->
+<script type="text/ng-template" id="/ShowPaymentDetailsContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            نمایش فاکتور
+        </div>
+    </div>
+    <div class="modal-body" ng-class="{'whirl': fetchLoading, 'shadow': fetchLoading}">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>شماره فاکتور :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{payment.Code}}</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>تاریخ پرداخت :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{payment.PersianRegisterDate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>شماره تراکنش :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{payment.RefId}}</span>
+                </div>
+            </div>
+        </div>
+
+        <hr class="hr1" />
+
+        <div style="position:relative;">
+            <div class="table-responsive"
+                 style="min-height:200px;margin-bottom:50px;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="min-width:30px;width:30px;">&nbsp;</th>
+                            <th style="min-width:100px;width:100px;">شماره </th>
+                            <th style="min-width:150px;width:150px;">تاریخ و ساعت</th>
+                            <th style="min-width:200px;">شرح سفارش</th>
+                            <th style="min-width:100px;width:100px;">مبلغ (ریال)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in factors">
+                            <td><span style="margin-right:4px;">{{$index + 1}}</span></td>
+                            <td>{{item.Code}}</td>
+                            <td style="direction:ltr;text-align:right;">{{item.PersianRegisterDate + ' - ' + item.Time}}</td>
+                            <td>{{item.Form.Title}}</td>
+                            <td>{{item.Price | riyal}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="total-price"
+                 style="font-family:BNAZANB;font-size:19px;bottom:-40px;height:41px;left:0;padding:6px 8px;position:absolute;width:248px;"
+                 ng-if="totalPrice() > 0">
+                <span>جمع کل :</span>
+                &nbsp;&nbsp;
+                <span style="float:left;">
+                    {{totalPrice() | riyal}}
+                    &nbsp;
+                    ریال
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End Payment Details Modal -->
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

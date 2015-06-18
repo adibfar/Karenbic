@@ -46,28 +46,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CityConfiguration.cs" />
+    <Compile Include="Customer\CityConfiguration.cs" />
     <Compile Include="Context.cs" />
-    <Compile Include="CustomerConfiguration.cs" />
-    <Compile Include="DesignOrderConfiguration.cs" />
-    <Compile Include="FileFormatConfiguration.cs" />
-    <Compile Include="FormConfiguration.cs" />
-    <Compile Include="FormFieldConfiguration.cs" />
-    <Compile Include="FormField_CheckBoxGroupConfiguration.cs" />
-    <Compile Include="FormField_CheckBoxGroup_ItemConfiguration.cs" />
-    <Compile Include="FormField_DropDownConfiguration.cs" />
-    <Compile Include="FormField_DropDown_ItemConfiguration.cs" />
-    <Compile Include="FormField_FileUploaderConfiguration.cs" />
-    <Compile Include="FormField_RadioButtonGroupConfiguration.cs" />
-    <Compile Include="FormField_RadioButtonGroup_ItemConfiguration.cs" />
+    <Compile Include="Customer\CustomerConfiguration.cs" />
+    <Compile Include="Factor\DesignPaymentConfiguration.cs" />
+    <Compile Include="Factor\FinalDesignFactorConfiguration.cs" />
+    <Compile Include="Factor\FinalDesignPaymentItemConfiguration.cs" />
+    <Compile Include="Factor\PrepaymentDesignFactorConfiguration.cs" />
+    <Compile Include="Factor\PrepaymentDesignPaymentItemConfiguration.cs" />
+    <Compile Include="Factor\PrintPaymentConfiguration.cs" />
+    <Compile Include="Order\DesignOrderConfiguration.cs" />
+    <Compile Include="Form\FileFormatConfiguration.cs" />
+    <Compile Include="Form\FormConfiguration.cs" />
+    <Compile Include="Form\FormFieldConfiguration.cs" />
+    <Compile Include="Form\FormField_CheckBoxGroupConfiguration.cs" />
+    <Compile Include="Form\FormField_CheckBoxGroup_ItemConfiguration.cs" />
+    <Compile Include="Form\FormField_DropDownConfiguration.cs" />
+    <Compile Include="Form\FormField_DropDown_ItemConfiguration.cs" />
+    <Compile Include="Form\FormField_FileUploaderConfiguration.cs" />
+    <Compile Include="Form\FormField_RadioButtonGroupConfiguration.cs" />
+    <Compile Include="Form\FormField_RadioButtonGroup_ItemConfiguration.cs" />
+    <Compile Include="Factor\PaymentConfiguration.cs" />
+    <Compile Include="Factor\PrintPaymentItemConfiguration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="OrderConfiguration.cs" />
-    <Compile Include="Order_ValueConfiguration.cs" />
-    <Compile Include="Order_Value_CheckboxGroupConfiguration.cs" />
-    <Compile Include="Order_Value_DropDownConfiguration.cs" />
-    <Compile Include="Order_Value_RadioButtonGroupConfiguration.cs" />
+    <Compile Include="Order\OrderConfiguration.cs" />
+    <Compile Include="Order\Order_ValueConfiguration.cs" />
+    <Compile Include="Order\Order_Value_CheckboxGroupConfiguration.cs" />
+    <Compile Include="Order\Order_Value_DropDownConfiguration.cs" />
+    <Compile Include="Order\Order_Value_RadioButtonGroupConfiguration.cs" />
+    <Compile Include="Order\PrintOrderConfiguration.cs" />
+    <Compile Include="Factor\PrintFactorConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProvinceConfiguration.cs" />
+    <Compile Include="Customer\ProvinceConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

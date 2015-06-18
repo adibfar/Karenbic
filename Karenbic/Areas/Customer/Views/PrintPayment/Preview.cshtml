@@ -1,0 +1,108 @@
+﻿<style type="text/css">
+    .whirl.shadow::after {
+        z-index: 13;
+    }
+    .whirl.shadow::before {
+        z-index: 13;
+    }
+
+    .dgvcn {
+        background-color: #f9f9f9;
+        border: 1px solid #6c6c6c;
+        margin-top: 20px;
+        margin-bottom: 50px;
+        min-height: 200px !important;
+    }
+    .total-price {
+        border: 1px solid #6c6c6c;
+        font-family: BNAZANB;
+        font-size: 19px;
+        bottom: -40px;
+        height: 41px;
+        left: 0;
+        padding: 6px 8px;
+        position: absolute;
+        width: 248px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default"
+             ng-class="{'whirl': fetchLoading, 'shadow': fetchLoading}">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i></i>
+                    پیش نمایش فاکتور
+                </div>
+            </div>
+            <div class="panel-body" style="min-height:400px;">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <span>تاریخ پرداخت :</span>
+                            &nbsp;
+                            <span class="text-muted"
+                                  style="font-family:BNazanin;font-size:16px;">{{now}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="hr1" />
+
+                <div style="position:relative;">
+                    <div class="table-responsive dgvcn">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="min-width:30px;width:30px;">&nbsp;</th>
+                                    <th style="min-width:70px;width:70px;">شماره </th>
+                                    <th style="min-width:150px;width:150px;">تاریخ و ساعت</th>
+                                    <th style="min-width:200px;">شرح سفارش</th>
+                                    <th style="min-width:100px;width:100px;">مبلغ (ریال)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in factors">
+                                    <td><span style="margin-right:4px;">{{$index + 1}}</span></td>
+                                    <td>{{item.Order.Code}}</td>
+                                    <td style="direction:ltr;text-align:right;">{{item.Order.PersianRegisterDate + ' - ' + item.Order.Time}}</td>
+                                    <td>{{item.Form.Title}}</td>
+                                    <td>{{item.Price | riyal}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="total-price" ng-if="totalPrice() > 0">
+                        <span>جمع کل :</span>
+                        &nbsp;&nbsp;
+                        <span style="float:left;">
+                            {{totalPrice() | riyal}}
+                            &nbsp;
+                            ریال
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-footer"
+                 style="border-top:1px solid #b5b5b5;">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <button class="btn btn-labeled btn-warning" type="button"
+                                ng-click="fetchBankGetway()"
+                                ng-class="{'disabled':totalPrice() == 0}"
+                                ng-disabled="totalPrice() == 0">
+                            <span class="btn-label btn-label-right">
+                                <i class="fa fa-check"></i>
+                            </span>
+                            پرداخت
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

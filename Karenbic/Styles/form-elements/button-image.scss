@@ -37,6 +37,17 @@
 	background-position: 0px -44px;
 }
 
+.btn-img-credit-1 {
+	width: 22px;
+	height: 17px;
+	border: none;
+	background: transparent url(/Images/UI/Button/btn-credit-1.png) no-repeat 0px 1px;
+	cursor: pointer;
+}
+.btn-img-credit-1:focus, .btn-img-credit-1:hover {
+	background-position: 0px -18px;
+}
+
 .btn-img-down-1 {
 	display: inline-block;
 	width: 19px;

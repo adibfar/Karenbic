@@ -107,6 +107,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -181,11 +183,25 @@
     <Compile Include="Areas\Admin\Controllers\PrintAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrintOrderController.cs" />
     <Compile Include="Areas\Customer\Controllers\DesignOrderController.cs" />
+    <Compile Include="Areas\Customer\Controllers\DesignPaymentController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Areas\Customer\Controllers\DesignPortalController.cs" />
+    <Compile Include="Areas\Customer\Controllers\FactorOfDesignOrderController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\Customer\Controllers\FactorOfPrintOrderController.cs" />
     <Compile Include="Areas\Customer\Controllers\FormController.cs" />
     <Compile Include="Areas\Customer\Controllers\HomeController.cs" />
     <Compile Include="Areas\Customer\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Customer\Controllers\FactorOfOrderController.cs" />
+    <Compile Include="Areas\Customer\Controllers\PaymentController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Areas\Customer\Controllers\PortalController.cs" />
+    <Compile Include="Areas\Customer\Controllers\PrintPaymentController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Areas\Customer\Controllers\PrintPortalController.cs" />
     <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue.cs" />
@@ -205,6 +221,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\BPService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -248,11 +269,13 @@
     <Content Include="Images\PortalMobileMenu\show-order.png" />
     <Content Include="Images\PortalNavbar\design-nav.png" />
     <Content Include="Images\PortalNavbar\print-nav.png" />
+    <Content Include="Images\Simbol\error-icon.gif" />
     <Content Include="Images\SketchSheets\iPad.png" />
     <Content Include="Images\SketchSheets\iPhone.png" />
     <Content Include="Images\UI\Button\btn-add-1.png" />
     <Content Include="Images\UI\Button\btn-cancel-1.png" />
     <Content Include="Images\UI\Button\btn-confirm-1.png" />
+    <Content Include="Images\UI\Button\btn-credit-1.png" />
     <Content Include="Images\UI\Button\btn-hide-1.png" />
     <Content Include="Images\UI\Button\btn-search-1.png" />
     <Content Include="Images\UI\Button\btn-search-2.png" />
@@ -283,9 +306,16 @@
     <Content Include="Scripts\customer\app.init.js" />
     <Content Include="Scripts\customer\config.js" />
     <Content Include="Scripts\customer\constants.js" />
+    <Content Include="Scripts\customer\controllers\design-factor-list.js" />
+    <Content Include="Scripts\customer\controllers\design-payment-checkout.js" />
+    <Content Include="Scripts\customer\controllers\design-payment-preview.js" />
     <Content Include="Scripts\customer\controllers\main.js" />
     <Content Include="Scripts\customer\controllers\mobile-menu.js" />
     <Content Include="Scripts\customer\controllers\order-add.js" />
+    <Content Include="Scripts\customer\controllers\error-payment.js" />
+    <Content Include="Scripts\customer\controllers\print-factor-list.js" />
+    <Content Include="Scripts\customer\controllers\print-payment-checkout.js" />
+    <Content Include="Scripts\customer\controllers\print-payment-preview.js" />
     <Content Include="Scripts\customer\controllers\top-menu.js" />
     <Content Include="Scripts\directives\anchor.js" />
     <Content Include="Scripts\directives\animate-enabled.js" />
@@ -345,6 +375,52 @@
     <Content Include="Areas\Customer\Views\DesignPortal\Dashboard.cshtml" />
     <Content Include="Areas\Customer\Views\PrintPortal\Index.cshtml" />
     <Content Include="Areas\Customer\Views\PrintPortal\Dashboard.cshtml" />
+    <Content Include="Areas\Customer\Views\Payment\Error.cshtml" />
+    <Content Include="Areas\Customer\Views\PrintPayment\Checkout.cshtml" />
+    <Content Include="Areas\Customer\Views\DesignPayment\Preview.cshtml" />
+    <Content Include="Areas\Customer\Views\DesignPayment\Checkout.cshtml" />
+    <None Include="Service References\BPService\configuration91.svcinfo" />
+    <None Include="Service References\BPService\configuration.svcinfo" />
+    <Content Include="Service References\BPService\Karenbic.BPService.bpChargePayRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BPService\Karenbic.BPService.bpCumulativeDynamicPayRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BPService\Karenbic.BPService.bpDynamicPayRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BPService\Karenbic.BPService.bpInquiryRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BPService\Karenbic.BPService.bpPayRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BPService\Karenbic.BPService.bpRefundInquiryRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BPService\Karenbic.BPService.bpRefundRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BPService\Karenbic.BPService.bpRefundVerifyRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BPService\Karenbic.BPService.bpReversalRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BPService\Karenbic.BPService.bpSaleReferenceIdRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BPService\Karenbic.BPService.bpSettleRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BPService\Karenbic.BPService.bpVerifyRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\BPService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Styles\portal-them\pink.scss" />
     <Content Include="Styles\portal-them\pink\top-header.scss" />
     <Content Include="Styles\portal-them\blue\top-header.scss" />
@@ -383,6 +459,11 @@
     <Content Include="Areas\Admin\Views\DesignOrder\NewOrderList.cshtml" />
     <Content Include="Areas\Admin\Views\DesignOrder\CanceledOrderList.cshtml" />
     <Content Include="Areas\Admin\Views\PrintOrder\OngoingOrderList.cshtml" />
+    <Content Include="Areas\Customer\Views\FactorOfPrintOrder\List.cshtml" />
+    <Content Include="Areas\Customer\Views\PrintPayment\Preview.cshtml" />
+    <Content Include="Areas\Customer\Views\FactorOfDesignOrder\List.cshtml" />
+    <None Include="Service References\BPService\IPaymentGateway.wsdl" />
+    <None Include="Service References\BPService\PaymentGatewayImplService.wsdl" />
     <None Include="Styles\portal\loading-bar.scss" />
     <Content Include="Scripts\services\route-helpers.js" />
     <Content Include="Styles\Icons\fonts\HeaderIcon.svg" />
@@ -3107,6 +3188,12 @@
       <Project>{061bf5c1-9130-4070-a996-616b2e740073}</Project>
       <Name>Karenbic.DomainClasses</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\BPService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

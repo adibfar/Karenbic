@@ -191,13 +191,44 @@ namespace Karenbic.Areas.Admin.Controllers
 
             using (DataAccess.Context context = new DataAccess.Context())
             {
-                DomainClasses.DesignOrder order = context.DesignOrders.Find(orderId);
+                DomainClasses.DesignOrder order = context.DesignOrders
+                    .Include(x => x.PrepaymentFactor)
+                    .Include(x => x.FinalFactor)
+                    .Single(x => x.Id == orderId);
+
                 if (order.IsCanceled == false && price > 0)
                 {
                     order.IsConfirm = true;
                     order.ConfirmDate = DateTime.Now;
                     order.Price = price;
                     order.Prepayment = prepayment;
+
+                    //Set Prepayment Factor
+                    if (order.PrepaymentFactor != null)
+                    {
+                        order.PrepaymentFactor.Price = prepayment;
+                        order.PrepaymentFactor.RegisterDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        order.PrepaymentFactor = new DomainClasses.PrepaymentDesignFactor();
+                        order.PrepaymentFactor.Price = prepayment;
+                        order.PrepaymentFactor.RegisterDate = DateTime.Now;
+                    }
+
+                    //Set Final Factor
+                    if (order.FinalFactor != null)
+                    {
+                        order.FinalFactor.Price = price - prepayment;
+                        order.FinalFactor.RegisterDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        order.FinalFactor = new DomainClasses.FinalDesignFactor();
+                        order.FinalFactor.Price = price - prepayment;
+                        order.FinalFactor.RegisterDate = DateTime.Now;
+                    }
+
                     context.SaveChanges();
                     result = true;
                 }

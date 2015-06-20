@@ -134,5 +134,5 @@ App
             cfpLoadingBarProvider.includeBar = true;
             cfpLoadingBarProvider.includeSpinner = false;
             cfpLoadingBarProvider.latencyThreshold = 500;
-            cfpLoadingBarProvider.parentSelector = '#center-content > .loading-bar';
+            cfpLoadingBarProvider.parentSelector = '#contents > #loading-bar';
     }]).controller('NullController', function () { });

@@ -342,6 +342,7 @@ namespace Karenbic.Areas.Customer.Controllers
                                 factor.IsPaid = true;
                                 factor.PaidDate = bankPayment.RegisterDate;
                                 factor.Order.IsPaid = true;
+                                factor.Order.OrderState = DomainClasses.PrintOrderState.Paid;
                             }
                             context.SaveChanges();
 

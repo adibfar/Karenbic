@@ -106,7 +106,7 @@ App
                   },
                   {
                       text: "سفارشات انجام شده",
-                      sref: "app.print.dashboard"
+                      sref: "app.print.finished-order-list"
                   },
                   {
                       text: "سفارشات لغو شده",

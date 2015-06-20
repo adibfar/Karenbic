@@ -79,6 +79,8 @@ namespace Karenbic
                 "~/Scripts/admin/controllers/design-new-order-list.js",
                 "~/Scripts/admin/controllers/design-canceled-order-list.js",
                 "~/Scripts/admin/controllers/print-new-order-list.js",
+                "~/Scripts/admin/controllers/print-ongoing-order-list.js",
+                "~/Scripts/admin/controllers/print-finished-order-list.js",
                 "~/Scripts/admin/controllers/print-canceled-order-list.js"
             ));
 

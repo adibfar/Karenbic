@@ -25,7 +25,7 @@ App.controller('AppController',
     // Loading bar transition
     var thBar;
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        if ($('#center-content > section').length) // check if bar container exists
+        if ($('#contents > #loading-bar').length) // check if bar container exists
           thBar = $timeout(function() {
             cfpLoadingBar.start();
           }, 0); // sets a latency Threshold

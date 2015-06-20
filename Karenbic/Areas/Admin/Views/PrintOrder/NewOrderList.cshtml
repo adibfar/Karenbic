@@ -108,11 +108,11 @@
                         <thead>
                             <tr>
                                 <th style="min-width:45px;width:45px;">&nbsp;</th>
-                                <th style="min-width:100px;width:100px;">شماره سفارش</th>
-                                <th style="min-width:150px;width:150px;">تاریخ و ساعت</th>
+                                <th style="min-width:70px;width:70px;">شماره</th>
+                                <th style="min-width:90px;width:90px;">تاریخ</th>
                                 <th style="min-width:170px;width:170px;">نام مشتری</th>
                                 <th style="min-width:250px;">شرح سفارش</th>
-                                <th style="min-width:100px;width:100px;">قیمت (ریال)</th>
+                                <th style="min-width:100px;width:100px;">مبلغ (ریال)</th>
                                 <th style="min-width:60px;width:60px;">&nbsp;</th>
                             </tr>
                         </thead>
@@ -120,7 +120,7 @@
                             <tr ng-repeat="item in orders">
                                 <td><span style="margin-right:4px;">{{((pageIndex - 1) * 20) + $index + 1}}</span></td>
                                 <td>{{item.Code}}</td>
-                                <td style="direction:ltr;text-align:right;">{{item.PersianRegisterDate + ' - ' + item.Time}}</td>
+                                <td style="direction:ltr;text-align:right;">{{item.PersianRegisterDate}}</td>
                                 <td>{{item.Customer.Name + ' ' + item.Customer.Surname}}</td>
                                 <td>{{item.Form.Title}}</td>
                                 <td>{{item.Price | riyal}}</td>
@@ -285,7 +285,7 @@
     </div>
     <div class="modal-footer">
         <div class="clearfix">
-            <div class="pull-right">
+            <div class="pull-left">
                 <button class="btn btn-labeled btn-default"
                         ng-click="close()">
                     <span class=" btn-label btn-label-right">

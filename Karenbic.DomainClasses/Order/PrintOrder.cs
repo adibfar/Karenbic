@@ -12,10 +12,15 @@ namespace Karenbic.DomainClasses
         public PrintOrder()
         {
             IsPaid = false;
+            OrderState = PrintOrderState.Register;
+            
         }
 
         [Required]
         public bool IsPaid { get; set; }
+
+        [Required]
+        public PrintOrderState OrderState { get; set; }
 
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 

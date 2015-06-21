@@ -203,6 +203,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Areas\Customer\Controllers\PortalController.cs" />
+    <Compile Include="Areas\Customer\Controllers\PrintOrderController.cs" />
     <Compile Include="Areas\Customer\Controllers\PrintPaymentController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -320,13 +321,16 @@
     <Content Include="Scripts\customer\constants.js" />
     <Content Include="Scripts\customer\controllers\design-factor-list.js" />
     <Content Include="Scripts\customer\controllers\design-payment-checkout.js" />
+    <Content Include="Scripts\customer\controllers\design-payment-list.js" />
     <Content Include="Scripts\customer\controllers\design-payment-preview.js" />
     <Content Include="Scripts\customer\controllers\main.js" />
     <Content Include="Scripts\customer\controllers\mobile-menu.js" />
     <Content Include="Scripts\customer\controllers\order-add.js" />
     <Content Include="Scripts\customer\controllers\error-payment.js" />
     <Content Include="Scripts\customer\controllers\print-factor-list.js" />
+    <Content Include="Scripts\customer\controllers\print-order-list.js" />
     <Content Include="Scripts\customer\controllers\print-payment-checkout.js" />
+    <Content Include="Scripts\customer\controllers\print-payment-list.js" />
     <Content Include="Scripts\customer\controllers\print-payment-preview.js" />
     <Content Include="Scripts\customer\controllers\top-menu.js" />
     <Content Include="Scripts\directives\anchor.js" />
@@ -398,6 +402,9 @@
     <Content Include="Areas\Admin\Views\DesignPayment\List.cshtml" />
     <Content Include="Areas\Admin\Views\FactorOfPrintOrder\List.cshtml" />
     <Content Include="Areas\Admin\Views\FactorOfDesignOrder\List.cshtml" />
+    <Content Include="Areas\Customer\Views\PrintPayment\List.cshtml" />
+    <Content Include="Areas\Customer\Views\DesignPayment\List.cshtml" />
+    <Content Include="Areas\Customer\Views\PrintOrder\List.cshtml" />
     <None Include="Service References\BPService\configuration91.svcinfo" />
     <None Include="Service References\BPService\configuration.svcinfo" />
     <Content Include="Service References\BPService\Karenbic.BPService.bpChargePayRequestResponse.datasource">

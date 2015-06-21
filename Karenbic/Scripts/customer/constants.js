@@ -30,8 +30,8 @@ App
                         sref: "app.design.factor-list"
                     },
                     {
-                        text: "فاکتور های صادر شده",
-                        sref: "app.design.factor-list1"
+                        text: "فاکتور های پرداخت شده",
+                        sref: "app.design.payment-list"
                     }
                 ],
                 activedmenu: [
@@ -91,8 +91,8 @@ App
                         sref: "app.print.factor-list"
                     },
                     {
-                        text: "فاکتور های صادر شده",
-                        sref: "app.print.factor-list1"
+                        text: "فاکتور های پرداخت شده",
+                        sref: "app.print.payment-list"
                     }
                 ],
                 activedmenu: [
@@ -112,7 +112,7 @@ App
             },
             {
                 text: "نمایش سفارشات",
-                sref: "app.print.dashboard3",
+                sref: "app.print.order-list",
                 icon: "show-order"
             },
             {

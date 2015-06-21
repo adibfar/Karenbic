@@ -66,6 +66,12 @@ App
                     templateUrl: helper.basepath('Payment/Error'),
                     controller: 'ErrorPaymentController'
                 })
+                .state('app.design.payment-list', {
+                    url: '/payment-list',
+                    templateUrl: helper.basepath('DesignPayment/List'),
+                    controller: 'DesignPaymentListController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
+                })
                 .state('app.print', {
                     url: '/print',
                     abstract: true,
@@ -105,6 +111,18 @@ App
                     url: '/error-payment/:code',
                     templateUrl: helper.basepath('Payment/Error'),
                     controller: 'ErrorPaymentController'
+                })
+                .state('app.print.payment-list', {
+                    url: '/payment-list',
+                    templateUrl: helper.basepath('PrintPayment/List'),
+                    controller: 'PrintPaymentListController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
+                })
+                .state('app.print.order-list', {
+                    url: '/order-list',
+                    templateUrl: helper.basepath('PrintOrder/List'),
+                    controller: 'PrintOrderListController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
                 });
 
     }]).config(['$ocLazyLoadProvider', 'APP_REQUIRES',

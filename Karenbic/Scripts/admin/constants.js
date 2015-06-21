@@ -45,10 +45,6 @@ App
                     {
                         text: "صورت حساب مشتریان",
                         sref: "app.design.factor-list"
-                    },
-                    {
-                        text: "ثبت مغایرت مالی",
-                        sref: "app.design.dashboard"
                     }
                 ]
             },

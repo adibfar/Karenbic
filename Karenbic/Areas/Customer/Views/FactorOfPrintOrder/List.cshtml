@@ -150,7 +150,7 @@
                                     <span class="text-success" ng-if="item.Factor.IsPaid == true">پرداخت شده</span>
                                 </td>
                                 <td>
-                                    <span class="text-danger" ng-if="item.Factor.IsPaid == false">پرداخت نشده</span>
+                                    <span ng-if="item.Factor.IsPaid == false">-----</span>
                                     <div class="label label-info"
                                          style="cursor:pointer;font-family:BNazanin;font-size:16px;font-weight:normal;line-height:0;padding:0 10px;"
                                          ng-if="item.Factor.IsPaid == true"

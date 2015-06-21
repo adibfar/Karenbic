@@ -10,6 +10,73 @@ namespace Karenbic.Areas.Customer.Controllers
     public class PrintPaymentController : Controller
     {
         [HttpGet]
+        public ActionResult List()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Get(string startDate, string endDate, int pageIndex = 1)
+        {
+            if (pageIndex <= 0) pageIndex = 1;
+            int pageSize = 20;
+            JsonResult result = new JsonResult();
+
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                IQueryable<DomainClasses.PrintPayment> query = context.PrintPayments.AsQueryable();
+                query = query.Where(x => x.IsComplete && x.IsPaid);
+
+                DomainClasses.Customer customer = context.Customers.Find(1);
+                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
+                query = query.Where(x => x.Factors.FirstOrDefault().Order.Customer.Id == customer.Id);
+
+                if (!string.IsNullOrEmpty(startDate))
+                {
+                    DateTime julianStartDate = Api.ConvertDate.PersianTOJulian(startDate);
+                    query = query.Where(x => x.RegisterDate >= julianStartDate);
+                }
+
+                if (!string.IsNullOrEmpty(endDate))
+                {
+                    DateTime tempJulianEndDate = Api.ConvertDate.PersianTOJulian(endDate);
+                    DateTime julianEndDate = new DateTime(tempJulianEndDate.Year, tempJulianEndDate.Month, tempJulianEndDate.Day, 23, 59, 59, 50);
+                    query = query.Where(x => x.RegisterDate <= julianEndDate);
+                }
+                int pageCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(query.Count()) / Convert.ToDouble(pageSize)));
+                int resultCount = query.Count();
+
+                List<DomainClasses.PrintPayment> list = query
+                    .Include(x => x.Factors)
+                    .Include(x => x.Factors.Select(c => c.Order))
+                    .Include(x => x.Factors.Select(c => c.Order.Customer))
+                    .OrderByDescending(x => x.RegisterDate)
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+                result.Data = new
+                {
+                    ResultCount = resultCount,
+                    PageCount = pageCount,
+                    PageIndex = pageIndex,
+                    List = list.Select(x => new
+                    {
+                        Id = x.Id,
+                        Code = x.Code,
+                        Money = x.Money,
+                        Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
+                        RegisterDate = x.RegisterDate.ToShortDateString(),
+                        PersianRegisterDate = x.PersianRegisterDate,
+                        RefId = x.RefId
+                    }).ToArray()
+                };
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public ActionResult Preview()
         {
             return View();

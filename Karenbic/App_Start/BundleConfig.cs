@@ -126,9 +126,12 @@ namespace Karenbic
                 "~/Scripts/customer/controllers/design-factor-list.js",
                 "~/Scripts/customer/controllers/design-payment-preview.js",
                 "~/Scripts/customer/controllers/design-payment-checkout.js",
+                "~/Scripts/customer/controllers/design-payment-list.js",
                 "~/Scripts/customer/controllers/print-factor-list.js",
                 "~/Scripts/customer/controllers/print-payment-preview.js",
                 "~/Scripts/customer/controllers/print-payment-checkout.js",
+                "~/Scripts/customer/controllers/print-payment-list.js",
+                "~/Scripts/customer/controllers/print-order-list.js",
                 "~/Scripts/customer/controllers/error-payment.js"
             ));
 

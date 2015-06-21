@@ -523,6 +523,10 @@ namespace Karenbic.Areas.Customer.Controllers
                                 factor.IsPaid = true;
                                 factor.PaidDate = bankPayment.RegisterDate;
                                 factor.Order.IsPaidPrepayment = true;
+                                if (factor.Order.OrderState == DomainClasses.DesignOrderState.Confirm)
+                                {
+                                    factor.Order.OrderState = DomainClasses.DesignOrderState.Paid;
+                                }
                             }
                             foreach (DomainClasses.FinalDesignPaymentItem item in bankPayment.FinalItems)
                             {
@@ -534,6 +538,10 @@ namespace Karenbic.Areas.Customer.Controllers
                                 factor.IsPaid = true;
                                 factor.PaidDate = bankPayment.RegisterDate;
                                 factor.Order.IsPaidFinal = true;
+                                if (factor.Order.OrderState == DomainClasses.DesignOrderState.Confirm)
+                                {
+                                    factor.Order.OrderState = DomainClasses.DesignOrderState.Paid;
+                                }
                             }
                             context.SaveChanges();
 

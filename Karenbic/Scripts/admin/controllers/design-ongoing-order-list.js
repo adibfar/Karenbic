@@ -1,35 +1,34 @@
 ﻿/**=========================================================
- * Module: print-new-order-list.js
- * Show Factor List & Payment That
+ * Module: print-ongoing-order-list.js
+ * Show Ongoing Order List
  =========================================================*/
 
-App.controller('FactorListOfDesignController', ['$scope', '$http', 'ngDialog', 'APP_BASE_URI', 'toaster', '$modal', '$state',
-    function ($scope, $http, ngDialog, baseUri, toaster, $modal, $state) {
+App.controller('OngoingDesignOrderListController', ['$scope', '$http', 'ngDialog', 'APP_BASE_URI', 'toaster', '$modal',
+    function ($scope, $http, ngDialog, baseUri, toaster, $modal) {
         $scope.searchFields = {
-            isPaid: true,
-            isNotPaid: true,
+            orderId: '',
+            states: null,
             startDate: '',
             endDate: ''
         };
-        $scope.factors = [];
+        $scope.orders = [];
         $scope.pages = [];
         $scope.pageCount = 0;
         $scope.pageIndex = 1;
 
-        $scope.fetchFactors = function (pageIndex) {
+        $scope.fetchOrders = function (pageIndex) {
             $scope.fetchLoading = true;
 
-            $http.get(baseUri + 'FactorOfDesignOrder/Get', {
+            $http.get(baseUri + 'DesignOrder/GetOngoingOrders', {
                 params: {
-                    isPaid: $scope.searchFields.isPaid,
-                    isNotPaid: $scope.searchFields.isNotPaid,
+                    orderId: $scope.searchFields.orderId.trim() != '' ? Number($scope.searchFields.orderId) : null,
                     startDate: $scope.searchFields.startDate,
                     endDate: $scope.searchFields.endDate,
                     pageIndex: pageIndex
                 }
             })
             .success(function (data, status, headers, config) {
-                $scope.factors = data.Data.List;
+                $scope.orders = data.Data.List;
                 $scope.pageCount = data.Data.PageCount;
                 $scope.pageIndex = data.Data.PageIndex;
                 $scope.resultCount = data.Data.ResultCount;
@@ -48,7 +47,7 @@ App.controller('FactorListOfDesignController', ['$scope', '$http', 'ngDialog', '
 
         $scope.search = function () {
             $scope.pageIndex = 1;
-            $scope.fetchFactors(1);
+            $scope.fetchOrders(1);
         }
 
         $scope.generatePagation = function () {
@@ -61,112 +60,61 @@ App.controller('FactorListOfDesignController', ['$scope', '$http', 'ngDialog', '
         };
 
         $scope.changePage = function (index) {
-            $scope.fetchFactors($scope.pages[index]);
+            $scope.fetchOrders($scope.pages[index]);
         };
 
         $scope.nextPage = function () {
             if ($scope.pageIndex < $scope.pageCount && $scope.fetchLoading == false) {
-                $scope.fetchFactors($scope.pageIndex + 1);
+                $scope.fetchOrders($scope.pageIndex + 1);
             }
         }
 
         $scope.prevPage = function () {
             if ($scope.pageIndex > 1 && $scope.fetchLoading == false) {
-                $scope.fetchFactors($scope.pageIndex - 1);
+                $scope.fetchOrders($scope.pageIndex - 1);
             }
         };
 
-        $scope.anyFactorSelected = function () {
+        $scope.cancel = function (index) {
+            ngDialog.open({
+                template: 'cancelOrderDialog.html',
+                showClose: false,
+                controller: ['$scope', 'ngDialog', function ($scope, ngDialog) {
+                    $scope.close = function () {
+                        $scope.closeThisDialog(0);
+                    };
+                    $scope.confirm = function () {
+                        $scope.closeThisDialog(1);
+                    };
+                }],
+                preCloseCallback: function (value) {
+                    if (value != 1) return true;
 
-            if ($scope.factors == null || $scope.factors == undefined || $scope.factors.length == 0) return false;
-
-            var checkItems = _.find($scope.factors, function (item) {
-                return item.PrepaymentFactor.IsPaid == false &&
-                    item.PrepaymentFactor.IsChecked != true &&
-                    item.FinalFactor.IsChecked == true;
+                    $scope.fetchLoading = true;
+                    $http.post(baseUri + 'Order/CancelOrder',
+                    {
+                        orderId: $scope.orders[index].Id
+                    }).
+                    success(function (data, status, headers, config) {
+                        $scope.fetchLoading = false;
+                        if (data == "True") {
+                            $scope.fetchOrders($scope.pageIndex);
+                        }
+                        else {
+                            toaster.pop('error', "امکان کنسل کردن سفارش وجود ندارد");
+                        }
+                    }).error(function (data, status, headers, config) {
+                        if (status == 403) {
+                            window.location = "/Account/Login";
+                        }
+                        else {
+                            toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
+                        }
+                        $scope.fetchLoading = false;
+                    });
+                    return true;
+                }
             });
-
-            if (checkItems != undefined && checkItems != null) return false;
-
-            var prepaymentFilters = _.filter($scope.factors, function (item) {
-                return item.PrepaymentFactor.IsChecked != null &&
-                    item.PrepaymentFactor.IsChecked != undefined &&
-                    item.PrepaymentFactor.IsChecked == true;
-            });
-
-            var finalFilters = _.filter($scope.factors, function (item) {
-                return item.FinalFactor.IsChecked != null &&
-                    item.FinalFactor.IsChecked != undefined &&
-                    item.FinalFactor.IsChecked == true;
-            });
-
-            if ((prepaymentFilters != null && prepaymentFilters.length > 0) ||
-                (finalFilters != null && finalFilters.length > 0)) return true;
-            return false;
-        };
-
-        $scope.paymentPreview = function (index) {
-            if ($scope.factors[index].PrepaymentFactor.IsChecked != true &&
-                $scope.factors[index].FinalFactor.IsChecked != true) {
-                toaster.pop('warning', "هیچیک از مبالغ انتخاب نشده");
-            }
-            else if ($scope.factors[index].PrepaymentFactor.IsPaid == false &&
-                $scope.factors[index].PrepaymentFactor.IsChecked != true &&
-                $scope.factors[index].FinalFactor.IsChecked == true) {
-                toaster.pop('warning', "لطفاً ابتدا مبلغ پیش پرداخت را واریز نمایید");
-            }
-            else {
-                $scope.fetchLoading = true;
-
-                var id = [];
-
-                if ($scope.factors[index].PrepaymentFactor.IsChecked == true)
-                    id.push("p" + $scope.factors[index].PrepaymentFactor.Id);
-
-                if ($scope.factors[index].FinalFactor.IsChecked == true)
-                    id.push("f" + $scope.factors[index].FinalFactor.Id);
-
-                $state.go('^.payment-preview', { id: id });
-            }
-        };
-
-        $scope.paymentPreview_group = function () {
-            $scope.fetchLoading = true;
-
-            var checkItems = _.find($scope.factors, function (item) {
-                return item.PrepaymentFactor.IsPaid == false &&
-                    item.PrepaymentFactor.IsChecked != true &&
-                    item.FinalFactor.IsChecked == true;
-            });
-
-            if (checkItems != undefined && checkItems != null) {
-                toaster.pop('warning', "لطفاً ابتدا مبلغ پیش پرداخت را واریز نمایید");
-                return;
-            }
-
-            var prepaymentFilters = _.filter($scope.factors, function (item) {
-                return item.PrepaymentFactor.IsChecked != null &&
-                    item.PrepaymentFactor.IsChecked != undefined &&
-                    item.PrepaymentFactor.IsChecked == true;
-            });
-
-            var prepaymentsId = _.map(prepaymentFilters, function (item) {
-                return 'p' + item.Id;
-            });
-
-            var finalFilters = _.filter($scope.factors, function (item) {
-                return item.FinalFactor.IsChecked != null &&
-                    item.FinalFactor.IsChecked != undefined &&
-                    item.FinalFactor.IsChecked == true;
-            });
-
-            var finalsId = _.map(finalFilters, function (item) {
-                return 'f' + item.Id;
-            });
-
-            var id = prepaymentsId.concat(finalsId);
-
-            $state.go('^.payment-preview', { id: id });
         };
 
         $scope.showDetails = function (index) {
@@ -175,27 +123,29 @@ App.controller('FactorListOfDesignController', ['$scope', '$http', 'ngDialog', '
                 controller: ShowDetailsCtrl,
                 size: 'lg',
                 resolve: {
-                    factor: function () {
-                        return _.clone($scope.factors[index]);
+                    order: function () {
+                        return _.clone($scope.orders[index]);
                     }
                 }
             });
 
             modalInstance.result.then(function (result) {
+                $scope.orders[index].Price = result;
+                $scope.orders[index].IsConfirm = true;
             }, function () {
             });
         };
 
-        var ShowDetailsCtrl = function ($scope, $http, $modalInstance, factor) {
+        var ShowDetailsCtrl = function ($scope, $http, $modalInstance, order) {
 
-            $scope.factor = factor;
+            $scope.order = order;
 
             $scope.fetchValues = function () {
                 $scope.fetchLoading = true;
 
-                $http.get(baseUri + 'FactorOfOrder/Details', {
+                $http.get(baseUri + 'Order/Details', {
                     params: {
-                        orderId: $scope.factor.Id
+                        orderId: $scope.order.Id
                     }
                 })
                 .success(function (data, status, headers, config) {
@@ -212,6 +162,35 @@ App.controller('FactorListOfDesignController', ['$scope', '$http', 'ngDialog', '
                 });
             };
             $scope.fetchValues();
+
+            $scope.save = function () {
+                $scope.confirmOrderFromSubmited = true;
+                if ($scope.confirmOrderFrom.$invalid) return;
+
+                $scope.confirmLoading = true;
+                $http.post(baseUri + 'PrintOrder/Confirm',
+                {
+                    orderId: $scope.order.Id,
+                    price: $scope.order.Price
+                }).
+                success(function (data, status, headers, config) {
+                    $scope.confirmLoading = false;
+                    if (data == "True") {
+                        $modalInstance.close($scope.order.Price);
+                    }
+                    else {
+                        toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
+                    }
+                }).error(function (data, status, headers, config) {
+                    if (status == 403) {
+                        window.location = "/Account/Login";
+                    }
+                    else {
+                        toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
+                    }
+                    $scope.confirmLoading = false;
+                });
+            };
 
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
@@ -277,5 +256,5 @@ App.controller('FactorListOfDesignController', ['$scope', '$http', 'ngDialog', '
         };
 
         //Init
-        $scope.fetchFactors(1);
+        $scope.fetchOrders(1);
     }]);

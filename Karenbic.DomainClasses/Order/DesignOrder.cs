@@ -13,6 +13,7 @@ namespace Karenbic.DomainClasses
             Prepayment = 0;
             IsPaidPrepayment = false;
             IsPaidFinal = false;
+            OrderState = DesignOrderState.Register;
         }
 
         [Required]
@@ -23,6 +24,9 @@ namespace Karenbic.DomainClasses
 
         [Required]
         public bool IsPaidFinal { get; set; }
+
+        [Required]
+        public DesignOrderState OrderState { get; set; }
 
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 

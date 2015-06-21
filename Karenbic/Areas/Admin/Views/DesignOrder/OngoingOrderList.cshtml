@@ -15,6 +15,10 @@
         .dgvcn .table td {
             vertical-align: middle;
         }
+        .dgvcn .btn-img-cancel-1 {
+            position: relative;
+            top: -2px;
+        }
         .dgvcn .btn-img-info-1 {
             margin-left: 2px;
             margin-right: 3px;
@@ -46,7 +50,7 @@
             <div class="panel-heading">
                 <div class="panel-title">
                     <i></i>
-                    سفارشات لغو شده
+                    سفارشات در دست اقدام
                 </div>
             </div>
             <div class="panel-body">
@@ -102,30 +106,44 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th style="min-width:45px;width:45px;">&nbsp;</th>
+                                @*<th style="min-width:45px;width:45px;">&nbsp;</th>*@
                                 <th style="min-width:70px;width:70px;">شماره</th>
-                                <th style="min-width:90px;width:90px;">تاریخ</th>
-                                <th style="min-width:170px;width:170px;">نام مشتری</th>
-                                <th style="min-width:50px;">شرح سفارش</th>
-                                <th style="min-width:100px;width:100px;">مبلغ (ریال)</th>
-                                <th style="min-width:100px;width:100px;">پیش پرداخت</th>
-                                <th style="min-width:100px;width:100px;">مانده حساب</th>
-                                <th style="min-width:30px;width:30px;">&nbsp;</th>
+                                <th style="min-width:80px;width:80px;">تاریخ</th>
+                                <th style="min-width:150px;width:150px;">نام مشتری</th>
+                                <th style="min-width:180px;">شرح سفارش</th>
+                                <th style="min-width:90px;width:90px;">مبلغ (ریال)</th>
+                                <th style="min-width:150px;width:150px;" colspan="2">پیش پرداخت</th>
+                                <th style="min-width:150px;width:150px;" colspan="2">مانده حساب</th>
+                                <th style="min-width:60px;width:60px;">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in orders">
-                                <td><span style="margin-right:4px;">{{((pageIndex - 1) * 20) + $index + 1}}</span></td>
-                                <td>{{item.Code}}</td>
+                                @*<td><span style="margin-right:4px;">{{((pageIndex - 1) * 20) + $index + 1}}</span></td>*@
+                                <td><span style="margin-right:4px;">{{item.Code}}</span></td>
                                 <td style="direction:ltr;text-align:right;">{{item.PersianRegisterDate}}</td>
                                 <td>{{item.Customer.Name + ' ' + item.Customer.Surname}}</td>
                                 <td>{{item.Form.Title}}</td>
                                 <td>{{item.Price | riyal}}</td>
                                 <td>{{item.Prepayment | riyal}}</td>
+                                <td>
+                                    <span class="text-danger" ng-if="item.PrepaymentFactor.IsPaid == false">پرداخت نشده</span>
+                                    <div class="label label-info"
+                                         style="cursor:pointer;font-family:BNazanin;font-size:16px;font-weight:normal;line-height:0;padding:0 10px;"
+                                         ng-if="item.PrepaymentFactor.IsPaid == true"
+                                         ng-click="showPaymentDetails(item.PrepaymentPayment.Id)">{{item.PrepaymentPayment.Code}}</div>
+                                </td>
                                 <td>{{item.Price - item.Prepayment | riyal}}</td>
+                                <td>
+                                    <span class="text-danger" ng-if="item.FinalFactor.IsPaid == false">پرداخت نشده</span>
+                                    <div class="label label-info"
+                                         style="cursor:pointer;font-family:BNazanin;font-size:16px;font-weight:normal;line-height:0;padding:0 10px;"
+                                         ng-if="item.FinalFactor.IsPaid == true"
+                                         ng-click="showPaymentDetails(item.FinalPayment.Id)">{{item.FinalPayment.Code}}</div>
+                                </td>
                                 <td style="text-align:left;">
-                                    <button class="btn-img-info-1" type="button" ng-click="showDetails($index)"
-                                            ng-class="{'active': item.IsConfirm}"></button>
+                                    <button class="btn-img-cancel-1" type="button" ng-click="cancel($index)"></button>
+                                    <button class="btn-img-info-1" type="button" ng-click="showDetails($index)"></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -165,7 +183,7 @@
             نمایش سفارش
         </div>
     </div>
-    <div class="modal-body" ng-class="{'whirl': fetchLoading, 'shadow': fetchLoading}">
+    <div class="modal-body" ng-class="{'whirl': fetchLoading || confirmLoading, 'shadow': fetchLoading || confirmLoading}">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
@@ -272,10 +290,123 @@
                     </span>
                     خروج
                 </button>
+                <button class="btn btn-labeled btn-warning"
+                        ng-click="save()"
+                        ng-disabled="fetchLoading || confirmLoading">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-pencil"></i>
+                    </span>
+                    ثبت
+                </button>
             </div>
         </div>
     </div>
 </script>
 <!-- End Order Details Modal -->
+
+<!-- Start Payment Details Modal -->
+<script type="text/ng-template" id="/ShowPaymentDetailsContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            نمایش فاکتور
+        </div>
+    </div>
+    <div class="modal-body" ng-class="{'whirl': fetchLoading, 'shadow': fetchLoading}">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>شماره فاکتور :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{payment.Code}}</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>تاریخ پرداخت :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{payment.PersianRegisterDate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>شماره تراکنش :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{payment.RefId}}</span>
+                </div>
+            </div>
+        </div>
+
+        <hr class="hr1" />
+
+        <div style="position:relative;">
+            <div class="table-responsive"
+                 style="min-height:200px;margin-bottom:50px;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="min-width:30px;width:30px;">&nbsp;</th>
+                            <th style="min-width:100px;width:100px;">شماره </th>
+                            <th style="min-width:150px;width:150px;">تاریخ و ساعت</th>
+                            <th style="min-width:200px;">شرح سفارش</th>
+                            <th style="min-width:100px;width:100px;">مبلغ (ریال)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in factors">
+                            <td><span style="margin-right:4px;">{{$index + 1}}</span></td>
+                            <td>{{item.Code}}</td>
+                            <td style="direction:ltr;text-align:right;">{{item.PersianRegisterDate + ' - ' + item.Time}}</td>
+                            <td>{{item.Form.Title}}</td>
+                            <td>{{item.Price | riyal}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="total-price"
+                 style="font-family:BNAZANB;font-size:19px;bottom:-40px;height:41px;left:0;padding:6px 8px;position:absolute;width:248px;"
+                 ng-if="totalPrice() > 0">
+                <span>جمع کل :</span>
+                &nbsp;&nbsp;
+                <span style="float:left;">
+                    {{totalPrice() | riyal}}
+                    &nbsp;
+                    ریال
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End Payment Details Modal -->
+
+<!-- Start Cancel Order Modal -->
+<script type="text/ng-template" id="cancelOrderDialog.html">
+    <div style="font-family:yekan;font-size:14px;">
+        <p>آیا از لغو شدن سفارش اطمینان دارید؟</p>
+        <div>
+            <button class="btn btn-default" ng-click="close()" type="button">خیر</button>
+            <button class="btn btn-danger" ng-click="confirm()" type="button">بلی</button>
+        </div>
+    </div>
+</script>
+<!-- End Cancel Order Modal -->
 
 <toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

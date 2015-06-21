@@ -147,7 +147,10 @@
                                 <td>{{item.PrepaymentFactor.Price | riyal}}</td>
                                 <td>
                                     <span class="text-danger" ng-if="item.PrepaymentFactor.IsPaid == false">پرداخت نشده</span>
-                                    <span class="text-success" ng-if="item.PrepaymentFactor.IsPaid == true">پرداخت شده</span>
+                                    <div class="label label-info"
+                                         style="cursor:pointer;font-family:BNazanin;font-size:16px;font-weight:normal;line-height:0;padding:0 10px;"
+                                         ng-if="item.PrepaymentFactor.IsPaid == true"
+                                         ng-click="showPaymentDetails(item.PrepaymentPayment.Id)">{{item.PrepaymentPayment.Code}}</div>
                                 </td>
                                 <td style="min-width:30px;width:30px;border-right:1px solid #D6D6D6;">
                                     <div class="checkbox c-checkbox checkbox-inline"
@@ -165,7 +168,10 @@
                                 </td>
                                 <td>
                                     <span class="text-danger" ng-if="item.FinalFactor.IsPaid == false">پرداخت نشده</span>
-                                    <span class="text-success" ng-if="item.FinalFactor.IsPaid == true">پرداخت شده</span>
+                                    <div class="label label-info"
+                                         style="cursor:pointer;font-family:BNazanin;font-size:16px;font-weight:normal;line-height:0;padding:0 10px;"
+                                         ng-if="item.FinalFactor.IsPaid == true"
+                                         ng-click="showPaymentDetails(item.FinalPayment.Id)">{{item.FinalPayment.Code}}</div>
                                 </td>
                                 <td style="text-align:left;">
                                     <button class="btn-img-credit-1" type="button"

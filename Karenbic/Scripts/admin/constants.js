@@ -21,11 +21,11 @@ App
                   },
                   {
                       text: "سفارشات در دست اقدام",
-                      sref: "app.design.dashboard"
+                      sref: "app.design.ongoing-order-list"
                   },
                   {
                       text: "سفارشات انجام شده",
-                      sref: "app.design.dashboard"
+                      sref: "app.design.finished-order-list"
                   },
                   {
                       text: "سفارشات لغو شده",
@@ -38,14 +38,18 @@ App
                 sref: "#",
                 icon: "financial-transaction",
                 submenu: [
-                  {
-                      text: "صورت حساب مشتریان",
-                      sref: "app.design.dashboard"
-                  },
-                  {
-                      text: "ثبت مغایرت مالی",
-                      sref: "app.design.dashboard"
-                  }
+                    {
+                        text: "لیست پرداخت های مشتریان",
+                        sref: "app.design.payment-list"
+                    },
+                    {
+                        text: "صورت حساب مشتریان",
+                        sref: "app.design.factor-list"
+                    },
+                    {
+                        text: "ثبت مغایرت مالی",
+                        sref: "app.design.dashboard"
+                    }
                 ]
             },
             {
@@ -111,6 +115,21 @@ App
                   {
                       text: "سفارشات لغو شده",
                       sref: "app.print.canceled-order-list"
+                  }
+                ]
+            },
+            {
+                text: "تراکنش مالی",
+                sref: "#",
+                icon: "financial-transaction",
+                submenu: [
+                  {
+                      text: "لیست پرداخت های مشتریان",
+                      sref: "app.print.payment-list"
+                  },
+                  {
+                      text: "صورت حساب مشتریان",
+                      sref: "app.print.factor-list"
                   }
                 ]
             },

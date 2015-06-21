@@ -77,11 +77,17 @@ namespace Karenbic
                 "~/Scripts/admin/controllers/form-edit.js",
                 "~/Scripts/admin/controllers/form-list.js",
                 "~/Scripts/admin/controllers/design-new-order-list.js",
+                "~/Scripts/admin/controllers/design-ongoing-order-list.js",
+                "~/Scripts/admin/controllers/design-finished-order-list.js",
                 "~/Scripts/admin/controllers/design-canceled-order-list.js",
+                "~/Scripts/admin/controllers/design-payment-list.js",
+                "~/Scripts/admin/controllers/design-factor-list.js",
                 "~/Scripts/admin/controllers/print-new-order-list.js",
                 "~/Scripts/admin/controllers/print-ongoing-order-list.js",
                 "~/Scripts/admin/controllers/print-finished-order-list.js",
-                "~/Scripts/admin/controllers/print-canceled-order-list.js"
+                "~/Scripts/admin/controllers/print-canceled-order-list.js",
+                "~/Scripts/admin/controllers/print-payment-list.js",
+                "~/Scripts/admin/controllers/print-factor-list.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Scripts/customer/app").Include(

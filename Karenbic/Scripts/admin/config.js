@@ -61,11 +61,35 @@ App
                     controller: 'NewDesignOrderListController',
                     resolve: helper.resolveFor('ngDialog', 'jquery-ui', 'jquery-ui-datepicker')
                 })
+                .state('app.design.ongoing-order-list', {
+                    url: '/ongoing-order-list',
+                    templateUrl: helper.basepath('DesignOrder/OngoingOrderList'),
+                    controller: 'OngoingDesignOrderListController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'jquery-ui', 'jquery-ui-datepicker')
+                })
+                 .state('app.design.finished-order-list', {
+                     url: '/finished-order-list',
+                     templateUrl: helper.basepath('DesignOrder/FinishedOrderList'),
+                     controller: 'FinishedDesignOrderListController',
+                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
+                 })
                 .state('app.design.canceled-order-list', {
                     url: '/canceled-order-list',
                     templateUrl: helper.basepath('DesignOrder/CanceledOrderList'),
                     controller: 'CanceledDesignOrderListController',
                     resolve: helper.resolveFor('ngDialog', 'jquery-ui', 'jquery-ui-datepicker')
+                })
+                .state('app.design.payment-list', {
+                    url: '/payment-list',
+                    templateUrl: helper.basepath('DesignPayment/List'),
+                    controller: 'DesignPaymentListController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
+                })
+                .state('app.design.factor-list', {
+                    url: '/factor-list',
+                    templateUrl: helper.basepath('FactorOfDesignOrder/List'),
+                    controller: 'FactorOfDesignOrderListController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
                 })
                 .state('app.print', {
                     url: '/print',
@@ -119,6 +143,18 @@ App
                     templateUrl: helper.basepath('PrintOrder/CanceledOrderList'),
                     controller: 'CanceledPrintOrderListController',
                     resolve: helper.resolveFor('ngDialog', 'jquery-ui', 'jquery-ui-datepicker')
+                })
+                .state('app.print.payment-list', {
+                    url: '/payment-list',
+                    templateUrl: helper.basepath('PrintPayment/List'),
+                    controller: 'PrintPaymentListController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
+                })
+                .state('app.print.factor-list', {
+                    url: '/factor-list',
+                    templateUrl: helper.basepath('FactorOfPrintOrder/List'),
+                    controller: 'FactorOfPrintOrderListController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
                 });
 
     }]).config(['$ocLazyLoadProvider', 'APP_REQUIRES',

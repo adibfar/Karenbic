@@ -157,6 +157,8 @@ namespace Karenbic.Areas.Admin.Controllers
                 List<DomainClasses.PrintOrder> list = query
                     .Include(x => x.Customer)
                     .Include(x => x.Form)
+                    .Include(x => x.Factor)
+                    .Include(x => x.Factor.Payment)
                     .OrderByDescending(x => x.RegisterDate)
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)

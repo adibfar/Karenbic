@@ -26,6 +26,8 @@ namespace Karenbic.Areas.Admin.Controllers
             using (DataAccess.Context context = new DataAccess.Context())
             {
                 IQueryable<DomainClasses.DesignOrder> query = context.DesignOrders.AsQueryable();
+                query = query.Where(x => x.OrderState == DomainClasses.DesignOrderState.Register ||
+                    x.OrderState == DomainClasses.DesignOrderState.Confirm);
 
                 query = query.Where(x => x.IsCanceled == false);
 
@@ -89,6 +91,319 @@ namespace Karenbic.Areas.Admin.Controllers
                         {
                             Id = x.Form.Id,
                             Title = x.Form.Title
+                        }
+                    }).ToArray()
+                };
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult OngoingOrderList()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetOngoingOrders(int? orderId, string startDate, string endDate, int pageIndex = 1)
+        {
+            if (pageIndex <= 0) pageIndex = 1;
+            int pageSize = 20;
+            JsonResult result = new JsonResult();
+
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                IQueryable<DomainClasses.DesignOrder> query = context.DesignOrders.AsQueryable();
+
+                query = query.Where(x => x.IsCanceled == false);
+                query = query.Where(x => x.OrderState == DomainClasses.DesignOrderState.Paid ||
+                    x.OrderState == DomainClasses.DesignOrderState.Design);
+
+                if (orderId != null)
+                {
+                    string tempOrderId = Convert.ToString(orderId);
+                    query = query.Where(x => SqlFunctions.StringConvert((double)x.Id + 1024).Contains(tempOrderId));
+                }
+
+                if (!string.IsNullOrEmpty(startDate))
+                {
+                    DateTime julianStartDate = Api.ConvertDate.PersianTOJulian(startDate);
+                    query = query.Where(x => x.RegisterDate >= julianStartDate);
+                }
+
+                if (!string.IsNullOrEmpty(endDate))
+                {
+                    DateTime tempJulianEndDate = Api.ConvertDate.PersianTOJulian(endDate);
+                    DateTime julianEndDate = new DateTime(tempJulianEndDate.Year, tempJulianEndDate.Month, tempJulianEndDate.Day, 23, 59, 59, 50);
+                    query = query.Where(x => x.RegisterDate <= julianEndDate);
+                }
+
+                int pageCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(query.Count()) / Convert.ToDouble(pageSize)));
+                int resultCount = query.Count();
+
+                List<DomainClasses.DesignOrder> list = query
+                    .Include(x => x.Customer)
+                    .Include(x => x.Form)
+                    .Include(x => x.PrepaymentFactor)
+                    .Include(x => x.PrepaymentFactor.Payment)
+                    .Include(x => x.FinalFactor)
+                    .Include(x => x.FinalFactor.Payment)
+                    .OrderByDescending(x => x.RegisterDate)
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+                result.Data = new
+                {
+                    ResultCount = resultCount,
+                    PageCount = pageCount,
+                    PageIndex = pageIndex,
+                    List = list.Select(x => new
+                    {
+                        Id = x.Id,
+                        Code = x.Code,
+                        Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
+                        RegisterDate = x.RegisterDate.ToShortDateString(),
+                        PersianRegisterDate = x.PersianRegisterDate,
+                        OrderState = x.OrderState,
+                        //Confirm Data
+                        IsConfirm = x.IsConfirm,
+                        ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
+                        Price = x.Price,
+                        Prepayment = x.Prepayment,
+                        Customer = new
+                        {
+                            Name = x.Customer.Name,
+                            Surname = x.Customer.Surname,
+                            Username = x.Customer.Username,
+                            Phone = x.Customer.Phone,
+                            Mobile = x.Customer.Mobile,
+                            Email = x.Customer.Email,
+                            Address = x.Customer.Address
+                        },
+                        Form = new
+                        {
+                            Id = x.Form.Id,
+                            Title = x.Form.Title
+                        },
+                        //Prepayment Factor
+                        PrepaymentFactor = new
+                        {
+                            Id = x.PrepaymentFactor.Id,
+                            Time = string.Format("{0:D2}:{1:D2}", x.PrepaymentFactor.RegisterDate.Hour, x.PrepaymentFactor.RegisterDate.Minute),
+                            PersianRegisterDate = x.PrepaymentFactor.PersianRegisterDate,
+                            Price = x.PrepaymentFactor.Price,
+                            IsPaid = x.PrepaymentFactor.IsPaid
+                        },
+                        //Prepayment Payment
+                        PrepaymentPayment = x.PrepaymentFactor.Payment != null ? new
+                        {
+                            Id = x.PrepaymentFactor.Payment.Id,
+                            Code = x.PrepaymentFactor.Payment.Code,
+                            Money = x.PrepaymentFactor.Payment.Money,
+                            PersianRegisterDate = x.PrepaymentFactor.Payment.PersianRegisterDate,
+                            Time = string.Format("{0:D2}:{1:D2}", x.PrepaymentFactor.Payment.RegisterDate.Hour, x.PrepaymentFactor.Payment.RegisterDate.Minute),
+                            IsPaid = x.PrepaymentFactor.Payment.IsPaid,
+                            //Bank Data
+                            RefId = x.PrepaymentFactor.Payment.RefId
+                        } : new
+                        {
+                            Id = 0,
+                            Code = 0,
+                            Money = (decimal)0,
+                            PersianRegisterDate = "",
+                            Time = "",
+                            IsPaid = false,
+                            //Bank Data
+                            RefId = ""
+                        },
+                        //Final Factor
+                        FinalFactor = new
+                        {
+                            Id = x.FinalFactor.Id,
+                            Time = string.Format("{0:D2}:{1:D2}", x.FinalFactor.RegisterDate.Hour, x.FinalFactor.RegisterDate.Minute),
+                            PersianRegisterDate = x.FinalFactor.PersianRegisterDate,
+                            Price = x.FinalFactor.Price,
+                            IsPaid = x.FinalFactor.IsPaid
+                        },
+                        //Final Payment
+                        FinalPayment = x.FinalFactor.Payment != null ? new
+                        {
+                            Id = x.FinalFactor.Payment.Id,
+                            Code = x.FinalFactor.Payment.Code,
+                            Money = x.FinalFactor.Payment.Money,
+                            PersianRegisterDate = x.FinalFactor.Payment.PersianRegisterDate,
+                            Time = string.Format("{0:D2}:{1:D2}", x.FinalFactor.Payment.RegisterDate.Hour, x.FinalFactor.Payment.RegisterDate.Minute),
+                            IsPaid = x.FinalFactor.Payment.IsPaid,
+                            //Bank Data
+                            RefId = x.FinalFactor.Payment.RefId
+                        } : new
+                        {
+                            Id = 0,
+                            Code = 0,
+                            Money = (decimal)0,
+                            PersianRegisterDate = "",
+                            Time = "",
+                            IsPaid = false,
+                            //Bank Data
+                            RefId = ""
+                        }
+                    }).ToArray()
+                };
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult FinishedOrderList()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetFinishedOrders(int? orderId, string startDate, string endDate, int pageIndex = 1)
+        {
+            if (pageIndex <= 0) pageIndex = 1;
+            int pageSize = 20;
+            JsonResult result = new JsonResult();
+
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                IQueryable<DomainClasses.DesignOrder> query = context.DesignOrders.AsQueryable();
+
+                query = query.Where(x => x.IsCanceled == false);
+                query = query.Where(x => x.OrderState == DomainClasses.DesignOrderState.Finish);
+
+                if (orderId != null)
+                {
+                    string tempOrderId = Convert.ToString(orderId);
+                    query = query.Where(x => SqlFunctions.StringConvert((double)x.Id + 1024).Contains(tempOrderId));
+                }
+
+                if (!string.IsNullOrEmpty(startDate))
+                {
+                    DateTime julianStartDate = Api.ConvertDate.PersianTOJulian(startDate);
+                    query = query.Where(x => x.RegisterDate >= julianStartDate);
+                }
+
+                if (!string.IsNullOrEmpty(endDate))
+                {
+                    DateTime tempJulianEndDate = Api.ConvertDate.PersianTOJulian(endDate);
+                    DateTime julianEndDate = new DateTime(tempJulianEndDate.Year, tempJulianEndDate.Month, tempJulianEndDate.Day, 23, 59, 59, 50);
+                    query = query.Where(x => x.RegisterDate <= julianEndDate);
+                }
+
+                int pageCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(query.Count()) / Convert.ToDouble(pageSize)));
+                int resultCount = query.Count();
+
+                List<DomainClasses.DesignOrder> list = query
+                    .Include(x => x.Customer)
+                    .Include(x => x.Form)
+                    .Include(x => x.PrepaymentFactor)
+                    .Include(x => x.PrepaymentFactor.Payment)
+                    .Include(x => x.FinalFactor)
+                    .Include(x => x.FinalFactor.Payment)
+                    .OrderByDescending(x => x.RegisterDate)
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+                result.Data = new
+                {
+                    ResultCount = resultCount,
+                    PageCount = pageCount,
+                    PageIndex = pageIndex,
+                    List = list.Select(x => new
+                    {
+                        Id = x.Id,
+                        Code = x.Code,
+                        Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
+                        RegisterDate = x.RegisterDate.ToShortDateString(),
+                        PersianRegisterDate = x.PersianRegisterDate,
+                        OrderState = x.OrderState,
+                        //Confirm Data
+                        IsConfirm = x.IsConfirm,
+                        ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
+                        Price = x.Price,
+                        Prepayment = x.Prepayment,
+                        Customer = new
+                        {
+                            Name = x.Customer.Name,
+                            Surname = x.Customer.Surname,
+                            Username = x.Customer.Username,
+                            Phone = x.Customer.Phone,
+                            Mobile = x.Customer.Mobile,
+                            Email = x.Customer.Email,
+                            Address = x.Customer.Address
+                        },
+                        Form = new
+                        {
+                            Id = x.Form.Id,
+                            Title = x.Form.Title
+                        },
+                        //Prepayment Factor
+                        PrepaymentFactor = new
+                        {
+                            Id = x.PrepaymentFactor.Id,
+                            Time = string.Format("{0:D2}:{1:D2}", x.PrepaymentFactor.RegisterDate.Hour, x.PrepaymentFactor.RegisterDate.Minute),
+                            PersianRegisterDate = x.PrepaymentFactor.PersianRegisterDate,
+                            Price = x.PrepaymentFactor.Price,
+                            IsPaid = x.PrepaymentFactor.IsPaid
+                        },
+                        //Prepayment Payment
+                        PrepaymentPayment = x.PrepaymentFactor.Payment != null ? new
+                        {
+                            Id = x.PrepaymentFactor.Payment.Id,
+                            Code = x.PrepaymentFactor.Payment.Code,
+                            Money = x.PrepaymentFactor.Payment.Money,
+                            PersianRegisterDate = x.PrepaymentFactor.Payment.PersianRegisterDate,
+                            Time = string.Format("{0:D2}:{1:D2}", x.PrepaymentFactor.Payment.RegisterDate.Hour, x.PrepaymentFactor.Payment.RegisterDate.Minute),
+                            IsPaid = x.PrepaymentFactor.Payment.IsPaid,
+                            //Bank Data
+                            RefId = x.PrepaymentFactor.Payment.RefId
+                        } : new
+                        {
+                            Id = 0,
+                            Code = 0,
+                            Money = (decimal)0,
+                            PersianRegisterDate = "",
+                            Time = "",
+                            IsPaid = false,
+                            //Bank Data
+                            RefId = ""
+                        },
+                        //Final Factor
+                        FinalFactor = new
+                        {
+                            Id = x.FinalFactor.Id,
+                            Time = string.Format("{0:D2}:{1:D2}", x.FinalFactor.RegisterDate.Hour, x.FinalFactor.RegisterDate.Minute),
+                            PersianRegisterDate = x.FinalFactor.PersianRegisterDate,
+                            Price = x.FinalFactor.Price,
+                            IsPaid = x.FinalFactor.IsPaid
+                        },
+                        //Final Payment
+                        FinalPayment = x.FinalFactor.Payment != null ? new
+                        {
+                            Id = x.FinalFactor.Payment.Id,
+                            Code = x.FinalFactor.Payment.Code,
+                            Money = x.FinalFactor.Payment.Money,
+                            PersianRegisterDate = x.FinalFactor.Payment.PersianRegisterDate,
+                            Time = string.Format("{0:D2}:{1:D2}", x.FinalFactor.Payment.RegisterDate.Hour, x.FinalFactor.Payment.RegisterDate.Minute),
+                            IsPaid = x.FinalFactor.Payment.IsPaid,
+                            //Bank Data
+                            RefId = x.FinalFactor.Payment.RefId
+                        } : new
+                        {
+                            Id = 0,
+                            Code = 0,
+                            Money = (decimal)0,
+                            PersianRegisterDate = "",
+                            Time = "",
+                            IsPaid = false,
+                            //Bank Data
+                            RefId = ""
                         }
                     }).ToArray()
                 };
@@ -199,6 +514,7 @@ namespace Karenbic.Areas.Admin.Controllers
                 if (order.IsCanceled == false && price > 0)
                 {
                     order.IsConfirm = true;
+                    order.OrderState = DomainClasses.DesignOrderState.Confirm;
                     order.ConfirmDate = DateTime.Now;
                     order.Price = price;
                     order.Prepayment = prepayment;

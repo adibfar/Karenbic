@@ -78,6 +78,7 @@
     <Compile Include="Form\FormField_Numeric.cs" />
     <Compile Include="Customer\Gender.cs" />
     <Compile Include="Factor\Payment.cs" />
+    <Compile Include="Order\DesignOrderState.cs" />
     <Compile Include="Order\Order.cs" />
     <Compile Include="Order\Order_Value.cs" />
     <Compile Include="Order\Order_Value_Checkbox.cs" />

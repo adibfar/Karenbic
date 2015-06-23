@@ -71,8 +71,18 @@ App
             },
             {
                 text: "مشتریان",
-                sref: "app.design.dashboard",
-                icon: "customers"
+                sref: "#",
+                icon: "customers",
+                submenu: [
+                    {
+                        text: "گروه مشتریان",
+                        sref: "app.design.customer-group"
+                    },
+                    {
+                        text: "لیست مشتریان",
+                        sref: "app.design.customer"
+                    }
+                ]
             },
             {
                 text: "لیست قیمت",
@@ -149,7 +159,22 @@ App
                         sref: "app.print.edit-form"
                     }
                 ]
-            }
+            },
+            {
+                text: "مشتریان",
+                sref: "#",
+                icon: "customers",
+                submenu: [
+                    {
+                         text: "گروه مشتریان",
+                         sref: "app.print.customer-group"
+                    },
+                    {
+                        text: "لیست مشتریان",
+                        sref: "app.print.customer"
+                    }
+                ]
+            },
         ]
     })
     .constant('APP_COLORS', {

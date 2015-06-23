@@ -9,6 +9,10 @@ namespace Karenbic.DataAccess
                 .WithMany(x => x.Customers)
                 .WillCascadeOnDelete(false);
 
+            HasOptional(x => x.Group)
+                .WithMany(x => x.Customers)
+                .WillCascadeOnDelete(false);
+
             HasMany(x => x.Orders)
                 .WithRequired(x => x.Customer)
                 .WillCascadeOnDelete(false);

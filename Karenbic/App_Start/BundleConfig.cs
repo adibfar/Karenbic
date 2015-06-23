@@ -76,6 +76,8 @@ namespace Karenbic
                 "~/Scripts/admin/controllers/form-add.js",
                 "~/Scripts/admin/controllers/form-edit.js",
                 "~/Scripts/admin/controllers/form-list.js",
+                "~/Scripts/admin/controllers/customer-group.js",
+                "~/Scripts/admin/controllers/customer.js",
                 "~/Scripts/admin/controllers/design-new-order-list.js",
                 "~/Scripts/admin/controllers/design-ongoing-order-list.js",
                 "~/Scripts/admin/controllers/design-finished-order-list.js",

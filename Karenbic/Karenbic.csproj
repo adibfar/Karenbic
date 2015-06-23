@@ -173,8 +173,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CityController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CustomerGroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\DesignAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\DesignOrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\DesignPaymentController.cs" />
@@ -186,6 +190,7 @@
     <Compile Include="Areas\Admin\Controllers\PrintAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrintOrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrintPaymentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProvinceController.cs" />
     <Compile Include="Areas\Customer\Controllers\DesignOrderController.cs" />
     <Compile Include="Areas\Customer\Controllers\DesignPaymentController.cs">
       <SubType>Code</SubType>
@@ -232,6 +237,16 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="UserInfrastructure\ApplicationDbContext.cs" />
+    <Compile Include="UserInfrastructure\ApplicationDbInitializer.cs" />
+    <Compile Include="UserInfrastructure\ApplicationRole.cs" />
+    <Compile Include="UserInfrastructure\ApplicationRoleManager.cs" />
+    <Compile Include="UserInfrastructure\ApplicationSignInManager.cs" />
+    <Compile Include="UserInfrastructure\ApplicationUser.cs" />
+    <Compile Include="UserInfrastructure\ApplicationUserManager.cs" />
+    <Compile Include="UserInfrastructure\EmailService.cs" />
+    <Compile Include="UserInfrastructure\RACVAccessAttribute.cs" />
+    <Compile Include="UserInfrastructure\SmsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
@@ -279,6 +294,7 @@
     <Content Include="Images\SketchSheets\iPhone.png" />
     <Content Include="Images\UI\Button\btn-add-1.png" />
     <Content Include="Images\UI\Button\btn-cancel-1.png" />
+    <Content Include="Images\UI\Button\btn-changepass-1.png" />
     <Content Include="Images\UI\Button\btn-confirm-1.png" />
     <Content Include="Images\UI\Button\btn-credit-1.png" />
     <Content Include="Images\UI\Button\btn-hide-1.png" />
@@ -298,6 +314,8 @@
     <Content Include="Scripts\admin\app.init.js" />
     <Content Include="Scripts\admin\config.js" />
     <Content Include="Scripts\admin\constants.js" />
+    <Content Include="Scripts\admin\controllers\customer-group.js" />
+    <Content Include="Scripts\admin\controllers\customer.js" />
     <Content Include="Scripts\admin\controllers\design-canceled-order-list.js" />
     <Content Include="Scripts\admin\controllers\design-factor-list.js" />
     <Content Include="Scripts\admin\controllers\design-finished-order-list.js" />
@@ -396,7 +414,7 @@
     <Content Include="Areas\Customer\Views\DesignPayment\Preview.cshtml" />
     <Content Include="Areas\Customer\Views\DesignPayment\Checkout.cshtml" />
     <Content Include="Areas\Admin\Views\PrintOrder\FinishedOrderList.cshtml" />
-    <Content Include="Areas\Admin\Views\DesignOrder\OngoingOrderList.cshtml" />
+    <Content Include="Areas\Admin\Views\DesignOrder\_OngoingOrderList.cshtml" />
     <Content Include="Areas\Admin\Views\DesignOrder\FinishedOrderList.cshtml" />
     <Content Include="Areas\Admin\Views\PrintPayment\List.cshtml" />
     <Content Include="Areas\Admin\Views\DesignPayment\List.cshtml" />
@@ -405,6 +423,8 @@
     <Content Include="Areas\Customer\Views\PrintPayment\List.cshtml" />
     <Content Include="Areas\Customer\Views\DesignPayment\List.cshtml" />
     <Content Include="Areas\Customer\Views\PrintOrder\List.cshtml" />
+    <Content Include="Areas\Admin\Views\CustomerGroup\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Customer\List.cshtml" />
     <None Include="Service References\BPService\configuration91.svcinfo" />
     <None Include="Service References\BPService\configuration.svcinfo" />
     <Content Include="Service References\BPService\Karenbic.BPService.bpChargePayRequestResponse.datasource">
@@ -2915,7 +2935,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\City\" />
     <Folder Include="Areas\Admin\Views\Order\" />
+    <Folder Include="Areas\Admin\Views\Province\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Customer\Views\DesignOrder\" />
     <Folder Include="Areas\Customer\Views\Shared\" />

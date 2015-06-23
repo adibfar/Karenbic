@@ -55,6 +55,18 @@ App
                     controller: 'FormsListController',
                     resolve: helper.resolveFor('ngDialog')
                 })
+                .state('app.design.customer-group', {
+                    url: '/customer-group',
+                    templateUrl: helper.basepath('CustomerGroup/Index'),
+                    controller: 'CustomerGroupController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.design.customer', {
+                    url: '/customer',
+                    templateUrl: helper.basepath('Customer/List'),
+                    controller: 'CustomerController',
+                    resolve: helper.resolveFor('ngDialog', 'chosen')
+                })
                 .state('app.design.new-order-list', {
                     url: '/new-order-list',
                     templateUrl: helper.basepath('DesignOrder/NewOrderList'),
@@ -119,6 +131,18 @@ App
                     templateUrl: helper.basepath('Form/List'),
                     controller: 'FormsListController',
                     resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.print.customer-group', {
+                    url: '/customer-group',
+                    templateUrl: helper.basepath('CustomerGroup/Index'),
+                    controller: 'CustomerGroupController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.print.customer', {
+                    url: '/customer',
+                    templateUrl: helper.basepath('Customer/List'),
+                    controller: 'CustomerController',
+                    resolve: helper.resolveFor('ngDialog', 'chosen')
                 })
                 .state('app.print.new-order-list', {
                     url: '/new-order-list',

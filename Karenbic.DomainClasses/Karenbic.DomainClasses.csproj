@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Customer\City.cs" />
     <Compile Include="Customer\Customer.cs" />
+    <Compile Include="Customer\CustomerGroup.cs" />
     <Compile Include="Factor\DesingPayment.cs" />
     <Compile Include="Factor\FinalDesignFactor.cs" />
     <Compile Include="Factor\FinalDesignPaymentItem.cs" />

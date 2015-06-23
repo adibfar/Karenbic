@@ -14,6 +14,7 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.Province> Province { get; set; }
         public DbSet<DomainClasses.City> Cities { get; set; }
 
+        public DbSet<DomainClasses.CustomerGroup> CustomerGroups { get; set; }
         public DbSet<DomainClasses.Customer> Customers { get; set; }
 
         public DbSet<DomainClasses.FileFormat> FileFormats { get; set; }
@@ -67,6 +68,7 @@ namespace Karenbic.DataAccess
             modelBuilder.Configurations.Add(new ProvinceConfiguration());
             modelBuilder.Configurations.Add(new CityConfiguration());
 
+            modelBuilder.Configurations.Add(new CustomerGroupConfiguration());
             modelBuilder.Configurations.Add(new CustomerConfiguration());
 
             modelBuilder.Configurations.Add(new FormConfiguration());

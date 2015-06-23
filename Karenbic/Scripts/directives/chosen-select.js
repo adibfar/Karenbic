@@ -8,6 +8,10 @@ App.directive('chosen', function() {
         var list = attrs['chosen'];
 
         scope.$watch(list, function () {
+            setTimeout(function () {
+                element.trigger('liszt:updated');
+                element.trigger("chosen:updated");
+            }, 100);
             element.trigger('liszt:updated');
             element.trigger("chosen:updated");
         }, true);

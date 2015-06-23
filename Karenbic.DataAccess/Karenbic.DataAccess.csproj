@@ -49,6 +49,7 @@
     <Compile Include="Customer\CityConfiguration.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Customer\CustomerConfiguration.cs" />
+    <Compile Include="Customer\CustomerGroupConfiguration.cs" />
     <Compile Include="Factor\DesignPaymentConfiguration.cs" />
     <Compile Include="Factor\FinalDesignFactorConfiguration.cs" />
     <Compile Include="Factor\FinalDesignPaymentItemConfiguration.cs" />

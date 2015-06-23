@@ -1,0 +1,330 @@
+﻿<style type="text/css">
+    .dgvcn {
+        background-color: #f9f9f9;
+        border: 1px solid #6c6c6c;
+        margin-top: 20px;
+        min-height: 671px !important;
+    }
+        .dgvcn .btn-img-changepass-1 {
+            position: relative;
+            top: -2px;
+        }
+        .dgvcn .btn-img-edit-1 {
+            margin-left: 2px;
+            margin-right: 3px;
+            position: relative;
+            top: -2px;
+        }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default"
+             ng-class="{'whirl': fetchLoading, 'shadow': fetchLoading}">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i></i>
+                    لیست مشتریان
+                </div>
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label class="control-label">نام مشتری:</label>
+                                    <input type="text" class="form-control" ng-model="searchFields.customerName" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-group" style="position:relative;">
+                                    <label class="control-label">گروه مشتریان:</label>
+                                    <select chosen="customerGroups"
+                                            ng-options="item.Title for item in customerGroups"
+                                            ng-model="searchFields.customerGroup"
+                                            width="100%"></select>
+                                    <div style="background-color:#f6f6f6;height:29px;position:absolute;top:23px;right:0;left:0;opacity:0.4;"
+                                         ng-if="fetchCustomerGroupsLoading">
+                                        <img src="/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <div class="form-group" style="position:relative;">
+                                    <label class="control-label">استان:</label>
+                                    <select chosen="provinces"
+                                            ng-options="item.Name for item in provinces"
+                                            ng-model="searchFields.province"
+                                            ng-change="fetchCities()"
+                                            width="100%"></select>
+                                    <div style="background-color:#f6f6f6;height:29px;position:absolute;top:23px;right:0;left:0;opacity:0.4;"
+                                         ng-if="fetchProvincesLoading">
+                                        <img src="/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-group" style="position:relative;">
+                                    <label class="control-label">شهر:</label>
+                                    <select chosen="cities"
+                                            ng-options="item.Name for item in cities"
+                                            ng-model="searchFields.city"
+                                            width="100%"></select>
+                                    <div style="background-color:#f6f6f6;height:29px;position:absolute;top:23px;right:0;left:0;opacity:0.4;"
+                                         ng-if="fetchCitiesLoading">
+                                        <img src="/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="hidden-xs" style="height:84px;"></div>
+                            <div class="form-group">
+                                <div class="hidden-xs" style="margin-bottom:5px;"></div>
+                                <button class="btn-img-search-2" ng-click="search()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <hr class="hr1" />
+
+                <div class="table-responsive dgvcn">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="min-width:40px;width:40px;">&nbsp;</th>
+                                <th style="min-width:90px;width:90px;">تاریخ عضویت</th>
+                                <th style="min-width:250px;">نام مشتری</th>
+                                <th style="min-width:200px;width:200px;">گروه مشتریان</th>
+                                <th style="min-width:90px;width:90px;">تلفن ثابت</th>
+                                <th style="min-width:90px;width:90px;">تلفن همراه</th>
+                                <th style="width:60px;">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in customers">
+                                <td><span style="margin-right:4px;">{{$index + 1}}</span></td>
+                                <td>{{item.RegisterDate}}</td>
+                                <td>{{item.Name + ' ' + item.Surname}}</td>
+                                <td>
+                                    <span ng-if="item.Group.Id == 0">-------</span>
+                                    <span ng-if="item.Group.Id != 0">{{item.Group.Title}}</span>
+                                </td>
+                                <td>{{item.Phone}}</td>
+                                <td>{{item.Mobile}}</td>
+                                <td style="text-align:left;">
+                                    <button class="btn-img-changepass-1" type="button" ng-click="showChangePassModal($index)"></button>
+                                    <button class="btn-img-edit-1" type="button" ng-click="showEditModal($index)"></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <ul class="pagination pagination-sm" ng-show=" pageCount > 1">
+                            <li ng-class="{'disabled': pageIndex == 1}">
+                                <span ng-click="prevPage()">
+                                    <img src="/Images/UI/Pagination/btn-next-1.png" />
+                                </span>
+                            </li>
+                            <li ng-repeat="page in pages" ng-class="{'active': page == pageIndex}">
+                                <a ng-click="changePage($index)">{{page}}</a>
+                            </li>
+                            <li ng-class="{'disabled': pageIndex >= pageCount}">
+                                <span ng-click="nextPage()">
+                                    <img src="/Images/UI/Pagination/btn-back-1.png" />
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Start Edit Modal -->
+<script type="text/ng-template" id="/EditModalContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            ویرایش اطلاعات مشتری
+        </div>
+    </div>
+    <div class="modal-body" ng-class="{'whirl': editLoading, 'shadow': editLoading}">
+        <form name="editCustomerForm">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label">نام:</label>
+                        <input type="text" class="form-control" ng-model="customer.Name" required="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">نام خانوادگی:</label>
+                        <input type="text" class="form-control" ng-model="customer.Surname" required="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">جنسیت:</label>
+                        <br />
+                        <div class="radio-inline c-radio"
+                             style="padding-right:5px;">
+                            <label>
+                                <input type="radio"
+                                       ng-value="1"
+                                       ng-model="customer.Gender">
+                                <span></span>مرد
+                            </label>
+                        </div>
+                        <div class="radio-inline c-radio"
+                             style="padding-right:5px;">
+                            <label>
+                                <input type="radio"
+                                       ng-value="2"
+                                       ng-model="customer.Gender">
+                                <span></span>زن
+                            </label>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label">شماره تلفن:</label>
+                        <input type="text" class="form-control ltr" ng-model="customer.Phone" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">شماره همراه:</label>
+                        <input type="text" class="form-control ltr" ng-model="customer.Mobile" required="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">ایمیل:</label>
+                        <input type="text" class="form-control ltr" ng-model="customer.Email"
+                               ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@("@")[a-z0-9-]+\.[a-z0-9-]+$/i" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        <div class="form-group" style="position:relative;">
+                            <label class="control-label">استان:</label>
+                            <select chosen="provinces"
+                                    ng-options="item.Name for item in provinces"
+                                    ng-model="customer.Province"
+                                    ng-change="fetchCities()"
+                                    width="100%"></select>
+                            <div style="background-color:#f6f6f6;height:29px;position:absolute;top:23px;right:0;left:0;opacity:0.4;"
+                                 ng-if="fetchProvincesLoading">
+                                <img src="/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group" style="position:relative;">
+                            <label class="control-label">شهر:</label>
+                            <select chosen="cities"
+                                    ng-options="item.Name for item in cities"
+                                    ng-model="customer.City"
+                                    width="100%"></select>
+                            <div style="background-color:#f6f6f6;height:29px;position:absolute;top:23px;right:0;left:0;opacity:0.4;"
+                                 ng-if="fetchCitiesLoading">
+                                <img src="/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group" style="position:relative;">
+                            <label class="control-label">گروه مشتریان:</label>
+                            <select chosen="customerGroups"
+                                    ng-options="item.Title for item in customerGroups"
+                                    ng-model="customer.Group"
+                                    width="100%"></select>
+                            <div style="background-color:#f6f6f6;height:29px;position:absolute;top:23px;right:0;left:0;opacity:0.4;"
+                                 ng-if="fetchCustomerGroupsLoading">
+                                <img src="/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label">آدرس:</label>
+                    <textarea class="form-control"
+                              style="height:100px;resize:none;overflow:hidden;"
+                              ng-model="customer.Adddress"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+                <button class="btn btn-labeled btn-warning" type="button"
+                        ng-click="edit()"
+                        ng-class="{'disabled': editCustomerForm.$invalid}"
+                        ng-disabled="editCustomerForm.$invalid">
+                    <span class="btn-label btn-label-right">
+                        <i class="fa fa-pencil"></i>
+                    </span>
+                    ویرایش
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End Edit Modal -->
+
+<!-- Start Change Password Modal -->
+<script type="text/ng-template" id="/ChangePassModalContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            تغییر رمز عبور
+        </div>
+    </div>
+    <div class="modal-body" ng-class="{'whirl': editLoading, 'shadow': editLoading}">
+        <form name="editPasswordForm">
+            <div class="form-group">
+                <label class="control-label">رمز عبور جدید:</label>
+                <input type="text" class="form-control ltr" ng-model="newPass" ng-minlength="6" required="" />
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+                <button class="btn btn-labeled btn-warning" type="button"
+                        ng-click="edit()"
+                        ng-class="{'disabled': editPasswordForm.$invalid}"
+                        ng-disabled="editPasswordForm.$invalid">
+                    <span class="btn-label btn-label-right">
+                        <i class="fa fa-pencil"></i>
+                    </span>
+                    ویرایش
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End Change Password Modal -->
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

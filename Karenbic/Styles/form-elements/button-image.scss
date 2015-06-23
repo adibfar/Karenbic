@@ -22,6 +22,17 @@
 	background-position: 0px -22px;
 }
 
+.btn-img-changepass-1 {
+	width: 14px;
+	height: 19px;
+	border: none;
+	background: transparent url(/Images/UI/Button/btn-changepass-1.png) no-repeat 0px 0px;
+	cursor: pointer;
+}
+.btn-img-changepass-1:focus, .btn-img-changepass-1:hover {
+	background-position: 0px -21px;
+}
+
 .btn-img-confirm-1 {
 	display: inline-block;
 	width: 21px;

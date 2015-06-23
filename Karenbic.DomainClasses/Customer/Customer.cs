@@ -47,6 +47,8 @@ namespace Karenbic.DomainClasses
 
         public virtual City City { get; set; }
 
+        public virtual CustomerGroup Group { get; set; }
+
         public ICollection<Order> Orders { get; set; }
     }
 }

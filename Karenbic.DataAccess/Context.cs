@@ -14,10 +14,13 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.Province> Province { get; set; }
         public DbSet<DomainClasses.City> Cities { get; set; }
 
+
         public DbSet<DomainClasses.CustomerGroup> CustomerGroups { get; set; }
         public DbSet<DomainClasses.Customer> Customers { get; set; }
 
+
         public DbSet<DomainClasses.FileFormat> FileFormats { get; set; }
+
 
         public DbSet<DomainClasses.Form> Forms { get; set; }
         public DbSet<DomainClasses.FormField> FormFields { get; set; }
@@ -35,6 +38,7 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.FormField_CheckBoxGroup_Item> FormField_CheckBoxGroup_Items { get; set; }
         public DbSet<DomainClasses.FormField_WebUrl> FormFields_WebUrl{ get; set; }
         public DbSet<DomainClasses.FormField_DatePicker> FormFields_DatePicker { get; set; }
+
 
         public DbSet<DomainClasses.Order> Orders { get; set; }
         public DbSet<DomainClasses.PrintOrder> PrintOrders { get; set; }
@@ -62,6 +66,10 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.DesignPayment> DesignPayments { get; set; }
         public DbSet<DomainClasses.PrepaymentDesignPaymentItem> PrepaymentDesignPaymentItems { get; set; }
         public DbSet<DomainClasses.FinalDesignPaymentItem> FinalDesignPaymentItems { get; set; }
+
+
+        public DbSet<DomainClasses.PriceList> PriceLists { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

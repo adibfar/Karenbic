@@ -103,6 +103,12 @@ App
                     controller: 'FactorOfDesignOrderListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
                 })
+                .state('app.design.price-list', {
+                    url: '/price-list',
+                    templateUrl: helper.basepath('PriceList/Index'),
+                    controller: 'PriceListController',
+                    resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper')
+                })
                 .state('app.print', {
                     url: '/print',
                     abstract: true,
@@ -179,6 +185,12 @@ App
                     templateUrl: helper.basepath('FactorOfPrintOrder/List'),
                     controller: 'FactorOfPrintOrderListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
+                })
+                .state('app.print.price-list', {
+                    url: '/price-list',
+                    templateUrl: helper.basepath('PriceList/Index'),
+                    controller: 'PriceListController',
+                    resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper')
                 });
 
     }]).config(['$ocLazyLoadProvider', 'APP_REQUIRES',

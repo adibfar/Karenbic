@@ -1,0 +1,71 @@
+﻿<style type="text/css">
+    .whirl.shadow::after {
+        z-index: 13;
+    }
+    .whirl.shadow::before {
+        z-index: 13;
+    }
+
+    .item {
+        background-color: #b5b5b5;
+        color: #fff;
+        cursor: pointer;
+        display: block;
+        margin: 0 -5px 10px -5px;
+        padding: 5px;
+        text-align: center;
+        text-decoration: none;
+        -moz-transition: background-color 300ms ease-out;
+        -webkit-transition: background-color 300ms ease-out;
+        -o-transition: background-color 300ms ease-out;
+        transition: background-color 300ms ease-out;
+    }
+        .item:hover,
+        .item:focus,
+        .item:active {
+            color: #fff;
+            text-decoration: none;
+        }
+        .item.blue:hover {
+            background-color: #78BBF1;
+            -moz-transition: background-color 300ms ease-in;
+            -webkit-transition: background-color 300ms ease-in;
+            -o-transition: background-color 300ms ease-in;
+            transition: background-color 300ms ease-in;
+        }
+        .item.pink:hover {
+            background-color: #CEAEDA;
+            -moz-transition: background-color 300ms ease-in;
+            -webkit-transition: background-color 300ms ease-in;
+            -o-transition: background-color 300ms ease-in;
+            transition: background-color 300ms ease-in;
+        }
+
+        #cboxCurrent{
+            display: none !important;
+        }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i></i>
+                    لیست قیمت
+                </div>
+            </div>
+            <div class="panel-body" style="min-height:400px;">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"
+                         ng-repeat="item in priceLists">
+                        <a href="{{item.PicturePath}}" title="{{item.Title}}" 
+                           class="item" jquery-colorbox="" rel="gal"
+                             ng-class="{'pink': isDesignPortal(), 'blue': isPrintPortal()}">{{item.Title}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

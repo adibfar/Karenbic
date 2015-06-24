@@ -86,7 +86,7 @@ App
             },
             {
                 text: "لیست قیمت",
-                sref: "app.design.dashboard",
+                sref: "app.design.price-list",
                 icon: "price-list"
             },
             {
@@ -175,6 +175,11 @@ App
                     }
                 ]
             },
+            {
+                text: "لیست قیمت",
+                sref: "app.print.price-list",
+                icon: "price-list"
+            },
         ]
     })
     .constant('APP_COLORS', {
@@ -222,7 +227,8 @@ App
             'jquery-resize': ['/Vendors/jquery-resize/jquery.ba-resize.min.js'],
             'jquery-ui-datepicker': ['/Vendors/jquery.ui.datepicker/jquery.ui.datepicker-cc.all.min.js'],
             'tooltipster': ['/Vendors/tooltipster/js/jquery.tooltipster.min.js', '/Vendors/tooltipster/css/tooltipster.css', '/Vendors/tooltipster/css/themes/tooltipster-light.css'],
-            'persian-date': ['/Vendors/persian-date/persian-date-0.1.8.min.js']
+            'persian-date': ['/Vendors/persian-date/persian-date-0.1.8.min.js'],
+            'jquery-colorbox': ['/Vendors/jquery-colorbox/jquery.colorbox-min.js', '/Vendors/jquery-colorbox/them/colorbox.css']
         },
         modules: [
             {

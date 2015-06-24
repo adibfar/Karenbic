@@ -72,6 +72,12 @@ App
                     controller: 'DesignPaymentListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
                 })
+                .state('app.design.price-list', {
+                    url: '/price-list',
+                    templateUrl: helper.basepath('PriceList/Index'),
+                    controller: 'PriceListController',
+                    resolve: helper.resolveFor('jquery-colorbox')
+                })
                 .state('app.print', {
                     url: '/print',
                     abstract: true,
@@ -123,7 +129,13 @@ App
                     templateUrl: helper.basepath('PrintOrder/List'),
                     controller: 'PrintOrderListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
-                });
+                })
+                 .state('app.print.price-list', {
+                     url: '/price-list',
+                     templateUrl: helper.basepath('PriceList/Index'),
+                     controller: 'PriceListController',
+                     resolve: helper.resolveFor('jquery-colorbox')
+                 });
 
     }]).config(['$ocLazyLoadProvider', 'APP_REQUIRES',
         function ($ocLazyLoadProvider, APP_REQUIRES) {

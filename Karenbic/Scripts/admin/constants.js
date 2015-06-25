@@ -96,8 +96,14 @@ App
             },
             {
                 text: "تنظیمات",
-                sref: "app.design.dashboard",
-                icon: "setting"
+                sref: "#",
+                icon: "setting",
+                submenu: [
+                    {
+                        text: "تغییر رمز عبور",
+                        sref: "app.design.change-password"
+                    }
+                ]
             }
         ],
         menuItems_print: [
@@ -180,6 +186,17 @@ App
                 sref: "app.print.price-list",
                 icon: "price-list"
             },
+            {
+                text: "تنظیمات",
+                sref: "#",
+                icon: "setting",
+                submenu: [
+                    {
+                        text: "تغییر رمز عبور",
+                        sref: "app.print.change-password"
+                    }
+                ]
+            }
         ]
     })
     .constant('APP_COLORS', {

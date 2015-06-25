@@ -66,8 +66,18 @@ App
             },
             {
                 text: "تنظیمات",
-                sref: "app.design.dashboard",
-                icon: "setting"
+                sref: "#",
+                icon: "setting",
+                submenu: [
+                    {
+                        text: "ویرایش اطلاعات کاربری",
+                        sref: "app.design.change-profile"
+                    },
+                    {
+                        text: "تغییر رمز عبور",
+                        sref: "app.design.change-password"
+                    }
+                ]
             }
         ],
         menuItems_print: [
@@ -127,8 +137,18 @@ App
             },
             {
                 text: "تنظیمات",
-                sref: "app.print.dashboard3",
-                icon: "setting"
+                sref: "#",
+                icon: "setting",
+                submenu: [
+                    {
+                        text: "ویرایش اطلاعات کاربری",
+                        sref: "app.print.change-profile"
+                    },
+                    {
+                        text: "تغییر رمز عبور",
+                        sref: "app.print.change-password"
+                    }
+                ]
             }
         ]
     })

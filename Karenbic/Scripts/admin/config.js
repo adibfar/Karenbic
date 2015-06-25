@@ -109,6 +109,11 @@ App
                     controller: 'PriceListController',
                     resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper')
                 })
+                .state('app.design.change-password', {
+                    url: '/change-password',
+                    templateUrl: helper.basepath('Profile/ChangePassword'),
+                    controller: 'ChangePasswordController'
+                })
                 .state('app.print', {
                     url: '/print',
                     abstract: true,
@@ -191,6 +196,11 @@ App
                     templateUrl: helper.basepath('PriceList/Index'),
                     controller: 'PriceListController',
                     resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper')
+                })
+                .state('app.print.change-password', {
+                    url: '/change-password',
+                    templateUrl: helper.basepath('Profile/ChangePassword'),
+                    controller: 'ChangePasswordController'
                 });
 
     }]).config(['$ocLazyLoadProvider', 'APP_REQUIRES',

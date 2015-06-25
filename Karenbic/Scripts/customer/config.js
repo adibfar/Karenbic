@@ -78,6 +78,17 @@ App
                     controller: 'PriceListController',
                     resolve: helper.resolveFor('jquery-colorbox')
                 })
+                .state('app.design.change-profile', {
+                    url: '/change-profile',
+                    templateUrl: helper.basepath('Profile/Edit'),
+                    controller: 'ChangeProfileController',
+                    resolve: helper.resolveFor('chosen')
+                })
+                .state('app.design.change-password', {
+                    url: '/change-password',
+                    templateUrl: helper.basepath('Profile/ChangePassword'),
+                    controller: 'ChangePasswordController'
+                })
                 .state('app.print', {
                     url: '/print',
                     abstract: true,
@@ -130,12 +141,23 @@ App
                     controller: 'PrintOrderListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
                 })
-                 .state('app.print.price-list', {
-                     url: '/price-list',
-                     templateUrl: helper.basepath('PriceList/Index'),
-                     controller: 'PriceListController',
-                     resolve: helper.resolveFor('jquery-colorbox')
-                 });
+                .state('app.print.price-list', {
+                    url: '/price-list',
+                    templateUrl: helper.basepath('PriceList/Index'),
+                    controller: 'PriceListController',
+                    resolve: helper.resolveFor('jquery-colorbox')
+                })
+                .state('app.print.change-profile', {
+                    url: '/change-profile',
+                    templateUrl: helper.basepath('Profile/Edit'),
+                    controller: 'ChangeProfileController',
+                    resolve: helper.resolveFor('chosen')
+                })
+                .state('app.print.change-password', {
+                    url: '/change-password',
+                    templateUrl: helper.basepath('Profile/ChangePassword'),
+                    controller: 'ChangePasswordController'
+                });
 
     }]).config(['$ocLazyLoadProvider', 'APP_REQUIRES',
         function ($ocLazyLoadProvider, APP_REQUIRES) {

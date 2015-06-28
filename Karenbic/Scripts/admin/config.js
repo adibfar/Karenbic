@@ -109,6 +109,24 @@ App
                     controller: 'PriceListController',
                     resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper')
                 })
+                .state('app.design.send-message-new', {
+                    url: '/send-message-new',
+                    templateUrl: helper.basepath('SendMessage/New'),
+                    controller: 'NewSendMessageController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'froala')
+                })
+                .state('app.design.send-message-list', {
+                    url: '/send-message-list',
+                    templateUrl: helper.basepath('SendMessage/List'),
+                    controller: 'SendMessageListController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.design.receive-message-list', {
+                    url: '/receive-message-list',
+                    templateUrl: helper.basepath('ReceiveMessage/List'),
+                    controller: 'ReceiveMessageListController',
+                    resolve: helper.resolveFor('ngDialog', 'froala')
+                })
                 .state('app.design.change-password', {
                     url: '/change-password',
                     templateUrl: helper.basepath('Profile/ChangePassword'),
@@ -196,6 +214,24 @@ App
                     templateUrl: helper.basepath('PriceList/Index'),
                     controller: 'PriceListController',
                     resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper')
+                })
+                .state('app.print.send-message-new', {
+                    url: '/send-message-new',
+                    templateUrl: helper.basepath('SendMessage/New'),
+                    controller: 'NewSendMessageController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'froala')
+                })
+                .state('app.print.send-message-list', {
+                    url: '/send-message-list',
+                    templateUrl: helper.basepath('SendMessage/List'),
+                    controller: 'SendMessageListController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.print.receive-message-list', {
+                    url: '/receive-message-list',
+                    templateUrl: helper.basepath('ReceiveMessage/List'),
+                    controller: 'ReceiveMessageListController',
+                    resolve: helper.resolveFor('ngDialog', 'froala')
                 })
                 .state('app.print.change-password', {
                     url: '/change-password',

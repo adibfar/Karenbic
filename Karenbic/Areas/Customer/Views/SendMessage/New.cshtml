@@ -1,0 +1,43 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default"
+             ng-class="{'whirl': sendLoading, 'shadow': sendLoading}">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i></i>
+                    ارسال پیام جدید
+                </div>
+            </div>
+            <div class="panel-body">
+                <form name="sendMessageForm">
+                    <div class="form-group">
+                        <label class="control-label">عنوان:</label>
+                        <input type="text" class="form-control" ng-model="message.Title"
+                               required="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">متن پیام:</label>
+                        <textarea froala="froalaOptions" ng-model="message.Text" required=""></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-footer"
+                 style="border-top:1px solid #b5b5b5;">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <button class="btn btn-labeled btn-success" type="button"
+                                ng-click="send()" ng-disabled="sendMessageForm.$invalid"
+                                ng-class="{'disabled': sendMessageForm.$invalid}">
+                            <span class="btn-label btn-label-right">
+                                <i class="fa fa-check"></i>
+                            </span>
+                            ارسال
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

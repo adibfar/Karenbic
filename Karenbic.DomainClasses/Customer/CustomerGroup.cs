@@ -18,5 +18,7 @@ namespace Karenbic.DomainClasses
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 
         public virtual ICollection<Customer> Customers { get; set; }
+
+        public virtual ICollection<AdminMessage_Admin> AdminMessages_Admin { get; set; }
     }
 }

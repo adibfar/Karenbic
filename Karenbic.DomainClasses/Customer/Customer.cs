@@ -49,6 +49,12 @@ namespace Karenbic.DomainClasses
 
         public virtual CustomerGroup Group { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
+
+        public virtual ICollection<CustomerMessage> Messages { get; set; }
+
+        public virtual ICollection<AdminMessage_Customer> AdminMessages { get; set; }
+
+        public virtual ICollection<AdminMessage_Admin> AdminMessages_Admin { get; set; }
     }
 }

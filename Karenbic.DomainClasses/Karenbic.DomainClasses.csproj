@@ -56,6 +56,10 @@
     <Compile Include="Factor\PrepaymentDesignPaymentItem.cs" />
     <Compile Include="Factor\PrintPayment.cs" />
     <Compile Include="Factor\PrintPaymentItem.cs" />
+    <Compile Include="Message\AdminMessage_Admin.cs" />
+    <Compile Include="Message\AdminMessage_Customer.cs" />
+    <Compile Include="Message\CustomerMessage.cs" />
+    <Compile Include="Message\Message.cs" />
     <Compile Include="Order\DesignOrder.cs" />
     <Compile Include="Form\FileFormat.cs" />
     <Compile Include="Form\Form.cs" />

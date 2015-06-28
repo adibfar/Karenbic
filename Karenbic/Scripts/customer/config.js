@@ -78,6 +78,18 @@ App
                     controller: 'PriceListController',
                     resolve: helper.resolveFor('jquery-colorbox')
                 })
+                .state('app.design.send-message-new', {
+                    url: '/send-message-new',
+                    templateUrl: helper.basepath('SendMessage/New'),
+                    controller: 'NewSendMessageController',
+                    resolve: helper.resolveFor('ngDialog', 'froala')
+                })
+                .state('app.design.send-message-list', {
+                    url: '/send-message-list',
+                    templateUrl: helper.basepath('SendMessage/List'),
+                    controller: 'SendMessageListController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
                 .state('app.design.change-profile', {
                     url: '/change-profile',
                     templateUrl: helper.basepath('Profile/Edit'),
@@ -146,6 +158,24 @@ App
                     templateUrl: helper.basepath('PriceList/Index'),
                     controller: 'PriceListController',
                     resolve: helper.resolveFor('jquery-colorbox')
+                })
+                .state('app.print.send-message-new', {
+                    url: '/send-message-new',
+                    templateUrl: helper.basepath('SendMessage/New'),
+                    controller: 'NewSendMessageController',
+                    resolve: helper.resolveFor('ngDialog', 'froala')
+                })
+                .state('app.print.send-message-list', {
+                    url: '/send-message-list',
+                    templateUrl: helper.basepath('SendMessage/List'),
+                    controller: 'SendMessageListController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.print.receive-message-list', {
+                    url: '/receive-message-list',
+                    templateUrl: helper.basepath('ReceiveMessage/List'),
+                    controller: 'ReceiveMessageListController',
+                    resolve: helper.resolveFor('ngDialog')
                 })
                 .state('app.print.change-profile', {
                     url: '/change-profile',

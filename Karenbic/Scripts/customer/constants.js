@@ -61,8 +61,22 @@ App
             },
             {
                 text: "پیام ها",
-                sref: "app.design.dashboard",
-                icon: "message"
+                sref: "#",
+                icon: "message",
+                submenu: [
+                    {
+                        text: "ارسال پیام جدید",
+                        sref: "app.design.send-message-new"
+                    },
+                    {
+                        text: "پیام های ارسالی",
+                        sref: "app.design.send-message-list"
+                    },
+                    {
+                        text: "پیام های دریافتی",
+                        sref: "app.print.receive-message-list"
+                    }
+                ]
             },
             {
                 text: "تنظیمات",
@@ -132,8 +146,22 @@ App
             },
             {
                 text: "پیام ها",
-                sref: "app.print.dashboard3",
-                icon: "message"
+                sref: "#",
+                icon: "message",
+                submenu: [
+                    {
+                        text: "ارسال پیام جدید",
+                        sref: "app.print.send-message-new"
+                    },
+                    {
+                        text: "پیام های ارسالی",
+                        sref: "app.print.send-message-list"
+                    },
+                    {
+                        text: "پیام های دریافتی",
+                        sref: "app.print.receive-message-list"
+                    }
+                ]
             },
             {
                 text: "تنظیمات",
@@ -216,6 +244,17 @@ App
                 files: ['/Vendors/ngDialog/js/ngDialog.min.js',
                     '/Vendors/ngDialog/css/ngDialog.min.css',
                     '/Vendors/ngDialog/css/ngDialog-theme-default.min.css']
+            },
+            {
+                name: 'froala',
+                files: ['/Vendors/froala-editor/js/froala_editor.min.js',
+                    '/Vendors/froala-editor/js/angular-froala.js',
+                    '/Vendors/froala-editor/js/froala-sanitize.js',
+                    '/Vendors/froala-editor/js/langs/fa.js',
+                    '/Vendors/froala-editor/css/froala_editor.min.css',
+                    '/Vendors/froala-editor/css/froala_style.min.css',
+                    '/Vendors/froala-editor/css/froala_content.min.css',
+                    '/Vendors/froala-editor/css/themes/gray.min.css']
             }
         ]
     });

@@ -1,0 +1,85 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default"
+             ng-class="{'whirl': sendLoading, 'shadow': sendLoading}">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i></i>
+                    ارسال پیام جدید
+                </div>
+            </div>
+            <div class="panel-body">
+                <form name="sendMessageForm">
+                    <div class="form-group">
+                        <label class="control-label">عنوان:</label>
+                        <input type="text" class="form-control" ng-model="message.Title"
+                               required="" />
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox c-checkbox checkbox-inline"
+                             style="margin-top:10px;padding-right:0;">
+                            <label>
+                                <input type="checkbox" ng-model="customerGroupFilter">
+                                <span></span>فیلتر گروه مشتریان
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group" style="position:relative;"
+                         ng-show="customerGroupFilter">
+                        <label class="control-label">گروه مشتریان:</label>
+                        <select multiple="" chosen="customerGroups"
+                                ng-options="item.Title for item in customerGroups"
+                                ng-model="selectedCustomerGroups"
+                                width="100%"></select>
+                        <div style="background-color:#f6f6f6;height:29px;position:absolute;top:23px;right:0;left:0;opacity:0.4;"
+                             ng-if="fetchCustomerGroupsLoading">
+                            <img src="/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="customerGroupFilter">
+                        <div class="checkbox c-checkbox checkbox-inline"
+                             style="margin-top:10px;padding-right:0;">
+                            <label>
+                                <input type="checkbox" ng-model="customerFilter">
+                                <span></span>فیلتر مشتریان
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group" style="position:relative;"
+                         ng-show="customerGroupFilter && customerFilter">
+                        <label class="control-label">مشتریان:</label>
+                        <select multiple="" chosen="customers"
+                                ng-options="item.Name + ' ' + item.Surname for item in customers"
+                                ng-model="selectedCustomers"
+                                width="100%"></select>
+                        <div style="background-color:#f6f6f6;height:29px;position:absolute;top:23px;right:0;left:0;opacity:0.4;"
+                             ng-if="fetchCustomersLoading">
+                            <img src="/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">متن پیام:</label>
+                        <textarea froala="froalaOptions" ng-model="message.Text" required=""></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-footer"
+                 style="border-top:1px solid #b5b5b5;">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <button class="btn btn-labeled btn-success" type="button"
+                                ng-click="send()" ng-disabled="sendMessageForm.$invalid"
+                                ng-class="{'disabled': sendMessageForm.$invalid}">
+                            <span class="btn-label btn-label-right">
+                                <i class="fa fa-check"></i>
+                            </span>
+                            ارسال
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

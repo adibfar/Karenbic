@@ -71,6 +71,11 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.PriceList> PriceLists { get; set; }
 
 
+        public DbSet<DomainClasses.Message> Messages { get; set; }
+        public DbSet<DomainClasses.CustomerMessage> CustomerMessages { get; set; }
+        public DbSet<DomainClasses.AdminMessage_Admin> AdminMessages_Admin { get; set; }
+        public DbSet<DomainClasses.AdminMessage_Customer> AdminMessages_Customer { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ProvinceConfiguration());
@@ -107,6 +112,10 @@ namespace Karenbic.DataAccess
             modelBuilder.Configurations.Add(new DesignPaymentConfiguration());
             modelBuilder.Configurations.Add(new PrepaymentDesignPaymentItemConfiguration());
             modelBuilder.Configurations.Add(new FinalDesignPaymentItemConfiguration());
+
+            modelBuilder.Configurations.Add(new CustomerMessageConfiguration());
+            modelBuilder.Configurations.Add(new AdminMessage_AdminConfiguration());
+            modelBuilder.Configurations.Add(new AdminMessage_CustomerConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

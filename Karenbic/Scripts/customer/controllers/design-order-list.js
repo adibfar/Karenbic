@@ -1,13 +1,12 @@
 ﻿/**=========================================================
- * Module: print-ongoing-order-list.js
- * Show Ongoing Order List
+ * Module: design-order-list.js
+ * Show Order List
  =========================================================*/
 
-App.controller('OngoingDesignOrderListController', ['$scope', '$http', 'ngDialog', 'APP_BASE_URI', 'toaster', '$modal', '$state',
+App.controller('DesignOrderListController', ['$scope', '$http', 'ngDialog', 'APP_BASE_URI', 'toaster', '$modal', '$state',
     function ($scope, $http, ngDialog, baseUri, toaster, $modal, $state) {
         $scope.searchFields = {
             orderId: '',
-            states: null,
             startDate: '',
             endDate: ''
         };
@@ -19,9 +18,9 @@ App.controller('OngoingDesignOrderListController', ['$scope', '$http', 'ngDialog
         $scope.fetchOrders = function (pageIndex) {
             $scope.fetchLoading = true;
 
-            $http.get(baseUri + 'DesignOrder/GetOngoingOrders', {
+            $http.get(baseUri + 'DesignOrder/Get', {
                 params: {
-                    orderId: $scope.searchFields.orderId.trim() != '' ? Number($scope.searchFields.orderId) : null,
+                    orderId: $scope.searchFields.orderId,
                     startDate: $scope.searchFields.startDate,
                     endDate: $scope.searchFields.endDate,
                     pageIndex: pageIndex
@@ -75,48 +74,6 @@ App.controller('OngoingDesignOrderListController', ['$scope', '$http', 'ngDialog
             }
         };
 
-        $scope.cancel = function (index) {
-            ngDialog.open({
-                template: 'cancelOrderDialog.html',
-                showClose: false,
-                controller: ['$scope', 'ngDialog', function ($scope, ngDialog) {
-                    $scope.close = function () {
-                        $scope.closeThisDialog(0);
-                    };
-                    $scope.confirm = function () {
-                        $scope.closeThisDialog(1);
-                    };
-                }],
-                preCloseCallback: function (value) {
-                    if (value != 1) return true;
-
-                    $scope.fetchLoading = true;
-                    $http.post(baseUri + 'Order/CancelOrder',
-                    {
-                        orderId: $scope.orders[index].Id
-                    }).
-                    success(function (data, status, headers, config) {
-                        $scope.fetchLoading = false;
-                        if (data == "True") {
-                            $scope.fetchOrders($scope.pageIndex);
-                        }
-                        else {
-                            toaster.pop('error', "امکان کنسل کردن سفارش وجود ندارد");
-                        }
-                    }).error(function (data, status, headers, config) {
-                        if (status == 403) {
-                            window.location = "/Account/Login";
-                        }
-                        else {
-                            toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
-                        }
-                        $scope.fetchLoading = false;
-                    });
-                    return true;
-                }
-            });
-        };
-
         $scope.showDetails = function (index) {
             var modalInstance = $modal.open({
                 templateUrl: '/ShowDetailsContent.html',
@@ -130,8 +87,6 @@ App.controller('OngoingDesignOrderListController', ['$scope', '$http', 'ngDialog
             });
 
             modalInstance.result.then(function (result) {
-                $scope.orders[index].Price = result;
-                $scope.orders[index].IsConfirm = true;
             }, function () {
             });
         };
@@ -143,7 +98,7 @@ App.controller('OngoingDesignOrderListController', ['$scope', '$http', 'ngDialog
             $scope.fetchValues = function () {
                 $scope.fetchLoading = true;
 
-                $http.get(baseUri + 'Order/Details', {
+                $http.get(baseUri + 'FactorOfOrder/Details', {
                     params: {
                         orderId: $scope.order.Id
                     }
@@ -162,35 +117,6 @@ App.controller('OngoingDesignOrderListController', ['$scope', '$http', 'ngDialog
                 });
             };
             $scope.fetchValues();
-
-            $scope.save = function () {
-                $scope.confirmOrderFromSubmited = true;
-                if ($scope.confirmOrderFrom.$invalid) return;
-
-                $scope.confirmLoading = true;
-                $http.post(baseUri + 'PrintOrder/Confirm',
-                {
-                    orderId: $scope.order.Id,
-                    price: $scope.order.Price
-                }).
-                success(function (data, status, headers, config) {
-                    $scope.confirmLoading = false;
-                    if (data == "True") {
-                        $modalInstance.close($scope.order.Price);
-                    }
-                    else {
-                        toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
-                    }
-                }).error(function (data, status, headers, config) {
-                    if (status == 403) {
-                        window.location = "/Account/Login";
-                    }
-                    else {
-                        toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
-                    }
-                    $scope.confirmLoading = false;
-                });
-            };
 
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
@@ -243,9 +169,9 @@ App.controller('OngoingDesignOrderListController', ['$scope', '$http', 'ngDialog
             $scope.fetchValues();
 
             $scope.totalPrice = function () {
-                if ($scope.factors == null || $scope.factors == undefined || $scope.factors.length == 0) return 0;
+                if ($scope.orders == null || $scope.orders == undefined || $scope.orders.length == 0) return 0;
 
-                var sum = _.reduce($scope.factors, function (memo, item) { return memo + item.Price; }, 0);
+                var sum = _.reduce($scope.orders, function (memo, item) { return memo + item.Price; }, 0);
 
                 return sum;
             };
@@ -255,9 +181,9 @@ App.controller('OngoingDesignOrderListController', ['$scope', '$http', 'ngDialog
             };
         };
 
-        $scope.sendDesign = function (index) {
+        $scope.show = function (index) {
             $scope.fetchLoading = true;
-            $state.go('^.send-order-design', { id: $scope.orders[index].Id });
+            $state.go('^.show-order', { id: $scope.orders[index].Id });
         };
 
         //Init

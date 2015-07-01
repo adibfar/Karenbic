@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Web.Hosting;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
@@ -550,6 +551,201 @@ namespace Karenbic.Areas.Admin.Controllers
                 }
             }
             return Content(result.ToString());
+        }
+
+        [HttpGet]
+        public ActionResult SendOrderDesign()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SendOrderDesign(int orderId, string description, HttpPostedFileBase[] file)
+        {
+            DomainClasses.DesignOrder_Design design = new DomainClasses.DesignOrder_Design();
+
+            if (file != null && file.Length > 0)
+            {
+                using (DataAccess.Context context = new DataAccess.Context())
+                {
+                    design.Order = context.DesignOrders.Find(orderId);
+                    design.Description = description;
+                    design.Files = new List<DomainClasses.DesignOrder_Design_File>();
+
+                    foreach (HttpPostedFileBase item in file)
+                    {
+                        if (item.ContentType == "image/jpg" || item.ContentType == "image/jpeg" || item.ContentType == "image/png")
+                        {
+                            if (item.ContentLength <= 250 * 1024)
+                            {
+                                DomainClasses.DesignOrder_Design_File designFile = new DomainClasses.DesignOrder_Design_File();
+                                designFile.PictureFile = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(item.FileName));
+                                item.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/DesignOrder"), designFile.PictureFile));
+                                design.Files.Add(designFile);
+                            }
+                        }
+                    }
+
+                    context.DesignOrder_Designs.Add(design);
+                    context.SaveChanges();
+                } 
+            }
+
+            return Json(new
+            {
+                Id = design.Id,
+                Description = design.Description,
+                RegisterDate = Api.ConvertDate.JulainToPersian(design.RegisterDate),
+                Files = design.Files.Select(c => new
+                {
+                    Id = c.Id,
+                    PictureFile = c.PictureFile,
+                    PicturePath = c.PicturePath
+                })
+            });
+        }
+
+        [HttpGet]
+        public ActionResult SendOrderDesign_GetData(int id)
+        {
+            DomainClasses.DesignOrder order = new DomainClasses.DesignOrder();
+
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                order = context.DesignOrders
+                    .Include(x => x.Customer)
+                    .Include(x => x.Form)
+                    .Include(x => x.PrepaymentFactor)
+                    .Include(x => x.PrepaymentFactor.Payment)
+                    .Include(x => x.FinalFactor)
+                    .Include(x => x.FinalFactor.Payment)
+                    .Single(x => x.Id == id);
+            }
+
+            return Json(new 
+            {
+                Id = order.Id,
+                Code = order.Code,
+                Time = string.Format("{0:D2}:{1:D2}", order.RegisterDate.Hour, order.RegisterDate.Minute),
+                RegisterDate = order.RegisterDate.ToShortDateString(),
+                PersianRegisterDate = order.PersianRegisterDate,
+                //Confirm Data
+                IsConfirm = order.IsConfirm,
+                ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(order.ConfirmDate)),
+                Price = order.Price,
+                Prepayment = order.Prepayment,
+                Customer = new
+                {
+                    Name = order.Customer.Name,
+                    Surname = order.Customer.Surname,
+                    Username = order.Customer.Username,
+                    Phone = order.Customer.Phone,
+                    Mobile = order.Customer.Mobile,
+                    Email = order.Customer.Email,
+                    Address = order.Customer.Address
+                },
+                Form = new
+                {
+                    Id = order.Form.Id,
+                    Title = order.Form.Title
+                },
+                //Prepayment Factor
+                PrepaymentFactor = new
+                {
+                    Id = order.PrepaymentFactor.Id,
+                    Time = string.Format("{0:D2}:{1:D2}", order.PrepaymentFactor.RegisterDate.Hour, order.PrepaymentFactor.RegisterDate.Minute),
+                    PersianRegisterDate = order.PrepaymentFactor.PersianRegisterDate,
+                    Price = order.PrepaymentFactor.Price,
+                    IsPaid = order.PrepaymentFactor.IsPaid
+                },
+                //Prepayment Payment
+                PrepaymentPayment = order.PrepaymentFactor.Payment != null ? new
+                {
+                    Id = order.PrepaymentFactor.Payment.Id,
+                    Code = order.PrepaymentFactor.Payment.Code,
+                    Money = order.PrepaymentFactor.Payment.Money,
+                    PersianRegisterDate = order.PrepaymentFactor.Payment.PersianRegisterDate,
+                    Time = string.Format("{0:D2}:{1:D2}", order.PrepaymentFactor.Payment.RegisterDate.Hour, order.PrepaymentFactor.Payment.RegisterDate.Minute),
+                    IsPaid = order.PrepaymentFactor.Payment.IsPaid,
+                    //Bank Data
+                    RefId = order.PrepaymentFactor.Payment.RefId
+                } : new
+                {
+                    Id = 0,
+                    Code = 0,
+                    Money = (decimal)0,
+                    PersianRegisterDate = "",
+                    Time = "",
+                    IsPaid = false,
+                    //Bank Data
+                    RefId = ""
+                },
+                //Final Factor
+                FinalFactor = new
+                {
+                    Id = order.FinalFactor.Id,
+                    Time = string.Format("{0:D2}:{1:D2}", order.FinalFactor.RegisterDate.Hour, order.FinalFactor.RegisterDate.Minute),
+                    PersianRegisterDate = order.FinalFactor.PersianRegisterDate,
+                    Price = order.FinalFactor.Price,
+                    IsPaid = order.FinalFactor.IsPaid
+                },
+                //Final Payment
+                FinalPayment = order.FinalFactor.Payment != null ? new
+                {
+                    Id = order.FinalFactor.Payment.Id,
+                    Code = order.FinalFactor.Payment.Code,
+                    Money = order.FinalFactor.Payment.Money,
+                    PersianRegisterDate = order.FinalFactor.Payment.PersianRegisterDate,
+                    Time = string.Format("{0:D2}:{1:D2}", order.FinalFactor.Payment.RegisterDate.Hour, order.FinalFactor.Payment.RegisterDate.Minute),
+                    IsPaid = order.FinalFactor.Payment.IsPaid,
+                    //Bank Data
+                    RefId = order.FinalFactor.Payment.RefId
+                } : new
+                {
+                    Id = 0,
+                    Code = 0,
+                    Money = (decimal)0,
+                    PersianRegisterDate = "",
+                    Time = "",
+                    IsPaid = false,
+                    //Bank Data
+                    RefId = ""
+                }
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult SendOrderDesign_GetDesigns(int id)
+        {
+            JsonResult result = new JsonResult();
+
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                List<DomainClasses.DesignOrder_Design> list = context.DesignOrder_Designs
+                    .Where(x => x.Order.Id == id)
+                    .Include(x => x.Files)
+                    .OrderByDescending(x => x.RegisterDate)
+                    .ToList();
+
+                result.Data = list.Select(design => new
+                {
+                    Id = design.Id,
+                    Description = design.Description,
+                    PersianRegisterDate = Api.ConvertDate.JulainToPersian(design.RegisterDate),
+                    Time = string.Format("{0:D2}:{1:D2}", design.RegisterDate.Hour, design.RegisterDate.Minute),
+                    IsReview = design.IsReview,
+                    Files = design.Files.Select(c => new
+                    {
+                        Id = c.Id,
+                        PictureFile = c.PictureFile,
+                        PicturePath = c.PicturePath,
+                        State = c.State,
+                        CustomerDescription = c.CustomerDescription
+                    })
+                }).ToArray();
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

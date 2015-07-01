@@ -33,5 +33,7 @@ namespace Karenbic.DomainClasses
         public virtual PrepaymentDesignFactor PrepaymentFactor { get; set; }
 
         public virtual FinalDesignFactor FinalFactor { get; set; }
+
+        public virtual ICollection<DesignOrder_Design> Designs { get; set; }
     }
 }

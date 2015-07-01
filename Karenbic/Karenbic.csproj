@@ -45,6 +45,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="DNTProfiler.Common">
+      <HintPath>..\packages\DNTProfiler.EntityFramework.Core.1.5.849.0\lib\net45\DNTProfiler.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DNTProfiler.EntityFramework.Core">
+      <HintPath>..\packages\DNTProfiler.EntityFramework.Core.1.5.849.0\lib\net45\DNTProfiler.EntityFramework.Core.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -140,6 +146,9 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -301,6 +310,9 @@
     <Content Include="Images\PortalMobileMenu\show-order.png" />
     <Content Include="Images\PortalNavbar\design-nav.png" />
     <Content Include="Images\PortalNavbar\print-nav.png" />
+    <Content Include="Images\ReviewIcon\accept.png" />
+    <Content Include="Images\ReviewIcon\maybe.png" />
+    <Content Include="Images\ReviewIcon\unaccept.png" />
     <Content Include="Images\Simbol\error-icon.gif" />
     <Content Include="Images\SketchSheets\iPad.png" />
     <Content Include="Images\SketchSheets\iPhone.png" />
@@ -320,9 +332,12 @@
     <Content Include="Images\UI\Button\btn-down-1.png" />
     <Content Include="Images\UI\checkbox-1.png" />
     <Content Include="Images\UI\hr-1.png" />
+    <Content Include="Images\UI\Pagination\btn-back-2.png" />
+    <Content Include="Images\UI\Pagination\btn-next-2.png" />
     <Content Include="Images\UI\Pagination\btn-back-1.png" />
     <Content Include="Images\UI\Pagination\btn-next-1.png" />
     <Content Include="Images\UI\radio-btn-1.png" />
+    <Content Include="readme.txt" />
     <Content Include="Scripts\admin\app.init.js" />
     <Content Include="Scripts\admin\config.js" />
     <Content Include="Scripts\admin\constants.js" />
@@ -335,6 +350,7 @@
     <Content Include="Scripts\admin\controllers\design-new-order-list.js" />
     <Content Include="Scripts\admin\controllers\design-ongoing-order-list.js" />
     <Content Include="Scripts\admin\controllers\design-payment-list.js" />
+    <Content Include="Scripts\admin\controllers\design-send-design.js" />
     <Content Include="Scripts\admin\controllers\form-add.js" />
     <Content Include="Scripts\admin\controllers\form-edit.js" />
     <Content Include="Scripts\admin\controllers\form-list.js" />
@@ -357,9 +373,11 @@
     <Content Include="Scripts\customer\controllers\change-password.js" />
     <Content Include="Scripts\customer\controllers\change-profile.js" />
     <Content Include="Scripts\customer\controllers\design-factor-list.js" />
+    <Content Include="Scripts\customer\controllers\design-order-list.js" />
     <Content Include="Scripts\customer\controllers\design-payment-checkout.js" />
     <Content Include="Scripts\customer\controllers\design-payment-list.js" />
     <Content Include="Scripts\customer\controllers\design-payment-preview.js" />
+    <Content Include="Scripts\customer\controllers\design-show-order.js" />
     <Content Include="Scripts\customer\controllers\main.js" />
     <Content Include="Scripts\customer\controllers\mobile-menu.js" />
     <Content Include="Scripts\customer\controllers\order-add.js" />
@@ -383,6 +401,7 @@
     <Content Include="Scripts\directives\datepicker.js" />
     <Content Include="Scripts\directives\ddlist-select.js" />
     <Content Include="Scripts\directives\colorbox.js" />
+    <Content Include="Scripts\directives\image-scale.js" />
     <Content Include="Scripts\directives\load-css.js" />
     <Content Include="Scripts\directives\nicefileinput.js" />
     <Content Include="Scripts\directives\now.js" />
@@ -463,6 +482,9 @@
     <Content Include="Areas\Admin\Views\ReceiveMessage\List.cshtml" />
     <Content Include="Areas\Admin\Views\SendMessage\New.cshtml" />
     <Content Include="Areas\Customer\Views\ReceiveMessage\List.cshtml" />
+    <Content Include="Areas\Admin\Views\DesignOrder\SendOrderDesign.cshtml" />
+    <Content Include="Areas\Customer\Views\DesignOrder\List.cshtml" />
+    <Content Include="Areas\Customer\Views\DesignOrder\Show.cshtml" />
     <None Include="Service References\BPService\configuration91.svcinfo" />
     <None Include="Service References\BPService\configuration.svcinfo" />
     <Content Include="Service References\BPService\Karenbic.BPService.bpChargePayRequestResponse.datasource">
@@ -655,6 +677,8 @@
     <Content Include="Vendors\froala-editor\js\plugins\tables.min.js" />
     <Content Include="Vendors\froala-editor\js\plugins\urls.min.js" />
     <Content Include="Vendors\froala-editor\js\plugins\video.min.js" />
+    <Content Include="Vendors\image-scale\image-scale.js" />
+    <Content Include="Vendors\image-scale\image-scale.min.js" />
     <Content Include="Vendors\jquery-colorbox\jquery.colorbox-min.js" />
     <Content Include="Vendors\jquery-colorbox\jquery.colorbox.js" />
     <Content Include="Vendors\jquery-colorbox\them\colorbox.css" />
@@ -3052,8 +3076,8 @@
     <Folder Include="Areas\Admin\Views\Order\" />
     <Folder Include="Areas\Admin\Views\Province\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Areas\Customer\Views\DesignOrder\" />
     <Folder Include="Areas\Customer\Views\Shared\" />
+    <Folder Include="Content\DesignOrder\" />
     <Folder Include="Content\FormField\" />
     <Folder Include="Content\Order\" />
     <Folder Include="Content\PriceList\" />

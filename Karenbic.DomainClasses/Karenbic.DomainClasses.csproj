@@ -84,6 +84,9 @@
     <Compile Include="Customer\Gender.cs" />
     <Compile Include="Factor\Payment.cs" />
     <Compile Include="Order\DesignOrderState.cs" />
+    <Compile Include="Order\DesignOrder_Design.cs" />
+    <Compile Include="Order\DesignOrder_Design_File.cs" />
+    <Compile Include="Order\DesignOrder_Design_File_State.cs" />
     <Compile Include="Order\Order.cs" />
     <Compile Include="Order\Order_Value.cs" />
     <Compile Include="Order\Order_Value_Checkbox.cs" />

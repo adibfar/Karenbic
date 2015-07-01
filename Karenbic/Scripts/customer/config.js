@@ -72,6 +72,18 @@ App
                     controller: 'DesignPaymentListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
                 })
+                .state('app.design.order-list', {
+                    url: '/order-list',
+                    templateUrl: helper.basepath('DesignOrder/List'),
+                    controller: 'DesignOrderListController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker', 'ngDialog')
+                })
+                .state('app.design.show-order', {
+                    url: '/show-order/:id',
+                    templateUrl: helper.basepath('DesignOrder/Show'),
+                    controller: 'ShowDesignOrderController',
+                    resolve: helper.resolveFor('ngDialog', 'image-scale')
+                })
                 .state('app.design.price-list', {
                     url: '/price-list',
                     templateUrl: helper.basepath('PriceList/Index'),
@@ -88,6 +100,12 @@ App
                     url: '/send-message-list',
                     templateUrl: helper.basepath('SendMessage/List'),
                     controller: 'SendMessageListController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.design.receive-message-list', {
+                    url: '/receive-message-list',
+                    templateUrl: helper.basepath('ReceiveMessage/List'),
+                    controller: 'ReceiveMessageListController',
                     resolve: helper.resolveFor('ngDialog')
                 })
                 .state('app.design.change-profile', {

@@ -43,6 +43,8 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.Order> Orders { get; set; }
         public DbSet<DomainClasses.PrintOrder> PrintOrders { get; set; }
         public DbSet<DomainClasses.DesignOrder> DesignOrders { get; set; }
+        public DbSet<DomainClasses.DesignOrder_Design> DesignOrder_Designs { get; set; }
+        public DbSet<DomainClasses.DesignOrder_Design_File> DesignOrder_Design_Files { get; set; }
         public DbSet<DomainClasses.Order_Value> Order_Values { get; set; }
         public DbSet<DomainClasses.Order_Value_TextBox> Order_Values_TextBox { get; set; }
         public DbSet<DomainClasses.Order_Value_TextArea> Order_Values_TextArea { get; set; }
@@ -98,6 +100,8 @@ namespace Karenbic.DataAccess
             modelBuilder.Configurations.Add(new OrderConfiguration());
             modelBuilder.Configurations.Add(new PrintOrderConfiguration());
             modelBuilder.Configurations.Add(new DesignOrderConfiguration());
+            modelBuilder.Configurations.Add(new DesignOrder_DesignConfiguration());
+            modelBuilder.Configurations.Add(new DesignOrder_Design_FileConfiguration());
             modelBuilder.Configurations.Add(new Order_ValueConfiguration());
             modelBuilder.Configurations.Add(new Order_Value_DropDownConfiguration());
             modelBuilder.Configurations.Add(new Order_Value_RadioButtonGroupConfiguration());

@@ -15,7 +15,8 @@
         .dgvcn .table td {
             vertical-align: middle;
         }
-        .dgvcn .btn-img-cancel-1 {
+
+        .dgvcn .btn-img-credit-1 {
             position: relative;
             top: -2px;
         }
@@ -50,7 +51,7 @@
             <div class="panel-heading">
                 <div class="panel-title">
                     <i></i>
-                    سفارشات در دست اقدام
+                    نمایش سفارشات
                 </div>
             </div>
             <div class="panel-body">
@@ -62,7 +63,6 @@
                                 <input type="text" class="form-control" ng-model="searchFields.orderId" />
                             </div>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -90,8 +90,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"
-                             style="padding-right:0;">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <div class="hidden-xs" style="height:18px;margin-bottom:5px;"></div>
                                 <button class="btn-img-search-2" ng-click="search()"></button>
@@ -106,26 +105,24 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                @*<th style="min-width:45px;width:45px;">&nbsp;</th>*@
-                                <th style="min-width:70px;width:70px;">شماره</th>
+                                <th style="min-width:40px;width:40px;">&nbsp;</th>
+                                <th style="min-width:60px;width:60px;">شماره</th>
                                 <th style="min-width:80px;width:80px;">تاریخ</th>
-                                <th style="min-width:150px;width:150px;">نام مشتری</th>
-                                <th style="min-width:180px;">شرح سفارش</th>
-                                <th style="min-width:90px;width:90px;">مبلغ (ریال)</th>
-                                <th style="min-width:150px;width:150px;" colspan="2">پیش پرداخت</th>
-                                <th style="min-width:150px;width:150px;" colspan="2">مانده حساب</th>
-                                <th style="min-width:60px;width:60px;">&nbsp;</th>
+                                <th style="min-width:200px;">شرح سفارش</th>
+                                <th style="min-width:100px;width:100px;">مبلغ کل (ریال)</th>
+                                <th style="min-width:140px;width:140px;" colspan="2">مبلغ پیش پرداخت (ریال)</th>
+                                <th style="min-width:140px;width:140px;" colspan="2">مانده حساب (ریال)</th>
+                                <th style="min-width:30px;width:30px;">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in orders">
-                                @*<td><span style="margin-right:4px;">{{((pageIndex - 1) * 20) + $index + 1}}</span></td>*@
-                                <td><span style="margin-right:4px;">{{item.Code}}</span></td>
+                                <td><span style="margin-right:4px;">{{((pageIndex - 1) * 20) + $index + 1}}</span></td>
+                                <td>{{item.Code}}</td>
                                 <td style="direction:ltr;text-align:right;">{{item.PersianRegisterDate}}</td>
-                                <td>{{item.Customer.Name + ' ' + item.Customer.Surname}}</td>
                                 <td>{{item.Form.Title}}</td>
                                 <td>{{item.Price | riyal}}</td>
-                                <td>{{item.Prepayment | riyal}}</td>
+                                <td style="border-right:1px solid #D6D6D6;">{{item.PrepaymentFactor.Price | riyal}}</td>
                                 <td>
                                     <span class="text-danger" ng-if="item.PrepaymentFactor.IsPaid == false">پرداخت نشده</span>
                                     <div class="label label-info"
@@ -133,7 +130,9 @@
                                          ng-if="item.PrepaymentFactor.IsPaid == true"
                                          ng-click="showPaymentDetails(item.PrepaymentPayment.Id)">{{item.PrepaymentPayment.Code}}</div>
                                 </td>
-                                <td>{{item.Price - item.Prepayment | riyal}}</td>
+                                <td style="border-right:1px solid #D6D6D6;">
+                                    <span>{{item.FinalFactor.Price | riyal}}</span>
+                                </td>
                                 <td>
                                     <span class="text-danger" ng-if="item.FinalFactor.IsPaid == false">پرداخت نشده</span>
                                     <div class="label label-info"
@@ -142,8 +141,8 @@
                                          ng-click="showPaymentDetails(item.FinalPayment.Id)">{{item.FinalPayment.Code}}</div>
                                 </td>
                                 <td style="text-align:left;">
-                                    <button class="btn-img-cancel-1" type="button" ng-click="cancel($index)"></button>
-                                    <button class="btn-img-info-1" type="button" ng-click="sendDesign($index)"></button>
+                                    <button class="btn-img-info-1" type="button"
+                                            ng-click="show($index)"></button>                                
                                 </td>
                             </tr>
                         </tbody>
@@ -152,7 +151,8 @@
             </div>
             <div class="panel-footer">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"></div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
                         <ul class="pagination pagination-sm" ng-show=" pageCount > 1">
                             <li ng-class="{'disabled': pageIndex == 1}">
                                 <span ng-click="prevPage()">
@@ -169,21 +169,36 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button class="btn btn-labeled btn-warning" type="button"
+                                        ng-click="paymentPreview_group()"
+                                        ng-class="{'disabled': anyFactorSelected() == false}"
+                                        ng-disabled="anyFactorSelected() == false">
+                                    <span class="btn-label btn-label-right">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    صدور فاکتور
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Start Order Details Modal -->
+<!-- Start Factor Details Modal -->
 <script type="text/ng-template" id="/ShowDetailsContent.html">
     <div class="modal-header">
         <div class="modal-title">
             <i></i>
-            نمایش سفارش
+            نمایش صورت حساب
         </div>
     </div>
-    <div class="modal-body" ng-class="{'whirl': fetchLoading || confirmLoading, 'shadow': fetchLoading || confirmLoading}">
+    <div class="modal-body" ng-class="{'whirl': fetchLoading , 'shadow': fetchLoading }">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
@@ -196,7 +211,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
-                    <span>کد سفارش :</span>
+                    <span>شماره سفارش :</span>
                     &nbsp;
                     <span class="text-muted"
                           style="font-family:BNazanin;font-size:16px;">{{order.Code}}</span>
@@ -207,32 +222,7 @@
                     <span>تاریخ سفارش :</span>
                     &nbsp;
                     <span class="text-muted"
-                          style="direction:ltr;font-family:BNazanin;font-size:16px;" ">{{order.Time + ' - ' + order.PersianRegisterDate}}</span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <span>نام مشتری :</span>
-                    &nbsp;
-                    <span class="text-muted">{{order.Customer.Name + ' ' + order.Customer.Surname}}</span>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <span>شماره تلفن ثابت :</span>
-                    &nbsp;
-                    <span class="text-muted"
-                          style="font-family:BNazanin;font-size:16px;" ">{{order.Customer.Phone}}</span>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <span>شماره تلفن همراه :</span>
-                    &nbsp;
-                    <span class="text-muted"
-                          style="font-family:BNazanin;font-size:16px;" ">{{order.Customer.Mobile}}</span>
+                          style="direction:ltr;font-family:BNazanin;font-size:16px;">{{order.Time + ' - ' + order.PersianRegisterDate}}</span>
                 </div>
             </div>
         </div>
@@ -245,7 +235,7 @@
                      style="min-height:300px;">
                     <table class="table table-striped">
                         <tbody>
-                            <tr ng-repeat="item in values">
+                            <tr ng-repeat="item in values | orderBy : 'Order' : reverse ">
                                 <td style="min-width:45px;width:45px;">
                                     <span style="margin-right:4px;">{{$index + 1}}</span>
                                 </td>
@@ -294,7 +284,7 @@
         </div>
     </div>
 </script>
-<!-- End Order Details Modal -->
+<!-- End Factor Details Modal -->
 
 <!-- Start Payment Details Modal -->
 <script type="text/ng-template" id="/ShowPaymentDetailsContent.html">
@@ -388,17 +378,5 @@
     </div>
 </script>
 <!-- End Payment Details Modal -->
-
-<!-- Start Cancel Order Modal -->
-<script type="text/ng-template" id="cancelOrderDialog.html">
-    <div style="font-family:yekan;font-size:14px;">
-        <p>آیا از لغو شدن سفارش اطمینان دارید؟</p>
-        <div>
-            <button class="btn btn-default" ng-click="close()" type="button">خیر</button>
-            <button class="btn btn-danger" ng-click="confirm()" type="button">بلی</button>
-        </div>
-    </div>
-</script>
-<!-- End Cancel Order Modal -->
 
 <toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

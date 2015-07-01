@@ -278,7 +278,8 @@ App
             'jquery-ui-datepicker': ['/Vendors/jquery.ui.datepicker/jquery.ui.datepicker-cc.all.min.js'],
             'tooltipster': ['/Vendors/tooltipster/js/jquery.tooltipster.min.js', '/Vendors/tooltipster/css/tooltipster.css', '/Vendors/tooltipster/css/themes/tooltipster-light.css'],
             'persian-date': ['/Vendors/persian-date/persian-date-0.1.8.min.js'],
-            'jquery-colorbox': ['/Vendors/jquery-colorbox/jquery.colorbox-min.js', '/Vendors/jquery-colorbox/them/colorbox.css']
+            'jquery-colorbox': ['/Vendors/jquery-colorbox/jquery.colorbox-min.js', '/Vendors/jquery-colorbox/them/colorbox.css'],
+            'image-scale': ['/Vendors/image-scale/image-scale.min.js']
         },
         modules: [
             {

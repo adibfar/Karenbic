@@ -91,6 +91,12 @@ App
                     controller: 'CanceledDesignOrderListController',
                     resolve: helper.resolveFor('ngDialog', 'jquery-ui', 'jquery-ui-datepicker')
                 })
+                .state('app.design.send-order-design', {
+                    url: '/send-order-design/:id',
+                    templateUrl: helper.basepath('DesignOrder/SendOrderDesign'),
+                    controller: 'SendOrderDesignController',
+                    resolve: helper.resolveFor('ngDialog', 'image-scale', 'jquery-colorbox')
+                })
                 .state('app.design.payment-list', {
                     url: '/payment-list',
                     templateUrl: helper.basepath('DesignPayment/List'),

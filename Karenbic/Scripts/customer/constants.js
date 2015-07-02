@@ -12,7 +12,7 @@ App
         menuItems_design: [
             {
                 text: "پیش از سفارش",
-                sref: "app.design.dashboard",
+                sref: "app.design.preorder",
                 icon: "pre-order"
             },
             {
@@ -97,7 +97,7 @@ App
         menuItems_print: [
             {
                 text: "پیش از سفارش",
-                sref: "app.print.dashboard1",
+                sref: "app.print.preorder",
                 icon: "pre-order"
             },
             {

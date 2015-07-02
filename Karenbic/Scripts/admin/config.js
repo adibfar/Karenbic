@@ -67,6 +67,12 @@ App
                     controller: 'CustomerController',
                     resolve: helper.resolveFor('ngDialog', 'chosen')
                 })
+                .state('app.design.preorder', {
+                    url: '/preorder',
+                    templateUrl: helper.basepath('DesignOrder/PreOrder'),
+                    controller: 'PreDesignOrderController',
+                    resolve: helper.resolveFor('ngDialog', 'froala')
+                })
                 .state('app.design.new-order-list', {
                     url: '/new-order-list',
                     templateUrl: helper.basepath('DesignOrder/NewOrderList'),
@@ -178,6 +184,12 @@ App
                     templateUrl: helper.basepath('Customer/List'),
                     controller: 'CustomerController',
                     resolve: helper.resolveFor('ngDialog', 'chosen')
+                })
+                .state('app.print.preorder', {
+                    url: '/preorder',
+                    templateUrl: helper.basepath('PrintOrder/PreOrder'),
+                    controller: 'PrePrintOrderController',
+                    resolve: helper.resolveFor('ngDialog', 'froala')
                 })
                 .state('app.print.new-order-list', {
                     url: '/new-order-list',

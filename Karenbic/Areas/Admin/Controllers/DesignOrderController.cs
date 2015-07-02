@@ -12,6 +12,39 @@ namespace Karenbic.Areas.Admin.Controllers
     public class DesignOrderController : Controller
     {
         [HttpGet]
+        public ActionResult PreOrder()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult PreOrderText()
+        {
+            string text = string.Empty;
+
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                text = context.Setting.Find(1).PreDesignOrderText;
+            }
+
+            return Json(text, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult PreOrderText(string text)
+        {
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                DomainClasses.Setting setting = context.Setting.Find(1);
+                setting.PreDesignOrderText = text;
+                context.SaveChanges();
+            }
+
+            return Json(text, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public ActionResult NewOrderList()
         {
             return View();

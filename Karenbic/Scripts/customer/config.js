@@ -37,6 +37,11 @@ App
                     templateUrl: helper.basepath('DesignPortal/Dashboard'),
                     controller: 'NullController'
                 })
+                .state('app.design.preorder', {
+                    url: '/preorder',
+                    templateUrl: helper.basepath('DesignOrder/PreOrder'),
+                    controller: 'PreDesignOrderController'
+                })
                 .state('app.design.add-order', {
                     url: '/add-order',
                     templateUrl: helper.basepath('Order/Add'),
@@ -129,6 +134,11 @@ App
                     url: '/dashboard',
                     templateUrl: helper.basepath('PrintPortal/Dashboard'),
                     controller: 'NullController'
+                })
+                .state('app.print.preorder', {
+                    url: '/preorder',
+                    templateUrl: helper.basepath('PrintOrder/PreOrder'),
+                    controller: 'PrePrintOrderController'
                 })
                 .state('app.print.add-order', {
                     url: '/add-order',

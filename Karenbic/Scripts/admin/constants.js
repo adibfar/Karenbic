@@ -114,6 +114,10 @@ App
                 icon: "setting",
                 submenu: [
                     {
+                        text: "متن پیش از سفارش",
+                        sref: "app.design.preorder"
+                    },
+                    {
                         text: "تغییر رمز عبور",
                         sref: "app.design.change-password"
                     }
@@ -224,6 +228,10 @@ App
                 sref: "#",
                 icon: "setting",
                 submenu: [
+                    {
+                        text: "متن پیش از سفارش",
+                        sref: "app.print.preorder"
+                    },
                     {
                         text: "تغییر رمز عبور",
                         sref: "app.print.change-password"

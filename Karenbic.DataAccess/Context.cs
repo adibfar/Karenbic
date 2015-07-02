@@ -11,6 +11,8 @@ namespace Karenbic.DataAccess
 
         }
 
+        public DbSet<DomainClasses.Setting> Setting { get; set; }
+
         public DbSet<DomainClasses.Province> Province { get; set; }
         public DbSet<DomainClasses.City> Cities { get; set; }
 

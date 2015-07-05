@@ -785,5 +785,11 @@ namespace Karenbic.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult ShowOrderDesign()
+        {
+            return View();
+        }
     }
 }

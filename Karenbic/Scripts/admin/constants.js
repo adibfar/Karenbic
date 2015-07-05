@@ -31,6 +31,16 @@ App
                       text: "سفارشات لغو شده",
                       sref: "app.design.canceled-order-list"
                   }
+                ],
+                activedmenu: [
+                    {
+                        text: "ارسال فایل های طراحی شده",
+                        sref: "app.design.send-order-design"
+                    },
+                    {
+                        text: "نمایش فایل های طراحی شده",
+                        sref: "app.design.show-order-design"
+                    }
                 ]
             },
             {

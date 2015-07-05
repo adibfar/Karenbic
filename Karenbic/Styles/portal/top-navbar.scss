@@ -29,6 +29,39 @@
         height: 57px;
 	}
 
+	.top-navbar-inner {
+		height: 57px;
+		margin:0 auto;
+		position: relative;
+		width: 1011px;
+
+		 /* Custom, iPhone Retina */
+		@media only screen and (min-width : 320px) {
+			height: 83px;
+			width: 100%;
+		}
+		/* Extra Small Devices, Phones */
+		@media only screen and (min-width : 480px) {
+			height: 83px;
+			width: 100%;
+		}
+		/* Small Devices, Tablets */
+		@media only screen and (min-width : 768px) {
+			height: 83px;
+			width: 100%;
+		}
+		/* Medium Devices, Desktops */
+		@media only screen and (min-width : 992px) {
+			height: 57px;
+			width: 100%;
+		}
+		/* Large Devices, Wide Screens */
+		@media only screen and (min-width : 1200px) {
+			height: 57px;
+			width: 1011px;
+		}
+	}
+
     .home-nav {
         background-color: #545454;
         color: #fff;

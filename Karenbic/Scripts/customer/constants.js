@@ -44,6 +44,14 @@ App
                         sref: "app.design.checkout-payment"
                     },
                     {
+                        text: "یش نمایش فاکتور",
+                        sref: "app.design.final-payment-preview"
+                    },
+                    {
+                        text: "فاکتور پرداخت شده",
+                        sref: "app.design.checkout-final-payment"
+                    },
+                    {
                         text: "خطا در پرداخت",
                         sref: "app.design.error-payment"
                     }

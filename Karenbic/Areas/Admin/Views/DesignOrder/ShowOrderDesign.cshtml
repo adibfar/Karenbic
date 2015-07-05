@@ -1,0 +1,480 @@
+﻿<style type="text/css">
+    .whirl.shadow::after {
+        animation: none;
+        z-index: 13;
+    }
+    .whirl.shadow::before {
+        z-index: 13;
+    }
+
+    .panel-order-details {
+        -moz-border-radius: 8px 8px 0 0 !important;
+        -webkit-border-radius: 8px 8px 0 0 !important;
+        border-radius: 8px 8px 0 0 !important;
+        margin-bottom: 0 !important;
+        border-bottom: none !important;
+    }
+
+    .panel-last-designs {
+        -moz-border-radius: 0 0 8px 8px !important;
+        -webkit-border-radius: 0 0 8px 8px !important;
+        border-radius: 0 0 8px 8px !important;
+    }
+        .panel-last-designs ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-align: right;
+        }
+            .panel-last-designs ul li {
+                background-color: #f6f6f6;
+                border: 1px solid #bebebe;
+                display: inline-block;
+                height: 90px;
+                margin: 5px;
+                width: 90px;
+            }
+                .panel-last-designs ul li a {
+                    display: block;
+                    height: 88px;
+                    width: 88px;
+                }
+
+    #checkoutDesign ul {
+        border-top: 1px solid #bebebe;
+        direction: ltr;
+        margin: 15px 0 0 0;
+        padding: 10px 0 0 0;
+        list-style: none;
+        text-align: left;
+    }
+        #checkoutDesign ul li {
+            background-color: #f6f6f6;
+            border: 1px solid #bebebe;
+            cursor: pointer;
+            display: inline-block;
+            height: 90px;
+            margin: 5px;
+            width: 90px;
+        }
+
+    .pre {
+        background-color: transparent;
+        border: none;
+        color: #5e5e5e;
+        display: inline;
+        font-family: BNazanin;
+        font-size: 15.5px;
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        white-space: pre-wrap;
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+        border-radius: 0;
+    }
+    .pre2 {
+        background-color: transparent;
+        border: none;
+        color: #5e5e5e;
+        display: inline;
+        font-family: yekan;
+        font-size: 14px;
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        white-space: pre-wrap;
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+        border-radius: 0;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default panel-order-details"
+             ng-class="{'whirl': fetchDataLoading , 'shadow': fetchDataLoading}">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i></i>
+                    ارسال فایل طراحی
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <span>شرح سفارش :</span>
+                            &nbsp;
+                            <span class="text-muted">{{order.Form.Title}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <span>کد سفارش :</span>
+                            &nbsp;
+                            <span class="text-muted"
+                                  style="font-family:BNazanin;font-size:16px;">{{order.Code}}</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <span>تاریخ سفارش :</span>
+                            &nbsp;
+                            <span class="text-muted"
+                                  style="direction:ltr;font-family:BNazanin;font-size:16px;" ">{{order.Time + ' - ' + order.PersianRegisterDate}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <span>نام مشتری :</span>
+                            &nbsp;
+                            <span class="text-muted">{{order.Customer.Name + ' ' + order.Customer.Surname}}</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <span>شماره تلفن ثابت :</span>
+                            &nbsp;
+                            <span class="text-muted"
+                                  style="font-family:BNazanin;font-size:16px;" ">{{order.Customer.Phone}}</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <span>شماره تلفن همراه :</span>
+                            &nbsp;
+                            <span class="text-muted"
+                                  style="font-family:BNazanin;font-size:16px;" ">{{order.Customer.Mobile}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <div class="text-info" style="cursor:pointer;display:inline-block;"
+                                 ng-click="showDetails()">
+                                <span>نمایش اطلاعات سفارش</span>
+                                <span class="small">[کلیک کنید]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default panel-last-designs"
+             ng-class="{'whirl': fetchDesignLoading , 'shadow': fetchDesignLoading}">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i></i>
+                    فایل های ارسالی گذشته
+                </div>
+            </div>
+            <div class="panel-body"
+                 style="min-height:350px;">
+                <div ng-repeat="design in designs">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <span>تاریخ ارسال :</span>
+                                &nbsp;
+                                <span class="text-muted"
+                                      style="direction:ltr;font-family:BNazanin;font-size:16px;">{{design.Time + ' - ' + design.PersianRegisterDate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <pre class="pre2">{{'توضیحات :' + design.Description}}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li ng-repeat="file in design.Files">
+                            <a href="{{file.PicturePath}}" jquery-colorbox="" rel="{{'gal' + design.Id}}">
+                                <img src="{{file.PicturePath}}" imagescale="" />
+                                <img src="/Images/ReviewIcon/accept.png"
+                                     style="display:block;height:22px;width:22px;position:absolute;bottom:2px;right:2px;"
+                                     ng-if="file.State == states.Accept" />
+                                <img src="/Images/ReviewIcon/maybe.png"
+                                     style="display:block;height:22px;width:22px;position:absolute;bottom:2px;right:2px;"
+                                     ng-if="file.State == states.Maybe" />
+                                <img src="/Images/ReviewIcon/unaccept.png"
+                                     style="display:block;height:22px;width:22px;position:absolute;bottom:2px;right:2px;"
+                                     ng-if="file.State == states.UnAccept" />
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="clearfix">
+                                <div class="pull-left">
+                                    <button class="btn btn-labeled btn-info" type="button"
+                                            ng-click="showDesignModal($index)"
+                                            ng-if="design.IsReview == true">
+                                        <span class="btn-label btn-label-right">
+                                            <i class="fa fa-check"></i>
+                                        </span>
+                                        نمایش بررسی
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="hr1" style="margin:15px 0;" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Start Order Details Modal -->
+<script type="text/ng-template" id="/ShowDetailsContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            نمایش سفارش
+        </div>
+    </div>
+    <div class="modal-body" ng-class="{'whirl': fetchLoading , 'shadow': fetchLoading}">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>شرح سفارش :</span>
+                    &nbsp;
+                    <span class="text-muted">{{order.Form.Title}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>کد سفارش :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{order.Code}}</span>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>تاریخ سفارش :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="direction:ltr;font-family:BNazanin;font-size:16px;" ">{{order.Time + ' - ' + order.PersianRegisterDate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>نام مشتری :</span>
+                    &nbsp;
+                    <span class="text-muted">{{order.Customer.Name + ' ' + order.Customer.Surname}}</span>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>شماره تلفن ثابت :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;" ">{{order.Customer.Phone}}</span>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>شماره تلفن همراه :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;" ">{{order.Customer.Mobile}}</span>
+                </div>
+            </div>
+        </div>
+
+        <hr class="hr1" />
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="table-responsive"
+                     style="min-height:300px;">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr ng-repeat="item in values">
+                                <td style="min-width:45px;width:45px;">
+                                    <span style="margin-right:4px;">{{$index + 1}}</span>
+                                </td>
+                                <td style="min-width:200px;width:200px;">{{item.Name}}</td>
+                                <td style="min-width:300px;" ng-if="item.Type == 0 || item.Type == 2 || item.Type == 8 || item.Type == 9">{{item.Value}}</td>
+                                <td style="min-width:300px;" ng-if="item.Type == 1"><pre class="pre">{{item.Value}}</pre></td>
+                                <td style="min-width:300px;" ng-if="item.Type == 3">
+                                    <span style="font-family:Tahoma;font-size:13px;">{{item.Value}} </span>
+                                    <i style="display:inline-block;height:16px;width:16px;margin-right:2px;position:relative;top:4px;background-color:{{item.Value}};"></i>
+                                </td>
+                                <td style="min-width:300px;" ng-if="item.Type == 4">
+                                    <a href="{{item.FilePath}}" target="_blank">{{item.Name}}</a>
+                                </td>
+                                <td style="min-width:300px;" ng-if="item.Type == 5">
+                                    <span ng-if="item.Value == true">دارد</span>
+                                    <span ng-if="item.Value == false">ندارد</span>
+                                </td>
+                                <td style="min-width:300px;" ng-if="item.Type == 6">
+                                    <a href="{{item.Value}}" target="_blank"
+                                       style="font-family:Tahoma;font-size:13px;">{{item.Value}}</a>
+                                </td>
+                                <td ng-if="item.Type == 7">
+                                    <span style="font-family:BNazanin;font-size:16px;">{{item.Value}}</span>
+                                </td>
+                                <td ng-if="item.Type == 10">
+                                    <div ng-repeat="value in item.Values">{{($index + 1) + '- ' + value}}</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End Order Details Modal -->
+<!-- Start Designs Modal -->
+<script type="text/ng-template" id="/DesignContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            بررسی فایل های طراحی شده
+        </div>
+    </div>
+    <div id="checkoutDesign" class="modal-body" ng-class="{'whirl': fetchLoading , 'shadow': fetchLoading}">
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 hidden-xs">
+                <button class="btn btn-block btn-labeled btn-success"
+                        type="button" style="text-align:right;min-height:30px;"
+                        ng-show="selectedFile.State == states.Accept">
+                    <span class="btn-label btn-label-right hidden-sm hidden-xs">
+                        <i class="fa fa-check"></i>
+                    </span>
+                    این طرح به طور کامل مورد تأیید می باشد
+                </button>
+                <button class="btn btn-block btn-labeled btn-warning"
+                        type="button" style="text-align:right;min-height:30px;"
+                        ng-show="selectedFile.State == states.Maybe">
+                    <span class="btn-label btn-label-right hidden-sm hidden-xs">
+                        <i class="fa fa-check"></i>
+                    </span>
+                    این طرح مورد تأیید است ولی نیاز به اصلاح دارد
+                </button>
+                <button class="btn btn-block btn-labeled btn-danger"
+                        type="button" style="text-align:right;min-height:30px;"
+                        ng-show="selectedFile.State == states.UnAccept">
+                    <span class="btn-label btn-label-right hidden-sm hidden-xs">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    این طرح مورد تأیید نمی باشد
+                </button>
+                <br />
+                <div class="form-group">
+                    <label class="control-label">توضیحات: </label>
+                    &nbsp;
+                    <span>{{selectedFile.CustomerDescription}}</span>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                <div style="background-color:#f6f6f6;border:1px solid #bebebe;height:354px;position:relative;">
+                    <img src="{{selectedFile.PicturePath}}" imagescale="" />
+                    <img src="/Images/UI/Pagination/btn-next-2.png"
+                         style="display:block;height:26px;width:26px;position:absolute;top:164px;right:5px;cursor:pointer;"
+                         ng-show="design.Files.length > 1" ng-click="selectNextFile()" />
+                    <img src="/Images/UI/Pagination/btn-back-2.png"
+                         style="display:block;height:26px;width:26px;position:absolute;top:164px;left:5px;cursor:pointer;"
+                         ng-show="design.Files.length > 1" ng-click="selectPrevFile()" />
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 visible-xs">
+                <br />
+                <button class="btn btn-block btn-labeled btn-success"
+                        type="button" style="text-align:right;min-height:30px;"
+                        ng-show="selectedFile.State == states.Accept">
+                    <span class="btn-label btn-label-right hidden-sm hidden-xs">
+                        <i class="fa fa-check"></i>
+                    </span>
+                    این طرح به طور کامل مورد تأیید می باشد
+                </button>
+                <button class="btn btn-block btn-labeled btn-warning"
+                        type="button" style="text-align:right;min-height:30px;"
+                        ng-show="selectedFile.State == states.Maybe">
+                    <span class="btn-label btn-label-right hidden-sm hidden-xs">
+                        <i class="fa fa-check"></i>
+                    </span>
+                    این طرح مورد تأیید است ولی نیاز به اصلاح دارد
+                </button>
+                <button class="btn btn-block btn-labeled btn-danger"
+                        type="button" style="text-align:right;min-height:30px;"
+                        ng-show="selectedFile.State == states.UnAccept">
+                    <span class="btn-label btn-label-right hidden-sm hidden-xs">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    این طرح مورد تأیید نمی باشد
+                </button>
+                <br />
+                <div class="form-group">
+                    <label class="control-label">توضیحات: </label>
+                    &nbsp;
+                    <span>{{selectedFile.CustomerDescription}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-xs">
+                <ul>
+                    <li ng-repeat="file in design.Files" ng-click="selectFile($index)">
+                        <img src="{{file.PicturePath}}" imagescale="" />
+                        <img src="/Images/ReviewIcon/accept.png"
+                             style="display:block;height:22px;width:22px;position:absolute;bottom:2px;right:2px;"
+                             ng-if="file.State == states.Accept" />
+                        <img src="/Images/ReviewIcon/maybe.png"
+                             style="display:block;height:22px;width:22px;position:absolute;bottom:2px;right:2px;"
+                             ng-if="file.State == states.Maybe" />
+                        <img src="/Images/ReviewIcon/unaccept.png"
+                             style="display:block;height:22px;width:22px;position:absolute;bottom:2px;right:2px;"
+                             ng-if="file.State == states.UnAccept" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End Designs Modal -->
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

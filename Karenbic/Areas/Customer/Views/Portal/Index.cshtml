@@ -4,20 +4,22 @@
 
 <!-- Start Top Navbar -->
 <div class="top-navbar">
-    <a class="home-nav icon-home176"></a>
-    <a class="public-nav icon-flatscreen"></a>
-    <div class="user-section">
-        <div class="icon-male157"></div>
-        <span class="user-name">علیرضا حسینی</span>
-        <a class="icon-closed69"></a>
+    <div class="top-navbar-inner">
+        <a class="home-nav icon-home176"></a>
+        <a class="public-nav icon-flatscreen"></a>
+        <div class="user-section">
+            <div class="icon-male157"></div>
+            <span class="user-name">علیرضا حسینی</span>
+            <a class="icon-closed69"></a>
+        </div>
+        <a class="design-nav"
+           ng-class="{'active': isDesignPortal()}"
+           ui-sref="app.design.dashboard"></a>
+        <a class="print-nav"
+           ng-class="{'active': isPrintPortal()}"
+           ui-sref="app.print.dashboard"></a>
+        <div class="mobile-navbar icon-text156 visible-xs" ng-click="toggleMobileMenu()"></div>
     </div>
-    <a class="design-nav" 
-        ng-class="{'active': isDesignPortal()}" 
-        ui-sref="app.design.dashboard"></a>
-    <a class="print-nav"
-        ng-class="{'active': isPrintPortal()}"
-        ui-sref="app.print.dashboard"></a>
-    <div class="mobile-navbar icon-text156 visible-xs" ng-click="toggleMobileMenu()"></div>
 </div>
 <!-- End Top Navbar -->
 

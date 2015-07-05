@@ -3,8 +3,8 @@
  * Show Fiished Order List
  =========================================================*/
 
-App.controller('FinishedDesignOrderListController', ['$scope', '$http', 'APP_BASE_URI', 'toaster', '$modal',
-    function ($scope, $http, baseUri, toaster, $modal) {
+App.controller('FinishedDesignOrderListController', ['$scope', '$http', 'APP_BASE_URI', 'toaster', '$modal', '$state',
+    function ($scope, $http, baseUri, toaster, $modal, $state) {
         $scope.searchFields = {
             orderId: '',
             states: null,
@@ -211,6 +211,11 @@ App.controller('FinishedDesignOrderListController', ['$scope', '$http', 'APP_BAS
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
+        };
+
+        $scope.showDesign = function (index) {
+            $scope.fetchLoading = true;
+            $state.go('^.show-order-design', { id: $scope.orders[index].Id });
         };
 
         //Init

@@ -302,7 +302,7 @@
                                 if ($scope.order.IsPaidFinal == false)
                                     id.push("f" + $scope.order.Id);
 
-                                $state.go('^.payment-preview', { id: id });
+                                $state.go('^.final-payment-preview', { id: id });
 
                                 $modalInstance.close($scope.design.Files);
                             }).error(function (data, status, headers, config) {

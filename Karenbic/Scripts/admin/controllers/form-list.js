@@ -15,8 +15,7 @@ App.controller('FormsListController', ['$scope', '$http', 'ngDialog', 'APP_BASE_
 
             $http.get(baseUri + 'Form/Get', {
                 params: {
-                    isDesignForm: $scope.isDesignPortal(),
-                    isPrintForm: $scope.isPrintPortal(),
+                    portal: $scope.isDesignPortal() == true ? 1 : 2,
                     title: $scope.title,
                     pageIndex: pageIndex
                 }

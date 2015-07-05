@@ -17,24 +17,13 @@ namespace Karenbic.DomainClasses
         [Required]
         public int Id{ get; set; }
 
-        [Required]
-        public bool IsDesignForm { get; set; }
-
-        [NotMapped]
-        public bool IsPrintForm
-        {
-            get
-            {
-                return !IsDesignForm;
-            }
-            set
-            {
-                IsDesignForm = !value;
-            }
-        }
+        public Portal Portal { get; set; }
 
         [Required]
         public string Title{ get; set; }
+
+        [Required]
+        public int Priority { get; set; }
 
         [Required]
         public bool SpecialCreativity { get; set; }
@@ -48,6 +37,8 @@ namespace Karenbic.DomainClasses
         public bool CanDelete { get; set; }
 
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
+
+        public virtual FormGroup Group { get; set; }
 
         public virtual ICollection<FormField> Fields { get; set; }
 

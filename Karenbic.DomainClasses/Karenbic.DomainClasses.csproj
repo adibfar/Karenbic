@@ -56,6 +56,8 @@
     <Compile Include="Factor\PrepaymentDesignPaymentItem.cs" />
     <Compile Include="Factor\PrintPayment.cs" />
     <Compile Include="Factor\PrintPaymentItem.cs" />
+    <Compile Include="Form\FormFieldType.cs" />
+    <Compile Include="Form\FormGroup.cs" />
     <Compile Include="Message\AdminMessage_Admin.cs" />
     <Compile Include="Message\AdminMessage_Customer.cs" />
     <Compile Include="Message\CustomerMessage.cs" />
@@ -83,7 +85,6 @@
     <Compile Include="Form\FormField_Numeric.cs" />
     <Compile Include="Customer\Gender.cs" />
     <Compile Include="Factor\Payment.cs" />
-    <Compile Include="Order\DesignOrderState.cs" />
     <Compile Include="Order\DesignOrder_Design.cs" />
     <Compile Include="Order\DesignOrder_Design_File.cs" />
     <Compile Include="Order\DesignOrder_Design_File_State.cs" />

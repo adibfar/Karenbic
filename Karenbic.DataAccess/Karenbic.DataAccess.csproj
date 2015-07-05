@@ -56,6 +56,7 @@
     <Compile Include="Factor\PrepaymentDesignFactorConfiguration.cs" />
     <Compile Include="Factor\PrepaymentDesignPaymentItemConfiguration.cs" />
     <Compile Include="Factor\PrintPaymentConfiguration.cs" />
+    <Compile Include="Form\FormGroupConfiguration.cs" />
     <Compile Include="Message\AdminMessage_AdminConfiguration.cs" />
     <Compile Include="Message\AdminMessage_CustomerConfiguration.cs" />
     <Compile Include="Message\CustomerMessageConfiguration.cs" />

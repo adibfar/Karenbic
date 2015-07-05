@@ -3,24 +3,42 @@
  * Send New Order
  =========================================================*/
 
-App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$upload', 'toaster',
-    function ($scope, $http, baseUri, $upload, toaster) {
+App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$upload', 'toaster', 'ngDialog',
+    function ($scope, $http, baseUri, $upload, toaster, ngDialog) {
 
         /*=-=-=-=-= Start Fetch Forms =-=-=-=-=*/
-        $scope.forms = [];
-        $scope.fetchForms = function () {
+        $scope.formGroups = [];
+        $scope.formGroups_column1 = [];
+        $scope.formGroups_column2 = [];
+        $scope.formGroups_column3 = [];
+
+        $scope.fetchFormGroups = function () {
             $scope.fetchFormsLoading = true;
 
-            $http.get(baseUri + 'Form/Get', {
+            $http.get(baseUri + 'FormGroup/Get', {
                 params: {
-                    isDesignForm: $scope.isDesignPortal(),
-                    isPrintForm: $scope.isPrintPortal()
+                    portal: $scope.isDesignPortal() ? 1 : 2
                 }
             })
             .success(function (data, status, headers, config) {
-                $scope.forms = data.Data;
+                $scope.formGroups = data.Data;
+
+                //Columns#1
+                $scope.formGroups_column1 = _.filter($scope.formGroups, function (item) {
+                    return item.Column == 1;
+                });
+
+                //Columns#2
+                $scope.formGroups_column2 = _.filter($scope.formGroups, function (item) {
+                    return item.Column == 2;
+                });
+
+                //Columns#3
+                $scope.formGroups_column3 = _.filter($scope.formGroups, function (item) {
+                    return item.Column == 3;
+                });
+
                 $scope.fetchFormsLoading = false;
-                setTimeout(function () { $scope.formItemShowAnimate(0); }, 150);
             }).error(function (data, status, headers, config) {
                 if (status == 403) {
                     window.location = "/Account/Login";
@@ -31,7 +49,8 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                 $scope.fetchFormsLoading = false;
             });
         };
-        $scope.fetchForms();
+
+        $scope.fetchFormGroups();
         /*=-=-=-=-= End Fetch Forms =-=-=-=-=*/
 
         /*=-=-=-=-= Start Select Form =-=-=-=-=*/
@@ -39,37 +58,18 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
 
         $scope.selectForm = function ($event, form) {
             $scope.selectedForm = form;
-            $('.forms-list li').fadeOut(300, function () {
+            $('.formGroups-list > li').fadeOut(300);
+            window.setTimeout(function () {
                 $scope.fetchFields();
-            });
+            }, 300);
         };
 
         $scope.unSelectForm = function ($event, form) {
             $scope.selectedForm = null;
             $scope.form = {};
             $scope.fromSumbited = false;
-            $('.forms-list li').fadeIn(300);
-        };
-
-        $scope.formItemHideAnimate = function (index) {
-            var items = $('.forms-list li');
-            $(items[index]).fadeOut(200, function () {
-                if (index > 0) {
-                    $scope.formItemHideAnimate(--index);
-                }
-                else {
-                    $scope.fetchFields();
-                }
-            });
-        };
-
-        $scope.formItemShowAnimate = function (index) {
-            var items = $('.forms-list li');
-            $(items[index]).fadeIn(200, function () {
-                if (index < items.length - 1) {
-                    $scope.formItemShowAnimate(++index);
-                }
-            });
+            $scope.specialCreativity = false;
+            $('.formGroups-list > li').fadeIn(300);
         };
         /*=-=-=-=-= Start Select Form =-=-=-=-=*/
 
@@ -96,6 +96,42 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
             });
         };
         /*=-=-=-=-= End Fetch Fields =-=-=-=-=*/
+
+        /*=-=-=-=-= Start Select Special Desgin =-=-=-=-=*/
+        $scope.specialCreativity = false;
+        $scope.selectSpecialCreativity = function () {
+            if ($scope.specialCreativity == false) {
+                ngDialog.open({
+                    template: '<div style="font-family:yekan;font-size:14px;">' +
+                        '<p>' +
+                        'باشد' +
+                        '</p>' +
+                        '<div style="text-align:left;">' +
+                        '<button class="btn btn-warning" ng-click="close()" type="button">خیر</button>' +
+                        '<button class="btn btn-primary" ng-click="confirm()" type="button" style="margin-right:4px;">بلی</button>' +
+                        '</div></div>',
+                    plain: true,
+                    showClose: false,
+                    controller: ['$scope', 'ngDialog', function ($scope, ngDialog) {
+                        $scope.close = function () {
+                            $scope.closeThisDialog(0);
+                        };
+                        $scope.confirm = function () {
+                            $scope.closeThisDialog(1);
+                        };
+                    }],
+                    preCloseCallback: function (value) {
+                        if (value != 1) return true;
+                        $scope.specialCreativity = true;
+                        return true;
+                    }
+                });
+            }
+            else {
+                $scope.specialCreativity = false;
+            }
+        };
+        /*=-=-=-=-= End Select Special Desgin =-=-=-=-=*/
 
         /*=-=-=-=-= Start On File Select =-=-=-=-=*/
         $scope.uploadingFile = 0;
@@ -381,7 +417,8 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                 datePickers: $scope.getFieldsValue(7),
                 dropDowns: $scope.getFieldsValue(8),
                 radioButtonGroups: $scope.getFieldsValue(9),
-                checkBoxGroups: $scope.getFieldsValue(10)
+                checkBoxGroups: $scope.getFieldsValue(10),
+                specialCreativity: $scope.specialCreativity
             }).
             success(function (data, status, headers, config) {
                 $scope.addLoading = false;
@@ -442,6 +479,50 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
             });
 
             return values;
+        };
+
+        $scope.resetForm = function () {
+            _.each($scope.form.fields, function (item) {
+                switch (item.type) {
+                    case 0:
+                        item.value = '';
+                        break;
+                    case 1:
+                        item.value = '';
+                        break;
+                    case 2:
+                        item.value = '';
+                        break;
+                    case 3:
+                        item.value = '';
+                        break;
+                    case 4:
+                        item.value = '';
+                        break;
+                    case 5:
+                        item.value = false;
+                        break;
+                    case 6:
+                        item.value = '';
+                        break;
+                    case 7:
+                        item.value = '';
+                        break;
+                    case 8:
+                        item.value = null;
+                        break;
+                    case 9:
+                        item.value = null;
+                        break;
+                    case 10:
+                        _.each(item.data.items, function (val) {
+                            val.value = false;
+                        });
+                        break;
+                }
+            });
+            $scope.fromSumbited = false;
+            $scope.specialCreativity = false;
         };
         /*=-=-=-=-= End Send Data =-=-=-=-=*/
 

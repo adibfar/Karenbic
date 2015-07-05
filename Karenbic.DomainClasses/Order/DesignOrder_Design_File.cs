@@ -11,6 +11,7 @@ namespace Karenbic.DomainClasses
         {
             Id = Guid.NewGuid();
             State = DesignOrder_Design_File_State.None;
+            TempState = DesignOrder_Design_File_State.None;
         }
 
         [Key]
@@ -33,6 +34,9 @@ namespace Karenbic.DomainClasses
 
         [Required]
         public DesignOrder_Design_File_State State { get; set; }
+
+        [Required]
+        public DesignOrder_Design_File_State TempState { get; set; }
 
         public string CustomerDescription { get; set; }
 

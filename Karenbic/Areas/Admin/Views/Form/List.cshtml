@@ -40,8 +40,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"
-                             style="padding-right:0;">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <div class="hidden-xs" style="height:18px;margin-bottom:5px;"></div>
                                 <button class="btn-img-search-2" ng-click="search()"></button>
@@ -56,17 +55,17 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th style="width:40px;">&nbsp;</th>
-                                <th style="width:250px;">عنوان</th>
-                                <th>توضیحات</th>
-                                <th style="width:80px;">&nbsp;</th>
+                                <th style="min-width:40px;width:40px;">&nbsp;</th>
+                                <th style="min-width:250px;width:250px;">عنوان</th>
+                                <th class="hidden-xs" style="min-width:300px;">توضیحات</th>
+                                <th style="min-width:80px;width:80px;">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in forms">
                                 <td><span style="margin-right:4px;">{{$index + 1}}</span></td>
                                 <td>{{item.Title}}</td>
-                                <td>{{item.Description}}</td>
+                                <td class="hidden-xs">{{item.Description}}</td>
                                 <td style="text-align:left;">
                                     <button class="btn-img-delete-1" type="button"
                                             ng-if="item.CanDelete"

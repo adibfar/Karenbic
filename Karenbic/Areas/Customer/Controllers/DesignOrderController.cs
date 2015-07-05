@@ -331,14 +331,46 @@ namespace Karenbic.Areas.Customer.Controllers
         {
             using (DataAccess.Context context = new DataAccess.Context())
             {
-                DomainClasses.DesignOrder_Design design = context.DesignOrder_Designs.Find(designId);
-                design.IsReview = true;
+                DomainClasses.DesignOrder_Design design = context.DesignOrder_Designs
+                    .Include(x => x.Order)
+                    .Single(x => x.Id == designId);
 
-                foreach (DomainClasses.DesignOrder_Design_File file in files)
+                DomainClasses.DesignOrder order = context.DesignOrders.Find(design.Order.Id);
+                order.LastChange = DateTime.Now;
+
+                if (files.Any(x => x.State == DomainClasses.DesignOrder_Design_File_State.Accept) &&
+                    (order.IsPaidPrepayment == false || order.IsPaidFinal == false))
                 {
-                    DomainClasses.DesignOrder_Design_File item = context.DesignOrder_Design_Files.Find(file.Id);
-                    item.State = file.State;
-                    item.CustomerDescription = file.CustomerDescription;
+                    foreach (DomainClasses.DesignOrder_Design_File file in files)
+                    {
+                        DomainClasses.DesignOrder_Design_File item = context.DesignOrder_Design_Files.Find(file.Id);
+                        item.TempState = file.State;
+                        item.CustomerDescription = file.CustomerDescription;
+                    }
+                }
+                else if (files.Any(x => x.State == DomainClasses.DesignOrder_Design_File_State.Accept))
+                {
+                    design.IsReview = true;
+
+                    order.IsAcceptDesign = true;
+
+                    foreach (DomainClasses.DesignOrder_Design_File file in files)
+                    {
+                        DomainClasses.DesignOrder_Design_File item = context.DesignOrder_Design_Files.Find(file.Id);
+                        item.State = file.State;
+                        item.CustomerDescription = file.CustomerDescription;
+                    }
+                }
+                else
+                {
+                    design.IsReview = true;
+
+                    foreach (DomainClasses.DesignOrder_Design_File file in files)
+                    {
+                        DomainClasses.DesignOrder_Design_File item = context.DesignOrder_Design_Files.Find(file.Id);
+                        item.State = file.State;
+                        item.CustomerDescription = file.CustomerDescription;
+                    }
                 }
                 context.SaveChanges();
             }

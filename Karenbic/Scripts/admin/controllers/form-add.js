@@ -5,10 +5,15 @@
 
 App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'APP_BASE_URI', '$upload', 'toaster',
     function ($scope, $http, ngDialog, $modal, baseUri, $upload, toaster) {
+
+        /*=-=-=-=-= Start Define Variable =-=-=-=-=*/
+        $scope.groups = [];
+
         //Form Details
         $scope.newForm = {
             title: '',
-            link: '',
+            group: null,
+            priority: 0,
             specialCreativity: false,
             isShow: true,
             description: ''
@@ -96,6 +101,35 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                 Extention: 'gif'
             }
         ];
+        /*=-=-=-=-= End Define Variable =-=-=-=-=*/
+        
+        //Fetch Form Groups
+        $scope.fetchGroups = function () {
+            $scope.fetchGroupsLoading = true;
+
+            $http.get(baseUri + 'FormGroup/Get', {
+                params: {
+                    portal: $scope.isDesignPortal() == true ? 1 : 2
+                }
+            })
+            .success(function (data, status, headers, config) {
+                $scope.groups = data.Data;
+                if($scope.groups != null && $scope.groups.length > 0)
+                    $scope.newForm.group = $scope.groups[0];
+                $scope.fetchGroupsLoading = false;
+            }).error(function (data, status, headers, config) {
+                if (status == 403) {
+                    window.location = "/Account/Login";
+                }
+                else {
+                    toaster.pop('error', "خطایی رخ داده صفحه را مجدداً بارگزاری کنید");
+                }
+                $scope.fetchGroupsLoading = false;
+            });
+        };
+        $scope.fetchGroups();
+
+        
 
         //New Field Type
         $scope.formFieldType = $scope.formFieldTypes[0];
@@ -1469,7 +1503,7 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
 
         /*=-=-=-=-= End Manage Preview =-=-=-=-=*/
 
-
+        /*=-=-=-=-= Start Connect To The Server =-=-=-=-=*/
         $scope.createForm = function(){
             if ($scope.formDetailsForm.$invalid || $scope.newFields.length == 0) return;
 
@@ -1477,12 +1511,14 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
             $http.post(baseUri + 'Form/Add',
             {
                 form: {
-                    IsDesignForm: $scope.isDesignPortal(),
+                    Portal: $scope.isDesignPortal() == true ? 1 : 2,
                     Title: $scope.newForm.title,
+                    Priority: $scope.newForm.priority,
                     SpecialCreativity: $scope.newForm.specialCreativity,
                     IsShow: $scope.newForm.isShow,
                     Description: $scope.newForm.description
                 },
+                groupId: $scope.newForm.group.Id,
                 textBoxs: $scope.getFields(0),
                 textAreas: $scope.getFields(1),
                 numerics: $scope.getFields(2),
@@ -1720,7 +1756,8 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
         $scope.resetForm = function () {
             $scope.newForm = {
                 title: '',
-                link: '',
+                group: $scope.groups[0],
+                priority: 0,
                 specialCreativity: false,
                 isShow: true,
                 description: ''
@@ -1728,4 +1765,5 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
 
             $scope.newFields = [];
         };
+        /*=-=-=-=-= End Connect To The Server =-=-=-=-=*/
 }]);

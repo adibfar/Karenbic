@@ -54,6 +54,10 @@ App
                 icon: "form",
                 submenu: [
                   {
+                      text: "گروه بندی فرم ها",
+                      sref: "app.design.form-groups"
+                  },
+                  {
                       text: "ثبت فرم جدید",
                       sref: "app.design.add-form"
                   },
@@ -168,14 +172,18 @@ App
                 sref: "#",
                 icon: "form",
                 submenu: [
-                  {
-                      text: "ثبت فرم جدید",
-                      sref: "app.print.add-form"
-                  },
-                  {
-                      text: "فرم های ثبت شده",
-                      sref: "app.print.forms-list"
-                  }
+                    {
+                        text: "گروه بندی فرم ها",
+                        sref: "app.print.form-groups"
+                    },
+                    {
+                        text: "ثبت فرم جدید",
+                        sref: "app.print.add-form"
+                    },
+                    {
+                        text: "فرم های ثبت شده",
+                        sref: "app.print.forms-list"
+                    }
                 ],
                 activedmenu: [
                     {

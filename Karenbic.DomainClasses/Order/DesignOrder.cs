@@ -10,11 +10,20 @@ namespace Karenbic.DomainClasses
     {
         public DesignOrder()
         {
+            LastChange = DateTime.Now;
+            SpecialCreativity = false;
             Prepayment = 0;
             IsPaidPrepayment = false;
             IsPaidFinal = false;
-            OrderState = DesignOrderState.Register;
+            IsPreAcceptDesign = false;
+            IsAcceptDesign = false;
         }
+
+        [Required]
+        public DateTime LastChange { get; set; }
+
+        [Required]
+        public bool SpecialCreativity { get; set; }
 
         [Required]
         public decimal Prepayment { get; set; }
@@ -26,7 +35,10 @@ namespace Karenbic.DomainClasses
         public bool IsPaidFinal { get; set; }
 
         [Required]
-        public DesignOrderState OrderState { get; set; }
+        public bool IsPreAcceptDesign { get; set; }
+
+        [Required]
+        public bool IsAcceptDesign { get; set; }
 
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 

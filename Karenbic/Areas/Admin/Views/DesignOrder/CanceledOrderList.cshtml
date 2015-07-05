@@ -166,6 +166,17 @@
         </div>
     </div>
     <div class="modal-body" ng-class="{'whirl': fetchLoading, 'shadow': fetchLoading}">
+        <div class="row" ng-if="order.SpecialCreativity == true">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                <button class="btn btn-block btn-labeled btn-info"
+                        type="button" style="text-align:right;min-height:30px;margin-bottom:7px;">
+                    <span class="btn-label btn-label-right">
+                        <i class="fa fa-check"></i>
+                    </span>
+                    خلاقیت ویژه
+                </button>
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">

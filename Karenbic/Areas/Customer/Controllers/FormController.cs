@@ -10,14 +10,14 @@ namespace Karenbic.Areas.Customer.Controllers
     public class FormController : Controller
     {
         [HttpGet]
-        public ActionResult Get(bool isDesignForm, bool isPrintForm)
+        public ActionResult Get(DomainClasses.Portal portal, bool isPrintForm)
         {
             JsonResult result = new JsonResult();
 
             using (DataAccess.Context context = new DataAccess.Context())
             {
                 List<DomainClasses.Form> list = context.Forms
-                    .Where(x => x.IsShow && x.IsDesignForm == isDesignForm)
+                    .Where(x => x.IsShow && x.Portal == portal)
                     .OrderBy(x => x.Title)
                     .ToList();
 

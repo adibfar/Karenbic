@@ -37,6 +37,12 @@ App
                     templateUrl: helper.basepath('DesignAdmin/Dashboard'),
                     controller: 'NullController'
                 })
+                .state('app.design.form-groups', {
+                    url: '/form-groups',
+                    templateUrl: helper.basepath('FormGroup/Index'),
+                    controller: 'FormGroupController',
+                    resolve: helper.resolveFor('stepper', 'ngDialog')
+                })
                 .state('app.design.add-form', {
                     url: '/add-form',
                     templateUrl: helper.basepath('Form/Add'),
@@ -154,6 +160,12 @@ App
                     url: '/dashboard',
                     templateUrl: helper.basepath('PrintAdmin/Dashboard'),
                     controller: 'NullController'
+                })
+                .state('app.print.form-groups', {
+                    url: '/form-groups',
+                    templateUrl: helper.basepath('FormGroup/Index'),
+                    controller: 'FormGroupController',
+                    resolve: helper.resolveFor('stepper', 'ngDialog')
                 })
                 .state('app.print.add-form', {
                     url: '/add-form',

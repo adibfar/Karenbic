@@ -30,7 +30,8 @@ namespace Karenbic.Areas.Customer.Controllers
             OrderValue_DatePicker[] datePickers,
             OrderValue_DropDown[] dropDowns,
             OrderValue_RadioButtonGroup[] radioButtonGroups,
-            OrderValue_CheckboxGroup[] checkBoxGroups)
+            OrderValue_CheckboxGroup[] checkBoxGroups,
+            bool specialCreativity = false)
         {
             bool isDesignOrder = false;
             DomainClasses.DesignOrder designOrder = new DomainClasses.DesignOrder();
@@ -43,10 +44,11 @@ namespace Karenbic.Areas.Customer.Controllers
                 form.CanDelete = false;
 
                 //Define Order
-                if (form.IsDesignForm)
+                if (form.Portal == DomainClasses.Portal.Design)
                 {
                     isDesignOrder = true;
                     designOrder.Form = form;
+                    designOrder.SpecialCreativity = specialCreativity;
                     designOrder.RegisterDate = DateTime.Now;
                     designOrder.Customer = context.Customers.Find(1);
                     //designOrder.Customer = context.Customers.Single(x => x.Username == User.Identity.Name);
@@ -70,7 +72,7 @@ namespace Karenbic.Areas.Customer.Controllers
                         if (Add_TextBoxValidation(field, textBox))
                         {
                             DomainClasses.Order_Value_TextBox item = new DomainClasses.Order_Value_TextBox();
-                            if (form.IsDesignForm)
+                            if (form.Portal == DomainClasses.Portal.Design)
                             {
                                 item.Order = designOrder;
                             }
@@ -100,7 +102,7 @@ namespace Karenbic.Areas.Customer.Controllers
                         if (Add_TextAreaValidation(field, textArea))
                         {
                             DomainClasses.Order_Value_TextArea item = new DomainClasses.Order_Value_TextArea();
-                            if (form.IsDesignForm)
+                            if (form.Portal == DomainClasses.Portal.Design)
                             {
                                 item.Order = designOrder;
                             }
@@ -130,7 +132,7 @@ namespace Karenbic.Areas.Customer.Controllers
                         if (Add_NumericValidation(field, numeric))
                         {
                             DomainClasses.Order_Value_Numeric item = new DomainClasses.Order_Value_Numeric();
-                            if (form.IsDesignForm)
+                            if (form.Portal == DomainClasses.Portal.Design)
                             {
                                 item.Order = designOrder;
                             }
@@ -160,7 +162,7 @@ namespace Karenbic.Areas.Customer.Controllers
                         if (Add_ColorPickerValidation(field, colorPicker))
                         {
                             DomainClasses.Order_Value_ColorPicker item = new DomainClasses.Order_Value_ColorPicker();
-                            if (form.IsDesignForm)
+                            if (form.Portal == DomainClasses.Portal.Design)
                             {
                                 item.Order = designOrder;
                             }
@@ -191,7 +193,7 @@ namespace Karenbic.Areas.Customer.Controllers
                         if (Add_FileUploaderValidation(field, fileUploader))
                         {
                             DomainClasses.Order_Value_FileUploader item = new DomainClasses.Order_Value_FileUploader();
-                            if (form.IsDesignForm)
+                            if (form.Portal == DomainClasses.Portal.Design)
                             {
                                 item.Order = designOrder;
                             }
@@ -235,7 +237,7 @@ namespace Karenbic.Areas.Customer.Controllers
                         field.CanDelete = false;
 
                         DomainClasses.Order_Value_Checkbox item = new DomainClasses.Order_Value_Checkbox();
-                        if (form.IsDesignForm)
+                        if (form.Portal == DomainClasses.Portal.Design)
                         {
                             item.Order = designOrder;
                         }
@@ -260,7 +262,7 @@ namespace Karenbic.Areas.Customer.Controllers
                         if (Add_WebUrlValidation(field, webUrl))
                         {
                             DomainClasses.Order_Value_WebUrl item = new DomainClasses.Order_Value_WebUrl();
-                            if (form.IsDesignForm)
+                            if (form.Portal == DomainClasses.Portal.Design)
                             {
                                 item.Order = designOrder;
                             }
@@ -290,7 +292,7 @@ namespace Karenbic.Areas.Customer.Controllers
                         if (Add_DatePickerValidation(field, datePicker))
                         {
                             DomainClasses.Order_Value_DatePicker item = new DomainClasses.Order_Value_DatePicker();
-                            if (form.IsDesignForm)
+                            if (form.Portal == DomainClasses.Portal.Design)
                             {
                                 item.Order = designOrder;
                             }
@@ -323,7 +325,7 @@ namespace Karenbic.Areas.Customer.Controllers
                         if (Add_DropDownValidation(field, dropDown))
                         {
                             DomainClasses.Order_Value_DropDown item = new DomainClasses.Order_Value_DropDown();
-                            if (form.IsDesignForm)
+                            if (form.Portal == DomainClasses.Portal.Design)
                             {
                                 item.Order = designOrder;
                             }
@@ -362,7 +364,7 @@ namespace Karenbic.Areas.Customer.Controllers
                         if (Add_RadioButtonGroupValidation(field, radioButtonGroup))
                         {
                             DomainClasses.Order_Value_RadioButtonGroup item = new DomainClasses.Order_Value_RadioButtonGroup();
-                            if (form.IsDesignForm)
+                            if (form.Portal == DomainClasses.Portal.Design)
                             {
                                 item.Order = designOrder;
                             }
@@ -399,7 +401,7 @@ namespace Karenbic.Areas.Customer.Controllers
                         field.CanDelete = false;
 
                         DomainClasses.Order_Value_CheckboxGroup item = new DomainClasses.Order_Value_CheckboxGroup();
-                        if (form.IsDesignForm)
+                        if (form.Portal == DomainClasses.Portal.Design)
                         {
                             item.Order = designOrder;
                         }
@@ -429,7 +431,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 }
 
                 //Add Order
-                if (form.IsDesignForm)
+                if (form.Portal == DomainClasses.Portal.Design)
                 {
                     context.DesignOrders.Add(designOrder);
                 }

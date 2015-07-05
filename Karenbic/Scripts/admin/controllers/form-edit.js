@@ -6,6 +6,9 @@
 App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', 'APP_BASE_URI', '$upload', 'toaster', '$stateParams',
     function ($scope, $http, ngDialog, $modal, baseUri, $upload, toaster, $stateParams) {
 
+        /*=-=-=-=-= Start Define Variable =-=-=-=-=*/
+        $scope.groups = [];
+
         //Form Fields Type
         $scope.formFieldTypes = [
             {
@@ -88,6 +91,37 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 Extention: 'gif'
             }
         ];
+        /*=-=-=-=-= End Define Variable =-=-=-=-=*/
+
+        //Fetch Form Groups
+        $scope.fetchGroups = function () {
+            $scope.fetchGroupsLoading = true;
+
+            $http.get(baseUri + 'FormGroup/Get', {
+                params: {
+                    portal: $scope.isDesignPortal() == true ? 1 : 2
+                }
+            })
+            .success(function (data, status, headers, config) {
+                $scope.groups = data.Data;
+                
+                var index = _.findIndex($scope.groups, function (item) {
+                    return item.Id == $scope.form.group.Id;
+                });
+
+                $scope.form.group = $scope.groups[index];
+
+                $scope.fetchGroupsLoading = false;
+            }).error(function (data, status, headers, config) {
+                if (status == 403) {
+                    window.location = "/Account/Login";
+                }
+                else {
+                    toaster.pop('error', "خطایی رخ داده صفحه را مجدداً بارگزاری کنید");
+                }
+                $scope.fetchGroupsLoading = false;
+            });
+        };
 
         //New Field Type
         $scope.formFieldType = $scope.formFieldTypes[0];
@@ -123,6 +157,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             })
             .success(function (data, status, headers, config) {
                 $scope.form = data.Data;
+                $scope.fetchGroups();
                 $scope.fetchLoading = false;
             }).error(function (data, status, headers, config) {
                 if (status == 403) {
@@ -1562,7 +1597,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
 
         /*=-=-=-=-= End Manage Preview =-=-=-=-=*/
 
-
+        /*=-=-=-=-= Start Connect To The Server =-=-=-=-=*/
         $scope.editForm = function () {
             if ($scope.formDetailsForm.$invalid || $scope.form.fields.length == 0) return;
 
@@ -1572,10 +1607,12 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 form: {
                     Id: $scope.form.id,
                     Title: $scope.form.title,
+                    Priority: $scope.form.priority,
                     SpecialCreativity: $scope.form.specialCreativity,
                     IsShow: $scope.form.isShow,
                     Description: $scope.form.description
                 },
+                groupId: $scope.form.group.Id,
                 textBoxs: $scope.getFields(0, false),
                 textBoxs_new: $scope.getFields(0, true),
                 textAreas: $scope.getFields(1, false),
@@ -1840,4 +1877,5 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             $scope.fetchForm();
             $scope.removedFields = [];
         };
+        /*=-=-=-=-= End Connect To The Server =-=-=-=-=*/
     }]);

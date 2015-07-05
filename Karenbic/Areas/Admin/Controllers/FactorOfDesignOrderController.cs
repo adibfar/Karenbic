@@ -80,7 +80,6 @@ namespace Karenbic.Areas.Admin.Controllers
                         Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
                         RegisterDate = x.RegisterDate.ToShortDateString(),
                         PersianRegisterDate = x.PersianRegisterDate,
-                        OrderState = x.OrderState,
                         //Confirm Data
                         IsConfirm = x.IsConfirm,
                         ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),

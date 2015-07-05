@@ -1,0 +1,256 @@
+﻿<style type="text/css">
+    .dgvcn {
+        background-color: #f9f9f9;
+        border: 1px solid #6c6c6c;
+        margin-top: 20px;
+        min-height: 400px !important;
+    }
+        .dgvcn .btn-img-delete-1 {
+            position: relative;
+            top: -2px;
+        }
+        .dgvcn .btn-img-edit-1 {
+            margin-right: 3px;
+            position: relative;
+            top: -2px;
+        }
+        .dgvcn .btn-img-show-1 {
+            margin-right: 3px;
+            position: relative;
+            top: -2px;
+        }.dgvcn .btn-img-hide-1 {
+            margin-right: 3px;
+            position: relative;
+            top: -2px;
+        }
+        .dgvcn .btn-img-edit-1 {
+            margin-left: 2px;
+            margin-right: 3px;
+            position: relative;
+            top: -2px;
+        }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+            <div class="panel panel-default"
+                 ng-class="{'whirl': addLoading, 'shadow': addLoading}">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i></i>
+                        ثبت گروه بندی جدید
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form name="addFormGroupForm">
+                        <div class="form-group">
+                            <label class="control-label">عنوان:</label>
+                            <input type="text" class="form-control" ng-model="newGroup.Title" required="" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">ستون:</label>
+                            <br />
+                            <div class="radio-inline c-radio"
+                                 style="padding-right:5px;">
+                                <label>
+                                    <input type="radio"
+                                           ng-value="1"
+                                           ng-model="newGroup.Column">
+                                    <span></span>ستون اول
+                                </label>
+                            </div>
+                            <div class="radio-inline c-radio"
+                                 style="padding-right:5px;">
+                                <label>
+                                    <input type="radio"
+                                           ng-value="2"
+                                           ng-model="newGroup.Column">
+                                    <span></span>ستون دوم
+                                </label>
+                            </div>
+                            <div class="radio-inline c-radio"
+                                 style="padding-right:5px;">
+                                <label>
+                                    <input type="radio"
+                                           ng-value="3"
+                                           ng-model="newGroup.Column">
+                                    <span></span>ستون سوم
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">اولویت:</label>
+                            <br />
+                            <input type="text"
+                                   style="width:60px;"
+                                   value="0"
+                                   min="0"
+                                   max="3000"
+                                   stepper=""
+                                   ng-model="newGroup.Priority"
+                                   required="" />
+                        </div>
+                        <div class="form-group"
+                             style="margin-bottom:1px;">
+                            <div class="clearfix">
+                                <div class="pull-left">
+                                    <button class="btn btn-labeled btn-success" type="button"
+                                            ng-click="add()"
+                                            ng-class="{'disabled': addFormGroupForm.$invalid}"
+                                            ng-disabled="addFormGroupForm.$invalid">
+                                        <span class="btn-label btn-label-right">
+                                            <i class="fa fa-check"></i>
+                                        </span>
+                                        ثبت
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+            <div class="panel panel-default"
+                 ng-class="{'whirl': fetchLoading, 'shadow': fetchLoading}">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i></i>
+                        گروه بندی های ثبت شده
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive dgvcn">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="min-width:40px;width:40px;">&nbsp;</th>
+                                    <th style="min-width:200px;">عنوان</th>
+                                    <th style="min-width:80px;width:80px;">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in groups">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{item.Title}}</td>
+                                    <td style="text-align:left;">
+                                        <button class="btn-img-delete-1" type="button"
+                                                ng-click="remove($index)"></button>
+                                        <button class="btn-img-show-1" type="button"
+                                                ng-if="item.IsShow == true"
+                                                ng-click="hide($index)"></button>
+                                        <button class="btn-img-hide-1" type="button"
+                                                ng-if="item.IsShow == false"
+                                                ng-click="show($index)"></button>
+                                        <button class="btn-img-edit-1" type="button"
+                                                ng-click="showEditModal($index)"></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Start Remove Modal -->
+<script type="text/ng-template" id="removeDialog.html">
+    <div style="font-family:yekan;font-size:14px;">
+        <p>آیا از حذف اطلاعات اطمینان دارید?</p>
+        <div>
+            <button class="btn btn-default" ng-click="close()" type="button">خیر</button>
+            <button class="btn btn-primary" ng-click="confirm()" type="button">بلی</button>
+        </div>
+    </div>
+</script>
+<!-- End Remove Modal -->
+
+<!-- Start Edit Modal -->
+<script type="text/ng-template" id="/EditModalContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            ویرایش گروه بندی
+        </div>
+    </div>
+    <div class="modal-body" ng-class="{'whirl': editLoading, 'shadow': editLoading}">
+        <form name="editFormGroupForm">
+            <div class="form-group">
+                <label class="control-label">عنوان:</label>
+                <input type="text" class="form-control" ng-model="group.Title" required="" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">ستون:</label>
+                <br />
+                <div class="radio-inline c-radio"
+                     style="padding-right:5px;">
+                    <label>
+                        <input type="radio"
+                               ng-value="1"
+                               ng-model="group.Column">
+                        <span></span>ستون اول
+                    </label>
+                </div>
+                <div class="radio-inline c-radio"
+                     style="padding-right:5px;">
+                    <label>
+                        <input type="radio"
+                               ng-value="2"
+                               ng-model="group.Column">
+                        <span></span>ستون دوم
+                    </label>
+                </div>
+                <div class="radio-inline c-radio"
+                     style="padding-right:5px;">
+                    <label>
+                        <input type="radio"
+                               ng-value="3"
+                               ng-model="group.Column">
+                        <span></span>ستون سوم
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">اولویت:</label>
+                <br />
+                <input type="text"
+                       style="width:60px;"
+                       value="0"
+                       min="0"
+                       max="3000"
+                       stepper=""
+                       ng-model="group.Priority"
+                       required="" />
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+                <button class="btn btn-labeled btn-warning" type="button"
+                        ng-click="edit()"
+                        ng-class="{'disabled': editFormGroupForm.$invalid}"
+                        ng-disabled="editFormGroupForm.$invalid">
+                    <span class="btn-label btn-label-right">
+                        <i class="fa fa-pencil"></i>
+                    </span>
+                    ویرایش
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End Edit Modal -->
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

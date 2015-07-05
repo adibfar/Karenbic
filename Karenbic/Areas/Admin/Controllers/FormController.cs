@@ -18,6 +18,7 @@ namespace Karenbic.Areas.Admin.Controllers
 
         [HttpPost]
         public ActionResult Add(DomainClasses.Form form,
+            int groupId,
             DomainClasses.FormField_TextBox[] textBoxs,
             DomainClasses.FormField_TextArea[] textAreas,
             DomainClasses.FormField_Numeric[] numerics,
@@ -32,6 +33,8 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             using (DataAccess.Context context = new DataAccess.Context())
             {
+                form.Group = context.FormGroups.Find(groupId);
+
                 if ((textBoxs != null && textBoxs.Length > 0) ||
                     (textAreas != null && textAreas.Length > 0) ||
                     (numerics != null && numerics.Length > 0) ||
@@ -394,6 +397,7 @@ namespace Karenbic.Areas.Admin.Controllers
 
         [HttpPost]
         public ActionResult Edit(DomainClasses.Form form,
+            int groupId,
             DomainClasses.FormField_TextBox[] textBoxs,
             DomainClasses.FormField_TextBox[] textBoxs_new,
             DomainClasses.FormField_TextArea[] textAreas,
@@ -423,6 +427,8 @@ namespace Karenbic.Areas.Admin.Controllers
                 //Change Form data
                 DomainClasses.Form formItem = context.Forms.Find(form.Id);
                 formItem.Title = form.Title;
+                formItem.Group = context.FormGroups.Find(groupId);
+                formItem.Priority = form.Priority;
                 formItem.Description = form.Description;
                 formItem.IsShow = form.IsShow;
                 formItem.SpecialCreativity = form.SpecialCreativity;
@@ -1662,6 +1668,7 @@ namespace Karenbic.Areas.Admin.Controllers
             using (DataAccess.Context context = new DataAccess.Context())
             {
                 form = context.Forms
+                    .Include(x => x.Group)
                     .Include(x => x.Fields)
                     .Include(x => x.Fields.Select(c => c.DesktopPosition))
                     .Include(x => x.Fields.Select(c => c.TabletPosition))
@@ -2295,6 +2302,12 @@ namespace Karenbic.Areas.Admin.Controllers
             {
                 id = form.Id,
                 title = form.Title,
+                group = new 
+                {
+                    Id = form.Group.Id,
+                    Title = form.Group.Title
+                },
+                priority = form.Priority,
                 specialCreativity = form.SpecialCreativity,
                 isShow = form.IsShow,
                 description = form.Description,
@@ -2312,7 +2325,7 @@ namespace Karenbic.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get(bool isDesignForm, bool isPrintForm, string title, int pageIndex = 1)
+        public ActionResult Get(DomainClasses.Portal portal, string title, int pageIndex = 1)
         {
             if (pageIndex <= 0) pageIndex = 1;
             int pageSize = 20;
@@ -2322,7 +2335,7 @@ namespace Karenbic.Areas.Admin.Controllers
             {
                 IQueryable<DomainClasses.Form> query = context.Forms.AsQueryable();
 
-                query = query.Where(x => x.IsDesignForm == isDesignForm);
+                query = query.Where(x => x.Portal == portal);
 
                 if (!string.IsNullOrEmpty(title))
                 {

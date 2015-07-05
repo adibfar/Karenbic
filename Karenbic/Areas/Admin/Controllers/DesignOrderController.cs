@@ -60,8 +60,7 @@ namespace Karenbic.Areas.Admin.Controllers
             using (DataAccess.Context context = new DataAccess.Context())
             {
                 IQueryable<DomainClasses.DesignOrder> query = context.DesignOrders.AsQueryable();
-                query = query.Where(x => x.OrderState == DomainClasses.DesignOrderState.Register ||
-                    x.OrderState == DomainClasses.DesignOrderState.Confirm);
+                query = query.Where(x => x.IsConfirm == false || (x.IsPaidPrepayment == false && x.IsPaidFinal == false));
 
                 query = query.Where(x => x.IsCanceled == false);
 
@@ -106,6 +105,7 @@ namespace Karenbic.Areas.Admin.Controllers
                         Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
                         RegisterDate = x.RegisterDate.ToShortDateString(),
                         PersianRegisterDate = x.PersianRegisterDate,
+                        SpecialCreativity = x.SpecialCreativity,
                         //Confirm Data
                         IsConfirm = x.IsConfirm,
                         ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
@@ -151,8 +151,7 @@ namespace Karenbic.Areas.Admin.Controllers
                 IQueryable<DomainClasses.DesignOrder> query = context.DesignOrders.AsQueryable();
 
                 query = query.Where(x => x.IsCanceled == false);
-                query = query.Where(x => x.OrderState == DomainClasses.DesignOrderState.Paid ||
-                    x.OrderState == DomainClasses.DesignOrderState.Design);
+                query = query.Where(x => (x.IsPaidPrepayment == true || x.IsPaidFinal == true) && x.IsAcceptDesign == false);
 
                 if (orderId != null)
                 {
@@ -183,7 +182,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     .Include(x => x.PrepaymentFactor.Payment)
                     .Include(x => x.FinalFactor)
                     .Include(x => x.FinalFactor.Payment)
-                    .OrderByDescending(x => x.RegisterDate)
+                    .OrderByDescending(x => x.LastChange)
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
                     .ToList();
@@ -200,7 +199,7 @@ namespace Karenbic.Areas.Admin.Controllers
                         Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
                         RegisterDate = x.RegisterDate.ToShortDateString(),
                         PersianRegisterDate = x.PersianRegisterDate,
-                        OrderState = x.OrderState,
+                        SpecialCreativity = x.SpecialCreativity,
                         //Confirm Data
                         IsConfirm = x.IsConfirm,
                         ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
@@ -308,7 +307,7 @@ namespace Karenbic.Areas.Admin.Controllers
                 IQueryable<DomainClasses.DesignOrder> query = context.DesignOrders.AsQueryable();
 
                 query = query.Where(x => x.IsCanceled == false);
-                query = query.Where(x => x.OrderState == DomainClasses.DesignOrderState.Finish);
+                query = query.Where(x => x.IsPaidPrepayment == true && x.IsPaidFinal == true && x.IsAcceptDesign == true);
 
                 if (orderId != null)
                 {
@@ -356,7 +355,7 @@ namespace Karenbic.Areas.Admin.Controllers
                         Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
                         RegisterDate = x.RegisterDate.ToShortDateString(),
                         PersianRegisterDate = x.PersianRegisterDate,
-                        OrderState = x.OrderState,
+                        SpecialCreativity = x.SpecialCreativity,
                         //Confirm Data
                         IsConfirm = x.IsConfirm,
                         ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
@@ -506,6 +505,7 @@ namespace Karenbic.Areas.Admin.Controllers
                         Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
                         RegisterDate = x.RegisterDate.ToShortDateString(),
                         PersianRegisterDate = x.PersianRegisterDate,
+                        SpecialCreativity = x.SpecialCreativity,
                         //Confirm Data
                         IsConfirm = x.IsConfirm,
                         ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
@@ -548,10 +548,10 @@ namespace Karenbic.Areas.Admin.Controllers
                 if (order.IsCanceled == false && price > 0)
                 {
                     order.IsConfirm = true;
-                    order.OrderState = DomainClasses.DesignOrderState.Confirm;
                     order.ConfirmDate = DateTime.Now;
                     order.Price = price;
                     order.Prepayment = prepayment;
+                    order.LastChange = DateTime.Now;
 
                     //Set Prepayment Factor
                     if (order.PrepaymentFactor != null)
@@ -601,6 +601,9 @@ namespace Karenbic.Areas.Admin.Controllers
             {
                 using (DataAccess.Context context = new DataAccess.Context())
                 {
+                    DomainClasses.DesignOrder order = context.DesignOrders.Find(orderId);
+                    order.LastChange = DateTime.Now;
+
                     design.Order = context.DesignOrders.Find(orderId);
                     design.Description = description;
                     design.Files = new List<DomainClasses.DesignOrder_Design_File>();
@@ -628,7 +631,9 @@ namespace Karenbic.Areas.Admin.Controllers
             {
                 Id = design.Id,
                 Description = design.Description,
-                RegisterDate = Api.ConvertDate.JulainToPersian(design.RegisterDate),
+                PersianRegisterDate = Api.ConvertDate.JulainToPersian(design.RegisterDate),
+                Time = string.Format("{0:D2}:{1:D2}", design.RegisterDate.Hour, design.RegisterDate.Minute),
+                IsReview = design.IsReview,
                 Files = design.Files.Select(c => new
                 {
                     Id = c.Id,

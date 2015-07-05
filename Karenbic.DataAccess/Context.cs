@@ -24,6 +24,7 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.FileFormat> FileFormats { get; set; }
 
 
+        public DbSet<DomainClasses.FormGroup> FormGroups { get; set; }
         public DbSet<DomainClasses.Form> Forms { get; set; }
         public DbSet<DomainClasses.FormField> FormFields { get; set; }
         public DbSet<DomainClasses.FormField_TextBox> FormFields_TextBox { get; set; }
@@ -88,6 +89,7 @@ namespace Karenbic.DataAccess
             modelBuilder.Configurations.Add(new CustomerGroupConfiguration());
             modelBuilder.Configurations.Add(new CustomerConfiguration());
 
+            modelBuilder.Configurations.Add(new FormGroupConfiguration());
             modelBuilder.Configurations.Add(new FormConfiguration());
             modelBuilder.Configurations.Add(new FormFieldConfiguration());
             modelBuilder.Configurations.Add(new FormField_FileUploaderConfiguration());

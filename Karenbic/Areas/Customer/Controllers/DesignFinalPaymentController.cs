@@ -7,79 +7,8 @@ using System.Data.Entity;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
-    public class DesignPaymentController : Controller
+    public class DesignFinalPaymentController : Controller
     {
-        [HttpGet]
-        public ActionResult List()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Get(string startDate, string endDate, int pageIndex = 1)
-        {
-            if (pageIndex <= 0) pageIndex = 1;
-            int pageSize = 20;
-            JsonResult result = new JsonResult();
-
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                IQueryable<DomainClasses.DesignPayment> query = context.DesignPayments.AsQueryable();
-                query = query.Where(x => x.IsComplete && x.IsPaid);
-
-                DomainClasses.Customer customer = context.Customers.Find(1);
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-                query = query.Where(x => x.PrepaymentFactors.FirstOrDefault().Order.Customer.Id == customer.Id ||
-                    x.FinalFactors.FirstOrDefault().Order.Customer.Id == customer.Id);
-
-                if (!string.IsNullOrEmpty(startDate))
-                {
-                    DateTime julianStartDate = Api.ConvertDate.PersianTOJulian(startDate);
-                    query = query.Where(x => x.RegisterDate >= julianStartDate);
-                }
-
-                if (!string.IsNullOrEmpty(endDate))
-                {
-                    DateTime tempJulianEndDate = Api.ConvertDate.PersianTOJulian(endDate);
-                    DateTime julianEndDate = new DateTime(tempJulianEndDate.Year, tempJulianEndDate.Month, tempJulianEndDate.Day, 23, 59, 59, 50);
-                    query = query.Where(x => x.RegisterDate <= julianEndDate);
-                }
-                int pageCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(query.Count()) / Convert.ToDouble(pageSize)));
-                int resultCount = query.Count();
-
-                List<DomainClasses.DesignPayment> list = query
-                    .Include(x => x.PrepaymentFactors)
-                    .Include(x => x.PrepaymentFactors.Select(c => c.Order))
-                    .Include(x => x.PrepaymentFactors.Select(c => c.Order.Customer))
-                    .Include(x => x.FinalFactors)
-                    .Include(x => x.FinalFactors.Select(c => c.Order))
-                    .Include(x => x.FinalFactors.Select(c => c.Order.Customer))
-                    .OrderByDescending(x => x.RegisterDate)
-                    .Skip((pageIndex - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
-
-                result.Data = new
-                {
-                    ResultCount = resultCount,
-                    PageCount = pageCount,
-                    PageIndex = pageIndex,
-                    List = list.Select(x => new
-                    {
-                        Id = x.Id,
-                        Code = x.Code,
-                        Money = x.Money,
-                        Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
-                        RegisterDate = x.RegisterDate.ToShortDateString(),
-                        PersianRegisterDate = x.PersianRegisterDate,
-                        RefId = x.RefId
-                    }).ToArray()
-                };
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpGet]
         public ActionResult Preview()
         {
@@ -96,7 +25,7 @@ namespace Karenbic.Areas.Customer.Controllers
             {
                 using (DataAccess.Context context = new DataAccess.Context())
                 {
-                    List<DomainClasses.PrepaymentDesignFactor> prepaymentFactors = 
+                    List<DomainClasses.PrepaymentDesignFactor> prepaymentFactors =
                         new List<DomainClasses.PrepaymentDesignFactor>();
                     if (prepaymentFactorsId != null && prepaymentFactorsId.Length > 0)
                     {
@@ -193,7 +122,6 @@ namespace Karenbic.Areas.Customer.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-
         [HttpGet]
         public ActionResult Checkout()
         {
@@ -211,130 +139,6 @@ namespace Karenbic.Areas.Customer.Controllers
                     .Include(x => x.PrepaymentItems)
                     .Include(x => x.FinalItems)
                     .Single(x => x.Id == paymentId);
-
-                int[] prepaymentFactorsId = payment.PrepaymentItems.Select(x => x.FactorId).ToArray();
-                int[] finalFactorsId = payment.FinalItems.Select(x => x.FactorId).ToArray();
-
-                if (payment.IsPaid)
-                {
-                    List<DomainClasses.PrepaymentDesignFactor> prepaymentFactors =
-                        new List<DomainClasses.PrepaymentDesignFactor>();
-                    if (prepaymentFactorsId != null && prepaymentFactorsId.Length > 0)
-                    {
-                        prepaymentFactors = context.PrepaymentDesignFactors
-                            .Include(x => x.Order)
-                            .Include(x => x.Order.Form)
-                            .Where(x => prepaymentFactorsId.Contains(x.Id))
-                            .ToList();
-                    }
-
-                    List<DomainClasses.FinalDesignFactor> finalFactors = new List<DomainClasses.FinalDesignFactor>();
-                    if (finalFactorsId != null && finalFactorsId.Length > 0)
-                    {
-                        finalFactors = context.FinalDesignFactors
-                            .Include(x => x.Order)
-                            .Include(x => x.Order.Form)
-                            .Where(x => finalFactorsId.Contains(x.Id))
-                            .ToList();
-                    }
-
-                    List<object> factors = prepaymentFactors.Select(x => new
-                    {
-                        Id = x.Id,
-                        Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
-                        RegisterDate = x.RegisterDate.ToShortDateString(),
-                        PersianRegisterDate = x.PersianRegisterDate,
-                        Price = x.Price,
-                        IsPaid = x.IsPaid,
-                        PaidDate = x.PaidDate,
-                        PersianPaidDate = x.PersianPaidDate,
-                        Index = 0,
-                        //Order
-                        Order = new
-                        {
-                            Id = x.Order.Id,
-                            Code = x.Order.Code,
-                            Time = string.Format("{0:D2}:{1:D2}", x.Order.RegisterDate.Hour, x.Order.RegisterDate.Minute),
-                            RegisterDate = x.Order.RegisterDate.ToShortDateString(),
-                            PersianRegisterDate = x.Order.PersianRegisterDate,
-                            //Confirm
-                            IsConfirm = x.Order.IsConfirm,
-                            ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.Order.ConfirmDate)),
-                            Price = x.Order.Price,
-                            Prepayment = ((DomainClasses.DesignOrder)x.Order).Prepayment,
-                        },
-                        //Form
-                        Form = new
-                        {
-                            Id = x.Order.Form.Id,
-                            Title = x.Order.Form.Title
-                        }
-                    })
-                    .Union(finalFactors.Select(x => new
-                    {
-                        Id = x.Id,
-                        Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
-                        RegisterDate = x.RegisterDate.ToShortDateString(),
-                        PersianRegisterDate = x.PersianRegisterDate,
-                        Price = x.Price,
-                        IsPaid = x.IsPaid,
-                        PaidDate = x.PaidDate,
-                        PersianPaidDate = x.PersianPaidDate,
-                        Index = 1,
-                        //Order
-                        Order = new
-                        {
-                            Id = x.Order.Id,
-                            Code = x.Order.Code,
-                            Time = string.Format("{0:D2}:{1:D2}", x.Order.RegisterDate.Hour, x.Order.RegisterDate.Minute),
-                            RegisterDate = x.Order.RegisterDate.ToShortDateString(),
-                            PersianRegisterDate = x.Order.PersianRegisterDate,
-                            //Confirm
-                            IsConfirm = x.Order.IsConfirm,
-                            ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.Order.ConfirmDate)),
-                            Price = x.Order.Price,
-                            Prepayment = ((DomainClasses.DesignOrder)x.Order).Prepayment,
-                        },
-                        //Form
-                        Form = new
-                        {
-                            Id = x.Order.Form.Id,
-                            Title = x.Order.Form.Title
-                        }
-                    })).ToList<object>();
-
-                    result.Data = new
-                    {
-                        payment = new
-                        {
-                            Id = payment.Id,
-                            Code = payment.Code,
-                            Money = payment.Money,
-                            PersianRegisterDate = payment.PersianRegisterDate,
-                            Time = string.Format("{0:D2}:{1:D2}", payment.RegisterDate.Hour, payment.RegisterDate.Minute),
-                            IsPaid = payment.IsPaid,
-                            //Bank Data
-                            RefId = payment.RefId
-                        },
-                        factors = factors
-                    };
-                }
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult Details(int id)
-        {
-            JsonResult result = new JsonResult();
-
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                DomainClasses.DesignPayment payment = context.DesignPayments
-                    .Include(x => x.PrepaymentItems)
-                    .Include(x => x.FinalItems)
-                    .Single(x => x.Id == id);
 
                 int[] prepaymentFactorsId = payment.PrepaymentItems.Select(x => x.FactorId).ToArray();
                 int[] finalFactorsId = payment.FinalItems.Select(x => x.FactorId).ToArray();
@@ -594,8 +398,27 @@ namespace Karenbic.Areas.Customer.Controllers
                                 factor.IsPaid = true;
                                 factor.PaidDate = bankPayment.RegisterDate;
 
-                                DomainClasses.DesignOrder order = context.DesignOrders.Find(factor.Order.Id);
+                                DomainClasses.DesignOrder order = context.DesignOrders
+                                    .Include(x => x.Designs)
+                                    .Include(x => x.Designs.Select(c => c.Files))
+                                    .Single(x => x.Id == factor.Order.Id);
                                 order.IsPaidPrepayment = true;
+                                order.IsAcceptDesign = true;
+                                order.LastChange = DateTime.Now;
+
+                                DomainClasses.DesignOrder_Design lastDesign = order.Designs
+                                    .OrderByDescending(x => x.RegisterDate).First();
+
+                                DomainClasses.DesignOrder_Design designItem = context.DesignOrder_Designs.Find(lastDesign.Id);
+                                designItem.IsReview = true;
+
+                                foreach (DomainClasses.DesignOrder_Design_File file in lastDesign.Files)
+                                {
+                                    DomainClasses.DesignOrder_Design_File fileItem = 
+                                        context.DesignOrder_Design_Files.Find(file.Id);
+
+                                    fileItem.State = file.State;
+                                }
                             }
                             foreach (DomainClasses.FinalDesignPaymentItem item in bankPayment.FinalItems)
                             {
@@ -607,8 +430,27 @@ namespace Karenbic.Areas.Customer.Controllers
                                 factor.IsPaid = true;
                                 factor.PaidDate = bankPayment.RegisterDate;
 
-                                DomainClasses.DesignOrder order = context.DesignOrders.Find(factor.Order.Id);
+                                DomainClasses.DesignOrder order = context.DesignOrders
+                                    .Include(x => x.Designs)
+                                    .Include(x => x.Designs.Select(c => c.Files))
+                                    .Single(x => x.Id == factor.Order.Id);
                                 order.IsPaidFinal = true;
+                                order.IsAcceptDesign = true;
+                                order.LastChange = DateTime.Now;
+
+                                DomainClasses.DesignOrder_Design lastDesign = order.Designs
+                                    .OrderByDescending(x => x.RegisterDate).First();
+
+                                DomainClasses.DesignOrder_Design designItem = context.DesignOrder_Designs.Find(lastDesign.Id);
+                                designItem.IsReview = true;
+
+                                foreach (DomainClasses.DesignOrder_Design_File file in lastDesign.Files)
+                                {
+                                    DomainClasses.DesignOrder_Design_File fileItem =
+                                        context.DesignOrder_Design_Files.Find(file.Id);
+
+                                    fileItem.State = file.State;
+                                }
                             }
                             context.SaveChanges();
 
@@ -631,7 +473,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 }
             }
 
-            return Redirect("/Customer#/app/print/checkout-payment");
+            return Redirect("/Customer#/app/print/checkout-final-payment");
         }
 
         [HttpGet]
@@ -689,8 +531,27 @@ namespace Karenbic.Areas.Customer.Controllers
                                 FactorId = factor.Id
                             });
 
-                            DomainClasses.DesignOrder order = context.DesignOrders.Find(factor.Order.Id);
+                            DomainClasses.DesignOrder order = context.DesignOrders
+                                    .Include(x => x.Designs)
+                                    .Include(x => x.Designs.Select(c => c.Files))
+                                    .Single(x => x.Id == factor.Order.Id);
                             order.IsPaidPrepayment = true;
+                            order.IsAcceptDesign = true;
+                            order.LastChange = DateTime.Now;
+
+                            DomainClasses.DesignOrder_Design lastDesign = order.Designs
+                                .OrderByDescending(x => x.RegisterDate).First();
+
+                            DomainClasses.DesignOrder_Design designItem = context.DesignOrder_Designs.Find(lastDesign.Id);
+                            designItem.IsReview = true;
+
+                            foreach (DomainClasses.DesignOrder_Design_File file in lastDesign.Files)
+                            {
+                                DomainClasses.DesignOrder_Design_File fileItem =
+                                    context.DesignOrder_Design_Files.Find(file.Id);
+
+                                fileItem.State = file.State;
+                            }
                         }
                     }
                     if (finalFactors.Count > 0)
@@ -706,8 +567,27 @@ namespace Karenbic.Areas.Customer.Controllers
                                 FactorId = factor.Id
                             });
 
-                            DomainClasses.DesignOrder order = context.DesignOrders.Find(factor.Order.Id);
+                            DomainClasses.DesignOrder order = context.DesignOrders
+                                    .Include(x => x.Designs)
+                                    .Include(x => x.Designs.Select(c => c.Files))
+                                    .Single(x => x.Id == factor.Order.Id);
                             order.IsPaidFinal = true;
+                            order.IsAcceptDesign = true;
+                            order.LastChange = DateTime.Now;
+
+                            DomainClasses.DesignOrder_Design lastDesign = order.Designs
+                                .OrderByDescending(x => x.RegisterDate).First();
+
+                            DomainClasses.DesignOrder_Design designItem = context.DesignOrder_Designs.Find(lastDesign.Id);
+                            designItem.IsReview = true;
+
+                            foreach (DomainClasses.DesignOrder_Design_File file in lastDesign.Files)
+                            {
+                                DomainClasses.DesignOrder_Design_File fileItem =
+                                    context.DesignOrder_Design_Files.Find(file.Id);
+
+                                fileItem.State = file.State;
+                            }
                         }
                     }
                     context.DesignPayments.Add(payment);

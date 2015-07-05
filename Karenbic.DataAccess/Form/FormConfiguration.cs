@@ -6,6 +6,10 @@ namespace Karenbic.DataAccess
     {
         public FormConfiguration()
         {
+            HasRequired(x => x.Group)
+                .WithMany(x => x.Forms)
+                .WillCascadeOnDelete(false);
+
             HasMany(x => x.Fields)
                 .WithRequired(x => x.Form)
                 .WillCascadeOnDelete(true);

@@ -47,7 +47,7 @@ App
                     templateUrl: helper.basepath('Order/Add'),
                     controller: 'AddOrderController',
                     resolve: helper.resolveFor('chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster',
-                        'colorpicker', 'jquery-ui', 'jquery-ui-datepicker', 'persian-date')
+                        'colorpicker', 'jquery-ui', 'jquery-ui-datepicker', 'persian-date', 'ngDialog')
                 })
                 .state('app.design.factor-list', {
                     url: '/factor-list',
@@ -65,6 +65,17 @@ App
                     url: '/checkout-payment/:id',
                     templateUrl: helper.basepath('DesignPayment/Checkout'),
                     controller: 'DesignPaymentCheckoutController'
+                })
+                .state('app.design.final-payment-preview', {
+                    url: '/final-payment-preview/:id',
+                    templateUrl: helper.basepath('DesignFinalPayment/Preview'),
+                    controller: 'DesignFinalPaymentPreviewController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.design.checkout-final-payment', {
+                    url: '/checkout-final-payment/:id',
+                    templateUrl: helper.basepath('DesignFinalPayment/Checkout'),
+                    controller: 'DesignFinalPaymentCheckoutController'
                 })
                 .state('app.design.error-payment', {
                     url: '/error-payment/:code',
@@ -145,7 +156,7 @@ App
                     templateUrl: helper.basepath('Order/Add'),
                     controller: 'AddOrderController',
                     resolve: helper.resolveFor('chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster',
-                        'colorpicker', 'jquery-ui', 'jquery-ui-datepicker', 'persian-date')
+                        'colorpicker', 'jquery-ui', 'jquery-ui-datepicker', 'persian-date', 'ngDialog')
                 })
                 .state('app.print.factor-list', {
                     url: '/factor-list',

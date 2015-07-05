@@ -3,7 +3,7 @@
  * Show Payment Preview
  =========================================================*/
 
-App.controller('DesignPaymentPreviewController', ['$scope', '$http', 'ngDialog', 'APP_BASE_URI', 'toaster', '$stateParams',
+App.controller('DesignFinalPaymentPreviewController', ['$scope', '$http', 'ngDialog', 'APP_BASE_URI', 'toaster', '$stateParams',
     function ($scope, $http, ngDialog, baseUri, toaster, $stateParams) {
         $scope.factorIds = $stateParams.id.split(',');
         $scope.prepaymentFactorsId = _.filter($scope.factorIds, function (item) {
@@ -18,7 +18,7 @@ App.controller('DesignPaymentPreviewController', ['$scope', '$http', 'ngDialog',
 
             $scope.fetchLoading = true;
 
-            $http.get(baseUri + 'DesignPayment/GetPreviewData', {
+            $http.get(baseUri + 'DesignFinalPayment/GetPreviewData', {
                 params: {
                     prepaymentFactorsId: _.map($scope.prepaymentFactorsId, function (item) {
                         return Number(item.substr(1));
@@ -65,7 +65,7 @@ App.controller('DesignPaymentPreviewController', ['$scope', '$http', 'ngDialog',
 
             $scope.fetchLoading = true;
 
-            $http.get(baseUri + 'DesignPayment/GetGeteway_FAKE', {
+            $http.get(baseUri + 'DesignFinalPayment/GetGeteway_FAKE', {
                 params: {
                     prepaymentFactorsId: _.map($scope.prepaymentFactorsId, function (item) {
                         return Number(item.substr(1));

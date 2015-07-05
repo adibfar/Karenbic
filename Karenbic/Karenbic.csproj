@@ -505,6 +505,7 @@
     <Content Include="Areas\Customer\Views\DesignFinalPayment\Checkout.cshtml" />
     <Content Include="Areas\Customer\Views\DesignFinalPayment\Preview.cshtml" />
     <Content Include="Areas\Admin\Views\DesignOrder\ShowOrderDesign.cshtml" />
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Service References\BPService\configuration91.svcinfo" />
     <None Include="Service References\BPService\configuration.svcinfo" />
     <Content Include="Service References\BPService\Karenbic.BPService.bpChargePayRequestResponse.datasource">

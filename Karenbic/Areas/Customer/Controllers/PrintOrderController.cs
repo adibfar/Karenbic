@@ -111,6 +111,8 @@ namespace Karenbic.Areas.Customer.Controllers
                         IsConfirm = x.IsConfirm,
                         ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
                         Price = x.Price,
+                        PrintPrice = x.PrintPrice,
+                        PackingPrice = x.PackingPrice,
                         //Cancel Data
                         IsCanceled = x.IsCanceled,
                         CancelDate = x.CancelDate != null ? Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.CancelDate)) : "",

@@ -192,6 +192,32 @@
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
+                    <span>مبلغ چاپ (ریال) :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{order.PrintPrice | riyal}}</span>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>مبلغ بسته بندی (ریال) :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{order.PackingPrice | riyal}}</span>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>مبلغ کل (ریال) :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{order.Price | riyal}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
                     <span>نام مشتری :</span>
                     &nbsp;
                     <span class="text-muted">{{order.Customer.Name + ' ' + order.Customer.Surname}}</span>

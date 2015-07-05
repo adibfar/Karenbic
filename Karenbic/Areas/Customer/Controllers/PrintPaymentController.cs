@@ -434,5 +434,68 @@ namespace Karenbic.Areas.Customer.Controllers
 
             return Redirect("/Customer#/app/print/checkout-payment");
         }
+
+        [HttpGet]
+        public ActionResult GetGeteway_FAKE(int[] factorsId)
+        {
+            string result = string.Empty;
+
+            if (factorsId != null && factorsId.Length > 0)
+            {
+                using (DataAccess.Context context = new DataAccess.Context())
+                {
+                    //Get Factor List
+                    List<DomainClasses.PrintFactor> factors = context.PrintFactors
+                        .Include(x => x.Order)
+                        .Where(x => factorsId.Contains(x.Id))
+                        .ToList();
+
+                    //Create Bank Payment
+                    DomainClasses.PrintPayment payment = new DomainClasses.PrintPayment();
+                    payment.Money = factors.Sum(x => x.Price);
+                    payment.RegisterDate = DateTime.Now;
+                    payment.IsComplete = true;
+                    payment.IsPaid = true;
+                    payment.RefId = "test";
+                    payment.ResCode = "0";
+                    payment.SaleOrderId = 0;
+                    payment.SaleReferenceId = 0;
+                    payment.Items = new List<DomainClasses.PrintPaymentItem>();
+
+                    foreach (DomainClasses.PrintFactor factor in factors)
+                    {
+                        factor.IsPaid = true;
+                        factor.PaidDate = payment.RegisterDate;
+                        factor.Payment = payment;
+                        payment.Items.Add(new DomainClasses.PrintPaymentItem()
+                        {
+                            FactorId = factor.Id
+                        });
+
+                        DomainClasses.PrintOrder order = context.PrintOrders.Find(factor.Order.Id);
+                        order.IsPaid = true;
+                        order.OrderState = DomainClasses.PrintOrderState.Paid;
+                    }
+                    context.PrintPayments.Add(payment);
+                    context.SaveChanges();
+
+                    //Get Customer Data
+                    DomainClasses.Customer customer = context.Customers.Find(1);
+                    //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
+                }
+            }
+
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                String[] resultArray = result.Split(',');
+                return Json(new
+                {
+                    ResCode = resultArray[0],
+                    RefId = resultArray.Length > 1 ? resultArray[1] : "0"
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return Content(result);
+        }
     }
 }

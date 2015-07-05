@@ -11,6 +11,7 @@ namespace Karenbic.DomainClasses
         public DesignOrder()
         {
             LastChange = DateTime.Now;
+            Price = 0;
             SpecialCreativity = false;
             Prepayment = 0;
             IsPaidPrepayment = false;
@@ -21,6 +22,9 @@ namespace Karenbic.DomainClasses
 
         [Required]
         public DateTime LastChange { get; set; }
+
+        [Required]
+        public decimal Price { get; set; }
 
         [Required]
         public bool SpecialCreativity { get; set; }

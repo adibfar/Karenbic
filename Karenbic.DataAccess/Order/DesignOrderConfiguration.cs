@@ -6,6 +6,7 @@ namespace Karenbic.DataAccess
     {
         public DesignOrderConfiguration()
         {
+            Property(x => x.Price).HasPrecision(18, 0);
             Property(x => x.Prepayment).HasPrecision(18, 0);
 
             HasOptional(x => x.PrepaymentFactor)

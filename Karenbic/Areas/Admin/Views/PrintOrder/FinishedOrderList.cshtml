@@ -101,12 +101,15 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th style="min-width:45px;width:45px;">&nbsp;</th>
+                                 <th style="min-width:45px;width:45px;">&nbsp;</th>
                                 <th style="min-width:70px;width:70px;">شماره</th>
                                 <th style="min-width:90px;width:90px;">تاریخ</th>
                                 <th style="min-width:170px;width:170px;">نام مشتری</th>
-                                <th style="min-width:250px;">شرح سفارش</th>
-                                <th style="min-width:140px;width:140px;" colspan="2">مبلغ (ریال)</th>
+                                <th style="min-width:200px;">شرح سفارش</th>
+                                <th style="min-width:100px;width:100px;">مبلغ کل (ریال)</th>
+                                <th style="min-width:100px;width:100px;">مبلغ چاپ</th>
+                                <th style="min-width:100px;width:100px;">مبلغ بسته بندی</th>
+                                <th style="min-width:70px;width:70px;">فاکتور</th>
                                 <th style="min-width:30px;width:30px;">&nbsp;</th>
                             </tr>
                         </thead>
@@ -117,7 +120,9 @@
                                 <td style="direction:ltr;text-align:right;">{{item.PersianRegisterDate}}</td>
                                 <td>{{item.Customer.Name + ' ' + item.Customer.Surname}}</td>
                                 <td>{{item.Form.Title}}</td>
-                                <td style="padding-right:3px;border-right:1px solid #D6D6D6;">{{item.Price | riyal}}</td>
+                                <td style="padding-right:6px;border-right:1px solid #D6D6D6;">{{item.Price | riyal}}</td>
+                                <td>{{item.PrintPrice | riyal}}</td>
+                                <td>{{item.PackingPrice | riyal}}</td>
                                 <td>
                                     <span class="text-danger" ng-if="item.Factor.IsPaid == false">پرداخت نشده</span>
                                     <div class="label label-info"
@@ -191,6 +196,32 @@
                     &nbsp;
                     <span class="text-muted"
                           style="direction:ltr;font-family:BNazanin;font-size:16px;" ">{{order.Time + ' - ' + order.PersianRegisterDate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>مبلغ چاپ (ریال) :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{order.PrintPrice | riyal}}</span>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>مبلغ بسته بندی (ریال) :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{order.PackingPrice | riyal}}</span>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>مبلغ کل (ریال) :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{order.Price | riyal}}</span>
                 </div>
             </div>
         </div>

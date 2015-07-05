@@ -12,7 +12,6 @@ namespace Karenbic.DomainClasses
         {
             IsCanceled = false;
             IsConfirm = false;
-            Price = 0;
         }
 
         [Key]
@@ -58,9 +57,6 @@ namespace Karenbic.DomainClasses
                     return string.Empty;
             }
         }
-
-        [Required]
-        public decimal Price { get; set; }
 
         /*=-=-=-=-=-= Canceled Data =-=-=-=-=-=*/
 

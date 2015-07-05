@@ -109,6 +109,8 @@ namespace Karenbic.Areas.Admin.Controllers
                         IsConfirm = x.IsConfirm,
                         ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
                         Price = x.Price,
+                        PrintPrice = x.PrintPrice,
+                        PackingPrice = x.PackingPrice,
                         Customer = new
                         {
                             Name = x.Customer.Name,
@@ -214,6 +216,8 @@ namespace Karenbic.Areas.Admin.Controllers
                         IsConfirm = x.IsConfirm,
                         ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
                         Price = x.Price,
+                        PrintPrice = x.PrintPrice,
+                        PackingPrice = x.PackingPrice,
                         Customer = new
                         {
                             Name = x.Customer.Name,
@@ -333,6 +337,8 @@ namespace Karenbic.Areas.Admin.Controllers
                         IsConfirm = x.IsConfirm,
                         ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
                         Price = x.Price,
+                        PrintPrice = x.PrintPrice,
+                        PackingPrice = x.PackingPrice,
                         Customer = new
                         {
                             Name = x.Customer.Name,
@@ -450,6 +456,8 @@ namespace Karenbic.Areas.Admin.Controllers
                         IsConfirm = x.IsConfirm,
                         ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
                         Price = x.Price,
+                        PrintPrice = x.PrintPrice,
+                        PackingPrice = x.PackingPrice,
                         Customer = new
                         {
                             Name = x.Customer.Name,
@@ -473,7 +481,7 @@ namespace Karenbic.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Confirm(int orderId, decimal price)
+        public ActionResult Confirm(int orderId, decimal printPrice, decimal packingPrice)
         {
             bool result = false;
 
@@ -483,22 +491,23 @@ namespace Karenbic.Areas.Admin.Controllers
                     .Include(x => x.Factor)
                     .Single(x => x.Id == orderId);
 
-                if (order.IsCanceled == false && price > 0)
+                if (order.IsCanceled == false && printPrice > 0 && packingPrice >= 0)
                 {
                     order.IsConfirm = true;
                     order.OrderState = DomainClasses.PrintOrderState.Confirm;
                     order.ConfirmDate = DateTime.Now;
-                    order.Price = price;
+                    order.PrintPrice = printPrice;
+                    order.PackingPrice = packingPrice;
 
                     if (order.Factor != null)
                     {
-                        order.Factor.Price = price;
+                        order.Factor.Price = order.Price;
                         order.Factor.RegisterDate = DateTime.Now;
                     }
                     else
                     {
                         order.Factor = new DomainClasses.PrintFactor();
-                        order.Factor.Price = price;
+                        order.Factor.Price = order.Price;
                         order.Factor.RegisterDate = DateTime.Now;
                         order.Factor.Order = order;
                     }

@@ -129,7 +129,9 @@ App.controller('NewPrintOrderListController', ['$scope', '$http', 'ngDialog', 'A
             });
 
             modalInstance.result.then(function (result) {
-                $scope.orders[index].Price = result;
+                $scope.orders[index].PrintPrice = result.printPrice;
+                $scope.orders[index].PackingPrice = result.packingPrice;
+                $scope.orders[index].Price = Number(result.printPrice) + Number(result.packingPrice);
                 $scope.orders[index].IsConfirm = true;
             }, function () {
             });
@@ -170,12 +172,16 @@ App.controller('NewPrintOrderListController', ['$scope', '$http', 'ngDialog', 'A
                 $http.post(baseUri + 'PrintOrder/Confirm',
                 {
                     orderId: $scope.order.Id,
-                    price: $scope.order.Price
+                    printPrice: $scope.order.PrintPrice,
+                    packingPrice: $scope.order.PackingPrice
                 }).
                 success(function (data, status, headers, config) {
                     $scope.confirmLoading = false;
                     if (data == "True") {
-                        $modalInstance.close($scope.order.Price);
+                        $modalInstance.close({
+                            printPrice: $scope.order.PrintPrice,
+                            packingPrice: $scope.order.PackingPrice
+                        });
                     }
                     else {
                         toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");

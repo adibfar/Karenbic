@@ -6,8 +6,6 @@ namespace Karenbic.DataAccess
     {
         public OrderConfiguration()
         {
-            Property(x => x.Price).HasPrecision(18, 0);
-
             HasRequired(x => x.Customer)
                 .WithMany(x => x.Orders)
                 .WillCascadeOnDelete(false);

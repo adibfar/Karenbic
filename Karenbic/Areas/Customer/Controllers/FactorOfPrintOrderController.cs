@@ -86,6 +86,8 @@ namespace Karenbic.Areas.Customer.Controllers
                         IsConfirm = x.IsConfirm,
                         ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
                         Price = x.Price,
+                        PrintPrice = x.PrintPrice,
+                        PackingPrice = x.PackingPrice,
                         IsPaid = x.IsPaid,
                         //Form
                         Form = new

@@ -122,7 +122,9 @@
                                 <th style="min-width:60px;width:60px;">شماره</th>
                                 <th style="min-width:80px;width:80px;">تاریخ</th>
                                 <th style="min-width:200px;">شرح سفارش</th>
-                                <th style="min-width:100px;width:100px;">مبلغ (ریال)</th>
+                                <th style="min-width:100px;width:100px;">مبلغ چاپ</th>
+                                <th style="min-width:100px;width:100px;">مبلغ بسته بندی</th>
+                                <th style="min-width:100px;width:100px;">مبلغ کل (ریال)</th>
                                 <th style="min-width:100px;width:100px;">وضعیت پرداخت</th>
                                 <th style="min-width:75px;width:75px;">شماره فاکتور</th>
                                 <th style="min-width:60px;width:60px;">&nbsp;</th>
@@ -144,6 +146,8 @@
                                 <td>{{item.Code}}</td>
                                 <td style="direction:ltr;text-align:right;">{{item.PersianRegisterDate}}</td>
                                 <td>{{item.Form.Title}}</td>
+                                <td>{{item.PrintPrice | riyal}}</td>
+                                <td>{{item.PackingPrice | riyal}}</td>
                                 <td>{{item.Factor.Price | riyal}}</td>
                                 <td>
                                     <span class="text-danger" ng-if="item.Factor.IsPaid == false">پرداخت نشده</span>

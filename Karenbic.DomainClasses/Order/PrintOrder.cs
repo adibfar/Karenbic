@@ -24,6 +24,15 @@ namespace Karenbic.DomainClasses
         [Required]
         public decimal PackingPrice { get; set; }
 
+        [NotMapped]
+        public decimal Price
+        {
+            get
+            {
+                return PrintPrice + PackingPrice;
+            }
+        }
+
         [Required]
         public bool IsPaid { get; set; }
 

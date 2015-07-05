@@ -48,7 +48,7 @@ App.controller('PrintPaymentPreviewController', ['$scope', '$http', 'ngDialog', 
 
             $scope.fetchLoading = true;
 
-            $http.get(baseUri + 'PrintPayment/GetGeteway', {
+            $http.get(baseUri + 'PrintPayment/GetGeteway_FAKE', {
                     params: {
                         factorsId: _.map($scope.factorIds, function (item) {
                             return Number(item);

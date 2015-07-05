@@ -111,8 +111,10 @@
                                 <th style="min-width:70px;width:70px;">شماره</th>
                                 <th style="min-width:90px;width:90px;">تاریخ</th>
                                 <th style="min-width:170px;width:170px;">نام مشتری</th>
-                                <th style="min-width:250px;">شرح سفارش</th>
-                                <th style="min-width:100px;width:100px;">مبلغ (ریال)</th>
+                                <th style="min-width:200px;">شرح سفارش</th>
+                                <th style="min-width:100px;width:100px;">مبلغ کل (ریال)</th>
+                                <th style="min-width:100px;width:100px;">مبلغ چاپ</th>
+                                <th style="min-width:100px;width:100px;">مبلغ بسته بندی</th>
                                 <th style="min-width:60px;width:60px;">&nbsp;</th>
                             </tr>
                         </thead>
@@ -124,6 +126,8 @@
                                 <td>{{item.Customer.Name + ' ' + item.Customer.Surname}}</td>
                                 <td>{{item.Form.Title}}</td>
                                 <td>{{item.Price | riyal}}</td>
+                                <td>{{item.PrintPrice | riyal}}</td>
+                                <td>{{item.PackingPrice | riyal}}</td>
                                 <td style="text-align:left;">
                                     <button class="btn-img-cancel-1" type="button" ng-click="cancel($index)"></button>
                                     <button class="btn-img-confirm-1" type="button" ng-click="showDetails($index)"
@@ -274,10 +278,19 @@
                 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
                     <div class="form-group">
                         <label class="control-label">
-                            مبلغ سفارش (ریال)
+                            مبلغ چاپ (ریال)
                         </label>
                         <input type="text" class="form-control ltr"
-                               only-digits="" required="" ng-pattern="/^[1-9]\d*$/" ng-model="order.Price" />
+                               only-digits="" required="" ng-pattern="/^[1-9]\d*$/" ng-model="order.PrintPrice" />
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label">
+                            مبلغ بسته بندی (ریال)
+                        </label>
+                        <input type="text" class="form-control ltr"
+                               only-digits="" required="" ng-pattern="/^[1-9]\d*$/" ng-model="order.PackingPrice" />
                     </div>
                 </div>
             </div>

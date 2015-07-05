@@ -11,10 +11,18 @@ namespace Karenbic.DomainClasses
     {
         public PrintOrder()
         {
+            PrintPrice = 0;
+            PackingPrice = 0;
             IsPaid = false;
             OrderState = PrintOrderState.Register;
             
         }
+
+        [Required]
+        public decimal PrintPrice { get; set; }
+
+        [Required]
+        public decimal PackingPrice { get; set; }
 
         [Required]
         public bool IsPaid { get; set; }

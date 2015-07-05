@@ -1,0 +1,9 @@
+﻿1- Fill "tbl_Province" Table
+2- Fill "tbl_City" Table
+
+3- Change Relation in "tbl_FormField_DropDown_Item" Table (ON Delete Action Change to the 'Cascade')
+4- Change Relation in "tbl_FormField_RadioButtonGroup_Item" Table (ON Delete Action Change to the 'Cascade')
+5- Change Relation in "tbl_FormField_CheckBoxGroup_Item" Table (ON Delete Action Change to the 'Cascade')
+
+6- Fill "tbl_FileFormat" Table
+7- Fill "tbl_Setting" Table

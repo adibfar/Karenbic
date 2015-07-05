@@ -274,6 +274,7 @@
     <Compile Include="UserInfrastructure\SmsService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ChangeDB.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Fonts\BNazanin.svg" />
     <Content Include="Fonts\NexaBold.svg" />

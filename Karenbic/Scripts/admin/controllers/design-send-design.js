@@ -54,7 +54,7 @@
             });
         };
 
-        var ShowDetailsCtrl = function ($scope, $http, $modalInstance, order) {
+        var ShowDetailsCtrl = ['$scope', '$http', '$modalInstance', 'order', function ($scope, $http, $modalInstance, order) {
 
             $scope.order = order;
 
@@ -84,7 +84,7 @@
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
         /*=-=-=-=-=-=-=-=-= End Order Detail =-=-=-=-=-=-=-=-=*/
 
         /*=-=-=-=-=-=-=-=-= Start Send Design =-=-=-=-=-=-=-=-=*/
@@ -228,7 +228,7 @@
             });
         };
 
-        var ShowDesignCtrl = function ($scope, $http, $modalInstance, design, order) {
+        var ShowDesignCtrl = ['$scope', '$http', '$modalInstance', 'design', 'order',function ($scope, $http, $modalInstance, design, order) {
 
             $scope.design = design;
             $scope.order = order;
@@ -273,7 +273,7 @@
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
         /*=-=-=-=-=-=-=-=-= End Design =-=-=-=-=-=-=-=-=*/
 
         //init

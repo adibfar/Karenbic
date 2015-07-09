@@ -168,7 +168,7 @@
             });
         };
 
-        var EditCtrl = function ($scope, $http, $modalInstance, customerGroups, provinces, customer) {
+        var EditCtrl = ['$scope', '$http', '$modalInstance', 'customerGroups', 'provinces', 'customer', function ($scope, $http, $modalInstance, customerGroups, provinces, customer) {
 
             $scope.customerGroups = customerGroups;
             $scope.provinces = provinces;
@@ -260,7 +260,7 @@
             });
             $scope.customer.Group = $scope.customerGroups[customerGroupIndex];
             
-        };
+        }];
 
         $scope.showChangePassModal = function (index) {
             var modalInstance = $modal.open({
@@ -279,7 +279,7 @@
             });
         };
 
-        var ChangePassCtrl = function ($scope, $http, $modalInstance, customer) {
+        var ChangePassCtrl = ['$scope', '$http', '$modalInstance', 'customer', function ($scope, $http, $modalInstance, customer) {
             $scope.customer = customer;
 
             $scope.edit = function () {
@@ -308,7 +308,7 @@
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         //init
         $scope.fetchCustomerGroups();

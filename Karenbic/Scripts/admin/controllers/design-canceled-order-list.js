@@ -91,7 +91,7 @@ App.controller('CanceledDesignOrderListController', ['$scope', '$http', 'ngDialo
             });
         };
 
-        var ShowDetailsCtrl = function ($scope, $http, $modalInstance, order) {
+        var ShowDetailsCtrl = ['$scope', '$http', '$modalInstance', 'order', function ($scope, $http, $modalInstance, order) {
 
             $scope.order = order;
 
@@ -121,7 +121,7 @@ App.controller('CanceledDesignOrderListController', ['$scope', '$http', 'ngDialo
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         //Init
         $scope.fetchOrders(1);

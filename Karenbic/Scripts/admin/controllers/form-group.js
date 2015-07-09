@@ -171,7 +171,7 @@
             });
         };
 
-        var EditCtrl = function ($scope, $http, $modalInstance, group) {
+        var EditCtrl = ['$scope', '$http', '$modalInstance', 'group', function ($scope, $http, $modalInstance, group) {
 
             $scope.group = group;
 
@@ -200,7 +200,7 @@
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         //init
         $scope.fetchGroups();

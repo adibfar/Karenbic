@@ -121,7 +121,7 @@ App.controller('FactorListOfPrintController', ['$scope', '$http', 'ngDialog', 'A
             });
         };
 
-        var ShowDetailsCtrl = function ($scope, $http, $modalInstance, factor) {
+        var ShowDetailsCtrl = ['$scope', '$http', '$modalInstance', 'factor', function ($scope, $http, $modalInstance, factor) {
 
             $scope.factor = factor;
 
@@ -151,7 +151,7 @@ App.controller('FactorListOfPrintController', ['$scope', '$http', 'ngDialog', 'A
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         $scope.showPaymentDetails = function (index) {
             var modalInstance = $modal.open({
@@ -170,7 +170,7 @@ App.controller('FactorListOfPrintController', ['$scope', '$http', 'ngDialog', 'A
             });
         };
 
-        var ShowPaymentDetailsCtrl = function ($scope, $http, $modalInstance, factor) {
+        var ShowPaymentDetailsCtrl = ['$scope', '$http', '$modalInstance', 'factor', function ($scope, $http, $modalInstance, factor) {
 
             $scope.factor = factor;
 
@@ -209,7 +209,7 @@ App.controller('FactorListOfPrintController', ['$scope', '$http', 'ngDialog', 'A
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         //Init
         $scope.fetchFactors(1);

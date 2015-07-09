@@ -1380,7 +1380,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             });
         };
 
-        var EditFieldCtrl = function ($scope, $http, $modalInstance, fileFormats, field, type) {
+        var EditFieldCtrl = ['$scope', '$http', '$modalInstance', 'fileFormats', 'field', 'type', function ($scope, $http, $modalInstance, fileFormats, field, type) {
 
             $scope.fileFormats = fileFormats;
             $scope.field = field;
@@ -1489,7 +1489,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         $scope.removeField = function (index) {
             var templateDialog = 'removeDialog.html';

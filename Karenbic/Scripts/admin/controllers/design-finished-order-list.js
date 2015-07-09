@@ -94,7 +94,7 @@ App.controller('FinishedDesignOrderListController', ['$scope', '$http', 'APP_BAS
             });
         };
 
-        var ShowDetailsCtrl = function ($scope, $http, $modalInstance, order) {
+        var ShowDetailsCtrl = ['$scope', '$http', '$modalInstance', 'order', function ($scope, $http, $modalInstance, order) {
 
             $scope.order = order;
 
@@ -153,7 +153,7 @@ App.controller('FinishedDesignOrderListController', ['$scope', '$http', 'APP_BAS
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         $scope.showPaymentDetails = function (paymentId) {
             var modalInstance = $modal.open({
@@ -172,7 +172,7 @@ App.controller('FinishedDesignOrderListController', ['$scope', '$http', 'APP_BAS
             });
         };
 
-        var ShowPaymentDetailsCtrl = function ($scope, $http, $modalInstance, paymentId) {
+        var ShowPaymentDetailsCtrl = ['$scope', '$http', '$modalInstance', 'paymentId', function ($scope, $http, $modalInstance, paymentId) {
 
             $scope.paymentId = paymentId;
 
@@ -211,7 +211,7 @@ App.controller('FinishedDesignOrderListController', ['$scope', '$http', 'APP_BAS
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         $scope.showDesign = function (index) {
             $scope.fetchLoading = true;

@@ -89,7 +89,7 @@ App.controller('PrintPaymentListController', ['$scope', '$http', 'APP_BASE_URI',
             });
         };
 
-        var ShowDetailsCtrl = function ($scope, $http, $modalInstance, payment) {
+        var ShowDetailsCtrl = ['$scope', '$http', '$modalInstance', 'payment', function ($scope, $http, $modalInstance, payment) {
 
             $scope.payment = payment;
 
@@ -128,7 +128,7 @@ App.controller('PrintPaymentListController', ['$scope', '$http', 'APP_BASE_URI',
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         //Init
         $scope.fetchPayments(1);

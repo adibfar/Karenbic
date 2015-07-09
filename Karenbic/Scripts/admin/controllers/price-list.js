@@ -152,7 +152,7 @@
             });
         };
 
-        var EditCtrl = function ($scope, $http, $modalInstance, priceList) {
+        var EditCtrl = ['$scope', '$http', '$modalInstance', 'priceList', function ($scope, $http, $modalInstance, priceList) {
 
             $scope.priceList = priceList;
             $scope.newPictureFile = null;
@@ -233,7 +233,7 @@
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         $scope.showPreviewModal = function (index) {
             var modalInstance = $modal.open({

@@ -78,7 +78,7 @@
             });
         };
 
-        var MessageCtrl = function ($scope, $http, $modalInstance, message) {
+        var MessageCtrl = ['$scope', '$http', '$modalInstance', 'message', function ($scope, $http, $modalInstance, message) {
 
             $scope.message = message;
 
@@ -145,7 +145,7 @@
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         $scope.remove = function (index) {
             ngDialog.open({

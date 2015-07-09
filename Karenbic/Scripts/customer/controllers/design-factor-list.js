@@ -186,7 +186,7 @@ App.controller('FactorListOfDesignController', ['$scope', '$http', 'ngDialog', '
             });
         };
 
-        var ShowDetailsCtrl = function ($scope, $http, $modalInstance, factor) {
+        var ShowDetailsCtrl = ['$scope', '$http', '$modalInstance', 'factor', function ($scope, $http, $modalInstance, factor) {
 
             $scope.factor = factor;
 
@@ -216,7 +216,7 @@ App.controller('FactorListOfDesignController', ['$scope', '$http', 'ngDialog', '
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         $scope.showPaymentDetails = function (paymentId) {
             var modalInstance = $modal.open({
@@ -235,7 +235,7 @@ App.controller('FactorListOfDesignController', ['$scope', '$http', 'ngDialog', '
             });
         };
 
-        var ShowPaymentDetailsCtrl = function ($scope, $http, $modalInstance, paymentId) {
+        var ShowPaymentDetailsCtrl = ['$scope', '$http', '$modalInstance', 'paymentId', function ($scope, $http, $modalInstance, paymentId) {
 
             $scope.paymentId = paymentId;
 
@@ -274,7 +274,7 @@ App.controller('FactorListOfDesignController', ['$scope', '$http', 'ngDialog', '
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         //Init
         $scope.fetchFactors(1);

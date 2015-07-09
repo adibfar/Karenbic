@@ -49,7 +49,7 @@ namespace Karenbic.Areas.Admin.Controllers
                 }
                 int pageCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(query.Count()) / Convert.ToDouble(pageSize)));
                 int resultCount = query.Count();
-                decimal totalPrice = resultCount > 0 ? query.Sum(x => x.Price) : 0;
+                decimal totalPrice = resultCount > 0 ? query.Sum(x => x.PrintPrice + x.PackingPrice) : 0;
 
                 List<DomainClasses.PrintOrder> list = query
                     .Include(x => x.Customer)

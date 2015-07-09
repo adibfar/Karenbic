@@ -1317,7 +1317,7 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
             });
         };
 
-        var EditFieldCtrl = function ($scope, $http, $modalInstance, fileFormats, field, type) {
+        var EditFieldCtrl = ['$scope', '$http', '$modalInstance', 'fileFormats', 'field', 'type', function ($scope, $http, $modalInstance, fileFormats, field, type) {
 
             $scope.fileFormats = fileFormats;
             $scope.field = field;
@@ -1415,7 +1415,7 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         $scope.removeField = function (index) {
             ngDialog.open({

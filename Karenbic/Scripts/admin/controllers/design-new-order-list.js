@@ -136,7 +136,7 @@ App.controller('NewDesignOrderListController', ['$scope', '$http', 'ngDialog', '
             });
         };
 
-        var ShowDetailsCtrl = function ($scope, $http, $modalInstance, order) {
+        var ShowDetailsCtrl = ['$scope', '$http', '$modalInstance', 'order',  function ($scope, $http, $modalInstance, order) {
 
             $scope.order = order;
 
@@ -199,7 +199,7 @@ App.controller('NewDesignOrderListController', ['$scope', '$http', 'ngDialog', '
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         //Init
         $scope.fetchOrders(1);

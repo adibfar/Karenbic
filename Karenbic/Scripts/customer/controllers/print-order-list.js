@@ -93,7 +93,7 @@ App.controller('PrintOrderListController', ['$scope', '$http', 'APP_BASE_URI', '
             });
         };
 
-        var ShowDetailsCtrl = function ($scope, $http, $modalInstance, order) {
+        var ShowDetailsCtrl = ['$scope', '$http', '$modalInstance', 'order', function ($scope, $http, $modalInstance, order) {
 
             $scope.order = order;
 
@@ -152,7 +152,7 @@ App.controller('PrintOrderListController', ['$scope', '$http', 'APP_BASE_URI', '
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         $scope.showPaymentDetails = function (index) {
             var modalInstance = $modal.open({
@@ -171,7 +171,7 @@ App.controller('PrintOrderListController', ['$scope', '$http', 'APP_BASE_URI', '
             });
         };
 
-        var ShowPaymentDetailsCtrl = function ($scope, $http, $modalInstance, order) {
+        var ShowPaymentDetailsCtrl = ['$scope', '$http', '$modalInstance', 'order', function ($scope, $http, $modalInstance, order) {
 
             $scope.order = order;
 
@@ -210,7 +210,7 @@ App.controller('PrintOrderListController', ['$scope', '$http', 'APP_BASE_URI', '
             $scope.close = function () {
                 $modalInstance.dismiss('cancel');
             };
-        };
+        }];
 
         //Init
         $scope.fetchOrders(1);

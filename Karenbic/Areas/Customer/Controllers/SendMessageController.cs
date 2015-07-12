@@ -9,6 +9,13 @@ namespace Karenbic.Areas.Customer.Controllers
 {
     public class SendMessageController : Controller
     {
+        private DataAccess.Context _context;
+
+        public SendMessageController(DataAccess.Context context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public ActionResult New()
         {
@@ -19,14 +26,11 @@ namespace Karenbic.Areas.Customer.Controllers
         [ValidateInput(false)]
         public ActionResult New(DomainClasses.CustomerMessage message)
         {
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                message.Sender = context.Customers.Find(1);
-                //message.Sender = context.Customers.Single(x => x.Username == User.Identity.Name);
+            message.Sender = _context.Customers.Find(1);
+            //message.Sender = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
-                context.CustomerMessages.Add(message);
-                context.SaveChanges();
-            }
+            _context.CustomerMessages.Add(message);
+            _context.SaveChanges();
 
             return Json(new 
             { 
@@ -49,42 +53,39 @@ namespace Karenbic.Areas.Customer.Controllers
             int pageSize = 20;
             JsonResult result = new JsonResult();
 
-            using (DataAccess.Context context = new DataAccess.Context())
+            IQueryable<DomainClasses.CustomerMessage> query = _context.CustomerMessages.AsQueryable();
+
+            DomainClasses.Customer customer = _context.Customers.Find(1);
+            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+
+            query = query.Where(x => x.Sender.Id == customer.Id && x.IsShowCustomer);
+
+            int pageCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(query.Count()) / Convert.ToDouble(pageSize)));
+            int resultCount = query.Count();
+
+            List<DomainClasses.CustomerMessage> list = query
+                .OrderByDescending(x => x.SendDate)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            result.Data = new
             {
-                IQueryable<DomainClasses.CustomerMessage> query = context.CustomerMessages.AsQueryable();
-
-                DomainClasses.Customer customer = context.Customers.Find(1);
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-
-                query = query.Where(x => x.Sender.Id == customer.Id && x.IsShowCustomer);
-
-                int pageCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(query.Count()) / Convert.ToDouble(pageSize)));
-                int resultCount = query.Count();
-
-                List<DomainClasses.CustomerMessage> list = query
-                    .OrderByDescending(x => x.SendDate)
-                    .Skip((pageIndex - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
-
-                result.Data = new
+                ResultCount = resultCount,
+                PageCount = pageCount,
+                PageIndex = pageIndex,
+                List = list.Select(x => new
                 {
-                    ResultCount = resultCount,
-                    PageCount = pageCount,
-                    PageIndex = pageIndex,
-                    List = list.Select(x => new
-                    {
-                        Id = x.Id,
-                        SendDate = Api.ConvertDate.JulainToPersian(x.SendDate),
-                        Time = string.Format("{0:D2}:{1:D2}", x.SendDate.Hour, x.SendDate.Minute),
-                        Title = x.Title,
-                        Text = x.Text,
-                        IsRead = x.IsReadCustomer,
-                        IsAdminReply = x.IsAdminReply,
-                        AdminReply = x.AdminReply
-                    }).ToArray()
-                };
-            }
+                    Id = x.Id,
+                    SendDate = Api.ConvertDate.JulainToPersian(x.SendDate),
+                    Time = string.Format("{0:D2}:{1:D2}", x.SendDate.Hour, x.SendDate.Minute),
+                    Title = x.Title,
+                    Text = x.Text,
+                    IsRead = x.IsReadCustomer,
+                    IsAdminReply = x.IsAdminReply,
+                    AdminReply = x.AdminReply
+                }).ToArray()
+            };
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -95,19 +96,18 @@ namespace Karenbic.Areas.Customer.Controllers
         {
             bool result = false;
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                DomainClasses.Customer customer = context.Customers.Find(1);
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Find(1);
+            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
-                DomainClasses.CustomerMessage message = context.CustomerMessages
-                        .Include(x => x.Sender)
-                        .Single(x => x.Id == id && x.Sender.Id == customer.Id);
+            DomainClasses.CustomerMessage message = _context.CustomerMessages
+                    .Include(x => x.Sender)
+                    .Single(x => x.Id == id && x.Sender.Id == customer.Id);
 
-                message.IsReadCustomer = true;
-                context.SaveChanges();
-                result = true;
-            }
+            message.IsReadCustomer = true;
+
+            _context.SaveChanges();
+
+            result = true;
 
             return Content(result.ToString());
         }
@@ -117,29 +117,25 @@ namespace Karenbic.Areas.Customer.Controllers
         {
             bool result = false;
 
-            using (DataAccess.Context context = new DataAccess.Context())
+            DomainClasses.Customer customer = _context.Customers.Find(1);
+            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+
+            DomainClasses.CustomerMessage message = _context.CustomerMessages
+                    .Include(x => x.Sender)
+                    .Single(x => x.Id == id && x.Sender.Id == customer.Id);
+
+            if (message.IsShowAdmin)
             {
-                DomainClasses.Customer customer = context.Customers.Find(1);
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-
-                DomainClasses.CustomerMessage message = context.CustomerMessages
-                        .Include(x => x.Sender)
-                        .Single(x => x.Id == id && x.Sender.Id == customer.Id);
-
-                if (message.IsShowAdmin)
-                {
-                    message.IsShowCustomer = false;
-                }
-                else
-                {
-                    context.CustomerMessages.Remove(message);
-                }
-                context.SaveChanges();
-                result = true;
+                message.IsShowCustomer = false;
             }
+            else
+            {
+                _context.CustomerMessages.Remove(message);
+            }
+            _context.SaveChanges();
+            result = true;
 
             return Content(result.ToString());
         }
-
     }
 }

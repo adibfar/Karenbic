@@ -9,6 +9,13 @@ namespace Karenbic.Areas.Customer.Controllers
 {
     public class ReceiveMessageController : Controller
     {
+        private DataAccess.Context _context;
+
+        public ReceiveMessageController(DataAccess.Context context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public ActionResult List()
         {
@@ -22,39 +29,36 @@ namespace Karenbic.Areas.Customer.Controllers
             int pageSize = 20;
             JsonResult result = new JsonResult();
 
-            using (DataAccess.Context context = new DataAccess.Context())
+            IQueryable<DomainClasses.AdminMessage_Customer> query = _context.AdminMessages_Customer.AsQueryable();
+
+            DomainClasses.Customer customer = _context.Customers.Find(1);
+            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            query = query.Where(x => x.Customer.Id == customer.Id);
+
+            int pageCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(query.Count()) / Convert.ToDouble(pageSize)));
+            int resultCount = query.Count();
+
+            List<DomainClasses.AdminMessage_Customer> list = query
+                .OrderByDescending(x => x.SendDate)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            result.Data = new
             {
-                IQueryable<DomainClasses.AdminMessage_Customer> query = context.AdminMessages_Customer.AsQueryable();
-
-                DomainClasses.Customer customer = context.Customers.Find(1);
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-                query = query.Where(x => x.Customer.Id == customer.Id);
-
-                int pageCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(query.Count()) / Convert.ToDouble(pageSize)));
-                int resultCount = query.Count();
-
-                List<DomainClasses.AdminMessage_Customer> list = query
-                    .OrderByDescending(x => x.SendDate)
-                    .Skip((pageIndex - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
-
-                result.Data = new
+                ResultCount = resultCount,
+                PageCount = pageCount,
+                PageIndex = pageIndex,
+                List = list.Select(x => new
                 {
-                    ResultCount = resultCount,
-                    PageCount = pageCount,
-                    PageIndex = pageIndex,
-                    List = list.Select(x => new
-                    {
-                        Id = x.Id,
-                        SendDate = Api.ConvertDate.JulainToPersian(x.SendDate),
-                        Time = string.Format("{0:D2}:{1:D2}", x.SendDate.Hour, x.SendDate.Minute),
-                        Title = x.Title,
-                        Text = x.Text,
-                        IsRead = x.IsRead
-                    }).ToArray()
-                };
-            }
+                    Id = x.Id,
+                    SendDate = Api.ConvertDate.JulainToPersian(x.SendDate),
+                    Time = string.Format("{0:D2}:{1:D2}", x.SendDate.Hour, x.SendDate.Minute),
+                    Title = x.Title,
+                    Text = x.Text,
+                    IsRead = x.IsRead
+                }).ToArray()
+            };
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -65,13 +69,10 @@ namespace Karenbic.Areas.Customer.Controllers
         {
             bool result = false;
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                DomainClasses.AdminMessage_Customer message = context.AdminMessages_Customer.Find(id);
-                message.IsRead = true;
-                context.SaveChanges();
-                result = true;
-            }
+            DomainClasses.AdminMessage_Customer message = _context.AdminMessages_Customer.Find(id);
+            message.IsRead = true;
+            _context.SaveChanges();
+            result = true;
 
             return Content(result.ToString());
         }
@@ -81,13 +82,10 @@ namespace Karenbic.Areas.Customer.Controllers
         {
             bool result = false;
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                DomainClasses.AdminMessage_Customer message = context.AdminMessages_Customer.Find(id);
-                context.AdminMessages_Customer.Remove(message);
-                context.SaveChanges();
-                result = true;
-            }
+            DomainClasses.AdminMessage_Customer message = _context.AdminMessages_Customer.Find(id);
+            _context.AdminMessages_Customer.Remove(message);
+            _context.SaveChanges();
+            result = true;
 
             return Content(result.ToString());
         }

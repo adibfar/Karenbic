@@ -4,10 +4,11 @@
         $scope.text = '';
 
         $scope.froalaOptions = {
-            buttons: ["bold", "italic", "underline", "strikeThrough", "fontFamily",
-                    "fontSize", "color", "formatBlock", "align", "insertOrderedList",
-                    "insertUnorderedList", "outdent", "indent", "selectAll", "createLink",
-                    "insertImage", "insertVideo", "undo", "redo", "html", "inserthorizontalrule"],
+            buttons: ["bold", "italic", "underline", "strikeThrough", "fontFamily", "fontSize", "color",
+                    "sep",
+                    "formatBlock", "align", "insertOrderedList", "insertUnorderedList", "outdent", "indent", "selectAll",
+                    "sep",
+                    "insertHorizontalRule", "createLink", "table", "insertImage", "insertVideo", "undo", "redo", "html"],
             inlineMode: false,
             inverseSkin: true,
             allowedImageTypes: ["jpeg", "jpg", "png"],

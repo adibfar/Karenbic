@@ -9,6 +9,13 @@ namespace Karenbic.Areas.Admin.Controllers
 {
     public class FormGroupController : Controller
     {
+        private DataAccess.Context _context;
+
+        public FormGroupController(DataAccess.Context context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -20,13 +27,10 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid) throw new Exception();
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                context.FormGroups.Add(model);
-                context.SaveChanges();
-            }
+            _context.FormGroups.Add(model);
+            _context.SaveChanges();
 
-            return Json(new 
+            return Json(new
             {
                 Id = model.Id,
                 Portal = model.Portal,
@@ -42,14 +46,11 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid) throw new Exception();
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                DomainClasses.FormGroup item = context.FormGroups.Find(model.Id);
-                item.Title = model.Title;
-                item.Column = model.Column;
-                item.Priority = model.Priority;
-                context.SaveChanges();
-            }
+            DomainClasses.FormGroup item = _context.FormGroups.Find(model.Id);
+            item.Title = model.Title;
+            item.Column = model.Column;
+            item.Priority = model.Priority;
+            _context.SaveChanges();
 
             return Json(new
             {
@@ -67,13 +68,10 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                DomainClasses.FormGroup item = context.FormGroups.Find(id);
-                item.IsShow = true;
-                context.SaveChanges();
-                result = true;
-            }
+            DomainClasses.FormGroup item = _context.FormGroups.Find(id);
+            item.IsShow = true;
+            _context.SaveChanges();
+            result = true;
 
             return Content(result.ToString());
         }
@@ -83,13 +81,10 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                DomainClasses.FormGroup item = context.FormGroups.Find(id);
-                item.IsShow = false;
-                context.SaveChanges();
-                result = true;
-            }
+            DomainClasses.FormGroup item = _context.FormGroups.Find(id);
+            item.IsShow = false;
+            _context.SaveChanges();
+            result = true;
 
             return Content(result.ToString());
         }
@@ -99,17 +94,14 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
-            using (DataAccess.Context context = new DataAccess.Context())
+            DomainClasses.FormGroup item = _context.FormGroups.Find(id);
+            try
             {
-                DomainClasses.FormGroup item = context.FormGroups.Find(id);
-                try
-                {
-                    context.FormGroups.Remove(item);
-                    context.SaveChanges();
-                    result = true;
-                }
-                catch { }
+                _context.FormGroups.Remove(item);
+                _context.SaveChanges();
+                result = true;
             }
+            catch { }
 
             return Content(result.ToString());
         }
@@ -119,23 +111,20 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             JsonResult result = new JsonResult();
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                result.Data = context.FormGroups
-                    .Where(x => x.Portal == portal)
-                    .OrderByDescending(x => x.Column)
-                    .ThenByDescending(x => x.Priority)
-                    .Select(x => new 
-                    {
-                        Id = x.Id,
-                        Portal = x.Portal,
-                        IsShow = x.IsShow,
-                        Title = x.Title,
-                        Column = x.Column,
-                        Priority = x.Priority
-                    })
-                    .ToArray();
-            }
+            result.Data = _context.FormGroups
+                .Where(x => x.Portal == portal)
+                .OrderByDescending(x => x.Column)
+                .ThenByDescending(x => x.Priority)
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Portal = x.Portal,
+                    IsShow = x.IsShow,
+                    Title = x.Title,
+                    Column = x.Column,
+                    Priority = x.Priority
+                })
+                .ToArray();
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

@@ -112,7 +112,7 @@
                                 <th style="min-width:100px;width:100px;">مبلغ کل (ریال)</th>
                                 <th style="min-width:140px;width:140px;" colspan="2">مبلغ پیش پرداخت (ریال)</th>
                                 <th style="min-width:140px;width:140px;" colspan="2">مانده حساب (ریال)</th>
-                                <th style="min-width:30px;width:30px;">&nbsp;</th>
+                                <th style="min-width:40px;width:40px;">نمایش</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -140,7 +140,7 @@
                                          ng-if="item.FinalFactor.IsPaid == true"
                                          ng-click="showPaymentDetails(item.FinalPayment.Id)">{{item.FinalPayment.Code}}</div>
                                 </td>
-                                <td style="text-align:left;">
+                                <td style="text-align:center;">
                                     <button class="btn-img-info-1" type="button"
                                             ng-click="show($index)"></button>                                
                                 </td>

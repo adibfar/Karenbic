@@ -163,7 +163,8 @@
                                 <th style="min-width:100px;width:100px;">مبلغ کل (ریال)</th>
                                 <th style="min-width:100px;width:100px;">وضعیت پرداخت</th>
                                 <th style="min-width:75px;width:75px;">شماره فاکتور</th>
-                                <th style="min-width:60px;width:60px;">&nbsp;</th>
+                                <th style="min-width:40px;width:40px;">پرداخت</th>
+                                <th style="min-width:40px;width:40px;">نمایش</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -196,12 +197,14 @@
                                          ng-if="item.Factor.IsPaid == true"
                                          ng-click="showPaymentDetails($index)">{{item.Payment.Code}}</div>
                                 </td>
-                                <td style="text-align:left;">
+                                <td style="text-align:center;">
                                     <button class="btn-img-credit-1" type="button"
                                             ng-click="paymentPreview($index)"
-                                            ng-if="item.Factor.IsPaid == false"></button>
+                                            ng-if="item.Factor.IsPaid == false"></button>                              
+                                </td>
+                                <td style="text-align:center;">
                                     <button class="btn-img-info-1" type="button"
-                                            ng-click="showDetails($index)"></button>                                
+                                            ng-click="showDetails($index)"></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -228,21 +231,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                        <div class="clearfix">
-                            <div class="pull-left">
-                                <button class="btn btn-labeled btn-warning" type="button"
-                                        ng-click="paymentPreview_group()"
-                                        ng-class="{'disabled': anyFactorSelected() == false}"
-                                        ng-disabled="anyFactorSelected() == false">
-                                    <span class="btn-label btn-label-right">
-                                        <i class="fa fa-check"></i>
-                                    </span>
-                                    صدور فاکتور
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"></div>
                 </div>
             </div>
         </div>

@@ -67,6 +67,9 @@
                     });
                     $scope.customer.City = $scope.cities[cityIndex];
                 }
+                else {
+                    $scope.customer.City = $scope.cities[0];
+                }
                 $scope.fetchCitiesLoading = false;
             }).error(function (data, status, headers, config) {
                 if (status == 403) {

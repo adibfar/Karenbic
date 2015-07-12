@@ -1,5 +1,5 @@
-﻿App.controller('SendOrderDesignController', ['$scope', '$http', 'ngDialog', 'APP_BASE_URI', 'toaster', '$modal', '$stateParams', '$upload',
-    function ($scope, $http, ngDialog, baseUri, toaster, $modal, $stateParams, $upload) {
+﻿App.controller('SendOrderDesignController', ['$scope', '$http', 'ngDialog', 'APP_BASE_URI', 'toaster', '$modal', '$stateParams', '$upload', '$state',
+    function ($scope, $http, ngDialog, baseUri, toaster, $modal, $stateParams, $upload, $state) {
         $scope.orderId = $stateParams.id;
         $scope.order = {};
         $scope.designs = [];
@@ -275,6 +275,12 @@
             };
         }];
         /*=-=-=-=-=-=-=-=-= End Design =-=-=-=-=-=-=-=-=*/
+
+        $scope.back = function (index) {
+            $scope.fetchLoading = true;
+            if ($state.is('app.design.send-order-design')) $state.go('^.ongoing-order-list');
+            if ($state.is('app.design.show-order-design')) $state.go('^.finished-order-list');
+        };
 
         //init
         $scope.fetchData();

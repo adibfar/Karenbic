@@ -1,5 +1,5 @@
-﻿App.controller('PreDesignOrderController', ['$scope', '$http', 'APP_BASE_URI', 'toaster', '$modal', 
-    function ($scope, $http, baseUri, toaster, $modal) {
+﻿App.controller('PreDesignOrderController', ['$scope', '$http', 'APP_BASE_URI', 'toaster', '$modal', '$sce',
+    function ($scope, $http, baseUri, toaster, $modal, $sce) {
 
         $scope.text = '';
 
@@ -7,7 +7,7 @@
             $scope.fetchLoading = true;
             $http.get(baseUri + 'DesignOrder/PreOrderText')
             .success(function (data, status, headers, config) {
-                $scope.text = data;
+                $scope.text = $sce.trustAsHtml(data);
                 $scope.fetchLoading = false;
             }).error(function (data, status, headers, config) {
                 if (status == 403) {

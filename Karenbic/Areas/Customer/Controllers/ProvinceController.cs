@@ -8,21 +8,25 @@ namespace Karenbic.Areas.Customer.Controllers
 {
     public class ProvinceController : Controller
     {
+        private DataAccess.Context _context;
+
+        public ProvinceController(DataAccess.Context context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public ActionResult Get()
         {
             JsonResult result = new JsonResult();
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                result.Data = context.Province
-                    .OrderBy(x => x.Name)
-                    .Select(x => new
-                    {
-                        Id = x.Id,
-                        Name = x.Name
-                    }).ToArray();
-            }
+            result.Data = _context.Province
+                .OrderBy(x => x.Name)
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }).ToArray();
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

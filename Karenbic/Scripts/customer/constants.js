@@ -77,11 +77,11 @@ App
                         sref: "app.design.send-message-new"
                     },
                     {
-                        text: "پیام های ارسالی",
+                        text: "پیام های من / پاسخ",
                         sref: "app.design.send-message-list"
                     },
                     {
-                        text: "پیام های دریافتی",
+                        text: "پیام از مدیر",
                         sref: "app.design.receive-message-list"
                     }
                 ]
@@ -162,11 +162,11 @@ App
                         sref: "app.print.send-message-new"
                     },
                     {
-                        text: "پیام های ارسالی",
+                        text: "پیام های من / پاسخ",
                         sref: "app.print.send-message-list"
                     },
                     {
-                        text: "پیام های دریافتی",
+                        text: "پیام از مدیر",
                         sref: "app.print.receive-message-list"
                     }
                 ]

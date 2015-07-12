@@ -96,9 +96,9 @@
                                 <th style="min-width:45px;width:45px;">&nbsp;</th>
                                 <th style="min-width:90px;width:90px;">شماره فاکتور</th>
                                 <th style="min-width:90px;width:90px;">شماره تراکنش</th>
-                                <th style="min-width:150px;">تاریخ و ساغت</th>
+                                <th style="min-width:150px;">تاریخ و ساعت</th>
                                 <th style="min-width:110px;width:110px;">مبلغ (ریال)</th>
-                                <th style="min-width:30px;width:30px;">&nbsp;</th>
+                                <th style="min-width:40px;width:40px;">نمایش</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -108,7 +108,7 @@
                                 <td>{{item.RefId}}</td>
                                 <td style="direction:ltr;text-align:right;">{{item.PersianRegisterDate + ' - ' + item.Time}}</td>
                                 <td>{{item.Money | riyal}}</td>
-                                <td style="text-align:left;">
+                                <td style="text-align:center;">
                                     <button class="btn-img-info-1" type="button" ng-click="showDetails($index)"></button>
                                 </td>
                             </tr>

@@ -326,10 +326,7 @@ App
             },
             {
                 name: 'froala',
-                files: ['/Vendors/froala-editor/js/froala_editor.min.js',
-                    '/Vendors/froala-editor/js/angular-froala.js',
-                    '/Vendors/froala-editor/js/froala-sanitize.js',
-                    '/Vendors/froala-editor/js/langs/fa.js',
+                files: ['/Vendors/froala/js',
                     '/Vendors/froala-editor/css/froala_editor.min.css',
                     '/Vendors/froala-editor/css/froala_style.min.css',
                     '/Vendors/froala-editor/css/froala_content.min.css',

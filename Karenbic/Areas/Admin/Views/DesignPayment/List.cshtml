@@ -119,7 +119,9 @@
                                 <td>{{item.Customer.Name + ' ' + item.Customer.Surname}}</td>
                                 <td>{{item.Money | riyal}}</td>
                                 <td style="text-align:left;">
-                                    <button class="btn-img-info-1" type="button" ng-click="showDetails($index)"></button>
+                                    <button class="btn-img-info-1" type="button"
+                                            ng-click="showDetails($index)"
+                                            tooltipster="" title="نمایش فاکتور"></button>
                                 </td>
                             </tr>
                         </tbody>

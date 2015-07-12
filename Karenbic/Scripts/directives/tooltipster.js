@@ -7,10 +7,17 @@ App.directive('tooltipster', function () {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
-            $(element).tooltipster({
-                content: $(attrs["tooltipsterTitle"]),
-                theme: 'tooltipster-light'
-            });
+            if (attrs["tooltipsterTitle"] != undefined && attrs["tooltipsterTitle"] != null) {
+                $(element).tooltipster({
+                    content: $(attrs["tooltipsterTitle"]),
+                    theme: 'tooltipster-light'
+                });
+            }
+            else {
+                $(element).tooltipster({
+                    theme: 'tooltipster-light'
+                });
+            }
         }
     };
 });

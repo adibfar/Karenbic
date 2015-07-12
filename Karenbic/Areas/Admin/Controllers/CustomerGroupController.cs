@@ -8,6 +8,13 @@ namespace Karenbic.Areas.Admin.Controllers
 {
     public class CustomerGroupController : Controller
     {
+        private DataAccess.Context _context;
+
+        public CustomerGroupController(DataAccess.Context context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -19,11 +26,8 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid) throw new Exception();
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                context.CustomerGroups.Add(model);
-                context.SaveChanges();
-            }
+            _context.CustomerGroups.Add(model);
+            _context.SaveChanges();
 
             return Json(new 
             { 
@@ -37,12 +41,9 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid) throw new Exception();
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                DomainClasses.CustomerGroup item = context.CustomerGroups.Find(model.Id);
-                item.Title = model.Title;
-                context.SaveChanges();
-            }
+            DomainClasses.CustomerGroup item = _context.CustomerGroups.Find(model.Id);
+            item.Title = model.Title;
+            _context.SaveChanges();
 
             return Json(new
             {
@@ -56,17 +57,14 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
-            using (DataAccess.Context context = new DataAccess.Context())
+            DomainClasses.CustomerGroup item = _context.CustomerGroups.Find(id);
+            try
             {
-                DomainClasses.CustomerGroup item = context.CustomerGroups.Find(id);
-                try
-                {
-                    context.CustomerGroups.Remove(item);
-                    context.SaveChanges();
-                    result = true;
-                }
-                catch { }
+                _context.CustomerGroups.Remove(item);
+                _context.SaveChanges();
+                result = true;
             }
+            catch { }
 
             return Content(result.ToString());
         }
@@ -76,15 +74,12 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             JsonResult result = new JsonResult();
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                result.Data = context.CustomerGroups
-                    .Select(x => new
-                    {
-                        Id = x.Id,
-                        Title = x.Title
-                    }).ToArray();
-            }
+            result.Data = _context.CustomerGroups
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Title = x.Title
+                }).ToArray();
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

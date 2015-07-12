@@ -69,14 +69,19 @@
                                 <td style="text-align:left;">
                                     <button class="btn-img-delete-1" type="button"
                                             ng-if="item.CanDelete"
-                                            ng-click="remove($index)"></button>
+                                            ng-click="remove($index)"
+                                            tooltipster="" title="حذف"></button>
                                     <button class="btn-img-show-1" type="button"
                                             ng-if="item.IsShow == true"
-                                            ng-click="hide($index)"></button>
+                                            ng-click="hide($index)"
+                                            tooltipster="" title="نمایش"></button>
                                     <button class="btn-img-hide-1" type="button"
                                             ng-if="item.IsShow == false"
-                                            ng-click="show($index)"></button>
-                                    <button class="btn-img-edit-1" type="button" ng-click="edit($index)"></button>
+                                            ng-click="show($index)"
+                                            tooltipster="" title="عدم نمایش"></button>
+                                    <button class="btn-img-edit-1" type="button"
+                                            ng-click="edit($index)"
+                                            tooltipster="" title="ویرایش"></button>
                                 </td>
                             </tr>
                         </tbody>

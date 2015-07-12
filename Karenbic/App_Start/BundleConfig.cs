@@ -164,6 +164,19 @@ namespace Karenbic
                 "~/Scripts/customer/controllers/error-payment.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/Vendors/froala/js").Include(
+                "~/Vendors/froala-editor/js/froala_editor.min.js",
+                "~/Vendors/froala-editor/js/angular-froala.js",
+                "~/Vendors/froala-editor/js/froala-sanitize.js",
+                "~/Vendors/froala-editor/js/plugins/block_styles.min.js",
+                "~/Vendors/froala-editor/js/plugins/colors.min.js",
+                "~/Vendors/froala-editor/js/plugins/font_size.min.js",
+                "~/Vendors/froala-editor/js/plugins/lists.min.js",
+                "~/Vendors/froala-editor/js/plugins/tables.min.js",
+                "~/Vendors/froala-editor/js/plugins/video.min.js",
+                "~/Vendors/froala-editor/js/langs/fa.js"
+            ));
+
             bundles.Add(new StyleBundle("~/Styles/AdminStyle").Include(
                 "~/Vendors/bootstrap-3.3.4/css/bootstrap.css",
                 "~/Vendors/bootstrap-rtl/bootstrap-rtl.css",

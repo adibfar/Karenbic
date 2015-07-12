@@ -17,6 +17,13 @@ namespace Karenbic.Areas.Customer.Controllers
 {
     public class ProfileController : Controller
     {
+        private DataAccess.Context _context;
+
+        public ProfileController(DataAccess.Context context)
+        {
+            _context = context;
+        }
+
         private IAuthenticationManager AuthManager
         {
             get
@@ -60,15 +67,12 @@ namespace Karenbic.Areas.Customer.Controllers
         {
             DomainClasses.Customer customer = new DomainClasses.Customer();
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                customer = context.Customers
-                    .Include(x => x.City)
-                    .Include(x => x.City.Province)
-                    .Include(x => x.Group)
-                    //.Single(x => x.Username == User.Identity.Name);
-                    .Single(x => x.Id == 1);
-            }
+            customer = _context.Customers
+                .Include(x => x.City)
+                .Include(x => x.City.Province)
+                .Include(x => x.Group)
+                //.Single(x => x.Username == User.Identity.Name);
+                .Single(x => x.Id == 1);
 
             return Json(new 
             {
@@ -99,27 +103,24 @@ namespace Karenbic.Areas.Customer.Controllers
         {
             DomainClasses.Customer item = new DomainClasses.Customer();
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                item = context.Customers
-                    .Include(x => x.Group)
-                    .Include(x => x.City)
-                    .Include(x => x.City.Province)
-                    //.Single(x => x.Username == User.Identity.Name);
-                    .Single(x => x.Id == 1);
+            item = _context.Customers
+                .Include(x => x.Group)
+                .Include(x => x.City)
+                .Include(x => x.City.Province)
+                //.Single(x => x.Username == User.Identity.Name);
+                .Single(x => x.Id == 1);
 
-                item.Name = customer.Name;
-                item.Surname = customer.Surname;
-                item.Gender = customer.Gender;
-                item.Phone = customer.Phone;
-                item.Mobile = customer.Mobile;
-                item.Email = customer.Email;
-                item.Address = customer.Address;
+            item.Name = customer.Name;
+            item.Surname = customer.Surname;
+            item.Gender = customer.Gender;
+            item.Phone = customer.Phone;
+            item.Mobile = customer.Mobile;
+            item.Email = customer.Email;
+            item.Address = customer.Address;
 
-                customer.City = context.Cities.Find(cityId);
+            customer.City = _context.Cities.Find(cityId);
 
-                context.SaveChanges();
-            }
+            _context.SaveChanges();
 
             return Json(new
             {
@@ -157,14 +158,11 @@ namespace Karenbic.Areas.Customer.Controllers
             bool result = false;
             if (newPassword != reNewPassword) return Content(result.ToString());
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                ApplicationUser user = UserManager.FindByName(User.Identity.Name);
+            ApplicationUser user = UserManager.FindByName(User.Identity.Name);
 
-                UserManager.RemovePassword(user.Id);
-                UserManager.AddPassword(user.Id, newPassword);
-                result = true;
-            }
+            UserManager.RemovePassword(user.Id);
+            UserManager.AddPassword(user.Id, newPassword);
+            result = true;
 
             return Content(result.ToString());
         }

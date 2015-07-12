@@ -5,11 +5,19 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Web.Hosting;
+using System.Threading.Tasks;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
     public class FormController : Controller
     {
+        private DataAccess.Context _context;
+
+        public FormController(DataAccess.Context context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public ActionResult Add()
         {
@@ -31,353 +39,350 @@ namespace Karenbic.Areas.Admin.Controllers
             DomainClasses.FormField_RadioButtonGroup[] radioButtonGroups,
             DomainClasses.FormField_CheckBoxGroup[] checkBoxGroups)
         {
-            using (DataAccess.Context context = new DataAccess.Context())
+            form.Group = _context.FormGroups.Find(groupId);
+
+            if ((textBoxs != null && textBoxs.Length > 0) ||
+                (textAreas != null && textAreas.Length > 0) ||
+                (numerics != null && numerics.Length > 0) ||
+                (colorPickers != null && colorPickers.Length > 0) ||
+                (fileUploaders != null && fileUploaders.Length > 0) ||
+                (checkboxs != null && checkboxs.Length > 0) ||
+                (webUrls != null && webUrls.Length > 0) ||
+                (datePickers != null && datePickers.Length > 0) ||
+                (dropDowns != null && dropDowns.Length > 0) ||
+                (radioButtonGroups != null && radioButtonGroups.Length > 0) ||
+                (checkBoxGroups != null && checkBoxGroups.Length > 0))
             {
-                form.Group = context.FormGroups.Find(groupId);
-
-                if ((textBoxs != null && textBoxs.Length > 0) ||
-                    (textAreas != null && textAreas.Length > 0) ||
-                    (numerics != null && numerics.Length > 0) ||
-                    (colorPickers != null && colorPickers.Length > 0) ||
-                    (fileUploaders != null && fileUploaders.Length > 0) ||
-                    (checkboxs != null && checkboxs.Length > 0) ||
-                    (webUrls != null && webUrls.Length > 0) ||
-                    (datePickers != null && datePickers.Length > 0) ||
-                    (dropDowns != null && dropDowns.Length > 0) ||
-                    (radioButtonGroups != null && radioButtonGroups.Length > 0) ||
-                    (checkBoxGroups != null && checkBoxGroups.Length > 0))
-                {
-                    form.Fields = new List<DomainClasses.FormField>();
-                }
-
-                //TextBox
-                if (textBoxs != null && textBoxs.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_TextBox field in textBoxs)
-                    {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
-                        }
-
-                        form.Fields.Add(field);
-                    }
-                }
-
-                //TextArea
-                if (textAreas != null && textAreas.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_TextArea field in textAreas)
-                    {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
-                        }
-
-                        form.Fields.Add(field);
-                    }
-                }
-
-                //Numeric Stepper
-                if (numerics != null && numerics.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_Numeric field in numerics)
-                    {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
-                        }
-
-                        form.Fields.Add(field);
-                    }
-                }
-
-                //Color Picker
-                if (colorPickers != null && colorPickers.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_ColorPicker field in colorPickers)
-                    {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
-                        }
-
-                        form.Fields.Add(field);
-                    }
-                }
-
-                //File Uploader
-                if (fileUploaders != null && fileUploaders.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_FileUploader field in fileUploaders)
-                    {
-                        DomainClasses.FormField_FileUploader newField = new DomainClasses.FormField_FileUploader()
-                        {
-                            Title = field.Title,
-                            ShowAdmin = true,
-                            ShowCustomer = true,
-                            Description = field.Description,
-                            PictureHelpFile = field.PictureHelpFile,
-                            IsRequired = field.IsRequired,
-                            SizeLimits = field.SizeLimits,
-                            MinSize = field.MinSize,
-                            MaxSize = field.MaxSize,
-                            DesktopPosition = field.DesktopPosition,
-                            TabletPosition = field.TabletPosition,
-                            MobilePosition= field.MobilePosition
-                        };
-
-                        if (field.Formats != null && field.Formats.Count > 0)
-                        {
-                            newField.Formats = new List<DomainClasses.FileFormat>();
-                            foreach (DomainClasses.FileFormat format in field.Formats)
-                            {
-                                if (context.FileFormats.Any(x => x.Id == format.Id))
-                                {
-                                    newField.Formats.Add(context.FileFormats.Find(format.Id));
-                                }
-                            }
-                        }
-
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
-                        }
-
-                        form.Fields.Add(newField);
-                    }
-                }
-
-                //Checkbox
-                if (checkboxs != null && checkboxs.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_CheckBox field in checkboxs)
-                    {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
-                        }
-
-                        form.Fields.Add(field);
-                    }
-                }
-
-                //Web Url
-                if (webUrls != null && webUrls.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_WebUrl field in webUrls)
-                    {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
-                        }
-
-                        form.Fields.Add(field);
-                    }
-                }
-
-                //Date Pickers
-                if (datePickers != null && datePickers.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_DatePicker field in datePickers)
-                    {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
-                        }
-
-                        form.Fields.Add(field);
-                    }
-                }
-
-                //Drop Down
-                if (dropDowns != null && dropDowns.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_DropDown field in dropDowns)
-                    {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
-                        }
-
-                        form.Fields.Add(field);
-                    }
-                }
-
-                //Radio Button Group
-                if (radioButtonGroups != null && radioButtonGroups.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_RadioButtonGroup field in radioButtonGroups)
-                    {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
-                        }
-
-                        form.Fields.Add(field);
-                    }
-                }
-
-                //CheckBox Group
-                if (checkBoxGroups != null && checkBoxGroups.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_CheckBoxGroup field in checkBoxGroups)
-                    {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
-                        }
-
-                        form.Fields.Add(field);
-                    }
-                }
-
-                context.Forms.Add(form);
-                context.SaveChanges();
+                form.Fields = new List<DomainClasses.FormField>();
             }
+
+            //TextBox
+            if (textBoxs != null && textBoxs.Length > 0)
+            {
+                foreach (DomainClasses.FormField_TextBox field in textBoxs)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    form.Fields.Add(field);
+                }
+            }
+
+            //TextArea
+            if (textAreas != null && textAreas.Length > 0)
+            {
+                foreach (DomainClasses.FormField_TextArea field in textAreas)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    form.Fields.Add(field);
+                }
+            }
+
+            //Numeric Stepper
+            if (numerics != null && numerics.Length > 0)
+            {
+                foreach (DomainClasses.FormField_Numeric field in numerics)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    form.Fields.Add(field);
+                }
+            }
+
+            //Color Picker
+            if (colorPickers != null && colorPickers.Length > 0)
+            {
+                foreach (DomainClasses.FormField_ColorPicker field in colorPickers)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    form.Fields.Add(field);
+                }
+            }
+
+            //File Uploader
+            if (fileUploaders != null && fileUploaders.Length > 0)
+            {
+                foreach (DomainClasses.FormField_FileUploader field in fileUploaders)
+                {
+                    DomainClasses.FormField_FileUploader newField = new DomainClasses.FormField_FileUploader()
+                    {
+                        Title = field.Title,
+                        ShowAdmin = true,
+                        ShowCustomer = true,
+                        Description = field.Description,
+                        PictureHelpFile = field.PictureHelpFile,
+                        IsRequired = field.IsRequired,
+                        SizeLimits = field.SizeLimits,
+                        MinSize = field.MinSize,
+                        MaxSize = field.MaxSize,
+                        DesktopPosition = field.DesktopPosition,
+                        TabletPosition = field.TabletPosition,
+                        MobilePosition = field.MobilePosition
+                    };
+
+                    if (field.Formats != null && field.Formats.Count > 0)
+                    {
+                        newField.Formats = new List<DomainClasses.FileFormat>();
+                        foreach (DomainClasses.FileFormat format in field.Formats)
+                        {
+                            if (_context.FileFormats.Any(x => x.Id == format.Id))
+                            {
+                                newField.Formats.Add(_context.FileFormats.Find(format.Id));
+                            }
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    form.Fields.Add(newField);
+                }
+            }
+
+            //Checkbox
+            if (checkboxs != null && checkboxs.Length > 0)
+            {
+                foreach (DomainClasses.FormField_CheckBox field in checkboxs)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    form.Fields.Add(field);
+                }
+            }
+
+            //Web Url
+            if (webUrls != null && webUrls.Length > 0)
+            {
+                foreach (DomainClasses.FormField_WebUrl field in webUrls)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    form.Fields.Add(field);
+                }
+            }
+
+            //Date Pickers
+            if (datePickers != null && datePickers.Length > 0)
+            {
+                foreach (DomainClasses.FormField_DatePicker field in datePickers)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    form.Fields.Add(field);
+                }
+            }
+
+            //Drop Down
+            if (dropDowns != null && dropDowns.Length > 0)
+            {
+                foreach (DomainClasses.FormField_DropDown field in dropDowns)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    form.Fields.Add(field);
+                }
+            }
+
+            //Radio Button Group
+            if (radioButtonGroups != null && radioButtonGroups.Length > 0)
+            {
+                foreach (DomainClasses.FormField_RadioButtonGroup field in radioButtonGroups)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    form.Fields.Add(field);
+                }
+            }
+
+            //CheckBox Group
+            if (checkBoxGroups != null && checkBoxGroups.Length > 0)
+            {
+                foreach (DomainClasses.FormField_CheckBoxGroup field in checkBoxGroups)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    form.Fields.Add(field);
+                }
+            }
+
+            _context.Forms.Add(form);
+            _context.SaveChanges();
 
             return Json(new
             {
@@ -422,861 +427,846 @@ namespace Karenbic.Areas.Admin.Controllers
             DomainClasses.FormField_CheckBoxGroup[] checkBoxGroups_new,
             int[] removedFields)
         {
-            using (DataAccess.Context context = new DataAccess.Context())
+            //Change Form data
+            DomainClasses.Form formItem = _context.Forms.Find(form.Id);
+            formItem.Title = form.Title;
+            formItem.Group = _context.FormGroups.Find(groupId);
+            formItem.Priority = form.Priority;
+            formItem.Description = form.Description;
+            formItem.IsShow = form.IsShow;
+            formItem.SpecialCreativity = form.SpecialCreativity;
+
+            //New TextBox
+            if (textBoxs_new != null && textBoxs_new.Length > 0)
             {
-                //Change Form data
-                DomainClasses.Form formItem = context.Forms.Find(form.Id);
-                formItem.Title = form.Title;
-                formItem.Group = context.FormGroups.Find(groupId);
-                formItem.Priority = form.Priority;
-                formItem.Description = form.Description;
-                formItem.IsShow = form.IsShow;
-                formItem.SpecialCreativity = form.SpecialCreativity;
-
-                //New TextBox
-                if (textBoxs_new != null && textBoxs_new.Length > 0)
+                foreach (DomainClasses.FormField_TextBox field in textBoxs_new)
                 {
-                    foreach (DomainClasses.FormField_TextBox field in textBoxs_new)
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
                     {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
 
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
                         }
-
-                        field.Form = formItem;
-                        context.FormFields_TextBox.Add(field);
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
                     }
+
+                    field.Form = formItem;
+                    _context.FormFields_TextBox.Add(field);
                 }
+            }
 
-                //Edit TextBox
-                if (textBoxs != null && textBoxs.Length > 0)
+            //Edit TextBox
+            if (textBoxs != null && textBoxs.Length > 0)
+            {
+                foreach (DomainClasses.FormField_TextBox field in textBoxs)
                 {
-                    foreach (DomainClasses.FormField_TextBox field in textBoxs)
+                    DomainClasses.FormField_TextBox item = _context.FormFields_TextBox
+                        .Include(x => x.DesktopPosition)
+                        .Include(x => x.TabletPosition)
+                        .Include(x => x.MobilePosition)
+                        .Single(x => x.Id == field.Id);
+
+                    item.Title = field.Title;
+                    item.Description = field.Description;
+                    item.ShowCustomer = field.ShowCustomer;
+                    item.Defualt = field.Defualt;
+                    item.IsRequired = field.IsRequired;
+                    item.CharacterLimits = field.CharacterLimits;
+                    item.MinCharacters = field.MinCharacters;
+                    item.MaxCharacters = field.MaxCharacters;
+                    item.ShowInFactor = field.ShowInFactor;
+                    item.FactorOrder = field.FactorOrder;
+
+                    item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
+                    item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
+                    item.DesktopPosition.Row = field.DesktopPosition.Row;
+                    item.DesktopPosition.Column = field.DesktopPosition.Column;
+
+                    item.TabletPosition.SizeX = field.TabletPosition.SizeX;
+                    item.TabletPosition.SizeY = field.TabletPosition.SizeY;
+                    item.TabletPosition.Row = field.TabletPosition.Row;
+                    item.TabletPosition.Column = field.TabletPosition.Column;
+
+                    item.MobilePosition.SizeY = field.MobilePosition.SizeY;
+                    item.MobilePosition.Row = field.MobilePosition.Row;
+
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
                     {
-                        DomainClasses.FormField_TextBox item = context.FormFields_TextBox
-                            .Include(x => x.DesktopPosition)
-                            .Include(x => x.TabletPosition)
-                            .Include(x => x.MobilePosition)
-                            .Single(x => x.Id == field.Id);
-
-                        item.Title = field.Title;
-                        item.Description = field.Description;
-                        item.ShowCustomer = field.ShowCustomer;
-                        item.Defualt = field.Defualt;
-                        item.IsRequired = field.IsRequired;
-                        item.CharacterLimits = field.CharacterLimits;
-                        item.MinCharacters = field.MinCharacters;
-                        item.MaxCharacters = field.MaxCharacters;
-                        item.ShowInFactor = field.ShowInFactor;
-                        item.FactorOrder = field.FactorOrder;
-
-                        item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
-                        item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
-                        item.DesktopPosition.Row = field.DesktopPosition.Row;
-                        item.DesktopPosition.Column = field.DesktopPosition.Column;
-
-                        item.TabletPosition.SizeX = field.TabletPosition.SizeX;
-                        item.TabletPosition.SizeY = field.TabletPosition.SizeY;
-                        item.TabletPosition.Row = field.TabletPosition.Row;
-                        item.TabletPosition.Column = field.TabletPosition.Column;
-
-                        item.MobilePosition.SizeY = field.MobilePosition.SizeY;
-                        item.MobilePosition.Row = field.MobilePosition.Row;
-
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
 
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
 
-                                item.PictureHelpFile = field.PictureHelpFile;
-                            }
+                            item.PictureHelpFile = field.PictureHelpFile;
                         }
-                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                    }
+                    else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
-                            {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
 
-                                item.PictureHelpFile = string.Empty;
-                            }
+                            item.PictureHelpFile = string.Empty;
                         }
                     }
                 }
+            }
 
-                //New TextArea
-                if (textAreas_new != null && textAreas_new.Length > 0)
+            //New TextArea
+            if (textAreas_new != null && textAreas_new.Length > 0)
+            {
+                foreach (DomainClasses.FormField_TextArea field in textAreas_new)
                 {
-                    foreach (DomainClasses.FormField_TextArea field in textAreas_new)
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
                     {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
 
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
                         }
-
-                        field.Form = formItem;
-                        context.FormFields_TextArea.Add(field);
-                    }
-                }
-
-                //Edit TextArea
-                if (textAreas != null && textAreas.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_TextArea field in textAreas)
-                    {
-                        DomainClasses.FormField_TextArea item = context.FormFields_TextArea
-                            .Include(x => x.DesktopPosition)
-                            .Include(x => x.TabletPosition)
-                            .Include(x => x.MobilePosition)
-                            .Single(x => x.Id == field.Id);
-
-                        item.Title = field.Title;
-                        item.Description = field.Description;
-                        item.ShowCustomer = field.ShowCustomer;
-                        item.IsRequired = field.IsRequired;
-                        item.CharacterLimits = field.CharacterLimits;
-                        item.MinCharacters = field.MinCharacters;
-                        item.MaxCharacters = field.MaxCharacters;
-                        item.ShowInFactor = field.ShowInFactor;
-                        item.FactorOrder = field.FactorOrder;
-                        item.Height = field.Height;
-
-                        item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
-                        item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
-                        item.DesktopPosition.Row = field.DesktopPosition.Row;
-                        item.DesktopPosition.Column = field.DesktopPosition.Column;
-
-                        item.TabletPosition.SizeX = field.TabletPosition.SizeX;
-                        item.TabletPosition.SizeY = field.TabletPosition.SizeY;
-                        item.TabletPosition.Row = field.TabletPosition.Row;
-                        item.TabletPosition.Column = field.TabletPosition.Column;
-
-                        item.MobilePosition.SizeY = field.MobilePosition.SizeY;
-                        item.MobilePosition.Row = field.MobilePosition.Row;
-
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                        else
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-
-                                item.PictureHelpFile = field.PictureHelpFile;
-                            }
-                        }
-                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
-                            {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
-
-                                item.PictureHelpFile = string.Empty;
-                            }
+                            field.PictureHelpFile = string.Empty;
                         }
                     }
+
+                    field.Form = formItem;
+                    _context.FormFields_TextArea.Add(field);
                 }
+            }
 
-                //New Numeric Stepper
-                if (numerics_new != null && numerics_new.Length > 0)
+            //Edit TextArea
+            if (textAreas != null && textAreas.Length > 0)
+            {
+                foreach (DomainClasses.FormField_TextArea field in textAreas)
                 {
-                    foreach (DomainClasses.FormField_Numeric field in numerics_new)
+                    DomainClasses.FormField_TextArea item = _context.FormFields_TextArea
+                        .Include(x => x.DesktopPosition)
+                        .Include(x => x.TabletPosition)
+                        .Include(x => x.MobilePosition)
+                        .Single(x => x.Id == field.Id);
+
+                    item.Title = field.Title;
+                    item.Description = field.Description;
+                    item.ShowCustomer = field.ShowCustomer;
+                    item.IsRequired = field.IsRequired;
+                    item.CharacterLimits = field.CharacterLimits;
+                    item.MinCharacters = field.MinCharacters;
+                    item.MaxCharacters = field.MaxCharacters;
+                    item.ShowInFactor = field.ShowInFactor;
+                    item.FactorOrder = field.FactorOrder;
+                    item.Height = field.Height;
+
+                    item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
+                    item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
+                    item.DesktopPosition.Row = field.DesktopPosition.Row;
+                    item.DesktopPosition.Column = field.DesktopPosition.Column;
+
+                    item.TabletPosition.SizeX = field.TabletPosition.SizeX;
+                    item.TabletPosition.SizeY = field.TabletPosition.SizeY;
+                    item.TabletPosition.Row = field.TabletPosition.Row;
+                    item.TabletPosition.Column = field.TabletPosition.Column;
+
+                    item.MobilePosition.SizeY = field.MobilePosition.SizeY;
+                    item.MobilePosition.Row = field.MobilePosition.Row;
+
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
                     {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
 
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+
+                            item.PictureHelpFile = field.PictureHelpFile;
                         }
-
-                        field.Form = formItem;
-                        context.FormFileds_Numeric.Add(field);
                     }
-                }
-
-                //Edit Numberic
-                if (numerics != null && numerics.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_Numeric field in numerics)
+                    else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
                     {
-                        DomainClasses.FormField_Numeric item = context.FormFileds_Numeric
-                            .Include(x => x.DesktopPosition)
-                            .Include(x => x.TabletPosition)
-                            .Include(x => x.MobilePosition)
-                            .Single(x => x.Id == field.Id);
-
-                        item.Title = field.Title;
-                        item.Description = field.Description;
-                        item.ShowCustomer = field.ShowCustomer;
-                        item.IsInt = field.IsInt;
-                        item.IsFloat = !field.IsInt;
-                        item.Defualt = field.Defualt;
-                        item.IsRequired = field.IsRequired;
-                        item.Limits = field.Limits;
-                        item.Min = field.Min;
-                        item.Max = field.Max;
-                        item.ShowInFactor = field.ShowInFactor;
-                        item.FactorOrder = field.FactorOrder;
-
-                        item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
-                        item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
-                        item.DesktopPosition.Row = field.DesktopPosition.Row;
-                        item.DesktopPosition.Column = field.DesktopPosition.Column;
-
-                        item.TabletPosition.SizeX = field.TabletPosition.SizeX;
-                        item.TabletPosition.SizeY = field.TabletPosition.SizeY;
-                        item.TabletPosition.Row = field.TabletPosition.Row;
-                        item.TabletPosition.Column = field.TabletPosition.Column;
-
-                        item.MobilePosition.SizeY = field.MobilePosition.SizeY;
-                        item.MobilePosition.Row = field.MobilePosition.Row;
-
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
 
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-
-                                item.PictureHelpFile = field.PictureHelpFile;
-                            }
-                        }
-                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
-                            {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
-
-                                item.PictureHelpFile = string.Empty;
-                            }
+                            item.PictureHelpFile = string.Empty;
                         }
                     }
                 }
+            }
 
-                //New Color Picker
-                if (colorPickers_new != null && colorPickers_new.Length > 0)
+            //New Numeric Stepper
+            if (numerics_new != null && numerics_new.Length > 0)
+            {
+                foreach (DomainClasses.FormField_Numeric field in numerics_new)
                 {
-                    foreach (DomainClasses.FormField_ColorPicker field in colorPickers_new)
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
                     {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
 
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
                         }
-
-                        field.Form = formItem;
-                        context.FormFields_ColorPicker.Add(field);
-                    }
-                }
-
-                //Edit Color Picker
-                if (colorPickers != null && colorPickers.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_ColorPicker field in colorPickers)
-                    {
-                        DomainClasses.FormField_ColorPicker item = context.FormFields_ColorPicker
-                            .Include(x => x.DesktopPosition)
-                            .Include(x => x.TabletPosition)
-                            .Include(x => x.MobilePosition)
-                            .Single(x => x.Id == field.Id);
-
-                        item.Title = field.Title;
-                        item.Description = field.Description;
-                        item.ShowCustomer = field.ShowCustomer;
-                        item.IsRequired = field.IsRequired;
-
-                        item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
-                        item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
-                        item.DesktopPosition.Row = field.DesktopPosition.Row;
-                        item.DesktopPosition.Column = field.DesktopPosition.Column;
-
-                        item.TabletPosition.SizeX = field.TabletPosition.SizeX;
-                        item.TabletPosition.SizeY = field.TabletPosition.SizeY;
-                        item.TabletPosition.Row = field.TabletPosition.Row;
-                        item.TabletPosition.Column = field.TabletPosition.Column;
-
-                        item.MobilePosition.SizeY = field.MobilePosition.SizeY;
-                        item.MobilePosition.Row = field.MobilePosition.Row;
-
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                        else
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-
-                                item.PictureHelpFile = field.PictureHelpFile;
-                            }
-                        }
-                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
-                            {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
-
-                                item.PictureHelpFile = string.Empty;
-                            }
+                            field.PictureHelpFile = string.Empty;
                         }
                     }
+
+                    field.Form = formItem;
+                    _context.FormFileds_Numeric.Add(field);
                 }
+            }
 
-                //New File Uploader
-                if (fileUploaders_new != null && fileUploaders_new.Length > 0)
+            //Edit Numberic
+            if (numerics != null && numerics.Length > 0)
+            {
+                foreach (DomainClasses.FormField_Numeric field in numerics)
                 {
-                    foreach (DomainClasses.FormField_FileUploader field in fileUploaders_new)
+                    DomainClasses.FormField_Numeric item = _context.FormFileds_Numeric
+                        .Include(x => x.DesktopPosition)
+                        .Include(x => x.TabletPosition)
+                        .Include(x => x.MobilePosition)
+                        .Single(x => x.Id == field.Id);
+
+                    item.Title = field.Title;
+                    item.Description = field.Description;
+                    item.ShowCustomer = field.ShowCustomer;
+                    item.IsInt = field.IsInt;
+                    item.IsFloat = !field.IsInt;
+                    item.Defualt = field.Defualt;
+                    item.IsRequired = field.IsRequired;
+                    item.Limits = field.Limits;
+                    item.Min = field.Min;
+                    item.Max = field.Max;
+                    item.ShowInFactor = field.ShowInFactor;
+                    item.FactorOrder = field.FactorOrder;
+
+                    item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
+                    item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
+                    item.DesktopPosition.Row = field.DesktopPosition.Row;
+                    item.DesktopPosition.Column = field.DesktopPosition.Column;
+
+                    item.TabletPosition.SizeX = field.TabletPosition.SizeX;
+                    item.TabletPosition.SizeY = field.TabletPosition.SizeY;
+                    item.TabletPosition.Row = field.TabletPosition.Row;
+                    item.TabletPosition.Column = field.TabletPosition.Column;
+
+                    item.MobilePosition.SizeY = field.MobilePosition.SizeY;
+                    item.MobilePosition.Row = field.MobilePosition.Row;
+
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
                     {
-                        DomainClasses.FormField_FileUploader newField = new DomainClasses.FormField_FileUploader()
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
                         {
-                            Title = field.Title,
-                            ShowAdmin = true,
-                            ShowCustomer = true,
-                            Description = field.Description,
-                            PictureHelpFile = field.PictureHelpFile,
-                            IsRequired = field.IsRequired,
-                            SizeLimits = field.SizeLimits,
-                            MinSize = field.MinSize,
-                            MaxSize = field.MaxSize,
-                            DesktopPosition = field.DesktopPosition,
-                            TabletPosition = field.TabletPosition,
-                            MobilePosition = field.MobilePosition
-                        };
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
 
-                        if (field.Formats != null && field.Formats.Count > 0)
-                        {
-                            newField.Formats = new List<DomainClasses.FileFormat>();
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
 
-                            foreach (DomainClasses.FileFormat format in field.Formats)
-                            {
-                                if (context.FileFormats.Any(x => x.Id == format.Id))
-                                {
-                                    newField.Formats.Add(context.FileFormats.Find(format.Id));
-                                }
-                            }
+                            item.PictureHelpFile = field.PictureHelpFile;
                         }
-
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
-                        }
-
-                        newField.Form = formItem;
-                        context.FormFields_FileUploader.Add(newField);
                     }
-                }
-
-                //Edit File Uploader
-                if (fileUploaders != null && fileUploaders.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_FileUploader field in fileUploaders)
+                    else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
                     {
-                        DomainClasses.FormField_FileUploader item = context.FormFields_FileUploader
-                            .Include(x => x.Formats)
-                            .Include(x => x.DesktopPosition)
-                            .Include(x => x.TabletPosition)
-                            .Include(x => x.MobilePosition)
-                            .Single(x => x.Id == field.Id);
-
-                        item.Title = field.Title;
-                        item.Description = field.Description;
-                        item.ShowCustomer = field.ShowCustomer;
-                        item.IsRequired = field.IsRequired;
-                        item.SizeLimits = field.SizeLimits;
-                        item.MinSize = field.MinSize;
-                        item.MaxSize = field.MaxSize;
-
-                        item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
-                        item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
-                        item.DesktopPosition.Row = field.DesktopPosition.Row;
-                        item.DesktopPosition.Column = field.DesktopPosition.Column;
-
-                        item.TabletPosition.SizeX = field.TabletPosition.SizeX;
-                        item.TabletPosition.SizeY = field.TabletPosition.SizeY;
-                        item.TabletPosition.Row = field.TabletPosition.Row;
-                        item.TabletPosition.Column = field.TabletPosition.Column;
-
-                        item.MobilePosition.SizeY = field.MobilePosition.SizeY;
-                        item.MobilePosition.Row = field.MobilePosition.Row;
-
-                        item.Formats.Clear();
-                        if (field.Formats != null && field.Formats.Count > 0)
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
                         {
-                            foreach (DomainClasses.FileFormat format in field.Formats)
-                            {
-                                if (context.FileFormats.Any(x => x.Id == format.Id))
-                                {
-                                    item.Formats.Add(context.FileFormats.Find(format.Id));
-                                }
-                            }
-                        }
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
 
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-
-                                item.PictureHelpFile = field.PictureHelpFile;
-                            }
-                        }
-                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
-                            {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
-
-                                item.PictureHelpFile = string.Empty;
-                            }
+                            item.PictureHelpFile = string.Empty;
                         }
                     }
                 }
+            }
 
-                //New Checkbox
-                if (checkboxs_new != null && checkboxs_new.Length > 0)
+            //New Color Picker
+            if (colorPickers_new != null && colorPickers_new.Length > 0)
+            {
+                foreach (DomainClasses.FormField_ColorPicker field in colorPickers_new)
                 {
-                    foreach (DomainClasses.FormField_CheckBox field in checkboxs_new)
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
                     {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
 
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
                         }
-
-                        field.Form = formItem;
-                        context.FormFields_CheckBox.Add(field);
-                    }
-                }
-
-                //Edit Checkbox
-                if (checkboxs != null && checkboxs.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_CheckBox field in checkboxs)
-                    {
-                        DomainClasses.FormField_CheckBox item = context.FormFields_CheckBox
-                            .Include(x => x.DesktopPosition)
-                            .Include(x => x.TabletPosition)
-                            .Include(x => x.MobilePosition)
-                            .Single(x => x.Id == field.Id);
-
-                        item.Title = field.Title;
-                        item.Description = field.Description;
-                        item.ShowCustomer = field.ShowCustomer;
-                        item.ShowInFactor = field.ShowInFactor;
-                        item.FactorOrder = field.FactorOrder;
-
-                        item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
-                        item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
-                        item.DesktopPosition.Row = field.DesktopPosition.Row;
-                        item.DesktopPosition.Column = field.DesktopPosition.Column;
-
-                        item.TabletPosition.SizeX = field.TabletPosition.SizeX;
-                        item.TabletPosition.SizeY = field.TabletPosition.SizeY;
-                        item.TabletPosition.Row = field.TabletPosition.Row;
-                        item.TabletPosition.Column = field.TabletPosition.Column;
-
-                        item.MobilePosition.SizeY = field.MobilePosition.SizeY;
-                        item.MobilePosition.Row = field.MobilePosition.Row;
-
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                        else
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-
-                                item.PictureHelpFile = field.PictureHelpFile;
-                            }
-                        }
-                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
-                            {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
-
-                                item.PictureHelpFile = string.Empty;
-                            }
+                            field.PictureHelpFile = string.Empty;
                         }
                     }
+
+                    field.Form = formItem;
+                    _context.FormFields_ColorPicker.Add(field);
                 }
+            }
 
-                //New Web Url
-                if (webUrls_new != null && webUrls_new.Length > 0)
+            //Edit Color Picker
+            if (colorPickers != null && colorPickers.Length > 0)
+            {
+                foreach (DomainClasses.FormField_ColorPicker field in colorPickers)
                 {
-                    foreach (DomainClasses.FormField_WebUrl field in webUrls_new)
+                    DomainClasses.FormField_ColorPicker item = _context.FormFields_ColorPicker
+                        .Include(x => x.DesktopPosition)
+                        .Include(x => x.TabletPosition)
+                        .Include(x => x.MobilePosition)
+                        .Single(x => x.Id == field.Id);
+
+                    item.Title = field.Title;
+                    item.Description = field.Description;
+                    item.ShowCustomer = field.ShowCustomer;
+                    item.IsRequired = field.IsRequired;
+
+                    item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
+                    item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
+                    item.DesktopPosition.Row = field.DesktopPosition.Row;
+                    item.DesktopPosition.Column = field.DesktopPosition.Column;
+
+                    item.TabletPosition.SizeX = field.TabletPosition.SizeX;
+                    item.TabletPosition.SizeY = field.TabletPosition.SizeY;
+                    item.TabletPosition.Row = field.TabletPosition.Row;
+                    item.TabletPosition.Column = field.TabletPosition.Column;
+
+                    item.MobilePosition.SizeY = field.MobilePosition.SizeY;
+                    item.MobilePosition.Row = field.MobilePosition.Row;
+
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
                     {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
 
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+
+                            item.PictureHelpFile = field.PictureHelpFile;
                         }
-
-                        field.Form = formItem;
-                        context.FormFields_WebUrl.Add(field);
                     }
-                }
-
-                //Edit Web Url
-                if (webUrls != null && webUrls.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_WebUrl field in webUrls)
+                    else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
                     {
-                        DomainClasses.FormField_WebUrl item = context.FormFields_WebUrl
-                            .Include(x => x.DesktopPosition)
-                            .Include(x => x.TabletPosition)
-                            .Include(x => x.MobilePosition)
-                            .Single(x => x.Id == field.Id);
-
-                        item.Title = field.Title;
-                        item.Description = field.Description;
-                        item.ShowCustomer = field.ShowCustomer;
-                        item.IsRequired = field.IsRequired;
-
-                        item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
-                        item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
-                        item.DesktopPosition.Row = field.DesktopPosition.Row;
-                        item.DesktopPosition.Column = field.DesktopPosition.Column;
-
-                        item.TabletPosition.SizeX = field.TabletPosition.SizeX;
-                        item.TabletPosition.SizeY = field.TabletPosition.SizeY;
-                        item.TabletPosition.Row = field.TabletPosition.Row;
-                        item.TabletPosition.Column = field.TabletPosition.Column;
-
-                        item.MobilePosition.SizeY = field.MobilePosition.SizeY;
-                        item.MobilePosition.Row = field.MobilePosition.Row;
-
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
 
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-
-                                item.PictureHelpFile = field.PictureHelpFile;
-                            }
-                        }
-                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
-                            {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
-
-                                item.PictureHelpFile = string.Empty;
-                            }
+                            item.PictureHelpFile = string.Empty;
                         }
                     }
                 }
+            }
 
-                //New Date Pickers
-                if (datePickers_new != null && datePickers_new.Length > 0)
+            //New File Uploader
+            if (fileUploaders_new != null && fileUploaders_new.Length > 0)
+            {
+                foreach (DomainClasses.FormField_FileUploader field in fileUploaders_new)
                 {
-                    foreach (DomainClasses.FormField_DatePicker field in datePickers_new)
+                    DomainClasses.FormField_FileUploader newField = new DomainClasses.FormField_FileUploader()
                     {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                        Title = field.Title,
+                        ShowAdmin = true,
+                        ShowCustomer = true,
+                        Description = field.Description,
+                        PictureHelpFile = field.PictureHelpFile,
+                        IsRequired = field.IsRequired,
+                        SizeLimits = field.SizeLimits,
+                        MinSize = field.MinSize,
+                        MaxSize = field.MaxSize,
+                        DesktopPosition = field.DesktopPosition,
+                        TabletPosition = field.TabletPosition,
+                        MobilePosition = field.MobilePosition
+                    };
 
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
-                            {
-                                field.PictureHelpFile = string.Empty;
-                            }
-                        }
-
-                        field.Form = formItem;
-                        context.FormFields_DatePicker.Add(field);
-                    }
-                }
-
-                //Edit Date Picker
-                if (datePickers != null && datePickers.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_DatePicker field in datePickers)
+                    if (field.Formats != null && field.Formats.Count > 0)
                     {
-                        DomainClasses.FormField_DatePicker item = context.FormFields_DatePicker
-                            .Include(x => x.DesktopPosition)
-                            .Include(x => x.TabletPosition)
-                            .Include(x => x.MobilePosition)
-                            .Single(x => x.Id == field.Id);
+                        newField.Formats = new List<DomainClasses.FileFormat>();
 
-                        item.Title = field.Title;
-                        item.Description = field.Description;
-                        item.ShowCustomer = field.ShowCustomer;
-                        item.IsRequired = field.IsRequired;
-                        item.Limits = field.Limits;
-                        item.Min = field.Min;
-                        item.Max = field.Max;
-                        item.ShowInFactor = field.ShowInFactor;
-                        item.FactorOrder = field.FactorOrder;
-
-                        item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
-                        item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
-                        item.DesktopPosition.Row = field.DesktopPosition.Row;
-                        item.DesktopPosition.Column = field.DesktopPosition.Column;
-
-                        item.TabletPosition.SizeX = field.TabletPosition.SizeX;
-                        item.TabletPosition.SizeY = field.TabletPosition.SizeY;
-                        item.TabletPosition.Row = field.TabletPosition.Row;
-                        item.TabletPosition.Column = field.TabletPosition.Column;
-
-                        item.MobilePosition.SizeY = field.MobilePosition.SizeY;
-                        item.MobilePosition.Row = field.MobilePosition.Row;
-
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                        foreach (DomainClasses.FileFormat format in field.Formats)
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                            if (_context.FileFormats.Any(x => x.Id == format.Id))
                             {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-
-                                item.PictureHelpFile = field.PictureHelpFile;
-                            }
-                        }
-                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
-                            {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
-
-                                item.PictureHelpFile = string.Empty;
+                                newField.Formats.Add(_context.FileFormats.Find(format.Id));
                             }
                         }
                     }
-                }
 
-                //New Drop Down
-                if (dropDowns_new != null && dropDowns_new.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_DropDown field in dropDowns_new)
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
                     {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
 
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-                            }
-                            else
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    newField.Form = formItem;
+                    _context.FormFields_FileUploader.Add(newField);
+                }
+            }
+
+            //Edit File Uploader
+            if (fileUploaders != null && fileUploaders.Length > 0)
+            {
+                foreach (DomainClasses.FormField_FileUploader field in fileUploaders)
+                {
+                    DomainClasses.FormField_FileUploader item = _context.FormFields_FileUploader
+                        .Include(x => x.Formats)
+                        .Include(x => x.DesktopPosition)
+                        .Include(x => x.TabletPosition)
+                        .Include(x => x.MobilePosition)
+                        .Single(x => x.Id == field.Id);
+
+                    item.Title = field.Title;
+                    item.Description = field.Description;
+                    item.ShowCustomer = field.ShowCustomer;
+                    item.IsRequired = field.IsRequired;
+                    item.SizeLimits = field.SizeLimits;
+                    item.MinSize = field.MinSize;
+                    item.MaxSize = field.MaxSize;
+
+                    item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
+                    item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
+                    item.DesktopPosition.Row = field.DesktopPosition.Row;
+                    item.DesktopPosition.Column = field.DesktopPosition.Column;
+
+                    item.TabletPosition.SizeX = field.TabletPosition.SizeX;
+                    item.TabletPosition.SizeY = field.TabletPosition.SizeY;
+                    item.TabletPosition.Row = field.TabletPosition.Row;
+                    item.TabletPosition.Column = field.TabletPosition.Column;
+
+                    item.MobilePosition.SizeY = field.MobilePosition.SizeY;
+                    item.MobilePosition.Row = field.MobilePosition.Row;
+
+                    item.Formats.Clear();
+                    if (field.Formats != null && field.Formats.Count > 0)
+                    {
+                        foreach (DomainClasses.FileFormat format in field.Formats)
+                        {
+                            if (_context.FileFormats.Any(x => x.Id == format.Id))
                             {
-                                field.PictureHelpFile = string.Empty;
+                                item.Formats.Add(_context.FileFormats.Find(format.Id));
                             }
                         }
+                    }
 
-                        field.Form = formItem;
-                        context.FormFields_DropDown.Add(field);
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+
+                            item.PictureHelpFile = field.PictureHelpFile;
+                        }
+                    }
+                    else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                        {
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                            item.PictureHelpFile = string.Empty;
+                        }
                     }
                 }
+            }
 
-                //Edit Drop Down
-                if (dropDowns != null && dropDowns.Length > 0)
+            //New Checkbox
+            if (checkboxs_new != null && checkboxs_new.Length > 0)
+            {
+                foreach (DomainClasses.FormField_CheckBox field in checkboxs_new)
                 {
-                    foreach (DomainClasses.FormField_DropDown field in dropDowns)
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
                     {
-                        DomainClasses.FormField_DropDown item = context.FormFields_DropDown
-                            .Include(x => x.Items)
-                            .Include(x => x.DesktopPosition)
-                            .Include(x => x.TabletPosition)
-                            .Include(x => x.MobilePosition)
-                            .Single(x => x.Id == field.Id);
-
-                        item.Title = field.Title;
-                        item.Description = field.Description;
-                        item.ShowCustomer = field.ShowCustomer;
-                        item.IsRequired = field.IsRequired;
-                        item.ShowInFactor = field.ShowInFactor;
-                        item.FactorOrder = field.FactorOrder;
-
-                        item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
-                        item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
-                        item.DesktopPosition.Row = field.DesktopPosition.Row;
-                        item.DesktopPosition.Column = field.DesktopPosition.Column;
-
-                        item.TabletPosition.SizeX = field.TabletPosition.SizeX;
-                        item.TabletPosition.SizeY = field.TabletPosition.SizeY;
-                        item.TabletPosition.Row = field.TabletPosition.Row;
-                        item.TabletPosition.Column = field.TabletPosition.Column;
-
-                        item.MobilePosition.SizeY = field.MobilePosition.SizeY;
-                        item.MobilePosition.Row = field.MobilePosition.Row;
-
-                        //Remove Old Items
-                        if (item.Items.ToList().Count > 0)
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
                         {
-                            foreach (DomainClasses.FormField_DropDown_Item dropDownItem in item.Items.ToList())
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    field.Form = formItem;
+                    _context.FormFields_CheckBox.Add(field);
+                }
+            }
+
+            //Edit Checkbox
+            if (checkboxs != null && checkboxs.Length > 0)
+            {
+                foreach (DomainClasses.FormField_CheckBox field in checkboxs)
+                {
+                    DomainClasses.FormField_CheckBox item = _context.FormFields_CheckBox
+                        .Include(x => x.DesktopPosition)
+                        .Include(x => x.TabletPosition)
+                        .Include(x => x.MobilePosition)
+                        .Single(x => x.Id == field.Id);
+
+                    item.Title = field.Title;
+                    item.Description = field.Description;
+                    item.ShowCustomer = field.ShowCustomer;
+                    item.ShowInFactor = field.ShowInFactor;
+                    item.FactorOrder = field.FactorOrder;
+
+                    item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
+                    item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
+                    item.DesktopPosition.Row = field.DesktopPosition.Row;
+                    item.DesktopPosition.Column = field.DesktopPosition.Column;
+
+                    item.TabletPosition.SizeX = field.TabletPosition.SizeX;
+                    item.TabletPosition.SizeY = field.TabletPosition.SizeY;
+                    item.TabletPosition.Row = field.TabletPosition.Row;
+                    item.TabletPosition.Column = field.TabletPosition.Column;
+
+                    item.MobilePosition.SizeY = field.MobilePosition.SizeY;
+                    item.MobilePosition.Row = field.MobilePosition.Row;
+
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+
+                            item.PictureHelpFile = field.PictureHelpFile;
+                        }
+                    }
+                    else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                        {
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                            item.PictureHelpFile = string.Empty;
+                        }
+                    }
+                }
+            }
+
+            //New Web Url
+            if (webUrls_new != null && webUrls_new.Length > 0)
+            {
+                foreach (DomainClasses.FormField_WebUrl field in webUrls_new)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    field.Form = formItem;
+                    _context.FormFields_WebUrl.Add(field);
+                }
+            }
+
+            //Edit Web Url
+            if (webUrls != null && webUrls.Length > 0)
+            {
+                foreach (DomainClasses.FormField_WebUrl field in webUrls)
+                {
+                    DomainClasses.FormField_WebUrl item = _context.FormFields_WebUrl
+                        .Include(x => x.DesktopPosition)
+                        .Include(x => x.TabletPosition)
+                        .Include(x => x.MobilePosition)
+                        .Single(x => x.Id == field.Id);
+
+                    item.Title = field.Title;
+                    item.Description = field.Description;
+                    item.ShowCustomer = field.ShowCustomer;
+                    item.IsRequired = field.IsRequired;
+
+                    item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
+                    item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
+                    item.DesktopPosition.Row = field.DesktopPosition.Row;
+                    item.DesktopPosition.Column = field.DesktopPosition.Column;
+
+                    item.TabletPosition.SizeX = field.TabletPosition.SizeX;
+                    item.TabletPosition.SizeY = field.TabletPosition.SizeY;
+                    item.TabletPosition.Row = field.TabletPosition.Row;
+                    item.TabletPosition.Column = field.TabletPosition.Column;
+
+                    item.MobilePosition.SizeY = field.MobilePosition.SizeY;
+                    item.MobilePosition.Row = field.MobilePosition.Row;
+
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+
+                            item.PictureHelpFile = field.PictureHelpFile;
+                        }
+                    }
+                    else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                        {
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                            item.PictureHelpFile = string.Empty;
+                        }
+                    }
+                }
+            }
+
+            //New Date Pickers
+            if (datePickers_new != null && datePickers_new.Length > 0)
+            {
+                foreach (DomainClasses.FormField_DatePicker field in datePickers_new)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    field.Form = formItem;
+                    _context.FormFields_DatePicker.Add(field);
+                }
+            }
+
+            //Edit Date Picker
+            if (datePickers != null && datePickers.Length > 0)
+            {
+                foreach (DomainClasses.FormField_DatePicker field in datePickers)
+                {
+                    DomainClasses.FormField_DatePicker item = _context.FormFields_DatePicker
+                        .Include(x => x.DesktopPosition)
+                        .Include(x => x.TabletPosition)
+                        .Include(x => x.MobilePosition)
+                        .Single(x => x.Id == field.Id);
+
+                    item.Title = field.Title;
+                    item.Description = field.Description;
+                    item.ShowCustomer = field.ShowCustomer;
+                    item.IsRequired = field.IsRequired;
+                    item.Limits = field.Limits;
+                    item.Min = field.Min;
+                    item.Max = field.Max;
+                    item.ShowInFactor = field.ShowInFactor;
+                    item.FactorOrder = field.FactorOrder;
+
+                    item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
+                    item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
+                    item.DesktopPosition.Row = field.DesktopPosition.Row;
+                    item.DesktopPosition.Column = field.DesktopPosition.Column;
+
+                    item.TabletPosition.SizeX = field.TabletPosition.SizeX;
+                    item.TabletPosition.SizeY = field.TabletPosition.SizeY;
+                    item.TabletPosition.Row = field.TabletPosition.Row;
+                    item.TabletPosition.Column = field.TabletPosition.Column;
+
+                    item.MobilePosition.SizeY = field.MobilePosition.SizeY;
+                    item.MobilePosition.Row = field.MobilePosition.Row;
+
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+
+                            item.PictureHelpFile = field.PictureHelpFile;
+                        }
+                    }
+                    else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                        {
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                            item.PictureHelpFile = string.Empty;
+                        }
+                    }
+                }
+            }
+
+            //New Drop Down
+            if (dropDowns_new != null && dropDowns_new.Length > 0)
+            {
+                foreach (DomainClasses.FormField_DropDown field in dropDowns_new)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    field.Form = formItem;
+                    _context.FormFields_DropDown.Add(field);
+                }
+            }
+
+            //Edit Drop Down
+            if (dropDowns != null && dropDowns.Length > 0)
+            {
+                foreach (DomainClasses.FormField_DropDown field in dropDowns)
+                {
+                    DomainClasses.FormField_DropDown item = _context.FormFields_DropDown
+                        .Include(x => x.Items)
+                        .Include(x => x.DesktopPosition)
+                        .Include(x => x.TabletPosition)
+                        .Include(x => x.MobilePosition)
+                        .Single(x => x.Id == field.Id);
+
+                    item.Title = field.Title;
+                    item.Description = field.Description;
+                    item.ShowCustomer = field.ShowCustomer;
+                    item.IsRequired = field.IsRequired;
+                    item.ShowInFactor = field.ShowInFactor;
+                    item.FactorOrder = field.FactorOrder;
+
+                    item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
+                    item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
+                    item.DesktopPosition.Row = field.DesktopPosition.Row;
+                    item.DesktopPosition.Column = field.DesktopPosition.Column;
+
+                    item.TabletPosition.SizeX = field.TabletPosition.SizeX;
+                    item.TabletPosition.SizeY = field.TabletPosition.SizeY;
+                    item.TabletPosition.Row = field.TabletPosition.Row;
+                    item.TabletPosition.Column = field.TabletPosition.Column;
+
+                    item.MobilePosition.SizeY = field.MobilePosition.SizeY;
+                    item.MobilePosition.Row = field.MobilePosition.Row;
+
+                    //Remove Old Items
+                    if (item.Items.ToList().Count > 0)
+                    {
+                        foreach (DomainClasses.FormField_DropDown_Item dropDownItem in item.Items.ToList())
+                        {
+                            if (field.Items != null && field.Items.Count > 0)
                             {
-                                if (field.Items != null && field.Items.Count > 0)
-                                {
-                                    if (!field.Items.Any(x => x.Id == dropDownItem.Id))
-                                    {
-                                        if (dropDownItem.CanDelete)
-                                        {
-                                            context.FormField_DropDown_Items.Remove(context.FormField_DropDown_Items.Find(dropDownItem.Id));
-                                        }
-                                        else
-                                        {
-                                            dropDownItem.ShowAdmin = false;
-                                            dropDownItem.ShowCustomer = false;
-                                        }
-                                    }
-                                }
-                                else
+                                if (!field.Items.Any(x => x.Id == dropDownItem.Id))
                                 {
                                     if (dropDownItem.CanDelete)
                                     {
-                                        context.FormField_DropDown_Items.Remove(context.FormField_DropDown_Items.Find(dropDownItem.Id));
+                                        _context.FormField_DropDown_Items.Remove(_context.FormField_DropDown_Items.Find(dropDownItem.Id));
                                     }
                                     else
                                     {
@@ -1285,141 +1275,141 @@ namespace Karenbic.Areas.Admin.Controllers
                                     }
                                 }
                             }
-                        }
-
-                        //Add New Items & Edit Old Items
-                        if (field.Items.ToList().Count > 0)
-                        {
-                            foreach (DomainClasses.FormField_DropDown_Item dropDownItem in field.Items.ToList())
+                            else
                             {
-                                if (!context.FormField_DropDown_Items.Any(x => x.Id == dropDownItem.Id))
+                                if (dropDownItem.CanDelete)
                                 {
-                                    item.Items.Add(dropDownItem);
+                                    _context.FormField_DropDown_Items.Remove(_context.FormField_DropDown_Items.Find(dropDownItem.Id));
                                 }
                                 else
                                 {
-                                    DomainClasses.FormField_DropDown_Item oldDropDownItem =
-                                        context.FormField_DropDown_Items.Find(dropDownItem.Id);
-                                    oldDropDownItem.Title = dropDownItem.Title;
-                                    oldDropDownItem.Order = dropDownItem.Order;
+                                    dropDownItem.ShowAdmin = false;
+                                    dropDownItem.ShowCustomer = false;
                                 }
                             }
                         }
-
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-
-                                item.PictureHelpFile = field.PictureHelpFile;
-                            }
-                        }
-                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
-                            {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
-
-                                item.PictureHelpFile = string.Empty;
-                            }
-                        }
                     }
-                }
 
-                //New Radio Button Group
-                if (radioButtonGroups_new != null && radioButtonGroups_new.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_RadioButtonGroup field in radioButtonGroups_new)
+                    //Add New Items & Edit Old Items
+                    if (field.Items.ToList().Count > 0)
                     {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                        foreach (DomainClasses.FormField_DropDown_Item dropDownItem in field.Items.ToList())
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                            if (!_context.FormField_DropDown_Items.Any(x => x.Id == dropDownItem.Id))
                             {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                                item.Items.Add(dropDownItem);
                             }
                             else
                             {
-                                field.PictureHelpFile = string.Empty;
+                                DomainClasses.FormField_DropDown_Item oldDropDownItem =
+                                    _context.FormField_DropDown_Items.Find(dropDownItem.Id);
+                                oldDropDownItem.Title = dropDownItem.Title;
+                                oldDropDownItem.Order = dropDownItem.Order;
                             }
                         }
+                    }
 
-                        field.Form = formItem;
-                        context.FormFields_RadioButtonGroup.Add(field);
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+
+                            item.PictureHelpFile = field.PictureHelpFile;
+                        }
+                    }
+                    else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                        {
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                            item.PictureHelpFile = string.Empty;
+                        }
                     }
                 }
+            }
 
-                //Edit Radio Button Group
-                if (radioButtonGroups != null && radioButtonGroups.Length > 0)
+            //New Radio Button Group
+            if (radioButtonGroups_new != null && radioButtonGroups_new.Length > 0)
+            {
+                foreach (DomainClasses.FormField_RadioButtonGroup field in radioButtonGroups_new)
                 {
-                    foreach (DomainClasses.FormField_RadioButtonGroup field in radioButtonGroups)
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
                     {
-                        DomainClasses.FormField_RadioButtonGroup item = context.FormFields_RadioButtonGroup
-                            .Include(x => x.Items)
-                            .Include(x => x.DesktopPosition)
-                            .Include(x => x.TabletPosition)
-                            .Include(x => x.MobilePosition)
-                            .Single(x => x.Id == field.Id);
-
-                        item.Title = field.Title;
-                        item.Description = field.Description;
-                        item.ShowCustomer = field.ShowCustomer;
-                        item.IsRequired = field.IsRequired;
-                        item.ShowInFactor = field.ShowInFactor;
-                        item.FactorOrder = field.FactorOrder;
-
-                        item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
-                        item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
-                        item.DesktopPosition.Row = field.DesktopPosition.Row;
-                        item.DesktopPosition.Column = field.DesktopPosition.Column;
-
-                        item.TabletPosition.SizeX = field.TabletPosition.SizeX;
-                        item.TabletPosition.SizeY = field.TabletPosition.SizeY;
-                        item.TabletPosition.Row = field.TabletPosition.Row;
-                        item.TabletPosition.Column = field.TabletPosition.Column;
-
-                        item.MobilePosition.SizeY = field.MobilePosition.SizeY;
-                        item.MobilePosition.Row = field.MobilePosition.Row;
-
-                        //Remove Old Items
-                        if (item.Items.ToList().Count > 0)
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
                         {
-                            foreach (DomainClasses.FormField_RadioButtonGroup_Item radioItem in item.Items.ToList())
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    field.Form = formItem;
+                    _context.FormFields_RadioButtonGroup.Add(field);
+                }
+            }
+
+            //Edit Radio Button Group
+            if (radioButtonGroups != null && radioButtonGroups.Length > 0)
+            {
+                foreach (DomainClasses.FormField_RadioButtonGroup field in radioButtonGroups)
+                {
+                    DomainClasses.FormField_RadioButtonGroup item = _context.FormFields_RadioButtonGroup
+                        .Include(x => x.Items)
+                        .Include(x => x.DesktopPosition)
+                        .Include(x => x.TabletPosition)
+                        .Include(x => x.MobilePosition)
+                        .Single(x => x.Id == field.Id);
+
+                    item.Title = field.Title;
+                    item.Description = field.Description;
+                    item.ShowCustomer = field.ShowCustomer;
+                    item.IsRequired = field.IsRequired;
+                    item.ShowInFactor = field.ShowInFactor;
+                    item.FactorOrder = field.FactorOrder;
+
+                    item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
+                    item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
+                    item.DesktopPosition.Row = field.DesktopPosition.Row;
+                    item.DesktopPosition.Column = field.DesktopPosition.Column;
+
+                    item.TabletPosition.SizeX = field.TabletPosition.SizeX;
+                    item.TabletPosition.SizeY = field.TabletPosition.SizeY;
+                    item.TabletPosition.Row = field.TabletPosition.Row;
+                    item.TabletPosition.Column = field.TabletPosition.Column;
+
+                    item.MobilePosition.SizeY = field.MobilePosition.SizeY;
+                    item.MobilePosition.Row = field.MobilePosition.Row;
+
+                    //Remove Old Items
+                    if (item.Items.ToList().Count > 0)
+                    {
+                        foreach (DomainClasses.FormField_RadioButtonGroup_Item radioItem in item.Items.ToList())
+                        {
+                            if (field.Items != null && field.Items.Count > 0)
                             {
-                                if (field.Items != null && field.Items.Count > 0)
-                                {
-                                    if (!field.Items.Any(x => x.Id == radioItem.Id))
-                                    {
-                                        if (radioItem.CanDelete)
-                                        {
-                                            context.FormField_RadioButtonGroup_Items.Remove(context.FormField_RadioButtonGroup_Items.Find(radioItem.Id));
-                                        }
-                                        else
-                                        {
-                                            radioItem.ShowAdmin = false;
-                                            radioItem.ShowCustomer = false;
-                                        }
-                                    }
-                                }
-                                else
+                                if (!field.Items.Any(x => x.Id == radioItem.Id))
                                 {
                                     if (radioItem.CanDelete)
                                     {
-                                        context.FormField_RadioButtonGroup_Items.Remove(context.FormField_RadioButtonGroup_Items.Find(radioItem.Id));
+                                        _context.FormField_RadioButtonGroup_Items.Remove(_context.FormField_RadioButtonGroup_Items.Find(radioItem.Id));
                                     }
                                     else
                                     {
@@ -1428,142 +1418,141 @@ namespace Karenbic.Areas.Admin.Controllers
                                     }
                                 }
                             }
-                        }
-
-                        //Add New Items & Edit Old Items
-                        if (field.Items.ToList().Count > 0)
-                        {
-                            foreach (DomainClasses.FormField_RadioButtonGroup_Item radioItem in field.Items.ToList())
+                            else
                             {
-                                if (!context.FormField_RadioButtonGroup_Items.Any(x => x.Id == radioItem.Id))
+                                if (radioItem.CanDelete)
                                 {
-                                    item.Items.Add(radioItem);
+                                    _context.FormField_RadioButtonGroup_Items.Remove(_context.FormField_RadioButtonGroup_Items.Find(radioItem.Id));
                                 }
                                 else
                                 {
-                                    DomainClasses.FormField_RadioButtonGroup_Item oldRadioItem =
-                                        context.FormField_RadioButtonGroup_Items.Find(radioItem.Id);
-                                    oldRadioItem.Title = radioItem.Title;
-                                    oldRadioItem.Order = radioItem.Order;
+                                    radioItem.ShowAdmin = false;
+                                    radioItem.ShowCustomer = false;
                                 }
                             }
                         }
-
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-
-                                item.PictureHelpFile = field.PictureHelpFile;
-                            }
-                        }
-                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
-                            {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
-
-                                item.PictureHelpFile = string.Empty;
-                            }
-                        }
                     }
-                }
 
-                //New CheckBox Group
-                if (checkBoxGroups_new != null && checkBoxGroups_new.Length > 0)
-                {
-                    foreach (DomainClasses.FormField_CheckBoxGroup field in checkBoxGroups_new)
+                    //Add New Items & Edit Old Items
+                    if (field.Items.ToList().Count > 0)
                     {
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                        foreach (DomainClasses.FormField_RadioButtonGroup_Item radioItem in field.Items.ToList())
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                            if (!_context.FormField_RadioButtonGroup_Items.Any(x => x.Id == radioItem.Id))
                             {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                                item.Items.Add(radioItem);
                             }
                             else
                             {
-                                field.PictureHelpFile = string.Empty;
+                                DomainClasses.FormField_RadioButtonGroup_Item oldRadioItem =
+                                    _context.FormField_RadioButtonGroup_Items.Find(radioItem.Id);
+                                oldRadioItem.Title = radioItem.Title;
+                                oldRadioItem.Order = radioItem.Order;
                             }
                         }
+                    }
 
-                        field.Form = formItem;
-                        context.FormFields_CheckBoxGroup.Add(field);
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+
+                            item.PictureHelpFile = field.PictureHelpFile;
+                        }
+                    }
+                    else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                        {
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                            item.PictureHelpFile = string.Empty;
+                        }
                     }
                 }
+            }
 
-                //Edit CheckBox Group
-                if (checkBoxGroups != null && checkBoxGroups.Length > 0)
+            //New CheckBox Group
+            if (checkBoxGroups_new != null && checkBoxGroups_new.Length > 0)
+            {
+                foreach (DomainClasses.FormField_CheckBoxGroup field in checkBoxGroups_new)
                 {
-                    foreach (DomainClasses.FormField_CheckBoxGroup field in checkBoxGroups)
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
                     {
-                        DomainClasses.FormField_CheckBoxGroup item = context.FormFields_CheckBoxGroup
-                            .Include(x => x.Items)
-                            .Include(x => x.DesktopPosition)
-                            .Include(x => x.TabletPosition)
-                            .Include(x => x.MobilePosition)
-                            .Single(x => x.Id == field.Id);
-
-                        item.Title = field.Title;
-                        item.Description = field.Description;
-                        item.ShowCustomer = field.ShowCustomer;
-                        item.ShowInFactor = field.ShowInFactor;
-                        item.FactorOrder = field.FactorOrder;
-
-                        item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
-                        item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
-                        item.DesktopPosition.Row = field.DesktopPosition.Row;
-                        item.DesktopPosition.Column = field.DesktopPosition.Column;
-
-                        item.TabletPosition.SizeX = field.TabletPosition.SizeX;
-                        item.TabletPosition.SizeY = field.TabletPosition.SizeY;
-                        item.TabletPosition.Row = field.TabletPosition.Row;
-                        item.TabletPosition.Column = field.TabletPosition.Column;
-
-                        item.MobilePosition.SizeY = field.MobilePosition.SizeY;
-                        item.MobilePosition.Row = field.MobilePosition.Row;
-
-                        //Remove Old Items
-                        if (item.Items.ToList().Count > 0)
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
                         {
-                            foreach (DomainClasses.FormField_CheckBoxGroup_Item checkboxItem in item.Items.ToList())
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    field.Form = formItem;
+                    _context.FormFields_CheckBoxGroup.Add(field);
+                }
+            }
+
+            //Edit CheckBox Group
+            if (checkBoxGroups != null && checkBoxGroups.Length > 0)
+            {
+                foreach (DomainClasses.FormField_CheckBoxGroup field in checkBoxGroups)
+                {
+                    DomainClasses.FormField_CheckBoxGroup item = _context.FormFields_CheckBoxGroup
+                        .Include(x => x.Items)
+                        .Include(x => x.DesktopPosition)
+                        .Include(x => x.TabletPosition)
+                        .Include(x => x.MobilePosition)
+                        .Single(x => x.Id == field.Id);
+
+                    item.Title = field.Title;
+                    item.Description = field.Description;
+                    item.ShowCustomer = field.ShowCustomer;
+                    item.ShowInFactor = field.ShowInFactor;
+                    item.FactorOrder = field.FactorOrder;
+
+                    item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
+                    item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
+                    item.DesktopPosition.Row = field.DesktopPosition.Row;
+                    item.DesktopPosition.Column = field.DesktopPosition.Column;
+
+                    item.TabletPosition.SizeX = field.TabletPosition.SizeX;
+                    item.TabletPosition.SizeY = field.TabletPosition.SizeY;
+                    item.TabletPosition.Row = field.TabletPosition.Row;
+                    item.TabletPosition.Column = field.TabletPosition.Column;
+
+                    item.MobilePosition.SizeY = field.MobilePosition.SizeY;
+                    item.MobilePosition.Row = field.MobilePosition.Row;
+
+                    //Remove Old Items
+                    if (item.Items.ToList().Count > 0)
+                    {
+                        foreach (DomainClasses.FormField_CheckBoxGroup_Item checkboxItem in item.Items.ToList())
+                        {
+                            if (field.Items != null && field.Items.Count > 0)
                             {
-                                if (field.Items != null && field.Items.Count > 0)
-                                {
-                                    if (!field.Items.Any(x => x.Id == checkboxItem.Id))
-                                    {
-                                        if (checkboxItem.CanDelete)
-                                        {
-                                            context.FormField_CheckBoxGroup_Items.Remove(
-                                                context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id));
-                                        }
-                                        else
-                                        {
-                                            checkboxItem.ShowAdmin = false;
-                                            checkboxItem.ShowCustomer = false;
-                                        }
-                                    }
-                                }
-                                else
+                                if (!field.Items.Any(x => x.Id == checkboxItem.Id))
                                 {
                                     if (checkboxItem.CanDelete)
                                     {
-                                        context.FormField_CheckBoxGroup_Items.Remove(
-                                            context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id));
+                                        _context.FormField_CheckBoxGroup_Items.Remove(
+                                            _context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id));
                                     }
                                     else
                                     {
@@ -1572,81 +1561,94 @@ namespace Karenbic.Areas.Admin.Controllers
                                     }
                                 }
                             }
-                        }
-
-                        //Add New Items & Edit Old Items
-                        if (field.Items.ToList().Count > 0)
-                        {
-                            foreach (DomainClasses.FormField_CheckBoxGroup_Item checkboxItem in field.Items.ToList())
+                            else
                             {
-                                if (!context.FormField_CheckBoxGroup_Items.Any(x => x.Id == checkboxItem.Id))
+                                if (checkboxItem.CanDelete)
                                 {
-                                    item.Items.Add(checkboxItem);
+                                    _context.FormField_CheckBoxGroup_Items.Remove(
+                                        _context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id));
                                 }
                                 else
                                 {
-                                    DomainClasses.FormField_CheckBoxGroup_Item oldCheckboxItem =
-                                        context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id);
-                                    oldCheckboxItem.Title = checkboxItem.Title;
-                                    oldCheckboxItem.Order = checkboxItem.Order;
+                                    checkboxItem.ShowAdmin = false;
+                                    checkboxItem.ShowCustomer = false;
                                 }
                             }
                         }
-
-                        if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Move(
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
-                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
-
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
-
-                                item.PictureHelpFile = field.PictureHelpFile;
-                            }
-                        }
-                        else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
-                            {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
-
-                                item.PictureHelpFile = string.Empty;
-                            }
-                        }
                     }
-                }
 
-                //Remove Fields
-                if (removedFields != null && removedFields.Length > 0)
-                {
-                    foreach (int id in removedFields)
+                    //Add New Items & Edit Old Items
+                    if (field.Items.ToList().Count > 0)
                     {
-                        DomainClasses.FormField field = context.FormFields.Find(id);
-                        if (field.CanDelete)
+                        foreach (DomainClasses.FormField_CheckBoxGroup_Item checkboxItem in field.Items.ToList())
                         {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile)))
+                            if (!_context.FormField_CheckBoxGroup_Items.Any(x => x.Id == checkboxItem.Id))
                             {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                                item.Items.Add(checkboxItem);
                             }
-                            context.FormFields.Remove(field);
+                            else
+                            {
+                                DomainClasses.FormField_CheckBoxGroup_Item oldCheckboxItem =
+                                    _context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id);
+                                oldCheckboxItem.Title = checkboxItem.Title;
+                                oldCheckboxItem.Order = checkboxItem.Order;
+                            }
                         }
-                        else
+                    }
+
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
                         {
-                            field.ShowAdmin = false;
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+
+                            item.PictureHelpFile = field.PictureHelpFile;
+                        }
+                    }
+                    else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                        {
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                            item.PictureHelpFile = string.Empty;
                         }
                     }
                 }
-
-                context.SaveChanges();
             }
+
+            //Remove Fields
+            if (removedFields != null && removedFields.Length > 0)
+            {
+                foreach (int id in removedFields)
+                {
+                    DomainClasses.FormField field = _context.FormFields.Find(id);
+                    if (field.CanDelete)
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+                        }
+                        _context.FormFields.Remove(field);
+                    }
+                    else
+                    {
+                        field.ShowAdmin = false;
+                    }
+                }
+            }
+
+            _context.SaveChanges();
 
             return Json(new
             {
@@ -1665,635 +1667,632 @@ namespace Karenbic.Areas.Admin.Controllers
             DomainClasses.Form form = new DomainClasses.Form();
             List<object> fields = new List<object>();
 
-            using (DataAccess.Context context = new DataAccess.Context())
+            form = _context.Forms
+                .Include(x => x.Group)
+                .Include(x => x.Fields)
+                .Include(x => x.Fields.Select(c => c.DesktopPosition))
+                .Include(x => x.Fields.Select(c => c.TabletPosition))
+                .Include(x => x.Fields.Select(c => c.MobilePosition))
+                .Single(x => x.Id == id);
+
+            foreach (DomainClasses.FormField field in form.Fields)
             {
-                form = context.Forms
-                    .Include(x => x.Group)
-                    .Include(x => x.Fields)
-                    .Include(x => x.Fields.Select(c => c.DesktopPosition))
-                    .Include(x => x.Fields.Select(c => c.TabletPosition))
-                    .Include(x => x.Fields.Select(c => c.MobilePosition))
-                    .Single(x => x.Id == id);
-
-                foreach (DomainClasses.FormField field in form.Fields)
+                if (field.ShowAdmin)
                 {
-                    if (field.ShowAdmin)
+                    //TextBox
+                    if (field is DomainClasses.FormField_TextBox)
                     {
-                        //TextBox
-                        if (field is DomainClasses.FormField_TextBox)
+                        DomainClasses.FormField_TextBox item = (DomainClasses.FormField_TextBox)field;
+
+                        fields.Add(new
                         {
-                            DomainClasses.FormField_TextBox item = (DomainClasses.FormField_TextBox)field;
-
-                            fields.Add(new
+                            type = 0,
+                            data = new
                             {
-                                type = 0,
-                                data = new
-                                {
-                                    id = item.Id,
-                                    title = item.Title,
-                                    showCustomer = item.ShowCustomer,
-                                    description = item.Description,
-                                    pictureHelpFile = item.PictureHelpFile,
-                                    pictureHelpPath = item.PictureHelpPath,
-                                    hasPictureHelpFile = item.HasPictureHelpFile,
-                                    canDelete = item.CanDelete,
-                                    defualt = item.Defualt,
-                                    isRequired = item.IsRequired,
-                                    characterLimits = item.CharacterLimits,
-                                    minCharacters = item.MinCharacters,
-                                    maxCharacters = item.MaxCharacters,
-                                    showInFactor = item.ShowInFactor,
-                                    factorOrder = item.FactorOrder
-                                },
-                                desktop_position = new
-                                {
-                                    sizeX = item.DesktopPosition.SizeX,
-                                    sizeY = item.DesktopPosition.SizeY,
-                                    row = item.DesktopPosition.Row,
-                                    col = item.DesktopPosition.Column
-                                },
-                                tablet_position = new
-                                {
-                                    sizeX = item.TabletPosition.SizeX,
-                                    sizeY = item.TabletPosition.SizeY,
-                                    row = item.TabletPosition.Row,
-                                    col = item.TabletPosition.Column
-                                },
-                                mobile_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = item.MobilePosition.SizeY,
-                                    row = item.MobilePosition.Row,
-                                    col = 0
-                                },
-                                factor_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = 1,
-                                    row = item.FactorOrder,
-                                    col = 0
-                                }
-                            });
-                        }
+                                id = item.Id,
+                                title = item.Title,
+                                showCustomer = item.ShowCustomer,
+                                description = item.Description,
+                                pictureHelpFile = item.PictureHelpFile,
+                                pictureHelpPath = item.PictureHelpPath,
+                                hasPictureHelpFile = item.HasPictureHelpFile,
+                                canDelete = item.CanDelete,
+                                defualt = item.Defualt,
+                                isRequired = item.IsRequired,
+                                characterLimits = item.CharacterLimits,
+                                minCharacters = item.MinCharacters,
+                                maxCharacters = item.MaxCharacters,
+                                showInFactor = item.ShowInFactor,
+                                factorOrder = item.FactorOrder
+                            },
+                            desktop_position = new
+                            {
+                                sizeX = item.DesktopPosition.SizeX,
+                                sizeY = item.DesktopPosition.SizeY,
+                                row = item.DesktopPosition.Row,
+                                col = item.DesktopPosition.Column
+                            },
+                            tablet_position = new
+                            {
+                                sizeX = item.TabletPosition.SizeX,
+                                sizeY = item.TabletPosition.SizeY,
+                                row = item.TabletPosition.Row,
+                                col = item.TabletPosition.Column
+                            },
+                            mobile_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = item.MobilePosition.SizeY,
+                                row = item.MobilePosition.Row,
+                                col = 0
+                            },
+                            factor_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = 1,
+                                row = item.FactorOrder,
+                                col = 0
+                            }
+                        });
+                    }
 
-                        //TextArea
-                        else if (field is DomainClasses.FormField_TextArea)
+                    //TextArea
+                    else if (field is DomainClasses.FormField_TextArea)
+                    {
+                        DomainClasses.FormField_TextArea item = (DomainClasses.FormField_TextArea)field;
+
+                        fields.Add(new
                         {
-                            DomainClasses.FormField_TextArea item = (DomainClasses.FormField_TextArea)field;
-
-                            fields.Add(new
+                            type = 1,
+                            data = new
                             {
-                                type = 1,
-                                data = new
-                                {
-                                    id = item.Id,
-                                    title = item.Title,
-                                    showCustomer = item.ShowCustomer,
-                                    description = item.Description,
-                                    pictureHelpFile = item.PictureHelpFile,
-                                    pictureHelpPath = item.PictureHelpPath,
-                                    hasPictureHelpFile = item.HasPictureHelpFile,
-                                    canDelete = item.CanDelete,
-                                    isRequired = item.IsRequired,
-                                    characterLimits = item.CharacterLimits,
-                                    minCharacters = item.MinCharacters,
-                                    maxCharacters = item.MaxCharacters,
-                                    showInFactor = item.ShowInFactor,
-                                    factorOrder = item.FactorOrder,
-                                    height = item.Height
-                                },
-                                desktop_position = new
-                                {
-                                    sizeX = item.DesktopPosition.SizeX,
-                                    sizeY = item.DesktopPosition.SizeY,
-                                    row = item.DesktopPosition.Row,
-                                    col = item.DesktopPosition.Column
-                                },
-                                tablet_position = new
-                                {
-                                    sizeX = item.TabletPosition.SizeX,
-                                    sizeY = item.TabletPosition.SizeY,
-                                    row = item.TabletPosition.Row,
-                                    col = item.TabletPosition.Column
-                                },
-                                mobile_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = item.MobilePosition.SizeY,
-                                    row = item.MobilePosition.Row,
-                                    col = 0
-                                },
-                                factor_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = 1,
-                                    row = item.FactorOrder,
-                                    col = 0
-                                }
-                            });
-                        }
+                                id = item.Id,
+                                title = item.Title,
+                                showCustomer = item.ShowCustomer,
+                                description = item.Description,
+                                pictureHelpFile = item.PictureHelpFile,
+                                pictureHelpPath = item.PictureHelpPath,
+                                hasPictureHelpFile = item.HasPictureHelpFile,
+                                canDelete = item.CanDelete,
+                                isRequired = item.IsRequired,
+                                characterLimits = item.CharacterLimits,
+                                minCharacters = item.MinCharacters,
+                                maxCharacters = item.MaxCharacters,
+                                showInFactor = item.ShowInFactor,
+                                factorOrder = item.FactorOrder,
+                                height = item.Height
+                            },
+                            desktop_position = new
+                            {
+                                sizeX = item.DesktopPosition.SizeX,
+                                sizeY = item.DesktopPosition.SizeY,
+                                row = item.DesktopPosition.Row,
+                                col = item.DesktopPosition.Column
+                            },
+                            tablet_position = new
+                            {
+                                sizeX = item.TabletPosition.SizeX,
+                                sizeY = item.TabletPosition.SizeY,
+                                row = item.TabletPosition.Row,
+                                col = item.TabletPosition.Column
+                            },
+                            mobile_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = item.MobilePosition.SizeY,
+                                row = item.MobilePosition.Row,
+                                col = 0
+                            },
+                            factor_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = 1,
+                                row = item.FactorOrder,
+                                col = 0
+                            }
+                        });
+                    }
 
-                        //Numeric
-                        else if (field is DomainClasses.FormField_Numeric)
+                    //Numeric
+                    else if (field is DomainClasses.FormField_Numeric)
+                    {
+                        DomainClasses.FormField_Numeric item = (DomainClasses.FormField_Numeric)field;
+
+                        fields.Add(new
                         {
-                            DomainClasses.FormField_Numeric item = (DomainClasses.FormField_Numeric)field;
-
-                            fields.Add(new
+                            type = 2,
+                            data = new
                             {
-                                type = 2,
-                                data = new
-                                {
-                                    id = item.Id,
-                                    title = item.Title,
-                                    showCustomer = item.ShowCustomer,
-                                    description = item.Description,
-                                    pictureHelpFile = item.PictureHelpFile,
-                                    pictureHelpPath = item.PictureHelpPath,
-                                    hasPictureHelpFile = item.HasPictureHelpFile,
-                                    isInt = item.IsInt,
-                                    isFloat = item.IsFloat,
-                                    canDelete = item.CanDelete,
-                                    isRequired = item.IsRequired,
-                                    limits = item.Limits,
-                                    min = item.Min,
-                                    max = item.Max,
-                                    showInFactor = item.ShowInFactor,
-                                    factorOrder = item.FactorOrder
-                                },
-                                desktop_position = new
-                                {
-                                    sizeX = item.DesktopPosition.SizeX,
-                                    sizeY = item.DesktopPosition.SizeY,
-                                    row = item.DesktopPosition.Row,
-                                    col = item.DesktopPosition.Column
-                                },
-                                tablet_position = new
-                                {
-                                    sizeX = item.TabletPosition.SizeX,
-                                    sizeY = item.TabletPosition.SizeY,
-                                    row = item.TabletPosition.Row,
-                                    col = item.TabletPosition.Column
-                                },
-                                mobile_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = item.MobilePosition.SizeY,
-                                    row = item.MobilePosition.Row,
-                                    col = 0
-                                },
-                                factor_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = 1,
-                                    row = item.FactorOrder,
-                                    col = 0
-                                }
-                            });
-                        }
+                                id = item.Id,
+                                title = item.Title,
+                                showCustomer = item.ShowCustomer,
+                                description = item.Description,
+                                pictureHelpFile = item.PictureHelpFile,
+                                pictureHelpPath = item.PictureHelpPath,
+                                hasPictureHelpFile = item.HasPictureHelpFile,
+                                isInt = item.IsInt,
+                                isFloat = item.IsFloat,
+                                canDelete = item.CanDelete,
+                                isRequired = item.IsRequired,
+                                limits = item.Limits,
+                                min = item.Min,
+                                max = item.Max,
+                                showInFactor = item.ShowInFactor,
+                                factorOrder = item.FactorOrder
+                            },
+                            desktop_position = new
+                            {
+                                sizeX = item.DesktopPosition.SizeX,
+                                sizeY = item.DesktopPosition.SizeY,
+                                row = item.DesktopPosition.Row,
+                                col = item.DesktopPosition.Column
+                            },
+                            tablet_position = new
+                            {
+                                sizeX = item.TabletPosition.SizeX,
+                                sizeY = item.TabletPosition.SizeY,
+                                row = item.TabletPosition.Row,
+                                col = item.TabletPosition.Column
+                            },
+                            mobile_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = item.MobilePosition.SizeY,
+                                row = item.MobilePosition.Row,
+                                col = 0
+                            },
+                            factor_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = 1,
+                                row = item.FactorOrder,
+                                col = 0
+                            }
+                        });
+                    }
 
-                        //Color Picker
-                        else if (field is DomainClasses.FormField_ColorPicker)
+                    //Color Picker
+                    else if (field is DomainClasses.FormField_ColorPicker)
+                    {
+                        DomainClasses.FormField_ColorPicker item = (DomainClasses.FormField_ColorPicker)field;
+
+                        fields.Add(new
                         {
-                            DomainClasses.FormField_ColorPicker item = (DomainClasses.FormField_ColorPicker)field;
-
-                            fields.Add(new
+                            type = 3,
+                            data = new
                             {
-                                type = 3,
-                                data = new
-                                {
-                                    id = item.Id,
-                                    title = item.Title,
-                                    showCustomer = item.ShowCustomer,
-                                    description = item.Description,
-                                    pictureHelpFile = item.PictureHelpFile,
-                                    pictureHelpPath = item.PictureHelpPath,
-                                    hasPictureHelpFile = item.HasPictureHelpFile,
-                                    canDelete = item.CanDelete,
-                                    isRequired = item.IsRequired
-                                },
-                                desktop_position = new
-                                {
-                                    sizeX = item.DesktopPosition.SizeX,
-                                    sizeY = item.DesktopPosition.SizeY,
-                                    row = item.DesktopPosition.Row,
-                                    col = item.DesktopPosition.Column
-                                },
-                                tablet_position = new
-                                {
-                                    sizeX = item.TabletPosition.SizeX,
-                                    sizeY = item.TabletPosition.SizeY,
-                                    row = item.TabletPosition.Row,
-                                    col = item.TabletPosition.Column
-                                },
-                                mobile_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = item.MobilePosition.SizeY,
-                                    row = item.MobilePosition.Row,
-                                    col = 0
-                                },
-                                factor_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = 1,
-                                    row = 0,
-                                    col = 0
-                                }
-                            });
-                        }
+                                id = item.Id,
+                                title = item.Title,
+                                showCustomer = item.ShowCustomer,
+                                description = item.Description,
+                                pictureHelpFile = item.PictureHelpFile,
+                                pictureHelpPath = item.PictureHelpPath,
+                                hasPictureHelpFile = item.HasPictureHelpFile,
+                                canDelete = item.CanDelete,
+                                isRequired = item.IsRequired
+                            },
+                            desktop_position = new
+                            {
+                                sizeX = item.DesktopPosition.SizeX,
+                                sizeY = item.DesktopPosition.SizeY,
+                                row = item.DesktopPosition.Row,
+                                col = item.DesktopPosition.Column
+                            },
+                            tablet_position = new
+                            {
+                                sizeX = item.TabletPosition.SizeX,
+                                sizeY = item.TabletPosition.SizeY,
+                                row = item.TabletPosition.Row,
+                                col = item.TabletPosition.Column
+                            },
+                            mobile_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = item.MobilePosition.SizeY,
+                                row = item.MobilePosition.Row,
+                                col = 0
+                            },
+                            factor_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = 1,
+                                row = 0,
+                                col = 0
+                            }
+                        });
+                    }
 
 
-                        //File Uploader
-                        else if (field is DomainClasses.FormField_FileUploader)
+                    //File Uploader
+                    else if (field is DomainClasses.FormField_FileUploader)
+                    {
+                        DomainClasses.FormField_FileUploader item = (DomainClasses.FormField_FileUploader)field;
+
+                        fields.Add(new
                         {
-                            DomainClasses.FormField_FileUploader item = (DomainClasses.FormField_FileUploader)field;
-
-                            fields.Add(new
+                            type = 4,
+                            data = new
                             {
-                                type = 4,
-                                data = new
+                                id = item.Id,
+                                title = item.Title,
+                                showCustomer = item.ShowCustomer,
+                                description = item.Description,
+                                pictureHelpFile = item.PictureHelpFile,
+                                pictureHelpPath = item.PictureHelpPath,
+                                hasPictureHelpFile = item.HasPictureHelpFile,
+                                canDelete = item.CanDelete,
+                                isRequired = item.IsRequired,
+                                sizeLimits = item.SizeLimits,
+                                minSize = item.MinSize,
+                                maxSize = item.MaxSize,
+                                fileTypes = item.Formats.Select(c => new
                                 {
-                                    id = item.Id,
-                                    title = item.Title,
-                                    showCustomer = item.ShowCustomer,
-                                    description = item.Description,
-                                    pictureHelpFile = item.PictureHelpFile,
-                                    pictureHelpPath = item.PictureHelpPath,
-                                    hasPictureHelpFile = item.HasPictureHelpFile,
-                                    canDelete = item.CanDelete,
-                                    isRequired = item.IsRequired,
-                                    sizeLimits = item.SizeLimits,
-                                    minSize = item.MinSize,
-                                    maxSize = item.MaxSize,
-                                    fileTypes = item.Formats.Select(c => new
-                                    {
-                                        Id = c.Id,
-                                        Title = c.Title,
-                                        Extention = c.Extention
-                                    })
-                                },
-                                desktop_position = new
-                                {
-                                    sizeX = item.DesktopPosition.SizeX,
-                                    sizeY = item.DesktopPosition.SizeY,
-                                    row = item.DesktopPosition.Row,
-                                    col = item.DesktopPosition.Column
-                                },
-                                tablet_position = new
-                                {
-                                    sizeX = item.TabletPosition.SizeX,
-                                    sizeY = item.TabletPosition.SizeY,
-                                    row = item.TabletPosition.Row,
-                                    col = item.TabletPosition.Column
-                                },
-                                mobile_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = item.MobilePosition.SizeY,
-                                    row = item.MobilePosition.Row,
-                                    col = 0
-                                },
-                                factor_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = 1,
-                                    row = 0,
-                                    col = 0
-                                }
-                            });
-                        }
+                                    Id = c.Id,
+                                    Title = c.Title,
+                                    Extention = c.Extention
+                                })
+                            },
+                            desktop_position = new
+                            {
+                                sizeX = item.DesktopPosition.SizeX,
+                                sizeY = item.DesktopPosition.SizeY,
+                                row = item.DesktopPosition.Row,
+                                col = item.DesktopPosition.Column
+                            },
+                            tablet_position = new
+                            {
+                                sizeX = item.TabletPosition.SizeX,
+                                sizeY = item.TabletPosition.SizeY,
+                                row = item.TabletPosition.Row,
+                                col = item.TabletPosition.Column
+                            },
+                            mobile_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = item.MobilePosition.SizeY,
+                                row = item.MobilePosition.Row,
+                                col = 0
+                            },
+                            factor_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = 1,
+                                row = 0,
+                                col = 0
+                            }
+                        });
+                    }
 
-                        //Checkbox
-                        else if (field is DomainClasses.FormField_CheckBox)
+                    //Checkbox
+                    else if (field is DomainClasses.FormField_CheckBox)
+                    {
+                        DomainClasses.FormField_CheckBox item = (DomainClasses.FormField_CheckBox)field;
+
+                        fields.Add(new
                         {
-                            DomainClasses.FormField_CheckBox item = (DomainClasses.FormField_CheckBox)field;
-
-                            fields.Add(new
+                            type = 5,
+                            data = new
                             {
-                                type = 5,
-                                data = new
-                                {
-                                    id = item.Id,
-                                    title = item.Title,
-                                    showCustomer = item.ShowCustomer,
-                                    description = item.Description,
-                                    pictureHelpFile = item.PictureHelpFile,
-                                    pictureHelpPath = item.PictureHelpPath,
-                                    hasPictureHelpFile = item.HasPictureHelpFile,
-                                    canDelete = item.CanDelete,
-                                    showInFactor = item.ShowInFactor,
-                                    factorOrder = item.FactorOrder
-                                },
-                                desktop_position = new
-                                {
-                                    sizeX = item.DesktopPosition.SizeX,
-                                    sizeY = item.DesktopPosition.SizeY,
-                                    row = item.DesktopPosition.Row,
-                                    col = item.DesktopPosition.Column
-                                },
-                                tablet_position = new
-                                {
-                                    sizeX = item.TabletPosition.SizeX,
-                                    sizeY = item.TabletPosition.SizeY,
-                                    row = item.TabletPosition.Row,
-                                    col = item.TabletPosition.Column
-                                },
-                                mobile_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = item.MobilePosition.SizeY,
-                                    row = item.MobilePosition.Row,
-                                    col = 0
-                                },
-                                factor_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = 1,
-                                    row = item.FactorOrder,
-                                    col = 0
-                                }
-                            });
-                        }
+                                id = item.Id,
+                                title = item.Title,
+                                showCustomer = item.ShowCustomer,
+                                description = item.Description,
+                                pictureHelpFile = item.PictureHelpFile,
+                                pictureHelpPath = item.PictureHelpPath,
+                                hasPictureHelpFile = item.HasPictureHelpFile,
+                                canDelete = item.CanDelete,
+                                showInFactor = item.ShowInFactor,
+                                factorOrder = item.FactorOrder
+                            },
+                            desktop_position = new
+                            {
+                                sizeX = item.DesktopPosition.SizeX,
+                                sizeY = item.DesktopPosition.SizeY,
+                                row = item.DesktopPosition.Row,
+                                col = item.DesktopPosition.Column
+                            },
+                            tablet_position = new
+                            {
+                                sizeX = item.TabletPosition.SizeX,
+                                sizeY = item.TabletPosition.SizeY,
+                                row = item.TabletPosition.Row,
+                                col = item.TabletPosition.Column
+                            },
+                            mobile_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = item.MobilePosition.SizeY,
+                                row = item.MobilePosition.Row,
+                                col = 0
+                            },
+                            factor_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = 1,
+                                row = item.FactorOrder,
+                                col = 0
+                            }
+                        });
+                    }
 
-                        //Web URl
-                        else if (field is DomainClasses.FormField_WebUrl)
+                    //Web URl
+                    else if (field is DomainClasses.FormField_WebUrl)
+                    {
+                        DomainClasses.FormField_WebUrl item = (DomainClasses.FormField_WebUrl)field;
+
+                        fields.Add(new
                         {
-                            DomainClasses.FormField_WebUrl item = (DomainClasses.FormField_WebUrl)field;
-
-                            fields.Add(new
+                            type = 6,
+                            data = new
                             {
-                                type = 6,
-                                data = new
-                                {
-                                    id = item.Id,
-                                    title = item.Title,
-                                    showCustomer = item.ShowCustomer,
-                                    description = item.Description,
-                                    pictureHelpFile = item.PictureHelpFile,
-                                    pictureHelpPath = item.PictureHelpPath,
-                                    hasPictureHelpFile = item.HasPictureHelpFile,
-                                    canDelete = item.CanDelete,
-                                    isRequired = item.IsRequired
-                                },
-                                desktop_position = new
-                                {
-                                    sizeX = item.DesktopPosition.SizeX,
-                                    sizeY = item.DesktopPosition.SizeY,
-                                    row = item.DesktopPosition.Row,
-                                    col = item.DesktopPosition.Column
-                                },
-                                tablet_position = new
-                                {
-                                    sizeX = item.TabletPosition.SizeX,
-                                    sizeY = item.TabletPosition.SizeY,
-                                    row = item.TabletPosition.Row,
-                                    col = item.TabletPosition.Column
-                                },
-                                mobile_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = item.MobilePosition.SizeY,
-                                    row = item.MobilePosition.Row,
-                                    col = 0
-                                },
-                                factor_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = 1,
-                                    row = 0,
-                                    col = 0
-                                }
-                            });
-                        }
+                                id = item.Id,
+                                title = item.Title,
+                                showCustomer = item.ShowCustomer,
+                                description = item.Description,
+                                pictureHelpFile = item.PictureHelpFile,
+                                pictureHelpPath = item.PictureHelpPath,
+                                hasPictureHelpFile = item.HasPictureHelpFile,
+                                canDelete = item.CanDelete,
+                                isRequired = item.IsRequired
+                            },
+                            desktop_position = new
+                            {
+                                sizeX = item.DesktopPosition.SizeX,
+                                sizeY = item.DesktopPosition.SizeY,
+                                row = item.DesktopPosition.Row,
+                                col = item.DesktopPosition.Column
+                            },
+                            tablet_position = new
+                            {
+                                sizeX = item.TabletPosition.SizeX,
+                                sizeY = item.TabletPosition.SizeY,
+                                row = item.TabletPosition.Row,
+                                col = item.TabletPosition.Column
+                            },
+                            mobile_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = item.MobilePosition.SizeY,
+                                row = item.MobilePosition.Row,
+                                col = 0
+                            },
+                            factor_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = 1,
+                                row = 0,
+                                col = 0
+                            }
+                        });
+                    }
 
-                        //Date Picker
-                        else if (field is DomainClasses.FormField_DatePicker)
+                    //Date Picker
+                    else if (field is DomainClasses.FormField_DatePicker)
+                    {
+                        DomainClasses.FormField_DatePicker item = (DomainClasses.FormField_DatePicker)field;
+
+                        fields.Add(new
                         {
-                            DomainClasses.FormField_DatePicker item = (DomainClasses.FormField_DatePicker)field;
-
-                            fields.Add(new
+                            type = 7,
+                            data = new
                             {
-                                type = 7,
-                                data = new
-                                {
-                                    id = item.Id,
-                                    title = item.Title,
-                                    showCustomer = item.ShowCustomer,
-                                    description = item.Description,
-                                    pictureHelpFile = item.PictureHelpFile,
-                                    pictureHelpPath = item.PictureHelpPath,
-                                    hasPictureHelpFile = item.HasPictureHelpFile,
-                                    canDelete = item.CanDelete,
-                                    isRequired = item.IsRequired,
-                                    limits = item.Limits,
-                                    min = item.Min,
-                                    max = item.Max,
-                                    showInFactor = item.ShowInFactor,
-                                    factorOrder = item.FactorOrder
-                                },
-                                desktop_position = new
-                                {
-                                    sizeX = item.DesktopPosition.SizeX,
-                                    sizeY = item.DesktopPosition.SizeY,
-                                    row = item.DesktopPosition.Row,
-                                    col = item.DesktopPosition.Column
-                                },
-                                tablet_position = new
-                                {
-                                    sizeX = item.TabletPosition.SizeX,
-                                    sizeY = item.TabletPosition.SizeY,
-                                    row = item.TabletPosition.Row,
-                                    col = item.TabletPosition.Column
-                                },
-                                mobile_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = item.MobilePosition.SizeY,
-                                    row = item.MobilePosition.Row,
-                                    col = 0
-                                },
-                                factor_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = 1,
-                                    row = item.FactorOrder,
-                                    col = 0
-                                }
-                            });
-                        }
+                                id = item.Id,
+                                title = item.Title,
+                                showCustomer = item.ShowCustomer,
+                                description = item.Description,
+                                pictureHelpFile = item.PictureHelpFile,
+                                pictureHelpPath = item.PictureHelpPath,
+                                hasPictureHelpFile = item.HasPictureHelpFile,
+                                canDelete = item.CanDelete,
+                                isRequired = item.IsRequired,
+                                limits = item.Limits,
+                                min = item.Min,
+                                max = item.Max,
+                                showInFactor = item.ShowInFactor,
+                                factorOrder = item.FactorOrder
+                            },
+                            desktop_position = new
+                            {
+                                sizeX = item.DesktopPosition.SizeX,
+                                sizeY = item.DesktopPosition.SizeY,
+                                row = item.DesktopPosition.Row,
+                                col = item.DesktopPosition.Column
+                            },
+                            tablet_position = new
+                            {
+                                sizeX = item.TabletPosition.SizeX,
+                                sizeY = item.TabletPosition.SizeY,
+                                row = item.TabletPosition.Row,
+                                col = item.TabletPosition.Column
+                            },
+                            mobile_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = item.MobilePosition.SizeY,
+                                row = item.MobilePosition.Row,
+                                col = 0
+                            },
+                            factor_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = 1,
+                                row = item.FactorOrder,
+                                col = 0
+                            }
+                        });
+                    }
 
-                        //Drop Down
-                        else if (field is DomainClasses.FormField_DropDown)
+                    //Drop Down
+                    else if (field is DomainClasses.FormField_DropDown)
+                    {
+                        DomainClasses.FormField_DropDown item = (DomainClasses.FormField_DropDown)field;
+
+                        fields.Add(new
                         {
-                            DomainClasses.FormField_DropDown item = (DomainClasses.FormField_DropDown)field;
-
-                            fields.Add(new
+                            type = 8,
+                            data = new
                             {
-                                type = 8,
-                                data = new
+                                id = item.Id,
+                                title = item.Title,
+                                showCustomer = item.ShowCustomer,
+                                description = item.Description,
+                                pictureHelpFile = item.PictureHelpFile,
+                                pictureHelpPath = item.PictureHelpPath,
+                                hasPictureHelpFile = item.HasPictureHelpFile,
+                                canDelete = item.CanDelete,
+                                isRequired = item.IsRequired,
+                                showInFactor = item.ShowInFactor,
+                                factorOrder = item.FactorOrder,
+                                items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
                                 {
-                                    id = item.Id,
-                                    title = item.Title,
-                                    showCustomer = item.ShowCustomer,
-                                    description = item.Description,
-                                    pictureHelpFile = item.PictureHelpFile,
-                                    pictureHelpPath = item.PictureHelpPath,
-                                    hasPictureHelpFile = item.HasPictureHelpFile,
-                                    canDelete = item.CanDelete,
-                                    isRequired = item.IsRequired,
-                                    showInFactor = item.ShowInFactor,
-                                    factorOrder = item.FactorOrder,
-                                    items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
-                                    {
-                                        id = c.Id,
-                                        title = c.Title
-                                    })
-                                },
-                                desktop_position = new
-                                {
-                                    sizeX = item.DesktopPosition.SizeX,
-                                    sizeY = item.DesktopPosition.SizeY,
-                                    row = item.DesktopPosition.Row,
-                                    col = item.DesktopPosition.Column
-                                },
-                                tablet_position = new
-                                {
-                                    sizeX = item.TabletPosition.SizeX,
-                                    sizeY = item.TabletPosition.SizeY,
-                                    row = item.TabletPosition.Row,
-                                    col = item.TabletPosition.Column
-                                },
-                                mobile_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = item.MobilePosition.SizeY,
-                                    row = item.MobilePosition.Row,
-                                    col = 0
-                                },
-                                factor_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = 1,
-                                    row = item.FactorOrder,
-                                    col = 0
-                                }
-                            });
-                        }
+                                    id = c.Id,
+                                    title = c.Title
+                                })
+                            },
+                            desktop_position = new
+                            {
+                                sizeX = item.DesktopPosition.SizeX,
+                                sizeY = item.DesktopPosition.SizeY,
+                                row = item.DesktopPosition.Row,
+                                col = item.DesktopPosition.Column
+                            },
+                            tablet_position = new
+                            {
+                                sizeX = item.TabletPosition.SizeX,
+                                sizeY = item.TabletPosition.SizeY,
+                                row = item.TabletPosition.Row,
+                                col = item.TabletPosition.Column
+                            },
+                            mobile_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = item.MobilePosition.SizeY,
+                                row = item.MobilePosition.Row,
+                                col = 0
+                            },
+                            factor_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = 1,
+                                row = item.FactorOrder,
+                                col = 0
+                            }
+                        });
+                    }
 
-                        //Multiple Choice
-                        else if (field is DomainClasses.FormField_RadioButtonGroup)
+                    //Multiple Choice
+                    else if (field is DomainClasses.FormField_RadioButtonGroup)
+                    {
+                        DomainClasses.FormField_RadioButtonGroup item = (DomainClasses.FormField_RadioButtonGroup)field;
+
+                        fields.Add(new
                         {
-                            DomainClasses.FormField_RadioButtonGroup item = (DomainClasses.FormField_RadioButtonGroup)field;
-
-                            fields.Add(new
+                            type = 9,
+                            data = new
                             {
-                                type = 9,
-                                data = new
+                                id = item.Id,
+                                title = item.Title,
+                                showCustomer = item.ShowCustomer,
+                                description = item.Description,
+                                pictureHelpFile = item.PictureHelpFile,
+                                pictureHelpPath = item.PictureHelpPath,
+                                hasPictureHelpFile = item.HasPictureHelpFile,
+                                canDelete = item.CanDelete,
+                                isRequired = item.IsRequired,
+                                showInFactor = item.ShowInFactor,
+                                factorOrder = item.FactorOrder,
+                                items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
                                 {
-                                    id = item.Id,
-                                    title = item.Title,
-                                    showCustomer = item.ShowCustomer,
-                                    description = item.Description,
-                                    pictureHelpFile = item.PictureHelpFile,
-                                    pictureHelpPath = item.PictureHelpPath,
-                                    hasPictureHelpFile = item.HasPictureHelpFile,
-                                    canDelete = item.CanDelete,
-                                    isRequired = item.IsRequired,
-                                    showInFactor = item.ShowInFactor,
-                                    factorOrder = item.FactorOrder,
-                                    items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
-                                    {
-                                        id = c.Id,
-                                        title = c.Title
-                                    })
-                                },
-                                desktop_position = new
-                                {
-                                    sizeX = item.DesktopPosition.SizeX,
-                                    sizeY = item.DesktopPosition.SizeY,
-                                    row = item.DesktopPosition.Row,
-                                    col = item.DesktopPosition.Column
-                                },
-                                tablet_position = new
-                                {
-                                    sizeX = item.TabletPosition.SizeX,
-                                    sizeY = item.TabletPosition.SizeY,
-                                    row = item.TabletPosition.Row,
-                                    col = item.TabletPosition.Column
-                                },
-                                mobile_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = item.MobilePosition.SizeY,
-                                    row = item.MobilePosition.Row,
-                                    col = 0
-                                },
-                                factor_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = 1,
-                                    row = item.FactorOrder,
-                                    col = 0
-                                }
-                            });
-                        }
+                                    id = c.Id,
+                                    title = c.Title
+                                })
+                            },
+                            desktop_position = new
+                            {
+                                sizeX = item.DesktopPosition.SizeX,
+                                sizeY = item.DesktopPosition.SizeY,
+                                row = item.DesktopPosition.Row,
+                                col = item.DesktopPosition.Column
+                            },
+                            tablet_position = new
+                            {
+                                sizeX = item.TabletPosition.SizeX,
+                                sizeY = item.TabletPosition.SizeY,
+                                row = item.TabletPosition.Row,
+                                col = item.TabletPosition.Column
+                            },
+                            mobile_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = item.MobilePosition.SizeY,
+                                row = item.MobilePosition.Row,
+                                col = 0
+                            },
+                            factor_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = 1,
+                                row = item.FactorOrder,
+                                col = 0
+                            }
+                        });
+                    }
 
-                        //CheckBox Group
-                        else if (field is DomainClasses.FormField_CheckBoxGroup)
+                    //CheckBox Group
+                    else if (field is DomainClasses.FormField_CheckBoxGroup)
+                    {
+                        DomainClasses.FormField_CheckBoxGroup item = (DomainClasses.FormField_CheckBoxGroup)field;
+
+                        fields.Add(new
                         {
-                            DomainClasses.FormField_CheckBoxGroup item = (DomainClasses.FormField_CheckBoxGroup)field;
-
-                            fields.Add(new
+                            type = 10,
+                            data = new
                             {
-                                type = 10,
-                                data = new
+                                id = item.Id,
+                                title = item.Title,
+                                showCustomer = item.ShowCustomer,
+                                description = item.Description,
+                                pictureHelpFile = item.PictureHelpFile,
+                                pictureHelpPath = item.PictureHelpPath,
+                                hasPictureHelpFile = item.HasPictureHelpFile,
+                                canDelete = item.CanDelete,
+                                showInFactor = item.ShowInFactor,
+                                factorOrder = item.FactorOrder,
+                                items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
                                 {
-                                    id = item.Id,
-                                    title = item.Title,
-                                    showCustomer = item.ShowCustomer,
-                                    description = item.Description,
-                                    pictureHelpFile = item.PictureHelpFile,
-                                    pictureHelpPath = item.PictureHelpPath,
-                                    hasPictureHelpFile = item.HasPictureHelpFile,
-                                    canDelete = item.CanDelete,
-                                    showInFactor = item.ShowInFactor,
-                                    factorOrder = item.FactorOrder,
-                                    items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
-                                    {
-                                        id = c.Id,
-                                        title = c.Title
-                                    })
-                                },
-                                desktop_position = new
-                                {
-                                    sizeX = item.DesktopPosition.SizeX,
-                                    sizeY = item.DesktopPosition.SizeY,
-                                    row = item.DesktopPosition.Row,
-                                    col = item.DesktopPosition.Column
-                                },
-                                tablet_position = new
-                                {
-                                    sizeX = item.TabletPosition.SizeX,
-                                    sizeY = item.TabletPosition.SizeY,
-                                    row = item.TabletPosition.Row,
-                                    col = item.TabletPosition.Column
-                                },
-                                mobile_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = item.MobilePosition.SizeY,
-                                    row = item.MobilePosition.Row,
-                                    col = 0
-                                },
-                                factor_position = new
-                                {
-                                    sizeX = 1,
-                                    sizeY = 1,
-                                    row = item.FactorOrder,
-                                    col = 0
-                                }
-                            });
-                        }
+                                    id = c.Id,
+                                    title = c.Title
+                                })
+                            },
+                            desktop_position = new
+                            {
+                                sizeX = item.DesktopPosition.SizeX,
+                                sizeY = item.DesktopPosition.SizeY,
+                                row = item.DesktopPosition.Row,
+                                col = item.DesktopPosition.Column
+                            },
+                            tablet_position = new
+                            {
+                                sizeX = item.TabletPosition.SizeX,
+                                sizeY = item.TabletPosition.SizeY,
+                                row = item.TabletPosition.Row,
+                                col = item.TabletPosition.Column
+                            },
+                            mobile_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = item.MobilePosition.SizeY,
+                                row = item.MobilePosition.Row,
+                                col = 0
+                            },
+                            factor_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = 1,
+                                row = item.FactorOrder,
+                                col = 0
+                            }
+                        });
                     }
                 }
             }
@@ -2302,7 +2301,7 @@ namespace Karenbic.Areas.Admin.Controllers
             {
                 id = form.Id,
                 title = form.Title,
-                group = new 
+                group = new
                 {
                     Id = form.Group.Id,
                     Title = form.Group.Title
@@ -2325,49 +2324,46 @@ namespace Karenbic.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get(DomainClasses.Portal portal, string title, int pageIndex = 1)
+        public async Task<ActionResult> Get(DomainClasses.Portal portal, string title, int pageIndex = 1)
         {
             if (pageIndex <= 0) pageIndex = 1;
             int pageSize = 20;
             JsonResult result = new JsonResult();
 
-            using (DataAccess.Context context = new DataAccess.Context())
+            IQueryable<DomainClasses.Form> query = _context.Forms.AsQueryable();
+
+            query = query.Where(x => x.Portal == portal);
+
+            if (!string.IsNullOrEmpty(title))
             {
-                IQueryable<DomainClasses.Form> query = context.Forms.AsQueryable();
-
-                query = query.Where(x => x.Portal == portal);
-
-                if (!string.IsNullOrEmpty(title))
-                {
-                    query = query.Where(x => x.Title.Contains(title));
-                }
-
-                int pageCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(query.Count()) / Convert.ToDouble(pageSize)));
-                int resultCount = query.Count();
-
-                List<DomainClasses.Form> list = query.OrderBy(x => x.Title)
-                    .Skip((pageIndex - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
-
-
-
-                result.Data = new
-                {
-                    ResultCount = resultCount,
-                    PageCount = pageCount,
-                    PageIndex = pageIndex,
-                    List = list.Select(x => new
-                    {
-                        Id = x.Id,
-                        Title = x.Title,
-                        SpecialCreativity = x.SpecialCreativity,
-                        IsShow = x.IsShow,
-                        Description = x.Description,
-                        CanDelete = x.CanDelete
-                    }).ToArray()
-                };
+                query = query.Where(x => x.Title.Contains(title));
             }
+
+            int resultCount = await query.CountAsync();
+            int pageCount = Convert.ToInt32(Math.Ceiling(resultCount / Convert.ToDouble(pageSize)));
+
+            List<DomainClasses.Form> list = await query.OrderBy(x => x.Title)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+
+
+            result.Data = new
+            {
+                ResultCount = resultCount,
+                PageCount = pageCount,
+                PageIndex = pageIndex,
+                List = list.Select(x => new
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    SpecialCreativity = x.SpecialCreativity,
+                    IsShow = x.IsShow,
+                    Description = x.Description,
+                    CanDelete = x.CanDelete
+                }).ToArray()
+            };
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -2377,13 +2373,10 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                DomainClasses.Form item = context.Forms.Find(id);
-                item.IsShow = true;
-                context.SaveChanges();
-                result = true;
-            }
+            DomainClasses.Form item = _context.Forms.Find(id);
+            item.IsShow = true;
+            _context.SaveChanges();
+            result = true;
 
             return Content(result.ToString());
         }
@@ -2393,13 +2386,10 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                DomainClasses.Form item = context.Forms.Find(id);
-                item.IsShow = false;
-                context.SaveChanges();
-                result = true;
-            }
+            DomainClasses.Form item = _context.Forms.Find(id);
+            item.IsShow = false;
+            _context.SaveChanges();
+            result = true;
 
             return Content(result.ToString());
         }
@@ -2409,32 +2399,29 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
-            using (DataAccess.Context context = new DataAccess.Context())
+            DomainClasses.Form item = _context.Forms
+                .Include(x => x.Fields)
+                .Single(x => x.Id == id);
+            if (item.CanDelete)
             {
-                DomainClasses.Form item = context.Forms
-                    .Include(x => x.Fields)
-                    .Single(x => x.Id == id);
-                if (item.CanDelete)
+                //try
+                //{
+                _context.Forms.Remove(item);
+                _context.SaveChanges();
+
+                result = true;
+
+                foreach (DomainClasses.FormField field in item.Fields)
                 {
-                    //try
-                    //{
-                        context.Forms.Remove(item);
-                        context.SaveChanges();
-
-                        result = true;
-
-                        foreach (DomainClasses.FormField field in item.Fields)
-                        {
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("~/Content/FormField"), field.PictureHelpFile)))
-                            {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                    HostingEnvironment.MapPath("~/Content/FormField"), field.PictureHelpFile));
-                            }
-                        }
-                    //}
-                    //catch { }
+                    if (System.IO.File.Exists(string.Format("{0}/{1}",
+                        HostingEnvironment.MapPath("~/Content/FormField"), field.PictureHelpFile)))
+                    {
+                        System.IO.File.Delete(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("~/Content/FormField"), field.PictureHelpFile));
+                    }
                 }
+                //}
+                //catch { }
             }
 
             return Content(result.ToString());

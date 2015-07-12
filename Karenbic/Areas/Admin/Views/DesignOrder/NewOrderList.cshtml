@@ -129,9 +129,13 @@
                                 <td>{{item.Prepayment | riyal}}</td>
                                 <td>{{item.Price - item.Prepayment | riyal}}</td>
                                 <td style="text-align:left;">
-                                    <button class="btn-img-cancel-1" type="button" ng-click="cancel($index)"></button>
-                                    <button class="btn-img-confirm-1" type="button" ng-click="showDetails($index)"
-                                            ng-class="{'active': item.IsConfirm}"></button>
+                                    <button class="btn-img-cancel-1" type="button"
+                                            ng-click="cancel($index)"
+                                            tooltipster="" title="لغو سفارش"></button>
+                                    <button class="btn-img-confirm-1" type="button"
+                                            ng-click="showDetails($index)"
+                                            ng-class="{'active': item.IsConfirm}"
+                                            tooltipster="" title="نمایش و ثبت مبلغ"></button>
                                 </td>
                             </tr>
                         </tbody>

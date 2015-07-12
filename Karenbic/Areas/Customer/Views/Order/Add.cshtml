@@ -220,6 +220,7 @@
                     </div>
                     <!-- End Column#3 -->
                 </div>
+
                 <form class="form-validate"
                       ng-class="{'from-sumbited' : fromSumbited}"
                       ng-if="form.id  != null">
@@ -230,7 +231,8 @@
                                     ng-class="{'btn-default': specialCreativity == false, 'btn-info': specialCreativity == true}"
                                     ng-click="selectSpecialCreativity()">
                                 <span class="btn-label btn-label-right">
-                                    <i class="fa fa-check"></i>
+                                    <i class="fa"
+                                       ng-class="{'fa-check': specialCreativity == true, 'fa-times': specialCreativity == false}"></i>
                                 </span>
                                 خلاقیت ویژه
                             </button>

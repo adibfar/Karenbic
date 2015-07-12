@@ -7,18 +7,36 @@
         z-index: 13;
     }
 
+    .btn-back {
+        color: #5e5e5e;
+        cursor: pointer;
+        font-family: yekan;
+        font-size: 20px;
+
+        text-decoration: none;
+        -moz-transition: background-color 300ms ease-out;
+        -webkit-transition: background-color 300ms ease-out;
+        -o-transition: background-color 300ms ease-out;
+        transition: background-color 300ms ease-out;
+    }
+        .btn-back .icon-action-undo {
+            font-size: 25px;
+            position: relative;
+            top: 3px;
+        }
+        .btn-back:hover {
+            color: #FF7200;
+            text-decoration: none;
+            -moz-transition: background-color 300ms ease-in;
+            -webkit-transition: background-color 300ms ease-in;
+            -o-transition: background-color 300ms ease-in;
+            transition: background-color 300ms ease-in;
+        }
+
     .panel-order-details {
-        -moz-border-radius: 8px 8px 0 0 !important;
-        -webkit-border-radius: 8px 8px 0 0 !important;
-        border-radius: 8px 8px 0 0 !important;
-        margin-bottom: 0 !important;
-        border-bottom: none !important;
     }
 
     .panel-last-designs {
-        -moz-border-radius: 0 0 8px 8px !important;
-        -webkit-border-radius: 0 0 8px 8px !important;
-        border-radius: 0 0 8px 8px !important;
     }
         .panel-last-designs ul {
             margin: 0;
@@ -92,12 +110,24 @@
 
 <div class="container-fluid">
     <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="clearfix" style="margin-bottom: 15px;">
+                <div class="pull-left">
+                    <a class="btn-back" ng-click="back()">
+                        بازگشت
+                        <i class="icon-action-undo fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="panel panel-default panel-order-details"
              ng-class="{'whirl': fetchDataLoading , 'shadow': fetchDataLoading}">
             <div class="panel-heading">
                 <div class="panel-title">
                     <i></i>
-                    نمایش فایل طراحی شده
+                    مشخصات سفارش
                 </div>
             </div>
             <div class="panel-body">
@@ -147,11 +177,11 @@
             <div class="panel-heading">
                 <div class="panel-title">
                     <i></i>
-                    فایل های ارسالی گذشته
+                   فایل های طراحی شده
                 </div>
             </div>
             <div class="panel-body"
-                 style="min-height:350px;">
+                 style="min-height:250px;">
                 <div ng-repeat="design in designs">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -208,7 +238,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="hr1" style="margin:15px 0;" />
+                    <hr class="hr1" style="margin:15px 0;" ng-hide="$last" />
                 </div>
             </div>
         </div>

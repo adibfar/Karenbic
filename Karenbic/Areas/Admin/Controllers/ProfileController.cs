@@ -61,14 +61,11 @@ namespace Karenbic.Areas.Admin.Controllers
             bool result = false;
             if (newPassword != reNewPassword) return Content(result.ToString());
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                ApplicationUser user = UserManager.FindByName(User.Identity.Name);
+            ApplicationUser user = UserManager.FindByName(User.Identity.Name);
 
-                UserManager.RemovePassword(user.Id);
-                UserManager.AddPassword(user.Id, newPassword);
-                result = true;
-            }
+            UserManager.RemovePassword(user.Id);
+            UserManager.AddPassword(user.Id, newPassword);
+            result = true;
 
             return Content(result.ToString());
         }

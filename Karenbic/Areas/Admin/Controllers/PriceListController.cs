@@ -9,6 +9,13 @@ namespace Karenbic.Areas.Admin.Controllers
 {
     public class PriceListController : Controller
     {
+        private DataAccess.Context _context;
+
+        public PriceListController(DataAccess.Context context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -37,11 +44,8 @@ namespace Karenbic.Areas.Admin.Controllers
                 }
             }
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                context.PriceLists.Add(model);
-                context.SaveChanges();
-            }
+            _context.PriceLists.Add(model);
+            _context.SaveChanges();
 
             return Json(new 
             { 
@@ -58,37 +62,34 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             DomainClasses.PriceList model = new DomainClasses.PriceList();
 
-            using (DataAccess.Context context = new DataAccess.Context())
+            model = _context.PriceLists.Find(id);
+            model.Title = title;
+            model.Order = order;
+
+            if (file != null)
             {
-                model = context.PriceLists.Find(id);
-                model.Title = title;
-                model.Order = order;
-
-                if (file != null)
+                if (file.ContentType == "image/jpg" || file.ContentType == "image/jpeg" || file.ContentType == "image/png")
                 {
-                    if (file.ContentType == "image/jpg" || file.ContentType == "image/jpeg" || file.ContentType == "image/png")
+                    if (file.ContentLength <= 250 * 1024)
                     {
-                        if (file.ContentLength <= 250 * 1024)
+                        string oldFile = model.PictureFile;
+
+                        //save new picture
+                        model.PictureFile = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(file.FileName));
+                        file.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/PriceList"), model.PictureFile));
+
+                        //delete old picture
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/PriceList"), oldFile)))
                         {
-                            string oldFile = model.PictureFile;
-
-                            //save new picture
-                            model.PictureFile = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(file.FileName));
-                            file.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/PriceList"), model.PictureFile));
-
-                            //delete old picture
-                            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/PriceList"), oldFile)))
-                            {
-                                System.IO.File.Delete(string.Format("{0}/{1}",
-                                HostingEnvironment.MapPath("/Content/PriceList"), oldFile));
-                            }
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/PriceList"), oldFile));
                         }
                     }
                 }
-
-                context.SaveChanges();
             }
+
+            _context.SaveChanges();
 
             return Json(new
             {
@@ -105,22 +106,19 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             JsonResult result = new JsonResult();
 
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                List<DomainClasses.PriceList> list = context.PriceLists
-                    .Where(x => x.Portal == portal)
-                    .OrderBy(x => x.Order)
-                    .ToList();
+            List<DomainClasses.PriceList> list = _context.PriceLists
+                .Where(x => x.Portal == portal)
+                .OrderBy(x => x.Order)
+                .ToList();
 
-                result.Data = list.Select(x => new 
-                    {
-                        Id = x.Id,
-                        Title = x.Title,
-                        Order = x.Order,
-                        PictureFile = x.PictureFile,
-                        PicturePath = x.PicturePath
-                    }).ToArray();
-            }
+            result.Data = list.Select(x => new
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Order = x.Order,
+                    PictureFile = x.PictureFile,
+                    PicturePath = x.PicturePath
+                }).ToArray();
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -130,22 +128,19 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
-            using (DataAccess.Context context = new DataAccess.Context())
+            DomainClasses.PriceList item = _context.PriceLists.Find(id);
+
+            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                HostingEnvironment.MapPath("/Content/PriceList"), item.PictureFile)))
             {
-                DomainClasses.PriceList item = context.PriceLists.Find(id);
-
-                if (System.IO.File.Exists(string.Format("{0}/{1}", 
-                    HostingEnvironment.MapPath("/Content/PriceList"), item.PictureFile)))
-                {
-                    System.IO.File.Delete(string.Format("{0}/{1}",
-                    HostingEnvironment.MapPath("/Content/PriceList"), item.PictureFile));
-                }
-
-                context.PriceLists.Remove(item);
-                context.SaveChanges();
-
-                result = true;
+                System.IO.File.Delete(string.Format("{0}/{1}",
+                HostingEnvironment.MapPath("/Content/PriceList"), item.PictureFile));
             }
+
+            _context.PriceLists.Remove(item);
+            _context.SaveChanges();
+
+            result = true;
 
             return Content(result.ToString());
         }

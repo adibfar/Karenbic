@@ -30,6 +30,7 @@
         </div>
         <div class="form-group" ng-if="newField_NumericStepper.isInt == true">
             <label class="control-label">مقدار اولیه:</label>
+            <br />
             <input type="text"
                    style="width:50px;"
                    stepper=""
@@ -53,12 +54,12 @@
         <div class="form-group">
             <label class="control-label">توضیحات:</label>
             <textarea class="form-control"
-                      style="height:159px;resize:none;overflow:hidden;"
+                      style="height:144px;resize:none;overflow:hidden;"
                       ng-model="newField_NumericStepper.description"></textarea>
         </div>
     </div>
     <div class="col-lg-3 col-md-5 col-sm-3 col-xs-12">
-        <div class="hidden-xs" style="height:29px;margin-bottom:5px;"></div>
+        <div class="hidden-xs" style="height:16px;margin-bottom:5px;"></div>
         <div class="form-group">
             <div class="checkbox c-checkbox">
                 <label>
@@ -120,6 +121,18 @@
                     <span></span>نمایش در فاکتور
                 </label>
             </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">اولویت:</label>
+            <br />
+            <input type="text"
+                   style="width:60px;"
+                   value="120"
+                   min="0"
+                   max="300"
+                   stepper=""
+                   ng-model="newField_NumericStepper.priority"
+                   required="" />
         </div>
     </div>
 </div>

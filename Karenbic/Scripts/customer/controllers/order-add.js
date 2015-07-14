@@ -197,6 +197,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
         /*=-=-=-=-= End On File Select =-=-=-=-=*/
 
         /*=-=-=-=-= Start Validate Field =-=-=-=-=*/
+
         $scope.validateForm = function () {
             var valide = true;
 
@@ -396,6 +397,183 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
 
         /*=-=-=-=-= End Validate Field =-=-=-=-=*/
 
+        /*=-=-=-=-= Start Form Error =-=-=-=-=*/
+        $scope.formErrors = [];
+
+        $scope.getFormErrors = function () {
+            $scope.formErrors = [];
+
+            _.each($scope.form.fields, function (item) {
+                switch (item.type) {
+                    case 0:
+                        $scope.textBox_error(item);
+                        break;
+
+                    case 1:
+                        $scope.textArea_error(item);
+                        break;
+
+                    case 2:
+                        $scope.numeric_error(item);
+                        break;
+
+                    case 3:
+                        $scope.colorPicker_error(item);
+                        break;
+
+                    case 4:
+                        $scope.fileUploader_error(item);
+                        break;
+
+                    case 5:
+                        break;
+
+                    case 6:
+                        $scope.webUrl_error(item);
+                        break;
+
+                    case 7:
+                        $scope.datePicker_error(item);
+                        break;
+
+                    case 8:
+                        $scope.dropDown_error(item);
+                        break;
+
+                    case 9:
+                        $scope.multipleChoice_error(item);
+                        break;
+
+                    case 10:
+                        break;
+                }
+            });
+
+            return $scope.formErrors;
+        };
+
+        $scope.textBox_error = function (item) {
+            if (item.data.isRequired == true &&
+                (item.value == null || item.value == undefined || item.value == '' || item.value.trim() == '')) {
+                $scope.formErrors.unshift("فیلد " + item.data.title + " اجباری می باشد");
+            }
+            if (item.data.characterLimits == true) {
+                if (item.value == null || item.value == undefined || item.value == '' || item.value.trim() == '') valide = false;
+                else {
+                    if (item.value.length < item.data.minCharacters)
+                        $scope.formErrors.unshift("حداقل تعداد کاراکتر فیلد " + item.data.title + " " + item.data.minCharacters + "حرف می باشد");
+                    if (item.value.length > item.data.maxCharacters)
+                        $scope.formErrors.unshift("حداکثر تعداد کاراکتر فیلد " + item.data.title + " " + item.data.maxCharacters + "حرف می باشد");
+                }
+            }
+        };
+
+        $scope.textArea_error = function (item) {
+            if (item.data.isRequired == true &&
+                (item.value == null || item.value == undefined || item.value == '' || item.value.trim() == '')) {
+                $scope.formErrors.unshift("فیلد " + item.data.title + " اجباری می باشد");
+            }
+            if (item.data.characterLimits == true) {
+                if (item.value == null || item.value == undefined || item.value == '' || item.value.trim() == '') valide = false;
+                else {
+                    if (item.value.length < item.data.minCharacters)
+                        $scope.formErrors.unshift("حداقل تعداد کاراکتر فیلد " + item.data.title + " " + item.data.minCharacters + "حرف می باشد");
+                    if (item.value.length > item.data.maxCharacters)
+                        $scope.formErrors.unshift("حداکثر تعداد کاراکتر فیلد " + item.data.title + " " + item.data.maxCharacters + "حرف می باشد");
+                }
+            }
+        };
+
+        $scope.numeric_error = function (item) {
+            if (item.data.isRequired == true && isNaN(item.value) == true) {
+                $scope.formErrors.unshift("فیلد " + item.data.title + " اجباری می باشد");
+            }
+            if (item.data.limits == true) {
+                if (isNaN(item.value) == true) valide = false;
+                else {
+                    if (item.value < item.data.min)
+                        $scope.formErrors.unshift("حداقل مقدار فیلد " + item.data.title + " " + item.data.min + " می باشد");
+                    if (item.value > item.data.max)
+                        $scope.formErrors.unshift("حداکثر مقدار فیلد " + item.data.title + " " + item.data.max + " می باشد");
+                }
+            }
+        };
+
+        $scope.colorPicker_error = function (item) {
+            var re = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+            if (item.data.isRequired == true) {
+                if (item.value == '' || re.test(item.value) == false)
+                    $scope.formErrors.unshift("فیلد " + item.data.title + " اجباری می باشد");
+            }
+            else {
+                if (item.value != '' && re.test(item.value) == false)
+                    $scope.formErrors.unshift("مقدار فیلد " + item.data.title + " صحیح می باشد");
+            }
+        };
+
+        $scope.fileUploader_error = function (item) {
+            if (item.data.isRequired == true &&
+                (item.value == null || item.value == undefined || item.value == '' || item.value.trim() == '')) {
+                $scope.formErrors.unshift("فیلد " + item.data.title + " اجباری می باشد");
+            }
+        };
+
+        $scope.webUrl_error = function (item) {
+            var re = /^((http|https):\/\/)?[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?$/;
+            if (item.data.isRequired == true) {
+                if (item.value == null || item.value == undefined || item.value == '' || item.value.trim() == '')
+                    $scope.formErrors.unshift("فیلد " + item.data.title + " اجباری می باشد");
+                else if (re.test(item.value) == false)
+                    $scope.formErrors.unshift("مقدار فیلد " + item.data.title + " صحیح می باشد");
+            }
+            else {
+                if (item.value != null && item.value != undefined && item.value != '' &&
+                    item.value.trim() != '' && re.test(item.value) == false)
+                    $scope.formErrors.unshift("مقدار فیلد " + item.data.title + " صحیح می باشد");
+            }
+        };
+
+        $scope.datePicker_error = function (item) {
+            if (item.data.isRequired == true &&
+                (item.value == null || item.value == undefined || item.value == '' || item.value.trim() == '')) {
+                $scope.formErrors.unshift("فیلد " + item.data.title + " اجباری می باشد");
+            }
+
+            if (item.data.limits == true &&
+                item.value != null &&
+                item.value != undefined &&
+                item.value != '' &&
+                item.value.trim() != '') {
+                var segments = item.value.split('/');
+                var min = persianDate().subtract('days', item.data.min).hour(0).minute(0).seconds(0);
+                var max = persianDate().add('days', item.data.max).hour(23).minute(59).seconds(59);
+                var day = persianDate([Number(segments[0]), Number(segments[1]), Number(segments[2])]);
+
+                if (min.toDate() > day.toDate()) {
+                    $scope.formErrors.unshift("حداقل مقدار فیلد " + item.data.title + " " + item.data.min + " روز قبل می باشد");
+                }
+
+                if (max.toDate() < day.toDate()) {
+                    $scope.formErrors.unshift("حداکثر مقدار فیلد " + item.data.title + " " + item.data.min + " روز بعد می باشد");
+                }
+            }
+        };
+
+        $scope.dropDown_error = function (item) {
+            if (item.data.isRequired == true && item.value == null) {
+                $scope.formErrors.unshift("فیلد " + item.data.title + " اجباری می باشد");
+            }
+        };
+
+        $scope.multipleChoice_error = function (item) {
+            if (item.data.isRequired == true && item.value == null) {
+                $scope.formErrors.unshift("فیلد " + item.data.title + " اجباری می باشد");
+            }
+        };
+
+        /*=-=-=-=-= End Form Error =-=-=-=-=*/
+
+
         /*=-=-=-=-= Start Send Data =-=-=-=-=*/
         $scope.fromSumbited = false;
 
@@ -529,7 +707,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
         /*=-=-=-=-= Start Manage Preview =-=-=-=-=*/
         $scope.gridsterOpts_desktop = {
             minRows: 2,
-            maxRows: 100,
+            maxRows: 2500,
             columns: 3,
             colWidth: 'auto',
             rowHeight: 10,
@@ -543,7 +721,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
 
         $scope.gridsterOpts_tablet = {
             minRows: 2,
-            maxRows: 100,
+            maxRows: 2500,
             columns: 2,
             colWidth: 'auto',
             rowHeight: 10,
@@ -557,7 +735,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
 
         $scope.gridsterOpts_mobile = {
             minRows: 2,
-            maxRows: 100,
+            maxRows: 2500,
             columns: 1,
             colWidth: 'auto',
             rowHeight: 10,

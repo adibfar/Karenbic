@@ -13,6 +13,7 @@ namespace Karenbic.DomainClasses
             ShowCustomer = true;
             ShowAdmin = true;
             CanDelete = true;
+            Priority = 0;
         }
 
         [Key]
@@ -51,6 +52,10 @@ namespace Karenbic.DomainClasses
 
         [Required]
         public bool CanDelete { get; set; }
+
+        [Required]
+        [Range(0, Int32.MaxValue)]
+        public int Priority { get; set; }
 
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 

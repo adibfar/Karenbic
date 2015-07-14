@@ -17,8 +17,9 @@
                      style="margin-right:8px;"
                      ng-repeat="checkbox_item in item.data.items">
                     <label>
-                        <input type="checkbox" 
-                               ng-value="true" ng-model="checkbox_item.value" />
+                        <input type="checkbox"
+                               ng-value="true" ng-model="checkbox_item.value"
+                               tabindex="{{item.data.priority + '.' + Number($index + 1)}}" />
                         <span></span>{{checkbox_item.title}}
                     </label>
                 </div>

@@ -18,7 +18,8 @@
                 <textarea class="form-control"
                           style="resize:none;overflow:hidden;height:{{item.data.height}}px;"
                           ng-class="{'ng-invalid': fromSumbited == true && validateForm_TextBox(item) == false}"
-                          ng-model="item.value"></textarea>
+                          ng-model="item.value"
+                          tabindex="{{item.data.priority}}"></textarea>
             </div>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"

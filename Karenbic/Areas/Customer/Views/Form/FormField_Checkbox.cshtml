@@ -5,14 +5,14 @@
                  style="margin-top:25px;margin-bottom:-8px;">
                 <div class="checkbox c-checkbox">
                     <label ng-if="item.data.hasPictureHelpFile == false">
-                        <input type="checkbox" ng-value="true" ng-model="item.value">
+                        <input type="checkbox" ng-value="true" ng-model="item.value" tabindex="{{item.data.priority}}">
                         <span></span>
                         {{item.data.title}}
                     </label>
                     <label ng-if="item.data.hasPictureHelpFile == true"
                            style="cursor:pointer;"
                            tooltipster="" tooltipster-title="<img src='{{item.data.pictureHelpPath}}' />">
-                        <input type="checkbox" ng-value="true" ng-model="item.value">
+                        <input type="checkbox" ng-value="true" ng-model="item.value" tabindex="{{item.data.priority}}">
                         <span></span>
                         {{item.data.title}}
                     </label>

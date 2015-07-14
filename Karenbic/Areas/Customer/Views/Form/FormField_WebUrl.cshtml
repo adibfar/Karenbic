@@ -18,7 +18,8 @@
                 <div class="input-group">
                     <input type="text" class="form-control ltr"
                            ng-class="{'ng-invalid': fromSumbited == true && validateForm_WebUrl(item) == false}"
-                           ng-model="item.value" />
+                           ng-model="item.value"
+                           tabindex="{{item.data.priority}}" />
                     <span class="input-group-addon icon-globe"><i></i></span>
                 </div>
             </div>

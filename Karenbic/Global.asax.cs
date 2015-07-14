@@ -19,15 +19,16 @@ namespace Karenbic
     {
         protected void Application_Start()
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataAccess.Context, DataAccess.Migrations.Configuration>());
-            Database.SetInitializer<DataAccess.Context>(null);
-            //using (DataAccess.Context context = new DataAccess.Context())
-            //{
-            //    context.Database.Initialize(true);
-            //}
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataAccess.Context, DataAccess.Migrations.Configuration>());
+            //Database.SetInitializer<DataAccess.Context>(null);
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                context.Database.Initialize(true);
+            }
 
             ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new RazorViewEngine());
+            IViewEngine razorEngine = new RazorViewEngine() { FileExtensions = new string[] { "cshtml" } };
+            ViewEngines.Engines.Add(razorEngine);
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

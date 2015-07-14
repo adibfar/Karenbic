@@ -268,7 +268,6 @@
     <Compile Include="Areas\Customer\Models\OrderValue_TextArea.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue_TextBox.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue_WebUrl.cs" />
-    <Compile Include="Context.Views.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
@@ -366,7 +365,6 @@
     <Content Include="Images\UI\Pagination\btn-back-1.png" />
     <Content Include="Images\UI\Pagination\btn-next-1.png" />
     <Content Include="Images\UI\radio-btn-1.png" />
-    <Content Include="readme.txt" />
     <Content Include="Scripts\admin\app.init.js" />
     <Content Include="Scripts\admin\config.js" />
     <Content Include="Scripts\admin\constants.js" />

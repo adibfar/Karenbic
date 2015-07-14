@@ -478,6 +478,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Title = field.Title;
                     item.Description = field.Description;
                     item.ShowCustomer = field.ShowCustomer;
+                    item.Priority = field.Priority;
                     item.Defualt = field.Defualt;
                     item.IsRequired = field.IsRequired;
                     item.CharacterLimits = field.CharacterLimits;
@@ -570,6 +571,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Title = field.Title;
                     item.Description = field.Description;
                     item.ShowCustomer = field.ShowCustomer;
+                    item.Priority = field.Priority;
                     item.IsRequired = field.IsRequired;
                     item.CharacterLimits = field.CharacterLimits;
                     item.MinCharacters = field.MinCharacters;
@@ -662,6 +664,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Title = field.Title;
                     item.Description = field.Description;
                     item.ShowCustomer = field.ShowCustomer;
+                    item.Priority = field.Priority;
                     item.IsInt = field.IsInt;
                     item.IsFloat = !field.IsInt;
                     item.Defualt = field.Defualt;
@@ -756,6 +759,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Title = field.Title;
                     item.Description = field.Description;
                     item.ShowCustomer = field.ShowCustomer;
+                    item.Priority = field.Priority;
                     item.IsRequired = field.IsRequired;
 
                     item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
@@ -872,6 +876,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Title = field.Title;
                     item.Description = field.Description;
                     item.ShowCustomer = field.ShowCustomer;
+                    item.Priority = field.Priority;
                     item.IsRequired = field.IsRequired;
                     item.SizeLimits = field.SizeLimits;
                     item.MinSize = field.MinSize;
@@ -973,6 +978,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Title = field.Title;
                     item.Description = field.Description;
                     item.ShowCustomer = field.ShowCustomer;
+                    item.Priority = field.Priority;
                     item.ShowInFactor = field.ShowInFactor;
                     item.FactorOrder = field.FactorOrder;
 
@@ -1060,6 +1066,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Title = field.Title;
                     item.Description = field.Description;
                     item.ShowCustomer = field.ShowCustomer;
+                    item.Priority = field.Priority;
                     item.IsRequired = field.IsRequired;
 
                     item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
@@ -1146,6 +1153,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Title = field.Title;
                     item.Description = field.Description;
                     item.ShowCustomer = field.ShowCustomer;
+                    item.Priority = field.Priority;
                     item.IsRequired = field.IsRequired;
                     item.Limits = field.Limits;
                     item.Min = field.Min;
@@ -1238,6 +1246,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Title = field.Title;
                     item.Description = field.Description;
                     item.ShowCustomer = field.ShowCustomer;
+                    item.Priority = field.Priority;
                     item.IsRequired = field.IsRequired;
                     item.ShowInFactor = field.ShowInFactor;
                     item.FactorOrder = field.FactorOrder;
@@ -1381,6 +1390,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Title = field.Title;
                     item.Description = field.Description;
                     item.ShowCustomer = field.ShowCustomer;
+                    item.Priority = field.Priority;
                     item.IsRequired = field.IsRequired;
                     item.ShowInFactor = field.ShowInFactor;
                     item.FactorOrder = field.FactorOrder;
@@ -1524,6 +1534,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Title = field.Title;
                     item.Description = field.Description;
                     item.ShowCustomer = field.ShowCustomer;
+                    item.Priority = field.Priority;
                     item.ShowInFactor = field.ShowInFactor;
                     item.FactorOrder = field.FactorOrder;
 
@@ -1696,6 +1707,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 canDelete = item.CanDelete,
                                 defualt = item.Defualt,
                                 isRequired = item.IsRequired,
@@ -1753,6 +1765,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 canDelete = item.CanDelete,
                                 isRequired = item.IsRequired,
                                 characterLimits = item.CharacterLimits,
@@ -1812,6 +1825,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 hasPictureHelpFile = item.HasPictureHelpFile,
                                 isInt = item.IsInt,
                                 isFloat = item.IsFloat,
+                                priority = item.Priority,
                                 canDelete = item.CanDelete,
                                 isRequired = item.IsRequired,
                                 limits = item.Limits,
@@ -1868,6 +1882,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 canDelete = item.CanDelete,
                                 isRequired = item.IsRequired
                             },
@@ -1920,6 +1935,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 canDelete = item.CanDelete,
                                 isRequired = item.IsRequired,
                                 sizeLimits = item.SizeLimits,
@@ -1980,6 +1996,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 canDelete = item.CanDelete,
                                 showInFactor = item.ShowInFactor,
                                 factorOrder = item.FactorOrder
@@ -2032,6 +2049,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 canDelete = item.CanDelete,
                                 isRequired = item.IsRequired
                             },
@@ -2083,6 +2101,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 canDelete = item.CanDelete,
                                 isRequired = item.IsRequired,
                                 limits = item.Limits,
@@ -2139,6 +2158,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 canDelete = item.CanDelete,
                                 isRequired = item.IsRequired,
                                 showInFactor = item.ShowInFactor,
@@ -2197,6 +2217,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 canDelete = item.CanDelete,
                                 isRequired = item.IsRequired,
                                 showInFactor = item.ShowInFactor,
@@ -2255,6 +2276,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 canDelete = item.CanDelete,
                                 showInFactor = item.ShowInFactor,
                                 factorOrder = item.FactorOrder,

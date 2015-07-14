@@ -23,7 +23,8 @@
                            class="form-control"
                            style="direction:ltr;"
                            ng-class="{'ng-invalid': fromSumbited == true && validateForm_ColorPicker(item) == false}"
-                           ng-model="item.value" />
+                           ng-model="item.value"
+                           tabindex="{{item.data.priority}}" />
                     <span class="input-group-addon"
                           style="padding:0 5px;">
                         <i style="position:relative;top:3px;"></i>

@@ -47,13 +47,15 @@ App
                     url: '/add-form',
                     templateUrl: helper.basepath('Form/Add'),
                     controller: 'AddFormController',
-                    resolve: helper.resolveFor('ddlist', 'chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster', 'ngDialog', 'colorpicker')
+                    resolve: helper.resolveFor('ddlist', 'chosen', 'stepper', 'nicefileinput', 'jquery-resize',
+                        'gridster', 'ngDialog', 'colorpicker', 'jquery-ui', 'jquery-ui-datepicker')
                 })
                 .state('app.design.edit-form', {
                     url: '/edit-form/:id',
                     templateUrl: helper.basepath('Form/Edit'),
                     controller: 'EditFormController',
-                    resolve: helper.resolveFor('ddlist', 'chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster', 'ngDialog', 'colorpicker')
+                    resolve: helper.resolveFor('ddlist', 'chosen', 'stepper', 'nicefileinput', 'jquery-resize',
+                        'gridster', 'ngDialog', 'colorpicker', 'jquery-ui', 'jquery-ui-datepicker')
                 })
                 .state('app.design.forms-list', {
                     url: '/forms-list',
@@ -177,13 +179,15 @@ App
                     url: '/add-form',
                     templateUrl: helper.basepath('Form/Add'),
                     controller: 'AddFormController',
-                    resolve: helper.resolveFor('ddlist', 'chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster', 'ngDialog', 'colorpicker')
+                    resolve: helper.resolveFor('ddlist', 'chosen', 'stepper', 'nicefileinput', 'jquery-resize',
+                        'gridster', 'ngDialog', 'colorpicker', 'jquery-ui', 'jquery-ui-datepicker')
                 })
                 .state('app.print.edit-form', {
                     url: '/edit-form/:id',
                     templateUrl: helper.basepath('Form/Edit'),
                     controller: 'EditFormController',
-                    resolve: helper.resolveFor('ddlist', 'chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster', 'ngDialog', 'colorpicker')
+                    resolve: helper.resolveFor('ddlist', 'chosen', 'stepper', 'nicefileinput', 'jquery-resize',
+                        'gridster', 'ngDialog', 'colorpicker', 'jquery-ui', 'jquery-ui-datepicker')
                 })
                 .state('app.print.forms-list', {
                     url: '/forms-list',

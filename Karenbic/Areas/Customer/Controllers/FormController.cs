@@ -52,7 +52,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 .Include(x => x.Fields.Select(c => c.MobilePosition))
                 .Single(x => x.Id == id && x.IsShow);
 
-            foreach (DomainClasses.FormField field in form.Fields)
+            foreach (DomainClasses.FormField field in form.Fields.OrderByDescending(x => x.Priority))
             {
                 if (field.ShowAdmin && field.ShowCustomer)
                 {
@@ -72,6 +72,7 @@ namespace Karenbic.Areas.Customer.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 defualt = item.Defualt,
                                 isRequired = item.IsRequired,
                                 characterLimits = item.CharacterLimits,
@@ -127,6 +128,7 @@ namespace Karenbic.Areas.Customer.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 isRequired = item.IsRequired,
                                 characterLimits = item.CharacterLimits,
                                 minCharacters = item.MinCharacters,
@@ -182,6 +184,7 @@ namespace Karenbic.Areas.Customer.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 isInt = item.IsInt,
                                 isFloat = item.IsFloat,
                                 isRequired = item.IsRequired,
@@ -238,6 +241,7 @@ namespace Karenbic.Areas.Customer.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 isRequired = item.IsRequired
                             },
                             desktop_position = new
@@ -288,6 +292,7 @@ namespace Karenbic.Areas.Customer.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 isRequired = item.IsRequired,
                                 sizeLimits = item.SizeLimits,
                                 minSize = item.MinSize,
@@ -346,6 +351,7 @@ namespace Karenbic.Areas.Customer.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 showInFactor = item.ShowInFactor,
                                 factorOrder = item.FactorOrder
                             },
@@ -396,6 +402,7 @@ namespace Karenbic.Areas.Customer.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 isRequired = item.IsRequired
                             },
                             desktop_position = new
@@ -445,6 +452,7 @@ namespace Karenbic.Areas.Customer.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 isRequired = item.IsRequired,
                                 limits = item.Limits,
                                 min = item.Min,
@@ -499,6 +507,7 @@ namespace Karenbic.Areas.Customer.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
                                 isRequired = item.IsRequired,
                                 showInFactor = item.ShowInFactor,
                                 factorOrder = item.FactorOrder,
@@ -556,7 +565,7 @@ namespace Karenbic.Areas.Customer.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
-                                canDelete = item.CanDelete,
+                                priority = item.Priority,
                                 isRequired = item.IsRequired,
                                 showInFactor = item.ShowInFactor,
                                 factorOrder = item.FactorOrder,
@@ -614,7 +623,7 @@ namespace Karenbic.Areas.Customer.Controllers
                                 pictureHelpFile = item.PictureHelpFile,
                                 pictureHelpPath = item.PictureHelpPath,
                                 hasPictureHelpFile = item.HasPictureHelpFile,
-                                canDelete = item.CanDelete,
+                                priority = item.Priority,
                                 showInFactor = item.ShowInFactor,
                                 factorOrder = item.FactorOrder,
                                 items = item.Items.Where(x => x.ShowAdmin && x.ShowCustomer).OrderBy(c => c.Order).Select(c => new

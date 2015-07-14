@@ -50,6 +50,10 @@
     input[type=checkbox]:disabled + span {
         background: transparent url('/Images/UI/checkbox-1.png') no-repeat 0 -18px;
     }
+
+	input[type=checkbox]:focus + span {
+		box-shadow: 1px 1px 2px #666;
+	}
 }
 
 .checkbox {

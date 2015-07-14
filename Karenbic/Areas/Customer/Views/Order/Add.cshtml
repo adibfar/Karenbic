@@ -6,6 +6,10 @@
         z-index: 13;
     }
 
+    .min-height {
+        min-height: 600px !important;
+    }
+
     .icon-action-undo {
         color: #5e5e5e;
         cursor: pointer;
@@ -134,6 +138,28 @@
     .mobile-view .gridster-item .container-fluid {
         padding: 0;
     }
+
+    .error-list {
+        list-style: none;
+        margin: 30px 15px 0 0;
+        padding: 0;
+    }
+        .error-list li {
+            color: #C42F2F;
+            margin: 0;
+            padding: 0;
+        }
+            .error-list li i {
+                background-color: #6D0606;
+                display: inline-block;
+                height: 7px;
+                margin-left: 3px;
+                position: relative;
+                top: 1px;
+                width: 7px;
+
+                border-radius: 50%;
+            }
 </style>
 
 <div class="container-fluid">
@@ -152,7 +178,7 @@
                     <span ng-if="selectedForm != null">({{selectedForm.Title}})</span>
                 </div>
             </div>
-            <div class="panel-body" style="min-height:600px;">
+            <div class="panel-body" style="min-height:250px;" ng-class="{'min-height': selectedForm == null || form.fields == null}">
                 <div class="row">
                     <!-- Start Column#1 -->
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -175,7 +201,6 @@
                         </ul>
                     </div>
                     <!-- End Column#1 -->
-                    
                     <!-- Start Column#2 -->
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <ul class="formGroups-list">
@@ -197,7 +222,6 @@
                         </ul>
                     </div>
                     <!-- End Column#2 -->
-
                     <!-- Start Column#3 -->
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <ul class="formGroups-list">
@@ -239,6 +263,7 @@
                             <br />
                         </div>
                     </div>
+
                     <div class="visible-lg visible-md"
                          gridster="gridsterOpts_desktop">
                         <ul style="position:relative;">
@@ -308,6 +333,15 @@
                                 @Html.Partial("../Form/FormField_CheckboxGroup")
                             </li>
                         </ul>
+                    </div>
+
+                    <div class="row" ng-if="fromSumbited && selectedForm != null">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <ul class="error-list">
+                                <li style="color:#6D0606;font-size:22px;" ng-if="formErrors.length > 0">خطا:</li>
+                                <li ng-repeat="error in getFormErrors()"><i></i>{{error}}</li>
+                            </ul>
+                        </div>
                     </div>
                 </form>
             </div>

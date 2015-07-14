@@ -19,7 +19,8 @@
                      style="margin-right:8px;"
                      ng-repeat="radio_item in item.data.items">
                     <label>
-                        <input type="radio" ng-value="radio_item" ng-model="item.value" />
+                        <input type="radio" ng-value="radio_item" ng-model="item.value"
+                               tabindex="{{item.data.priority + '.' + Number($index + 1)}}" />
                         <span></span>{{radio_item.title}}
                     </label>
                 </div>

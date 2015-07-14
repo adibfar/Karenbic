@@ -18,7 +18,8 @@
                 <div class="input-group">
                     <input type="text" class="form-control ltr"
                            ng-class="{'ng-invalid': fromSumbited == true && validateForm_DatePicker(item) == false}"
-                           ng-model="item.value" jquery-datepicker="" />
+                           ng-model="item.value" jquery-datepicker=""
+                           tabindex="{{item.data.priority}}" />
                     <span class="input-group-addon icon-calendar"><i></i></span>
                 </div>
             </div>

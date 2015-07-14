@@ -7,6 +7,15 @@
         z-index:13;
     }
 
+    .tab-content > .tab-pane {
+        display: block !important;
+        height: 0 !important;
+        overflow-y: hidden !important;
+    }
+    .tab-content > .active {
+        height: auto !important;
+    }
+
     .panel-form-details {
         -moz-border-radius: 8px 8px 0 0 !important;
         -webkit-border-radius: 8px 8px 0 0 !important;
@@ -30,7 +39,7 @@
     .field-items {
         background-color: #f1f1f1;
         border: 1px solid #bebebe;
-        height: 235px;
+        height: 219px;
     }
         .field-items table {
             margin-bottom: 0;
@@ -91,6 +100,20 @@
         bottom: 10px;
         left: 10px;
         z-index: 10;
+    }
+    .gridster-item .gridster-item-priority{
+        background-color: #5F95D5;
+        border: 1px solid #2D5889;
+        height: 20px;
+        width: 20px;
+        color: #f3f3f3;
+        font-family: Calibri;
+        font-size: 14px;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 12;
     }
     .gridster-item pre {
         background-color: transparent;
@@ -400,6 +423,7 @@
                                     @Html.Partial("FormField_DropDown")
                                     @Html.Partial("FormField_MultipleChoice")
                                     @Html.Partial("FormField_CheckboxGroup")
+                                    <div class="gridster-item-priority">{{item.data.priority}}</div>
                                     <div class="gridster-item-overlay"></div>
                                 </li>
                             </ul>
@@ -431,6 +455,7 @@
                                     @Html.Partial("FormField_DropDown")
                                     @Html.Partial("FormField_MultipleChoice")
                                     @Html.Partial("FormField_CheckboxGroup")
+                                    @*<div class="gridster-item-priority">{{item.data.priority}}</div>*@
                                     <div class="gridster-item-overlay"></div>
                                 </li>
                             </ul>
@@ -463,6 +488,7 @@
                                     @Html.Partial("FormField_DropDown")
                                     @Html.Partial("FormField_MultipleChoice")
                                     @Html.Partial("FormField_CheckboxGroup")
+                                    @*<div class="gridster-item-priority">{{item.data.priority}}</div>*@
                                     <div class="gridster-item-overlay"></div>
                                 </li>
                             </ul>

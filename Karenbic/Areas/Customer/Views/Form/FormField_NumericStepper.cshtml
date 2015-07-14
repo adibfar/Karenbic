@@ -21,14 +21,16 @@
                        stepper=""
                        ng-class="{'ng-invalid': fromSumbited == true && validateForm_Nummeric(item) == false}"
                        ng-model="item.value"
-                       ng-if="item.data.isInt == true" />
+                       ng-if="item.data.isInt == true"
+                       tabindex="{{item.data.priority}}" />
                 <input type="text"
                        style="width:60px;"
                        stepper=""
                        number-type="float"
                        ng-class="{'ng-invalid': fromSumbited == true && validateForm_Nummeric(item) == false}"
                        ng-model="item.value"
-                       ng-if="item.data.isFloat == true" />
+                       ng-if="item.data.isFloat == true"
+                       tabindex="{{item.data.priority}}" />
             </div>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"

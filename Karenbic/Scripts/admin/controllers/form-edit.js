@@ -211,7 +211,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             showCustomer: true,
             pictureHelpFile: '',
             pictureHelpPath: '',
-            hasPictureHelpFile: false
+            hasPictureHelpFile: false,
+            priority: 0
         };
 
         $scope.$watch(function () {
@@ -242,7 +243,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 description: '',
                 pictureHelpFile: '',
                 pictureHelpPath: '',
-                hasPictureHelpFile: false
+                hasPictureHelpFile: false,
+                priority: 0
             };
         };
         /*=-=-=-=-= End New TextBox =-=-=-=-=*/
@@ -260,7 +262,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             showCustomer: true,
             pictureHelpFile: '',
             pictureHelpPath: '',
-            hasPictureHelpFile: false
+            hasPictureHelpFile: false,
+            priority: 0
         };
 
         $scope.$watch(function () {
@@ -291,7 +294,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 height: 120,
                 pictureHelpFile: '',
                 pictureHelpPath: '',
-                hasPictureHelpFile: false
+                hasPictureHelpFile: false,
+                priority: 0
             };
         };
         /*=-=-=-=-= End New TextArea =-=-=-=-=*/
@@ -310,7 +314,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             showCustomer: true,
             pictureHelpFile: '',
             pictureHelpPath: '',
-            hasPictureHelpFile: false
+            hasPictureHelpFile: false,
+            priority: 0
         };
 
         $scope.$watch(function () {
@@ -358,7 +363,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 description: '',
                 pictureHelpFile: '',
                 pictureHelpPath: '',
-                hasPictureHelpFile: false
+                hasPictureHelpFile: false,
+                priority: 0
             };
         };
         /*=-=-=-=-= End New Numeric Stepper =-=-=-=-=*/
@@ -371,7 +377,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             showCustomer: true,
             pictureHelpFile: '',
             pictureHelpPath: '',
-            hasPictureHelpFile: false
+            hasPictureHelpFile: false,
+            priority: 0
         };
 
         $scope.newField_ColorPicker_Reset = function () {
@@ -381,7 +388,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 description: '',
                 pictureHelpFile: '',
                 pictureHelpPath: '',
-                hasPictureHelpFile: false
+                hasPictureHelpFile: false,
+                priority: 0
             };
         };
         /*=-=-=-=-= End New Color Picker =-=-=-=-=*/
@@ -398,7 +406,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             showCustomer: true,
             pictureHelpFile: '',
             pictureHelpPath: '',
-            hasPictureHelpFile: false
+            hasPictureHelpFile: false,
+            priority: 0
         };
 
         $scope.$watch(function () {
@@ -428,7 +437,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 description: '',
                 pictureHelpFile: '',
                 pictureHelpPath: '',
-                hasPictureHelpFile: false
+                hasPictureHelpFile: false,
+                priority: 0
             };
         };
         /*=-=-=-=-= End New File Uploader =-=-=-=-=*/
@@ -441,7 +451,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             showCustomer: true,
             pictureHelpFile: '',
             pictureHelpPath: '',
-            hasPictureHelpFile: false
+            hasPictureHelpFile: false,
+            priority: 0
         };
 
         $scope.newField_Checkbox_Reset = function () {
@@ -451,7 +462,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 description: '',
                 pictureHelpFile: '',
                 pictureHelpPath: '',
-                hasPictureHelpFile: false
+                hasPictureHelpFile: false,
+                priority: 0
             };
         };
         /*=-=-=-=-= End New Checkbox =-=-=-=-=*/
@@ -464,7 +476,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             showCustomer: true,
             pictureHelpFile: '',
             pictureHelpPath: '',
-            hasPictureHelpFile: false
+            hasPictureHelpFile: false,
+            priority: 0
         };
 
         $scope.newField_WebUrl_Reset = function () {
@@ -474,7 +487,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 description: '',
                 pictureHelpFile: '',
                 pictureHelpPath: '',
-                hasPictureHelpFile: false
+                hasPictureHelpFile: false,
+                priority: 0
             };
         };
         /*=-=-=-=-= End New Web Url =-=-=-=-=*/
@@ -491,7 +505,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             showCustomer: true,
             pictureHelpFile: '',
             pictureHelpPath: '',
-            hasPictureHelpFile: false
+            hasPictureHelpFile: false,
+            priority: 0
         };
 
         $scope.newField_DatePicker_Reset = function () {
@@ -507,7 +522,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 description: '',
                 pictureHelpFile: '',
                 pictureHelpPath: '',
-                hasPictureHelpFile: false
+                hasPictureHelpFile: false,
+                priority: 0
             };
         };
         /*=-=-=-=-= End New Date Picker =-=-=-=-=*/
@@ -526,7 +542,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             items: [],
             pictureHelpFile: '',
             pictureHelpPath: '',
-            hasPictureHelpFile: false
+            hasPictureHelpFile: false,
+            priority: 0
         };
 
         $scope.newField_DropDown_AddItem = function () {
@@ -566,7 +583,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 items: [],
                 pictureHelpFile: '',
                 pictureHelpPath: '',
-                hasPictureHelpFile: false
+                hasPictureHelpFile: false,
+                priority: 0
             };
         };
         /*=-=-=-=-= End New Drop Down =-=-=-=-=*/
@@ -585,7 +603,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             items: [],
             pictureHelpFile: '',
             pictureHelpPath: '',
-            hasPictureHelpFile: false
+            hasPictureHelpFile: false,
+            priority: 0
         };
 
         $scope.newField_MultipleChoice_AddItem = function () {
@@ -625,7 +644,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 items: [],
                 pictureHelpFile: '',
                 pictureHelpPath: '',
-                hasPictureHelpFile: false
+                hasPictureHelpFile: false,
+                priority: 0
             };
         };
         /*=-=-=-=-= End New Multiple Choice =-=-=-=-=*/
@@ -643,7 +663,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             items: [],
             pictureHelpFile: '',
             pictureHelpPath: '',
-            hasPictureHelpFile: false
+            hasPictureHelpFile: false,
+            priority: 0
         };
 
         $scope.newField_CheckboxGroup_AddItem = function () {
@@ -683,7 +704,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 items: [],
                 pictureHelpFile: '',
                 pictureHelpPath: '',
-                hasPictureHelpFile: false
+                hasPictureHelpFile: false,
+                priority: 0
             };
         };
         /*=-=-=-=-= End New Checkbox Group =-=-=-=-=*/
@@ -737,28 +759,28 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         type: 0,
                         data: _.clone($scope.newField_TextBox),
                         desktop_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 3
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 3
                         },
                         tablet_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 2
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 2
                         },
                         mobile_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         },
                         factor_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         }
                     };
 
@@ -793,28 +815,28 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         type: 1,
                         data: _.clone($scope.newField_TextArea),
                         desktop_position: {
-                            sizeX: 1,
-                            sizeY: 2,
-                            row: 1,
-                            col: 3
+                            //sizeX: 1,
+                            //sizeY: 2,
+                            //row: 1,
+                            //col: 3
                         },
                         tablet_position: {
-                            sizeX: 1,
-                            sizeY: 2,
-                            row: 1,
-                            col: 2
+                            //sizeX: 1,
+                            //sizeY: 2,
+                            //row: 1,
+                            //col: 2
                         },
                         mobile_position: {
-                            sizeX: 1,
-                            sizeY: 2,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 2,
+                            //row: 1,
+                            //col: 1
                         },
                         factor_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         }
                     };
 
@@ -849,28 +871,28 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         type: 2,
                         data: _.clone($scope.newField_NumericStepper),
                         desktop_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 3
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 3
                         },
                         tablet_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 2
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 2
                         },
                         mobile_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         },
                         factor_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         }
                     };
 
@@ -905,28 +927,28 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         type: 3,
                         data: _.clone($scope.newField_ColorPicker),
                         desktop_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 3
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 3
                         },
                         tablet_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 2
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 2
                         },
                         mobile_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         },
                         factor_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         }
                     };
 
@@ -961,28 +983,28 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         type: 4,
                         data: _.clone($scope.newField_FileUploader),
                         desktop_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 3
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 3
                         },
                         tablet_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 2
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 2
                         },
                         mobile_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         },
                         factor_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         }
                     };
 
@@ -1017,28 +1039,28 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         type: 5,
                         data: _.clone($scope.newField_Checkbox),
                         desktop_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 3
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 3
                         },
                         tablet_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 2
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 2
                         },
                         mobile_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         },
                         factor_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         }
                     };
 
@@ -1073,28 +1095,28 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         type: 6,
                         data: _.clone($scope.newField_WebUrl),
                         desktop_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 3
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 3
                         },
                         tablet_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 2
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 2
                         },
                         mobile_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         },
                         factor_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         }
                     };
 
@@ -1129,28 +1151,28 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         type: 7,
                         data: _.clone($scope.newField_DatePicker),
                         desktop_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 3
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 3
                         },
                         tablet_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 2
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 2
                         },
                         mobile_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         },
                         factor_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         }
                     };
 
@@ -1188,28 +1210,28 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         type: 8,
                         data: data,
                         desktop_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 3
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 3
                         },
                         tablet_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 2
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 2
                         },
                         mobile_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         },
                         factor_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         }
                     };
 
@@ -1245,28 +1267,28 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         type: 9,
                         data: data,
                         desktop_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 3
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 3
                         },
                         tablet_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 2
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 2
                         },
                         mobile_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         },
                         factor_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         }
                     };
 
@@ -1304,28 +1326,28 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         type: 10,
                         data: data,
                         desktop_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 3
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 3
                         },
                         tablet_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 2
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 2
                         },
                         mobile_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         },
                         factor_position: {
-                            sizeX: 1,
-                            sizeY: 1,
-                            row: 1,
-                            col: 1
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
                         }
                     };
 
@@ -1533,7 +1555,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
         /*=-=-=-=-= Start Manage Preview =-=-=-=-=*/
         $scope.gridsterOpts_desktop = {
             minRows: 2,
-            maxRows: 100,
+            maxRows: 2500,
             columns: 3,
             colWidth: 'auto',
             rowHeight: 10,
@@ -1545,7 +1567,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
 
         $scope.gridsterOpts_tablet = {
             minRows: 2,
-            maxRows: 100,
+            maxRows: 2500,
             columns: 2,
             colWidth: 'auto',
             rowHeight: 10,
@@ -1557,7 +1579,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
 
         $scope.gridsterOpts_mobile = {
             minRows: 2,
-            maxRows: 100,
+            maxRows: 2500,
             columns: 1,
             colWidth: 'auto',
             rowHeight: 10,
@@ -1569,7 +1591,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
 
         $scope.gridsterOpts_factor = {
             minRows: 2,
-            maxRows: 100,
+            maxRows: 2500,
             columns: 1,
             colWidth: 'auto',
             rowHeight: 60,
@@ -1701,6 +1723,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 obj.ShowCustomer = item.data.showCustomer;
                 obj.ShowAdmin = true;
                 obj.PictureHelpFile = item.data.pictureHelpFile;
+                obj.Priority = item.data.priority;
 
                 switch (item.type) {
                     //TextBox

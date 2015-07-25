@@ -1,0 +1,133 @@
+﻿@model Karenbic.DomainClasses.PortfolioType
+
+@{
+    ViewBag.PageTitle = Model.Title;
+    List<Karenbic.DomainClasses.PortfolioCategory> categories = Model.Categories.OrderByDescending(x => x.Priority).ToList();
+}
+
+@section HeaderSection {
+    <style type="text/css">
+        .page-content {
+            width: 100%;
+            padding: 1px 1px 1px 167px;
+            position: relative;
+        }
+
+        .left-menu {
+            background: transparent url(/Images/Public/0.jpg) no-repeat 0 0;
+            height: 464px;
+            left: 0;
+            margin: 0 auto;
+            padding: 1px;
+            position: absolute;
+            top: 0;
+            width: 157px;
+        }
+            .left-menu ul {
+                margin: 96px 37px 0 29px;
+                padding: 0;
+                list-style: none;
+                text-align: center;
+            }
+                .left-menu ul li {
+                    color: #fff;
+                    font-family: Calibri;
+                    font-size: 15px;
+                    font-weight: bold;
+                    margin: 0 0 3px 0;
+                    padding: 0;
+                    list-style: none;
+                }
+                    .left-menu ul li a {
+                        color: #fff;
+                        cursor: pointer;
+                        display:block;
+
+                        transition: all 300ms ease-out;
+                    }
+                    .left-menu ul li a:hover {
+                        text-decoration: none;
+                        text-shadow: 0 0 6px #fff;
+                        transition: all 300ms ease-in;
+                    }
+
+        /* Custom, iPhone Retina */
+	    @@media only screen and (min-width : 320px) {
+            .page-content {
+                padding-left: 0;
+            } 
+		    .left-menu {
+                left: auto;
+                position: relative;
+                top: auto;
+            }
+	    }
+	    /* Extra Small Devices, Phones */
+	    @@media only screen and (min-width : 480px) {
+            .page-content {
+                padding-left: 0;
+            } 
+		    .left-menu {
+                left: auto;
+                position: relative;
+                top: auto;
+            }
+	    }
+	    /* Small Devices, Tablets */
+	    @@media only screen and (min-width : 768px) {
+            .page-content {
+                padding-left: 167px;
+            } 
+		    .left-menu {
+                left: 0;
+                position: absolute;
+                top: 0;
+            }
+	    }
+	    /* Medium Devices, Desktops */
+	    @@media only screen and (min-width : 992px){
+            .page-content {
+                padding-left: 167px;
+            } 
+		    .left-menu {
+                left: 0;
+                position: absolute;
+                top: 0;
+            }
+	    }
+	    /* Large Devices, Wide Screens */
+	    @@media only screen and (min-width : 1200px){
+		    .page-content {
+                padding-left: 167px;
+            }    
+            .left-menu {
+                left: 0;
+                position: absolute;
+                top: 0;
+            }
+	    }
+    </style>
+}
+
+<div id="header-mobile" class="visible-xs">
+    <div id="header-mobile-inner">
+        <a class="logo" href="/"></a>
+        <a class="btn-home" href="/"></a>
+        <a class="btn-back" href="/Portfolio"></a>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="left-menu">
+        <ul>
+            @foreach (Karenbic.DomainClasses.PortfolioCategory item in categories)
+            {
+                <li>
+                    <a href="@Url.Action("ShowPortfolios", new { typeId = Model.Id, categoryId = item.Id })">@item.Title</a>
+            </li>
+            }
+        </ul>
+    </div>
+
+    <img style="display:block;height:auto;margin-top:40px;width:480px;" src="@Model.PicturePath" />
+</div>

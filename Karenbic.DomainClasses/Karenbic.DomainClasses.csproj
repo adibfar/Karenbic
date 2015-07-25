@@ -108,6 +108,9 @@
     <Compile Include="PriceList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Customer\Province.cs" />
+    <Compile Include="Public\Portfolio.cs" />
+    <Compile Include="Public\PortfolioCategory.cs" />
+    <Compile Include="Public\PortfolioType.cs" />
     <Compile Include="Setting.cs" />
   </ItemGroup>
   <ItemGroup>

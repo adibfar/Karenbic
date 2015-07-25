@@ -81,6 +81,11 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.AdminMessage_Admin> AdminMessages_Admin { get; set; }
         public DbSet<DomainClasses.AdminMessage_Customer> AdminMessages_Customer { get; set; }
 
+
+        public DbSet<DomainClasses.PortfolioType> PortfolioTypes { get; set; }
+        public DbSet<DomainClasses.PortfolioCategory> PortfolioCategories { get; set; }
+        public DbSet<DomainClasses.Portfolio> Portfolios { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ProvinceConfiguration());
@@ -124,6 +129,10 @@ namespace Karenbic.DataAccess
             modelBuilder.Configurations.Add(new CustomerMessageConfiguration());
             modelBuilder.Configurations.Add(new AdminMessage_AdminConfiguration());
             modelBuilder.Configurations.Add(new AdminMessage_CustomerConfiguration());
+
+            modelBuilder.Configurations.Add(new PortfolioTypeConfiguration());
+            modelBuilder.Configurations.Add(new PortfolioCategoryConfiguration());
+            modelBuilder.Configurations.Add(new PortfolioConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

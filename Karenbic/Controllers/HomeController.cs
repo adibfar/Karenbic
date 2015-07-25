@@ -11,7 +11,19 @@ namespace Karenbic.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View("Index2");
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ContactUs()
+        {
+            return View();
         }
     }
 }

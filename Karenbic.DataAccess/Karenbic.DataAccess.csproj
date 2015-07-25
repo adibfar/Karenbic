@@ -85,6 +85,9 @@
     <Compile Include="Factor\PrintFactorConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Customer\ProvinceConfiguration.cs" />
+    <Compile Include="Public\PortfolioCategoryConfiguration.cs" />
+    <Compile Include="Public\PortfolioConfiguration.cs" />
+    <Compile Include="Public\PortfolioTypeConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

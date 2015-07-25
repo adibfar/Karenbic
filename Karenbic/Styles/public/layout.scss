@@ -18,31 +18,34 @@ body {
 }
 
 #center-content {
-    background-color: #f9f9f9;
     margin: 0 auto;
     min-height: 700px;
     padding: 0;
     position: relative;
-	width: 1024px;
 
     /* Custom, iPhone Retina */
 	@media only screen and (min-width : 320px) {
+		padding: 60px 0 0 0;
 		width: 100%;
 	}
 	/* Extra Small Devices, Phones */
 	@media only screen and (min-width : 480px) {
+		padding: 60px 0 0 0;
 		width: 100%;
 	}
 	/* Small Devices, Tablets */
 	@media only screen and (min-width : 768px) {
+		padding: 0;
 		width: 100%;
 	}
 	/* Medium Devices, Desktops */
 	@media only screen and (min-width : 992px){
-		width: 100%;
+		padding: 0;
+		width: 948px;
 	}
 	/* Large Devices, Wide Screens */
 	@media only screen and (min-width : 1200px){
-		width: 1054px;
+		padding: 0;
+		width: 948px;
 	}
 }

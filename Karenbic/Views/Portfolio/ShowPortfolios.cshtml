@@ -1,0 +1,181 @@
+﻿@{
+    Karenbic.DomainClasses.PortfolioType portfolioType = ViewBag.PortfolioType;
+    Karenbic.DomainClasses.PortfolioCategory portfolioCategory = ViewBag.PortfolioCategory;
+
+    List<Karenbic.DomainClasses.PortfolioCategory> portfolioCategories = portfolioType.Categories
+        .OrderByDescending(x => x.Priority).ToList();
+
+    List<Karenbic.DomainClasses.Portfolio> portfolios = portfolioCategory.Portfolios
+        .OrderByDescending(x => x.Priority).ToList();
+
+    ViewBag.PageTitle = string.Format("{0} | {1}", portfolioType.Title, portfolioCategory.Title);
+}
+
+@section HeaderSection {
+    <style type="text/css">
+        .page-content {
+            width: 100%;
+            padding-left: 176px;
+            position: relative;
+        }
+
+        .left-menu {
+            background: transparent url(/Images/Public/0.jpg) no-repeat 0 0;
+            height: 464px;
+            left: 0;
+            margin: 0 auto;
+            padding: 1px;
+            position: absolute;
+            top: 0;
+            width: 157px;
+        }
+            .left-menu ul {
+                margin: 96px 37px 0 29px;
+                padding: 0;
+                list-style: none;
+                text-align: center;
+            }
+                .left-menu ul li {
+                    color: #fff;
+                    font-family: Calibri;
+                    font-size: 15px;
+                    font-weight: bold;
+                    margin: 0 0 3px 0;
+                    padding: 0;
+                    list-style: none;
+                }
+                    .left-menu ul li a {
+                        color: #fff;
+                        cursor: pointer;
+                        display:block;
+
+                        transition: all 300ms ease-out;
+                    }
+                    .left-menu ul li a:hover {
+                        text-decoration: none;
+                        text-shadow: 0 0 6px #fff;
+                        transition: all 300ms ease-in;
+                    }
+
+        .portfolios {
+            position: relative;
+            padding: 71px 69px 20px 69px;
+        }
+            .portfolios .label-left{
+                background: transparent url(/Images/Public/1.png) no-repeat 0 0;
+                height: 132px;
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 148px;
+            }
+            .portfolios .label-right{
+                background: transparent url(/Images/Public/2.png) no-repeat 0 0;
+                height: 132px;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 148px;
+            }
+            .portfolios ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                text-align:center;
+            }
+                .portfolios ul li {
+                    background-color: #2a3234;
+                    border: 2px solid #494949;
+                    display: inline-block;
+                    height: 156px;
+                    margin: 0 0 5px 7px;
+                    padding: 3px;
+                    width: 204px;
+                }
+                    .portfolios ul li img {
+                        display: block;
+                        height: 146px;
+                        width: 194px;
+                    }
+
+
+                    
+        /* Custom, iPhone Retina */
+	    @@media only screen and (min-width : 320px) {
+            .page-content {
+                padding-left: 0;
+            } 
+	    }
+	    /* Extra Small Devices, Phones */
+	    @@media only screen and (min-width : 480px) {
+            .page-content {
+                padding-left: 0;
+            } 
+	    }
+	    /* Small Devices, Tablets */
+	    @@media only screen and (min-width : 768px) {
+            .page-content {
+                padding-left: 167px;
+            }
+	    }
+	    /* Medium Devices, Desktops */
+	    @@media only screen and (min-width : 992px){
+            .page-content {
+                padding-left: 167px;
+            }
+	    }
+	    /* Large Devices, Wide Screens */
+	    @@media only screen and (min-width : 1200px){
+		    .page-content {
+                padding-left: 167px;
+            }
+	    }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="/Vendors/jquery-colorbox/them/colorbox.css" />
+    <script type="text/javascript" src="/Vendors/jquery-colorbox/jquery.colorbox-min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.portfolios ul li a').colorbox({
+                rel: 'gallery'
+            });
+        });
+    </script>
+}
+
+<div id="header-mobile" class="visible-xs">
+    <div id="header-mobile-inner">
+        <a class="logo" href="/"></a>
+        <a class="btn-home" href="/"></a>
+        <a class="btn-back" href="/Portfolio/@portfolioCategory.Id"></a>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="hidden-xs left-menu">
+        <ul>
+            @foreach (Karenbic.DomainClasses.PortfolioCategory item in portfolioCategories)
+            {
+                <li>
+                    <a href="@Url.Action("ShowPortfolios", new { typeId = portfolioType.Id, categoryId = item.Id })">@item.Title</a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="portfolios">
+        <div class="hidden-xs label-left"></div>
+        <div class="hidden-xs label-right"></div>
+        <ul>
+            @foreach (Karenbic.DomainClasses.Portfolio item in portfolios)
+            {
+                <li>
+                    <a href="@item.PicturePath">
+                        <img src="@item.TumbPicturePath" />
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

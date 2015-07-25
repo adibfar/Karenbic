@@ -217,6 +217,8 @@
     <Compile Include="Areas\Admin\Controllers\FroalaController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PortfolioCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PortfolioController.cs" />
     <Compile Include="Areas\Admin\Controllers\PriceListController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrintAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrintOrderController.cs" />
@@ -225,6 +227,7 @@
     <Compile Include="Areas\Admin\Controllers\ProvinceController.cs" />
     <Compile Include="Areas\Admin\Controllers\ReceiveMessageController.cs" />
     <Compile Include="Areas\Admin\Controllers\SendMessageController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PortfolioTypeController.cs" />
     <Compile Include="Areas\Customer\Controllers\CityController.cs" />
     <Compile Include="Areas\Customer\Controllers\DesignFinalPaymentController.cs" />
     <Compile Include="Areas\Customer\Controllers\DesignOrderController.cs" />
@@ -269,6 +272,8 @@
     <Compile Include="Areas\Customer\Models\OrderValue_TextBox.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue_WebUrl.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PortfolioController.cs" />
+    <Compile Include="Controllers\PriceListController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
@@ -338,6 +343,29 @@
     <Content Include="Images\PortalMobileMenu\show-order.png" />
     <Content Include="Images\PortalNavbar\design-nav.png" />
     <Content Include="Images\PortalNavbar\print-nav.png" />
+    <Content Include="Images\PublicMobile\portfolio-menu-bar.jpg" />
+    <Content Include="Images\PublicMobile\btn-home.jpg" />
+    <Content Include="Images\PublicMobile\btn-back.jpg" />
+    <Content Include="Images\PublicMobile\logo-1.jpg" />
+    <Content Include="Images\PublicMobile\btn-login.png" />
+    <Content Include="Images\PublicMobile\btn-register.png" />
+    <Content Include="Images\PublicMobile\logo-2.png" />
+    <Content Include="Images\PublicMobile\menu-arrow.jpg" />
+    <Content Include="Images\PublicMobile\MenuItem\item0.jpg" />
+    <Content Include="Images\PublicMobile\MenuItem\item1.jpg" />
+    <Content Include="Images\PublicMobile\MenuItem\item2.jpg" />
+    <Content Include="Images\PublicMobile\MenuItem\item3.jpg" />
+    <Content Include="Images\Public\0.jpg" />
+    <Content Include="Images\Public\1.png" />
+    <Content Include="Images\Public\btn-login.png" />
+    <Content Include="Images\Public\btn-register.png" />
+    <Content Include="Images\Public\logo.png" />
+    <Content Include="Images\Public\2.png" />
+    <Content Include="Images\Public\3_lg.jpg" />
+    <Content Include="Images\Public\3.jpg" />
+    <Content Include="Images\Public\4_lg.png" />
+    <Content Include="Images\Public\5_lg.png" />
+    <Content Include="Images\Public\6_lg.png" />
     <Content Include="Images\ReviewIcon\accept.png" />
     <Content Include="Images\ReviewIcon\maybe.png" />
     <Content Include="Images\ReviewIcon\unaccept.png" />
@@ -385,6 +413,9 @@
     <Content Include="Scripts\admin\controllers\form-list.js" />
     <Content Include="Scripts\admin\controllers\main.js" />
     <Content Include="Scripts\admin\controllers\mobile-menu.js" />
+    <Content Include="Scripts\admin\controllers\portfolio-add.js" />
+    <Content Include="Scripts\admin\controllers\portfolio-categories.js" />
+    <Content Include="Scripts\admin\controllers\portfolios.js" />
     <Content Include="Scripts\admin\controllers\price-list.js" />
     <Content Include="Scripts\admin\controllers\print-canceled-order-list.js" />
     <Content Include="Scripts\admin\controllers\print-factor-list.js" />
@@ -527,6 +558,9 @@
     <Content Include="Areas\Customer\Views\DesignFinalPayment\Checkout.cshtml" />
     <Content Include="Areas\Customer\Views\DesignFinalPayment\Preview.cshtml" />
     <Content Include="Areas\Admin\Views\DesignOrder\ShowOrderDesign.cshtml" />
+    <Content Include="Areas\Admin\Views\PortfolioCategory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Portfolio\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Portfolio\Add.cshtml" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Service References\BPService\configuration91.svcinfo" />
     <None Include="Service References\BPService\configuration.svcinfo" />
@@ -3117,6 +3151,15 @@
     <Content Include="Styles\public\layout.scss" />
     <Content Include="Styles\public\header.scss" />
     <Content Include="Styles\public\navbar.scss" />
+    <Content Include="Views\Portfolio\ShowCategories.cshtml" />
+    <Content Include="Views\Portfolio\ShowPortfolios.cshtml" />
+    <Content Include="Styles\public\navbar-mobile.scss" />
+    <Content Include="Views\Home\AboutUs.cshtml" />
+    <Content Include="Views\Home\ContactUs.cshtml" />
+    <Content Include="Styles\public\header-mobile.scss" />
+    <Content Include="Views\Portfolio\ShowTypes.cshtml" />
+    <Content Include="Views\PriceList\Index.cshtml" />
+    <Content Include="Views\PriceList\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3124,6 +3167,7 @@
     <Folder Include="Areas\Admin\Views\City\" />
     <Folder Include="Areas\Admin\Views\Froala\" />
     <Folder Include="Areas\Admin\Views\Order\" />
+    <Folder Include="Areas\Admin\Views\PortfolioType\" />
     <Folder Include="Areas\Admin\Views\Province\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Customer\Views\FormGroup\" />
@@ -3132,6 +3176,7 @@
     <Folder Include="Content\FormField\" />
     <Folder Include="Content\FroalaUpload\" />
     <Folder Include="Content\Order\" />
+    <Folder Include="Content\Portfolio\" />
     <Folder Include="Content\PriceList\" />
     <Folder Include="Content\Upload\" />
     <Folder Include="Models\" />

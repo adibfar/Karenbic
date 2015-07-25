@@ -1,0 +1,166 @@
+﻿#navbar-mobile {
+	background-color: #0d0d0d;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 10;
+
+	#navbar-mobile-inner {
+		background-color: #0d0d0d;
+		display: none;
+
+		.logo {
+			background: transparent url(/Images/PublicMobile/logo-2.png) no-repeat center center;
+			display: block;
+			height: 31px;
+			margin: 10px auto 3px auto;
+			width: 225px;
+		}
+
+		.btn-container {
+			height: 61px;
+			margin: 0 auto;
+			position: relative;
+			width: 193px;
+		}
+
+		.btn-login {
+			background: transparent url(/Images/PublicMobile/btn-login.png) no-repeat center center;
+			height: 58px;
+			position: absolute;
+			right: 95px;
+			top: 0;
+			width: 98px;
+			transition: text-shadow 300ms ease-out;
+			z-index: 3;
+
+			.btn-login-inner {
+				color: #fff;
+				cursor: pointer;
+				display: block;
+				font-family: Calibri;
+				font-size: 15px;
+				font-weight: bold;
+				height: 52px;
+				margin: 4px 2px 0 0;
+				padding: 16px 0 0 0;
+				text-align: center;
+				width: 85px;
+
+				&:hover {
+					text-decoration: none;
+					text-shadow: 0 0 6px #fff;
+					transition: text-shadow 300ms ease-in;
+				}
+			}
+		}
+
+		.btn-register {
+			background: transparent url(/Images/PublicMobile/btn-register.png) no-repeat center center;
+			height: 61px;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 98px;
+			transition: text-shadow 300ms ease-out;
+			z-index: 3;
+
+			.btn-register-inner {
+				color: #fff;
+				cursor: pointer;
+				display: block;
+				font-family: Calibri;
+				font-size: 15px;
+				font-weight: bold;
+				height: 50px;
+				margin: 6px 9px 0 0;
+				padding: 14px 0 0 0;
+				text-align: center;
+				width: 86px;
+
+				&:hover {
+					text-decoration: none;
+					text-shadow: 0 0 6px #fff;
+					transition: text-shadow 300ms ease-in;
+				}
+			}
+		}
+
+		.menu-item {
+			width: 143px;
+			padding: 1px;
+
+			.menu-item-inner {
+				color: #fff;
+				cursor: pointer;
+				display: block;
+				font-family: Calibri;
+				font-size: 15px;
+				font-weight: bold;
+				text-align: center;
+
+				&:hover {
+					text-decoration: none;
+					text-shadow: 0 0 6px #fff;
+					transition: text-shadow 300ms ease-in;
+				}
+			}
+		}
+
+		.menu-item0 {
+			background: transparent url(/Images/PublicMobile/MenuItem/item0.jpg) no-repeat center center;
+			height: 59px;
+			margin: 5px auto 0 auto;
+
+			.menu-item-inner {
+				height: 55px;
+				margin: 2px 11px 1px 1px;
+				padding-top: 17px;
+			}
+		}
+
+		.menu-item1 {
+			background: transparent url(/Images/PublicMobile/MenuItem/item1.jpg) no-repeat center center;
+			height: 55px;
+			margin: 2px auto 0 auto;
+
+			.menu-item-inner {
+				height: 52px;
+				margin: 2px 1px 1px 1px;
+				padding-top: 11px;
+			}
+		}
+
+		.menu-item2 {
+			background: transparent url(/Images/PublicMobile/MenuItem/item2.jpg) no-repeat center center;
+			height: 58px;
+			margin: 2px auto 0 auto;
+
+			.menu-item-inner {
+				height: 55px;
+				margin: 2px 1px 1px 1px;
+				padding-top: 15px;
+			}
+		}
+
+		.menu-item3 {
+			background: transparent url(/Images/PublicMobile/MenuItem/item3.jpg) no-repeat center center;
+			height: 60px;
+			margin: 2px auto 12px auto;
+
+			.menu-item-inner {
+				height: 55px;
+				margin: 2px 7px 1px 4px;
+				padding-top: 15px;
+			}
+		}
+	}
+
+	#navbar-mobile-arrow {
+		background: transparent url(/Images/PublicMobile/menu-arrow.jpg) no-repeat center center;
+		cursor: pointer;
+		height: 48px;
+		margin: 0 auto;
+		width: 107px;
+	}
+}

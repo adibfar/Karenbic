@@ -1,1 +1,104 @@
-﻿
+﻿#navbar {
+	direction: ltr;
+	height: 147px;
+	padding: 1px;
+	position: relative;
+
+	.bg {
+		display: block;
+		height: 132px;
+		width: 100%;
+	}
+
+	#inner-navbar {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+
+	ul.menu {
+		margin: 25px 0 0 23px;
+		padding: 0;
+		text-align: left;
+
+		li {
+			color: #fff;
+			display: inline-block;
+            font-family: Calibri;
+            font-size: 19px;
+            font-weight: bold;
+            list-style: none;
+			margin: 0;
+            padding: 0;
+			position: relative;
+			width: 115px;
+
+			a {
+                color: #fff;
+                cursor: pointer;
+                display: block;
+				height: 87px;
+				padding: 31px 0;
+				position: relative;
+				text-align: center;
+				width: 147px;
+				z-index: 11;
+                transition: text-shadow 300ms ease-out, background 300ms ease-out;
+
+				&:hover, &.active {
+					background: transparent url(/Images/Public/4_lg.png) no-repeat center center;
+                    text-decoration: none;
+                    text-shadow: 0 0 6px #fff;
+                    transition: text-shadow 300ms ease-in, background 300ms ease-in;
+                }
+            }
+		}
+	}
+
+	ul.submenu {
+		background: transparent url(/Images/Public/5_lg.png) no-repeat 0 0;
+		display: none;
+		height: 285px;
+		left: -55px;
+		padding: 57px 40px 48px 57px !important;
+		position: absolute;
+		top: 13px;
+		width: 245px;
+		z-index: 10;
+
+		li {
+			color: #553409;
+			display: block;
+            font-family: Calibri;
+            font-size: 15px;
+            font-weight: bold;
+            list-style: none;
+			height: 36px;
+			margin: 0;
+            padding: 0;
+			position: relative;
+			width: 100%;
+
+			a {
+				background-position: center center;
+                color: #553409;
+                cursor: pointer;
+                display: block;
+				height: 68px;
+				padding: 22px 0;
+				text-align: center;
+				width: 100%;
+                transition: text-shadow 300ms ease-out, background 300ms ease-out;
+
+				&:hover {
+					background: transparent url(/Images/Public/6_lg.png) no-repeat center center;
+                    text-decoration: none;
+                    text-shadow: 0 0 6px #553409;
+                    transition: text-shadow 300ms ease-in, background 300ms ease-in;
+                }
+            }
+		}
+	}
+}

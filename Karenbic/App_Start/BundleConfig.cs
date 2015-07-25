@@ -82,6 +82,9 @@ namespace Karenbic
                 "~/Scripts/admin/controllers/form-list.js",
                 "~/Scripts/admin/controllers/customer-group.js",
                 "~/Scripts/admin/controllers/customer.js",
+                "~/Scripts/admin/controllers/portfolio-categories.js",
+                "~/Scripts/admin/controllers/portfolio-add.js",
+                "~/Scripts/admin/controllers/portfolios.js",
                 "~/Scripts/admin/controllers/price-list.js",
                 "~/Scripts/admin/controllers/send-message-new.js",
                 "~/Scripts/admin/controllers/send-message-list.js",
@@ -181,6 +184,22 @@ namespace Karenbic
                 "~/Vendors/bootstrap-3.3.4/css/bootstrap.css",
                 "~/Vendors/bootstrap-rtl/bootstrap-rtl.css",
                 "~/Styles/Admin.css"
+            ));
+
+            bundles.Add(new ScriptBundle("~/Scripts/public/base").Include(
+                // jQuery
+                "~/Vendors/jquery-1.11.2/jquery-1.11.2.min.js",
+                "~/Vendors/jquery-1.11.2/jquery-migrate-1.2.1.min.js",
+                // lodash
+                "~/Vendors/lodash-3.5.0/lodash.min.js",
+                // Bootstrap
+                "~/Vendors/bootstrap-3.3.4/js/bootstrap.min.js"
+            ));
+
+            bundles.Add(new StyleBundle("~/Styles/publicStyle").Include(
+                "~/Vendors/bootstrap-3.3.4/css/bootstrap.css",
+                "~/Vendors/bootstrap-rtl/bootstrap-rtl.css",
+                "~/Styles/public.css"
             ));
 
             //BundleTable.EnableOptimizations = false;

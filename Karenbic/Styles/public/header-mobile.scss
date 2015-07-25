@@ -1,0 +1,42 @@
+﻿#header-mobile {
+	height: 67px;
+	position: relative;
+	width: 100%;
+
+	#header-mobile-inner {
+		height: 60px;
+		margin: 0 auto;
+		position: relative;
+		width: 213px;
+	}
+
+	.logo {
+		background: transparent url(/Images/PublicMobile/logo-1.jpg) no-repeat center center;
+		display: block;
+		height: 60px;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 90px;
+	}
+
+	.btn-home {
+		background: transparent url(/Images/PublicMobile/btn-home.jpg) no-repeat center center;
+		display: block;
+		height: 60px;
+		position: absolute;
+		right: 93px;
+		top: 0;
+		width: 51px;
+	}
+
+	.btn-back {
+		background: transparent url(/Images/PublicMobile/btn-back.jpg) no-repeat center center;
+		display: block;
+		height: 60px;
+		position: absolute;
+		right: 147px;
+		top: 0;
+		width: 66px;
+	}
+}

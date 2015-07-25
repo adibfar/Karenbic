@@ -104,6 +104,25 @@ App
                 icon: "price-list"
             },
             {
+                text: "نمونه کارها",
+                sref: "#",
+                icon: "price-list",
+                submenu: [
+                    {
+                        text: "گروه بندی",
+                        sref: "app.design.portfolio-categories"
+                    },
+                    {
+                        text: "ثبت نمونه کار جدید",
+                        sref: "app.design.portfolio-add"
+                    },
+                    {
+                        text: "نمونه کارهای ثبت شده",
+                        sref: "app.design.portfolios"
+                    }
+                ]
+            },
+            {
                 text: "پیام ها",
                 sref: "#",
                 icon: "message",
@@ -221,6 +240,25 @@ App
                 text: "لیست قیمت",
                 sref: "app.print.price-list",
                 icon: "price-list"
+            },
+            {
+                text: "نمونه کارها",
+                sref: "#",
+                icon: "price-list",
+                submenu: [
+                    {
+                        text: "گروه بندی",
+                        sref: "app.print.portfolio-categories"
+                    },
+                    {
+                        text: "ثبت نمونه کار جدید",
+                        sref: "app.print.portfolio-add"
+                    },
+                    {
+                        text: "نمونه کارهای ثبت شده",
+                        sref: "app.print.portfolios"
+                    }
+                ]
             },
             {
                 text: "پیام ها",

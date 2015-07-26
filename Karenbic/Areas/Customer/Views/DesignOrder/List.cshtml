@@ -110,8 +110,6 @@
                                 <th style="min-width:80px;width:80px;">تاریخ</th>
                                 <th style="min-width:200px;">شرح سفارش</th>
                                 <th style="min-width:100px;width:100px;">مبلغ کل (ریال)</th>
-                                <th style="min-width:140px;width:140px;" colspan="2">مبلغ پیش پرداخت (ریال)</th>
-                                <th style="min-width:140px;width:140px;" colspan="2">مانده حساب (ریال)</th>
                                 <th style="min-width:40px;width:40px;">نمایش</th>
                             </tr>
                         </thead>
@@ -122,24 +120,6 @@
                                 <td style="direction:ltr;text-align:right;">{{item.PersianRegisterDate}}</td>
                                 <td>{{item.Form.Title}}</td>
                                 <td>{{item.Price | riyal}}</td>
-                                <td style="border-right:1px solid #D6D6D6;">{{item.PrepaymentFactor.Price | riyal}}</td>
-                                <td>
-                                    <span class="text-danger" ng-if="item.PrepaymentFactor.IsPaid == false">پرداخت نشده</span>
-                                    <div class="label label-info"
-                                         style="cursor:pointer;font-family:BNazanin;font-size:16px;font-weight:normal;line-height:0;padding:0 10px;"
-                                         ng-if="item.PrepaymentFactor.IsPaid == true"
-                                         ng-click="showPaymentDetails(item.PrepaymentPayment.Id)">{{item.PrepaymentPayment.Code}}</div>
-                                </td>
-                                <td style="border-right:1px solid #D6D6D6;">
-                                    <span>{{item.FinalFactor.Price | riyal}}</span>
-                                </td>
-                                <td>
-                                    <span class="text-danger" ng-if="item.FinalFactor.IsPaid == false">پرداخت نشده</span>
-                                    <div class="label label-info"
-                                         style="cursor:pointer;font-family:BNazanin;font-size:16px;font-weight:normal;line-height:0;padding:0 10px;"
-                                         ng-if="item.FinalFactor.IsPaid == true"
-                                         ng-click="showPaymentDetails(item.FinalPayment.Id)">{{item.FinalPayment.Code}}</div>
-                                </td>
                                 <td style="text-align:center;">
                                     <button class="btn-img-info-1" type="button"
                                             ng-click="show($index)"></button>                                
@@ -169,21 +149,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                        <div class="clearfix">
-                            <div class="pull-left">
-                                <button class="btn btn-labeled btn-warning" type="button"
-                                        ng-click="paymentPreview_group()"
-                                        ng-class="{'disabled': anyFactorSelected() == false}"
-                                        ng-disabled="anyFactorSelected() == false">
-                                    <span class="btn-label btn-label-right">
-                                        <i class="fa fa-check"></i>
-                                    </span>
-                                    صدور فاکتور
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"></div>
                 </div>
             </div>
         </div>

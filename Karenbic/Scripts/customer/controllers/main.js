@@ -1,11 +1,11 @@
-/*=========================================================
+﻿/*=========================================================
  * Module: main.js
  * Main Application Controller
  =========================================================*/
 
 App.controller('AppController',
-  ['$rootScope', '$scope', '$state', '$window', '$localStorage', '$timeout', 'colors', 'browser', 'cfpLoadingBar',
-  function($rootScope, $scope, $state, $window, $localStorage, $timeout, colors, browser, cfpLoadingBar) {
+  ['$rootScope', '$scope', '$state', '$window', '$localStorage', '$timeout', 'colors', 'browser', 'cfpLoadingBar', '$http', 'APP_BASE_URI',
+  function ($rootScope, $scope, $state, $window, $localStorage, $timeout, colors, browser, cfpLoadingBar, $http, baseUri) {
       "use strict";
 
     $scope.isDesignPortal = function () {
@@ -87,4 +87,24 @@ App.controller('AppController',
     else {
         $rootScope.app.portal = 'print';
     }
+
+      //get user info
+    $scope.user = {};
+    $scope.getUserInfo = function () {
+        $scope.fetchUserInfoLoading = true;
+        $http.get(baseUri + 'Profile/GetProfile')
+        .success(function (data, status, headers, config) {
+            $scope.user = data;
+            $scope.fetchUserInfoLoading = false;
+        }).error(function (data, status, headers, config) {
+            if (status == 403) {
+                window.location = "/Account/Login";
+            }
+            else {
+                toaster.pop('error', "خطایی رخ داده صفحه را مجدداً بارگزاری کنید");
+            }
+            $scope.fetchUserInfoLoading = false;
+        });
+    };
+    $scope.getUserInfo();
 }]);

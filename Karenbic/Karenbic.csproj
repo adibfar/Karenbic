@@ -271,6 +271,7 @@
     <Compile Include="Areas\Customer\Models\OrderValue_TextArea.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue_TextBox.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue_WebUrl.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PortfolioController.cs" />
     <Compile Include="Controllers\PriceListController.cs" />
@@ -283,6 +284,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\BPService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -343,6 +345,7 @@
     <Content Include="Images\PortalMobileMenu\show-order.png" />
     <Content Include="Images\PortalNavbar\design-nav.png" />
     <Content Include="Images\PortalNavbar\print-nav.png" />
+    <Content Include="Images\PortalNavbar\help-nav.png" />
     <Content Include="Images\PublicMobile\portfolio-menu-bar.jpg" />
     <Content Include="Images\PublicMobile\btn-home.jpg" />
     <Content Include="Images\PublicMobile\btn-back.jpg" />
@@ -359,6 +362,16 @@
     <Content Include="Images\Public\1.png" />
     <Content Include="Images\Public\btn-login.png" />
     <Content Include="Images\Public\btn-register.png" />
+    <Content Include="Images\Public\Login\1.png" />
+    <Content Include="Images\Public\Login\10.png" />
+    <Content Include="Images\Public\Login\2.png" />
+    <Content Include="Images\Public\Login\3.png" />
+    <Content Include="Images\Public\Login\4.png" />
+    <Content Include="Images\Public\Login\5.png" />
+    <Content Include="Images\Public\Login\6.png" />
+    <Content Include="Images\Public\Login\7.png" />
+    <Content Include="Images\Public\Login\8.png" />
+    <Content Include="Images\Public\Login\9.png" />
     <Content Include="Images\Public\logo.png" />
     <Content Include="Images\Public\2.png" />
     <Content Include="Images\Public\3_lg.jpg" />
@@ -366,6 +379,11 @@
     <Content Include="Images\Public\4_lg.png" />
     <Content Include="Images\Public\5_lg.png" />
     <Content Include="Images\Public\6_lg.png" />
+    <Content Include="Images\Public\Register\1.png" />
+    <Content Include="Images\Public\Register\2.png" />
+    <Content Include="Images\Public\Register\3.png" />
+    <Content Include="Images\Public\Register\4.png" />
+    <Content Include="Images\Public\Register\5.png" />
     <Content Include="Images\ReviewIcon\accept.png" />
     <Content Include="Images\ReviewIcon\maybe.png" />
     <Content Include="Images\ReviewIcon\unaccept.png" />
@@ -688,6 +706,12 @@
     <Content Include="Styles\fonts\NexaBold.scss" />
     <Content Include="Styles\form-elements\pagination.scss" />
     <None Include="Styles\Icons\HeaderIcons.scss" />
+    <Content Include="Vendors\ezmark\css\ezmark.css" />
+    <Content Include="Vendors\ezmark\images\check-box.png" />
+    <Content Include="Vendors\ezmark\images\radio-btn-2.png" />
+    <Content Include="Vendors\ezmark\images\radio-btn.png" />
+    <Content Include="Vendors\ezmark\js\jquery.ezmark.js" />
+    <Content Include="Vendors\ezmark\js\jquery.ezmark.min.js" />
     <Content Include="Vendors\froala-editor\css\froala_content.css" />
     <Content Include="Vendors\froala-editor\css\froala_content.min.css" />
     <Content Include="Vendors\froala-editor\css\froala_editor.css" />
@@ -3160,6 +3184,7 @@
     <Content Include="Views\Portfolio\ShowTypes.cshtml" />
     <Content Include="Views\PriceList\Index.cshtml" />
     <Content Include="Views\PriceList\Show.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3179,7 +3204,6 @@
     <Folder Include="Content\Portfolio\" />
     <Folder Include="Content\PriceList\" />
     <Folder Include="Content\Upload\" />
-    <Folder Include="Models\" />
     <Folder Include="Vendors\angular-1.3.15\i18n\ngLocale\" />
   </ItemGroup>
   <ItemGroup>

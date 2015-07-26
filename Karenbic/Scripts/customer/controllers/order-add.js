@@ -104,7 +104,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                 ngDialog.open({
                     template: '<div style="font-family:yekan;font-size:14px;">' +
                         '<p>' +
-                        'باشد' +
+                        'در صورت انتخاب این گزینه، هزینه طراحی با توجه به نرخ خلاقیت ویژه محاسبه می گردد.' +
                         '</p>' +
                         '<div style="text-align:left;">' +
                         '<button class="btn btn-warning" ng-click="close()" type="button">خیر</button>' +

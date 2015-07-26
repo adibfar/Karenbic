@@ -5,12 +5,12 @@
 <!-- Start Top Navbar -->
 <div class="top-navbar">
     <div class="top-navbar-inner">
-        <a class="home-nav icon-home176" tooltipster="" title="صفحه اصلی سایت"></a>
-        <a class="public-nav icon-flatscreen" tooltipster="" title="داشبرد"></a>
+        <a class="home-nav icon-home176" href="/" tooltipster="" title="صفحه اصلی سایت"></a>
+        <a class="help-nav" tooltipster="" title="راهنما"></a>
         <div class="user-section">
             <div class="icon-male157"></div>
-            <span class="user-name">علیرضا حسینی</span>
-            <a class="icon-closed69" tooltipster="" title="خروج"></a>
+            <span class="user-name">{{user.Name + ' ' + user.Surname}}</span>
+            <a class="icon-closed69" href="/Account/Logout" tooltipster="" title="خروج"></a>
         </div>
         <a class="design-nav"
            ng-class="{'active': isDesignPortal()}"

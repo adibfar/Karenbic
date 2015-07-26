@@ -1,0 +1,173 @@
+﻿@model Karenbic.Models.LoginViewModel
+
+@{
+    ViewBag.PageTitle = "Login";
+}
+
+@section HeaderSection {
+    <link rel="stylesheet" type="text/css" href="/Vendors/ezmark/css/ezmark.css" />
+    <script type="text/javascript" src="/Vendors/ezmark/js/jquery.ezmark.min.js"></script>
+
+    <style>
+        #login-panel {
+            background-color: #fff;
+            direction: rtl;
+            height: 190px;
+            margin: 50px auto;
+            padding: 35px 20px 0px 20px;
+            position: relative;
+            width: 300px;
+
+            -webkit-border-radius: 15px;
+            -moz-border-radius: 15px;
+            border-radius: 15px;
+        }
+
+            #login-panel .username {
+                border: 1px solid #cccccc;
+                height: 33px;
+                margin-bottom: 7px;
+                padding: 5px 28px 5px 5px;
+                position: relative;
+                width: 100%;
+            }
+                #login-panel .username .icon { 
+                    background: url(/Images/Public/Login/2.png) no-repeat 0 0;
+                    height: 25px;
+                    position: absolute;
+                    right: 3px;
+                    top: 3px;
+                    width: 20px;
+                }
+                #login-panel .username input {
+                    border: none;
+                    direction: ltr;
+                    height: 21px;
+                    text-align: left;
+                    width: 100%;
+                }
+                    #login-panel .username input:focus {
+                        outline: none;
+                        border: none;
+                    }
+
+            #login-panel .password {
+                border: 1px solid #cccccc;
+                height: 33px;
+                margin-bottom: 8px;
+                padding: 5px 28px 5px 5px;
+                position: relative;
+                width: 100%;
+            }
+                #login-panel .password .icon {
+                    background: url(/Images/Public/Login/3.png) no-repeat 0 0;
+                    height: 25px;
+                    position: absolute;
+                    right: 3px;
+                    top: 3px;
+                    width: 20px;
+                }
+                #login-panel .password input {
+                    width: 100%;
+                    border: none;
+                    direction: ltr;
+                    text-align: left; 
+                }
+                    #login-panel .password input:focus {
+                        border: none;
+                        outline: none;
+                    }
+
+            #login-panel img {
+                display: inline-block;
+                position: relative;
+                top: 1px;
+            }
+
+        .ez-checkbox {
+            background: transparent url('/Images/Public/Login/4.png') no-repeat 0px 0px;
+            display: inline-block;
+            height: 12px;
+            position: relative;
+            top: 8px;
+            width: 11px;
+        }
+        .ez-checked {
+            background-position: 0 -14px;
+        }
+
+        #recovery-pass {
+            display: block;
+            width: 145px;
+            height: 11px;
+            margin-top: 5px;
+            background: url(/Images/Public/Login/6.png) no-repeat 0px 0px;
+        }
+
+        #not-auth {
+            background: url(/Images/Public/Login/10.png) no-repeat center center;
+            height: 11px;
+            left: 0;
+            position: absolute;
+            top: 11px;
+            width: 300px; 
+        }
+
+        #login-panel .bottom {
+            background: url(/Images/Public/Login/7.png) no-repeat center center;
+            bottom: -26px;
+            height: 26px;
+            left: 0;
+            position: absolute;
+            width: 300px;
+        }
+        #login-panel .btn-login {
+            background: url(/Images/Public/Login/9.png) no-repeat 0 0;
+            border: none;
+            cursor: pointer;
+            display: block;
+            height: 23px;
+            left: 118px;
+            position: absolute;
+            top: -10px;
+            width: 63px;
+        }
+            #login-panel .btn-login:hover {
+                background-position: 0 -25px;
+            }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $('input[type="checkbox"]').ezMark();
+        });
+    </script>
+}
+
+<div id="login-panel">
+    <form method="post">
+        @Html.AntiForgeryToken()
+        <input name="returnUrl" type="hidden" value="@ViewBag.ReturnUrl" />
+        <div class="username">
+            <input type="text" name="model.UserName" value="@Model.UserName" />
+            <div class="icon"></div>
+        </div>
+        <div class="password">
+            <input type="password" name="model.Password" value="@Model.Password" />
+            <div class="icon"></div>
+        </div>
+        <label id="remeber" style="cursor:pointer;">
+            <input type="checkbox" name="model.RememberMe" value="true" @(Model.RememberMe ? "checked=\"checked\"" : "") />
+            <input type="hidden" name="model.RememberMe" value="false" />
+            <img src="/Images/Public/Login/5.png" alt="مرا بخاطر بسپار" />
+        </label>
+        <a id="recovery-pass" href=""></a>
+        @if (ViewBag.NotAuth == true)
+        {
+            <div id="not-auth"></div>
+        }
+        <div class="bottom">
+            <input type="submit" class="btn-login" value="" />
+        </div>
+    </form>
+</div>

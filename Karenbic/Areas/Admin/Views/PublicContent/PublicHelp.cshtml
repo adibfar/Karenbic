@@ -1,0 +1,46 @@
+﻿<style type="text/css">
+    .whirl.shadow::after  {
+        animation: none;
+        z-index:13;
+    }
+    .whirl.shadow::before  {
+        z-index:13;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default"
+             ng-class="{'whirl': sendLoading || fetchLoading, 'shadow': sendLoading || fetchLoading}">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i></i>
+                    متن راهنما
+                </div>
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <textarea froala="froalaOptions" ng-model="text" required=""></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-footer"
+                 style="border-top:1px solid #b5b5b5;">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <button class="btn btn-labeled btn-success" type="button"
+                                ng-click="save()">
+                            <span class="btn-label btn-label-right">
+                                <i class="fa fa-check"></i>
+                            </span>
+                            ثبت
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

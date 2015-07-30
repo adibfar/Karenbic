@@ -1,4 +1,4 @@
-﻿App.controller('PrePrintOrderController', ['$scope', '$http', 'APP_BASE_URI', 'toaster', '$modal', 'ngDialog',
+﻿App.controller('Public_HelpController', ['$scope', '$http', 'APP_BASE_URI', 'toaster', '$modal', 'ngDialog',
     function ($scope, $http, baseUri, toaster, $modal, ngDialog) {
 
         $scope.text = '';
@@ -26,7 +26,7 @@
 
         $scope.fetchText = function () {
             $scope.fetchLoading = true;
-            $http.get(baseUri + 'PrintOrder/PreOrderText')
+            $http.get(baseUri + 'PublicContent/PublicHelpText')
             .success(function (data, status, headers, config) {
                 $scope.text = data;
                 $scope.fetchLoading = false;
@@ -43,7 +43,7 @@
 
         $scope.save = function () {
             $scope.sendLoading = true;
-            $http.post(baseUri + 'PrintOrder/PreOrderText',
+            $http.post(baseUri + 'PublicContent/PublicHelpText',
             {
                 text: $scope.text
             }).

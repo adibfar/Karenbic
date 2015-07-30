@@ -56,6 +56,8 @@
     <Compile Include="Factor\PrepaymentDesignPaymentItem.cs" />
     <Compile Include="Factor\PrintPayment.cs" />
     <Compile Include="Factor\PrintPaymentItem.cs" />
+    <Compile Include="FinancialConflict.cs" />
+    <Compile Include="FinancialConflictItem.cs" />
     <Compile Include="Form\FormFieldType.cs" />
     <Compile Include="Form\FormGroup.cs" />
     <Compile Include="Message\AdminMessage_Admin.cs" />

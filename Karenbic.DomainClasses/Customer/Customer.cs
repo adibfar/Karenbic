@@ -56,5 +56,7 @@ namespace Karenbic.DomainClasses
         public virtual ICollection<AdminMessage_Customer> AdminMessages { get; set; }
 
         public virtual ICollection<AdminMessage_Admin> AdminMessages_Admin { get; set; }
+
+        public virtual ICollection<FinancialConflict> FinancialConflicts { get; set; }
     }
 }

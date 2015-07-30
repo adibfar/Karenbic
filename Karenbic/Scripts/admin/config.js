@@ -129,6 +129,18 @@ App
                     controller: 'FactorOfDesignOrderListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
                 })
+                .state('app.design.add-financial-conflict', {
+                    url: '/add-financial-conflict',
+                    templateUrl: helper.basepath('FinancialConflict/Add'),
+                    controller: 'AddFinancialConflictController',
+                    resolve: helper.resolveFor('chosen')
+                })
+                .state('app.design.financial-conflict-list', {
+                    url: '/financial-conflict-list',
+                    templateUrl: helper.basepath('FinancialConflict/List'),
+                    controller: 'FinancialConflictListController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker', 'ngDialog')
+                })
                 .state('app.design.price-list', {
                     url: '/price-list',
                     templateUrl: helper.basepath('PriceList/Index'),
@@ -267,6 +279,18 @@ App
                     controller: 'FactorOfPrintOrderListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
                 })
+                .state('app.print.add-financial-conflict', {
+                    url: '/add-financial-conflict',
+                    templateUrl: helper.basepath('FinancialConflict/Add'),
+                    controller: 'AddFinancialConflictController',
+                    resolve: helper.resolveFor('chosen')
+                })
+                .state('app.print.financial-conflict-list', {
+                    url: '/financial-conflict-list',
+                    templateUrl: helper.basepath('FinancialConflict/List'),
+                    controller: 'FinancialConflictListController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker', 'ngDialog')
+                })
                 .state('app.print.price-list', {
                     url: '/price-list',
                     templateUrl: helper.basepath('PriceList/Index'),
@@ -313,6 +337,44 @@ App
                     url: '/change-password',
                     templateUrl: helper.basepath('Profile/ChangePassword'),
                     controller: 'ChangePasswordController'
+                })
+                //Public Portal
+                //_____________________
+                .state('app.print.aboutus', {
+                    url: '/aboutus',
+                    templateUrl: helper.basepath('PublicContent/AboutUs'),
+                    controller: 'Public_AboutUsController',
+                    resolve: helper.resolveFor('ngDialog', 'froala')
+                })
+                .state('app.design.aboutus', {
+                    url: '/aboutus',
+                    templateUrl: helper.basepath('PublicContent/AboutUs'),
+                    controller: 'Public_AboutUsController',
+                    resolve: helper.resolveFor('ngDialog', 'froala')
+                })
+                .state('app.print.contactus', {
+                    url: '/contactus',
+                    templateUrl: helper.basepath('PublicContent/ContactUs'),
+                    controller: 'Public_ContactUsController',
+                    resolve: helper.resolveFor('ngDialog', 'froala')
+                })
+                .state('app.design.contactus', {
+                    url: '/contactus',
+                    templateUrl: helper.basepath('PublicContent/ContactUs'),
+                    controller: 'Public_ContactUsController',
+                    resolve: helper.resolveFor('ngDialog', 'froala')
+                })
+                .state('app.print.public-help', {
+                    url: '/public-help',
+                    templateUrl: helper.basepath('PublicContent/PublicHelp'),
+                    controller: 'Public_HelpController',
+                    resolve: helper.resolveFor('ngDialog', 'froala')
+                })
+                .state('app.design.public-help', {
+                    url: '/public-help',
+                    templateUrl: helper.basepath('PublicContent/PublicHelp'),
+                    controller: 'Public_HelpController',
+                    resolve: helper.resolveFor('ngDialog', 'froala')
                 });
 
     }]).config(['$ocLazyLoadProvider', 'APP_REQUIRES',

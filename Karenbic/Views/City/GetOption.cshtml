@@ -1,0 +1,22 @@
+﻿@model List<Karenbic.DomainClasses.City>
+
+@{
+    Layout = null;
+}
+
+<option value="">لطفاً یکی را انتخاب کنید</option>
+
+@if (ViewBag.Id == null)
+{
+    foreach (Karenbic.DomainClasses.City item in Model)
+    {
+        <option value="@item.Id">@item.Name</option>
+    }
+}
+else
+{
+    foreach (Karenbic.DomainClasses.City item in Model)
+    {
+        <option value="@item.Id" @(ViewBag.Id == item.Id ? "selected=\"selected\"" : "")>@item.Name</option>
+    }
+}

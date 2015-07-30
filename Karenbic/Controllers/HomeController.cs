@@ -8,6 +8,13 @@ namespace Karenbic.Controllers
 {
     public class HomeController : Controller
     {
+        private DataAccess.Context _context;
+
+        public HomeController(DataAccess.Context context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -17,13 +24,15 @@ namespace Karenbic.Controllers
         [HttpGet]
         public ActionResult AboutUs()
         {
-            return View();
+            DomainClasses.Setting setting = _context.Setting.First();
+            return View(setting);
         }
 
         [HttpGet]
         public ActionResult ContactUs()
         {
-            return View();
+            DomainClasses.Setting setting = _context.Setting.First();
+            return View(setting);
         }
     }
 }

@@ -33,6 +33,10 @@ namespace Karenbic.DataAccess
                     x.MapLeftKey("AdminMessages_Admin_Id");
                     x.MapRightKey("Customer_Id");
                 });
+
+            HasMany(x => x.FinancialConflicts)
+                .WithRequired(x => x.Customer)
+                .WillCascadeOnDelete(false);
         }
     }
 }

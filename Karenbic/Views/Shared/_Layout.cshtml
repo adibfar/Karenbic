@@ -37,11 +37,11 @@
 
             $('html').not('#navbar ul.menu > li > a').click(function () {
                 $('#navbar ul.menu > li > a').removeClass('active');
-                $('#navbar ul.submenu').slideUp(300);
+                $('#navbar ul.submenu').slideUp(200);
             });
 
             $('#navbar-mobile #navbar-mobile-arrow').click(function () {
-                $('#navbar-mobile-inner').slideToggle(300);
+                $('#navbar-mobile-inner').slideToggle(200);
             });
         });
     </script>
@@ -53,7 +53,7 @@
             <div class="hidden-xs" id="header">
                 <a class="logo" href="/"></a>
                 <div class="btn-login"><a class="btn-login-inner" href="/Account/Login">Enter</a></div>
-                <div class="btn-register"><a class="btn-register-inner">Register</a></div>
+                <div class="btn-register"><a class="btn-register-inner" href="/Account/Register">Register</a></div>
             </div>
 
             <div class="hidden-xs" id="navbar">
@@ -82,7 +82,7 @@
 
                     <div class="btn-container">
                         <div class="btn-login"><a class="btn-login-inner" href="/Account/Login">Enter</a></div>
-                        <div class="btn-register"><a class="btn-register-inner">Register</a></div>
+                        <div class="btn-register"><a class="btn-register-inner" href="/Account/Register">Register</a></div>
                     </div>
 
                     <div class="menu-item menu-item0">

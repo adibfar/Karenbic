@@ -55,6 +55,14 @@ App
                     {
                         text: "صورت حساب مشتریان",
                         sref: "app.design.factor-list"
+                    },
+                    {
+                        text: "ثبت مغایرت مالی",
+                        sref: "app.design.add-financial-conflict"
+                    },
+                    {
+                        text: "مغایرت های مالی ثبت شده",
+                        sref: "app.design.financial-conflict-list"
                     }
                 ]
             },
@@ -151,6 +159,18 @@ App
                         sref: "app.design.preorder"
                     },
                     {
+                        text: "متن درباره ما",
+                        sref: "app.design.aboutus"
+                    },
+                    {
+                        text: "متن ارتباط ما",
+                        sref: "app.design.contactus"
+                    },
+                    {
+                        text: "متن راهنما",
+                        sref: "app.design.public-help"
+                    },
+                    {
                         text: "تغییر رمز عبور",
                         sref: "app.design.change-password"
                     }
@@ -193,7 +213,15 @@ App
                   {
                       text: "صورت حساب مشتریان",
                       sref: "app.print.factor-list"
-                  }
+                  },
+                   {
+                       text: "ثبت مغایرت مالی",
+                       sref: "app.print.add-financial-conflict"
+                   },
+                   {
+                       text: "مغایرت های مالی ثبت شده",
+                       sref: "app.print.financial-conflict-list"
+                   }
                 ]
             },
             {
@@ -287,6 +315,18 @@ App
                     {
                         text: "متن پیش از سفارش",
                         sref: "app.print.preorder"
+                    },
+                    {
+                        text: "متن درباره ما",
+                        sref: "app.print.aboutus"
+                    },
+                    {
+                        text: "متن ارتباط ما",
+                        sref: "app.print.contactus"
+                    },
+                    {
+                        text: "متن راهنما",
+                        sref: "app.print.public-help"
                     },
                     {
                         text: "تغییر رمز عبور",

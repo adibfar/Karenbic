@@ -1,5 +1,5 @@
 ﻿#navbar {
-	direction: ltr;
+	direction: rtl;
 	height: 147px;
 	padding: 1px;
 	position: relative;
@@ -19,86 +19,380 @@
 	}
 
 	ul.menu {
-		margin: 25px 0 0 23px;
+		margin: 52px 85px 0 0;
 		padding: 0;
-		text-align: left;
+		text-align: right;
 
 		li {
 			color: #fff;
 			display: inline-block;
-            font-family: Calibri;
-            font-size: 19px;
-            font-weight: bold;
             list-style: none;
 			margin: 0;
             padding: 0;
 			position: relative;
-			width: 115px;
+			width: 130px;
 
 			a {
-                color: #fff;
                 cursor: pointer;
                 display: block;
-				height: 87px;
-				padding: 31px 0;
+				margin: 0 auto;
 				position: relative;
-				text-align: center;
-				width: 147px;
 				z-index: 11;
-                transition: text-shadow 300ms ease-out, background 300ms ease-out;
 
-				&:hover, &.active {
-					background: transparent url(/Images/Public/4_lg.png) no-repeat center center;
-                    text-decoration: none;
-                    text-shadow: 0 0 6px #fff;
-                    transition: text-shadow 300ms ease-in, background 300ms ease-in;
-                }
+				&:hover + .item-hover-bg, &.active + .item-hover-bg  {
+					opacity: 1;
+					transition: opacity 300ms ease-in;
+				}
             }
+
+			.item-hover-bg {
+				background: transparent url(/Images/Public/navbar-item-bg.png) no-repeat center center;
+				height: 87px;
+				opacity: 0;
+				position: absolute;
+				transition: opacity 300ms ease-out;
+				width: 147px;
+				z-index: 9;
+			}
+
+			.item-sep{
+				background: transparent url(/Images/Public/navbar-item-sep.png) no-repeat center center;
+				height: 33px;
+				left: -12px;
+				position: absolute;
+				top: 20px;
+				width: 24px;
+				z-index: 8;
+			}
+
+			&.item1 {
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/1.png) no-repeat center center;
+					height: 40px;
+					width: 97px;
+				}
+
+				.item-hover-bg {
+					top: -27px;
+					left: 0;
+				}
+
+				.item-sep {
+					top: 3px;
+				}
+			}
+
+			&.item2 {
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/2.png) no-repeat center center;
+					height: 33px;
+					top: -3px;
+					width: 78px;
+				}
+
+				.item-hover-bg {
+					left: -4px;
+					top: -35px;
+				}
+
+				.item-sep {
+					top: -4px;
+				}
+			}
+
+			&.item3 {
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/3.png) no-repeat center center;
+					height: 33px;
+					top: -8px;
+					width: 64px;
+				}
+
+				.item-hover-bg {
+					left: -4px;
+					top: -35px;
+				}
+
+				.item-sep {
+					top: -5px;
+				}
+			}
+
+			&.item4 {
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/4.png) no-repeat center center;
+					height: 35px;
+					top: -4px;
+					width: 52px;
+				}
+
+				.item-hover-bg {
+					left: -4px;
+					top: -35px;
+				}
+
+				.item-sep {
+					top: -3px;
+				}
+			}
+
+			&.item5 {
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/5.png) no-repeat center center;
+					height: 36px;
+					top: 0;
+					width: 87px;
+				}
+
+				.item-hover-bg {
+					left: -4px;
+					top: -35px;
+				}
+
+				.item-sep {
+					top: -6px;
+				}
+			}
 		}
 	}
 
-	ul.submenu {
-		background: transparent url(/Images/Public/5_lg.png) no-repeat 0 0;
+	ul.menu li.item1 .submenu {
+		background: transparent url(/Images/Public/navbar-sub-menu-bg-1.png) no-repeat 0 0;
 		display: none;
-		height: 285px;
-		left: -55px;
-		padding: 57px 40px 48px 57px !important;
+		height: 307px;
+		left: -62px;
 		position: absolute;
-		top: 13px;
+		top: -23px;
 		width: 245px;
-		z-index: 10;
+		z-index: 7;
+
+		ul {
+			margin: 70px 51px 10px 55px;
+			padding: 0;
+		}
 
 		li {
-			color: #553409;
 			display: block;
-            font-family: Calibri;
-            font-size: 15px;
-            font-weight: bold;
             list-style: none;
-			height: 36px;
+			height: 49px;
 			margin: 0;
             padding: 0;
 			position: relative;
 			width: 100%;
 
 			a {
-				background-position: center center;
-                color: #553409;
                 cursor: pointer;
                 display: block;
 				height: 68px;
-				padding: 22px 0;
-				text-align: center;
 				width: 100%;
-                transition: text-shadow 300ms ease-out, background 300ms ease-out;
 
-				&:hover {
-					background: transparent url(/Images/Public/6_lg.png) no-repeat center center;
-                    text-decoration: none;
-                    text-shadow: 0 0 6px #553409;
-                    transition: text-shadow 300ms ease-in, background 300ms ease-in;
-                }
+				&:hover + .item-hover-bg  {
+					opacity: 1;
+					transition: opacity 300ms ease-in;
+				}
             }
+
+			.item-hover-bg {
+				background: transparent url(/Images/Public/navbar-sub-item-bg.png) no-repeat center center;
+				height: 87px;
+				opacity: 0;
+				position: absolute;
+				transition: opacity 300ms ease-out;
+				width: 180px;
+				z-index: 7;
+			}
+
+			.item-sep {
+				background: transparent url(/Images/Public/navbar-sub-item-sep.png) no-repeat center center;
+				bottom: -7px;
+				height: 15px;
+				position: absolute;
+				right: 5px;
+				top: auto;
+				width: 108px;
+				z-index: 8;
+			}
+
+			&.item1 {
+				height: 54px;
+
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/SubMenu/1.png) no-repeat center right;
+					height: 54px;
+					top: -3px;
+				}
+
+				.item-hover-bg {
+					left: -20px;
+					top: -17px;
+				}
+			}
+
+			&.item2 {
+				height: 45px;
+
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/SubMenu/2.png) no-repeat center right;
+					height: 49px;
+					right: 11px;
+					top: -9px;
+				}
+
+				.item-hover-bg {
+					left: -20px;
+					top: -25px;
+				}
+			}
+
+			&.item3 {
+				height: 40px;
+
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/SubMenu/3.png) no-repeat center right;
+					height: 37px;
+					top: -2px;
+				}
+
+				.item-hover-bg {
+					left: -20px;
+					top: -26px;
+				}
+			}
+
+			&.item4 {
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/SubMenu/4.png) no-repeat center right;
+					height: 19px;
+					right: 12px;
+					top: 14px;
+				}
+
+				.item-hover-bg {
+					left: -20px;
+					top: -26px;
+				}
+			}
+		}
+	}
+
+	ul.menu li.item2 .submenu {
+		background: transparent url(/Images/Public/navbar-sub-menu-bg-2.png) no-repeat 0 0;
+		display: none;
+		height: 307px;
+		left: -62px;
+		position: absolute;
+		top: -27px;
+		width: 245px;
+		z-index: 7;
+
+		ul {
+			margin: 65px 51px 10px 55px;
+			padding: 0;
+		}
+
+		li {
+			display: block;
+            list-style: none;
+			height: 49px;
+			margin: 0;
+            padding: 0;
+			position: relative;
+			width: 100%;
+
+			a {
+                cursor: pointer;
+                display: block;
+				height: 68px;
+				width: 100%;
+
+				&:hover + .item-hover-bg  {
+					opacity: 1;
+					transition: opacity 300ms ease-in;
+				}
+            }
+
+			.item-hover-bg {
+				background: transparent url(/Images/Public/navbar-sub-item-bg.png) no-repeat center center;
+				height: 87px;
+				opacity: 0;
+				position: absolute;
+				transition: opacity 300ms ease-out;
+				width: 180px;
+				z-index: 7;
+			}
+
+			.item-sep {
+				background: transparent url(/Images/Public/navbar-sub-item-sep.png) no-repeat center center;
+				bottom: -7px;
+				height: 15px;
+				position: absolute;
+				right: 5px;
+				top: auto;
+				width: 108px;
+				z-index: 8;
+			}
+
+			&.item1 {
+				height: 54px;
+
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/SubMenu/1.png) no-repeat center right;
+					height: 54px;
+					top: -3px;
+				}
+
+				.item-hover-bg {
+					left: -20px;
+					top: -17px;
+				}
+			}
+
+			&.item2 {
+				height: 45px;
+
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/SubMenu/2.png) no-repeat center right;
+					height: 49px;
+					right: 11px;
+					top: -9px;
+				}
+
+				.item-hover-bg {
+					left: -20px;
+					top: -25px;
+				}
+			}
+
+			&.item3 {
+				height: 40px;
+
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/SubMenu/3.png) no-repeat center right;
+					height: 37px;
+					top: -2px;
+				}
+
+				.item-hover-bg {
+					left: -20px;
+					top: -26px;
+				}
+			}
+
+			&.item4 {
+				height: 40px;
+
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/SubMenu/4.png) no-repeat center right;
+					height: 19px;
+					right: 12px;
+					top: 14px;
+				}
+
+				.item-hover-bg {
+					left: -20px;
+					top: -26px;
+				}
+			}
 		}
 	}
 }

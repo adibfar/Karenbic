@@ -1,4 +1,16 @@
 ﻿<style type="text/css">
+    pre.description {
+        font-family: yekan;
+        font-size: 14px;
+        margin-top: 20px;
+
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
+    }
+
     .whirl.shadow::after {
         z-index: 13;
     }
@@ -334,6 +346,15 @@
                                 @Html.Partial("../Form/FormField_CheckboxGroup")
                             </li>
                         </ul>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<pre class="description" ng-if="selectedForm.Description.trim().length > 0">
+توضیحات:
+{{selectedForm.Description}}
+</pre>
+                        </div>
                     </div>
 
                     <div class="row" ng-if="fromSumbited && selectedForm != null">

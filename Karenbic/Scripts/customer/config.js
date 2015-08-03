@@ -98,7 +98,7 @@ App
                     url: '/show-order/:id',
                     templateUrl: helper.basepath('DesignOrder/Show'),
                     controller: 'ShowDesignOrderController',
-                    resolve: helper.resolveFor('ngDialog', 'image-scale')
+                    resolve: helper.resolveFor('ngDialog', 'image-scale', 'cropit')
                 })
                 .state('app.design.price-list', {
                     url: '/price-list',

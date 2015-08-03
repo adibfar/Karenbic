@@ -106,6 +106,91 @@
         -webkit-border-radius: 0;
         border-radius: 0;
     }
+
+    .image-cropper {
+        direction: ltr;
+        margin: 0 auto;
+        position: relative;
+        text-align: left;
+        width: 490px;
+    }
+    .cropit-image-preview {
+        background-color: #f6f6f6;
+        background-size: cover;
+        border: 1px solid #bebebe;
+        border-radius: 3px;
+        margin: 7px auto;
+        width: 490px;
+        height: 354px;
+        cursor: move;
+        position:relative;
+    }
+    .cropit-image-background {
+        opacity: .2;
+        cursor: auto;
+    }
+    .image-size-label {
+        margin-top: 10px;
+    }
+    .cropit-image-zoom-input {
+        -moz-appearance: none;
+        background: #eee none repeat scroll 0 0;
+        border-radius: 5px;
+        box-sizing: border-box;
+        color: inherit;
+        height: 5px;
+        margin: 10px 0;
+        line-height: normal;
+        outline: medium none;
+        position: relative;
+        vertical-align: middle;
+    }
+
+    /* Custom, iPhone Retina */
+	@@media only screen and (min-width : 320px) {
+        .image-cropper {
+            width: 260px;
+        }
+        .cropit-image-preview {
+            width: 260px;
+        }
+	}
+	/* Extra Small Devices, Phones */
+	@@media only screen and (min-width : 480px) {
+        .image-cropper {
+            width: 400px;
+        }
+        .cropit-image-preview {
+            width: 400px;
+        }
+	}
+	/* Small Devices, Tablets */
+	@@media only screen and (min-width : 768px) {
+        .image-cropper {
+            width: 490px;
+        }
+        .cropit-image-preview {
+            width: 490px;
+        }
+	}
+	/* Medium Devices, Desktops */
+	@@media only screen and (min-width : 992px){
+        .image-cropper {
+            width: 490px;
+        }
+        .cropit-image-preview {
+            width: 490px;
+        }
+	}
+	/* Large Devices, Wide Screens */
+	@@media only screen and (min-width : 1200px){
+		.image-cropper {
+            width: 490px;
+        }
+        .cropit-image-preview {
+            width: 490px;
+        }
+	}
 </style>
 
 <div class="container-fluid">
@@ -351,7 +436,7 @@
     </div>
     <div id="checkoutDesign" class="modal-body" ng-class="{'whirl': fetchLoading , 'shadow': fetchLoading}">
         <div class="row">
-            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 hidden-sm hidden-xs">
                 <button class="btn btn-block btn-labeled"
                         type="button" style="text-align:right;min-height:30px;"
                         ng-class="{'btn-default': selectedFile.State != states.Accept, 'btn-success': selectedFile.State == states.Accept}"
@@ -387,9 +472,10 @@
                               ng-model="selectedFile.CustomerDescription"></textarea>
                 </div>
             </div>
-            <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
-                <div style="background-color:#f6f6f6;border:1px solid #bebebe;height:354px;position:relative;">
-                    <img src="{{selectedFile.PicturePath}}" imagescale="" />
+            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                <div class="image-cropper" cropit="" image="selectedFile" image-src="{{selectedFile.PicturePath}}">
+                    <div class="cropit-image-preview"></div>
+                    <input type="range" class="cropit-image-zoom-input" />
                     <img src="/Images/UI/Pagination/btn-next-2.png"
                          style="display:block;height:26px;width:26px;position:absolute;top:164px;right:5px;cursor:pointer;"
                          ng-show="design.Files.length > 1" ng-click="selectNextFile()" />
@@ -398,9 +484,45 @@
                          ng-show="design.Files.length > 1" ng-click="selectPrevFile()" />
                 </div>
             </div>
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 visible-sm visible-xs">
+                <button class="btn btn-block btn-labeled"
+                        type="button" style="text-align:right;min-height:30px;"
+                        ng-class="{'btn-default': selectedFile.State != states.Accept, 'btn-success': selectedFile.State == states.Accept}"
+                        ng-click="selectAcceptedFile()"
+                        ng-show="acceptedFile == null || acceptedFile.Id == selectedFile.Id">
+                    <span class="btn-label btn-label-right hidden-sm hidden-xs">
+                        <i class="fa fa-check"></i>
+                    </span>
+                    این طرح به طور کامل مورد تأیید می باشد
+                </button>
+                <button class="btn btn-block btn-labeled btn-default"
+                        type="button" style="text-align:right;min-height:30px;"
+                        ng-class="{'btn-default': selectedFile.State != states.Maybe, 'btn-warning': selectedFile.State == states.Maybe}"
+                        ng-click="selectMaybeFile()">
+                    <span class="btn-label btn-label-right hidden-sm hidden-xs">
+                        <i class="fa fa-check"></i>
+                    </span>
+                    این طرح مورد تأیید است ولی نیاز به اصلاح دارد
+                </button>
+                <button class="btn btn-block btn-labeled btn-default"
+                        type="button" style="text-align:right;min-height:30px;"
+                        ng-class="{'btn-default': selectedFile.State != states.UnAccept, 'btn-danger': selectedFile.State == states.UnAccept}"
+                        ng-click="selectUnAcceptedFile()">
+                    <span class="btn-label btn-label-right hidden-sm hidden-xs">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    این طرح مورد تأیید نمی باشد
+                </button>
+                <div class="form-group">
+                    <label class="control-label">توضیحات</label>
+                    <textarea class="form-control"
+                              style="height:120px;resize:none;overflow:hidden;"
+                              ng-model="selectedFile.CustomerDescription"></textarea>
+                </div>
+            </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-xs">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-sm hidden-xs">
                 <ul>
                     <li ng-repeat="file in design.Files" ng-click="selectFile($index)">
                         <img src="{{file.PicturePath}}" imagescale="" />
@@ -451,7 +573,7 @@
     </div>
     <div id="checkoutDesign" class="modal-body" ng-class="{'whirl': fetchLoading , 'shadow': fetchLoading}">
         <div class="row">
-            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 hidden-xs">
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 hidden-xs">
                 <button class="btn btn-block btn-labeled btn-success"
                         type="button" style="text-align:right;min-height:30px;"
                         ng-show="selectedFile.State == states.Accept">
@@ -484,8 +606,9 @@
                 </div>
             </div>
             <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
-                <div style="background-color:#f6f6f6;border:1px solid #bebebe;height:354px;position:relative;">
-                    <img src="{{selectedFile.PicturePath}}" imagescale="" />
+                <div class="image-cropper" cropit="" image="selectedFile" image-src="{{selectedFile.PicturePath}}">
+                    <div class="cropit-image-preview"></div>
+                    <input type="range" class="cropit-image-zoom-input" />
                     <img src="/Images/UI/Pagination/btn-next-2.png"
                          style="display:block;height:26px;width:26px;position:absolute;top:164px;right:5px;cursor:pointer;"
                          ng-show="design.Files.length > 1" ng-click="selectNextFile()" />
@@ -494,7 +617,7 @@
                          ng-show="design.Files.length > 1" ng-click="selectPrevFile()" />
                 </div>
             </div>
-            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 visible-xs">
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 visible-xs">
                 <br />
                 <button class="btn btn-block btn-labeled btn-success"
                         type="button" style="text-align:right;min-height:30px;"
@@ -529,7 +652,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-xs">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-sm hidden-xs">
                 <ul>
                     <li ng-repeat="file in design.Files" ng-click="selectFile($index)">
                         <img src="{{file.PicturePath}}" imagescale="" />

@@ -1,12 +1,12 @@
 ﻿#navbar-mobile {
-	background-color: #0d0d0d;
+	background-color: #171516;
 	position: fixed;
 	top: 0;
 	width: 100%;
 	z-index: 10;
 
 	#navbar-mobile-inner {
-		background-color: #0d0d0d;
+		background-color: #171516;
 		display: none;
 
 		.logo {
@@ -91,19 +91,8 @@
 			padding: 1px;
 
 			.menu-item-inner {
-				color: #fff;
 				cursor: pointer;
 				display: block;
-				font-family: Calibri;
-				font-size: 15px;
-				font-weight: bold;
-				text-align: center;
-
-				&:hover {
-					text-decoration: none;
-					text-shadow: 0 0 6px #fff;
-					transition: text-shadow 300ms ease-in;
-				}
 			}
 		}
 
@@ -113,9 +102,9 @@
 			margin: 5px auto 0 auto;
 
 			.menu-item-inner {
+				background: transparent url(/Images/PublicMobile/MenuItem/item0_text.png) no-repeat 15px 9px;
 				height: 55px;
 				margin: 2px 11px 1px 1px;
-				padding-top: 17px;
 			}
 		}
 
@@ -125,9 +114,9 @@
 			margin: 2px auto 0 auto;
 
 			.menu-item-inner {
+				background: transparent url(/Images/PublicMobile/MenuItem/item1_text.png) no-repeat 27px 9px;
 				height: 52px;
 				margin: 2px 1px 1px 1px;
-				padding-top: 11px;
 			}
 		}
 
@@ -137,21 +126,33 @@
 			margin: 2px auto 0 auto;
 
 			.menu-item-inner {
+				background: transparent url(/Images/PublicMobile/MenuItem/item2_text.png) no-repeat 36px 9px;
 				height: 55px;
 				margin: 2px 1px 1px 1px;
-				padding-top: 15px;
 			}
 		}
 
 		.menu-item3 {
 			background: transparent url(/Images/PublicMobile/MenuItem/item3.jpg) no-repeat center center;
 			height: 60px;
+			margin: 2px auto 0 auto;
+
+			.menu-item-inner {
+				background: transparent url(/Images/PublicMobile/MenuItem/item3_text.png) no-repeat 36px 9px;
+				height: 55px;
+				margin: 2px 7px 1px 4px;
+			}
+		}
+
+		.menu-item4 {
+			background: transparent url(/Images/PublicMobile/MenuItem/item4.jpg) no-repeat center center;
+			height: 60px;
 			margin: 2px auto 12px auto;
 
 			.menu-item-inner {
+				background: transparent url(/Images/PublicMobile/MenuItem/item4_text.png) no-repeat 26px 12px;
 				height: 55px;
 				margin: 2px 7px 1px 4px;
-				padding-top: 15px;
 			}
 		}
 	}

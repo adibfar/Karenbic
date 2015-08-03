@@ -129,6 +129,7 @@ namespace Karenbic
                 "~/Scripts/directives/clear-storage.js",
                 "~/Scripts/directives/colorbox.js",
                 "~/Scripts/directives/colorpicker.js",
+                 "~/Scripts/directives/cropit.js",
                 "~/Scripts/directives/datepicker.js",
                 "~/Scripts/directives/ddlist-select.js",
                  "~/Scripts/directives/image-scale.js",
@@ -203,8 +204,8 @@ namespace Karenbic
 
             bundles.Add(new StyleBundle("~/Styles/publicStyle").Include(
                 "~/Vendors/bootstrap-3.3.4/css/bootstrap.css",
-                "~/Vendors/bootstrap-rtl/bootstrap-rtl.css",
-                "~/Styles/public.css"
+                "~/Vendors/bootstrap-rtl/bootstrap-rtl.css"
+                //"~/Styles/public.css"
             ));
 
             //BundleTable.EnableOptimizations = false;

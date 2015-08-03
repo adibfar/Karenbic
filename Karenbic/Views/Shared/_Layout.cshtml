@@ -25,19 +25,19 @@
     <script>
         $(document).ready(function () {
             $('#navbar ul.menu > li > a').click(function (e) {
-                if ($(this).closest('li').find('ul.submenu').length > 0) {
+                if ($(this).closest('li').find('.submenu').length > 0) {
                     $('#navbar ul.menu > li > a').not(this).removeClass('active');
-                    $('#navbar ul.submenu').not($(this).closest('li').find('ul.submenu')).hide();
+                    $('#navbar .submenu').not($(this).closest('li').find('.submenu')).hide();
 
                     $(this).toggleClass('active');
-                    $(this).closest('li').find('ul.submenu').slideToggle(300);
+                    $(this).closest('li').find('.submenu').slideToggle(300);
                 }
                 e.stopPropagation();
             });
 
             $('html').not('#navbar ul.menu > li > a').click(function () {
                 $('#navbar ul.menu > li > a').removeClass('active');
-                $('#navbar ul.submenu').slideUp(200);
+                $('#navbar .submenu').slideUp(200);
             });
 
             $('#navbar-mobile #navbar-mobile-arrow').click(function () {
@@ -57,21 +57,80 @@
             </div>
 
             <div class="hidden-xs" id="navbar">
-                <img class="bg" src="/Images/Public/3_lg.jpg" />
+                <img class="bg" src="/Images/Public/navbar-bg.jpg" />
                 <div id="inner-navbar">
                     <ul class="menu">
-                        <li><a href="/PriceList">Price List</a></li>
-                        <li>
-                            <a>Archive</a>
-                            <ul class="submenu">
-                                <li><a href="/Portfolio/1">Graphic Design</a></li>
-                                <li><a href="/Portfolio/2">Photo Industrial</a></li>
-                                <li><a href="/Portfolio/3">Multimedia</a></li>
-                                <li><a href="/Portfolio/4">Web Design</a></li>
-                            </ul>
+                        <li class="item1">
+                            <a></a>
+                            <div class="item-hover-bg"></div>
+                            <div class="item-sep"></div>
+                            <div class="submenu">
+                                <ul>
+                                    <li class="item1">
+                                        <a href="/Portfolio/1"></a>
+                                        <div class="item-hover-bg"></div>
+                                        <div class="item-sep"></div>
+                                    </li>
+                                    <li class="item2">
+                                        <a href="/Portfolio/2"></a>
+                                        <div class="item-hover-bg"></div>
+                                        <div class="item-sep"></div>
+                                    </li>
+                                    <li class="item3">
+                                        <a href="/Portfolio/3"></a>
+                                        <div class="item-hover-bg"></div>
+                                        <div class="item-sep"></div>
+                                    </li>
+                                    <li class="item4">
+                                        <a href="/Portfolio/4"></a>
+                                        <div class="item-hover-bg"></div>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
-                        <li><a href="/ContactUs">Contact Us</a></li>
-                        <li><a href="/AboutUs">About Us</a></li>
+                        <li class="item2">
+                            <a></a>
+                            <div class="item-hover-bg"></div>
+                            <div class="item-sep"></div>
+                            <div class="submenu">
+                                <ul>
+                                    <li class="item1">
+                                        <a href="/Portfolio/1"></a>
+                                        <div class="item-hover-bg"></div>
+                                        <div class="item-sep"></div>
+                                    </li>
+                                    <li class="item2">
+                                        <a href="/Portfolio/2"></a>
+                                        <div class="item-hover-bg"></div>
+                                        <div class="item-sep"></div>
+                                    </li>
+                                    <li class="item3">
+                                        <a href="/Portfolio/3"></a>
+                                        <div class="item-hover-bg"></div>
+                                        <div class="item-sep"></div>
+                                    </li>
+                                    <li class="item4">
+                                        <a href="/Portfolio/4"></a>
+                                        <div class="item-hover-bg"></div>
+                                        <div class="item-sep"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="item4">
+                            <a href="/AboutUs"></a>
+                            <div class="item-hover-bg"></div>
+                            <div class="item-sep"></div>
+                        </li>
+                        <li class="item3">
+                            <a href="/ContactUs"></a>
+                            <div class="item-hover-bg"></div>
+                            <div class="item-sep"></div>
+                        </li>
+                        <li class="item5">
+                            <a href="/Help"></a>
+                            <div class="item-hover-bg"></div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -86,19 +145,23 @@
                     </div>
 
                     <div class="menu-item menu-item0">
-                        <a class="menu-item-inner" href="/PriceList">Price List</a>
+                        <a class="menu-item-inner" href="/Portfolio"></a>
                     </div>
 
                     <div class="menu-item menu-item1">
-                        <a class="menu-item-inner" href="/Portfolio">Archive</a>
+                        <a class="menu-item-inner" href="/PriceList"></a>
                     </div>
 
                     <div class="menu-item menu-item2">
-                        <a class="menu-item-inner" href="/ContactUs">Contact Us</a>
+                        <a class="menu-item-inner" href="/ContactUs"></a>
                     </div>
 
                     <div class="menu-item menu-item3">
-                        <a class="menu-item-inner" href="/AboutUs">About Us</a>
+                        <a class="menu-item-inner" href="/AboutUs"></a>
+                    </div>
+
+                    <div class="menu-item menu-item4">
+                        <a class="menu-item-inner" href="/Help"></a>
                     </div>
                 </div>
                 <div id="navbar-mobile-arrow"></div>

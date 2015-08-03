@@ -56,6 +56,13 @@ namespace Karenbic
            );
 
             routes.MapRoute(
+               name: "PublicHelp",
+               url: "Help",
+               defaults: new { controller = "Home", action = "Help" },
+               namespaces: new string[] { "Karenbic.Controllers" }
+           );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
                 defaults: new { controller = "Home", action = "Index" },

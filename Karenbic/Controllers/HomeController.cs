@@ -34,5 +34,12 @@ namespace Karenbic.Controllers
             DomainClasses.Setting setting = _context.Setting.First();
             return View(setting);
         }
+
+        [HttpGet]
+        public ActionResult Help()
+        {
+            DomainClasses.Setting setting = _context.Setting.First();
+            return View(setting);
+        }
     }
 }

@@ -350,6 +350,12 @@
     <Content Include="Images\PortalNavbar\design-nav.png" />
     <Content Include="Images\PortalNavbar\print-nav.png" />
     <Content Include="Images\PortalNavbar\help-nav.png" />
+    <Content Include="Images\PublicMobile\MenuItem\item0_text.png" />
+    <Content Include="Images\PublicMobile\MenuItem\item1_text.png" />
+    <Content Include="Images\PublicMobile\MenuItem\item2_text.png" />
+    <Content Include="Images\PublicMobile\MenuItem\item3_text.png" />
+    <Content Include="Images\PublicMobile\MenuItem\item4_text.png" />
+    <Content Include="Images\PublicMobile\MenuItem\item4.jpg" />
     <Content Include="Images\PublicMobile\portfolio-menu-bar.jpg" />
     <Content Include="Images\PublicMobile\btn-home.jpg" />
     <Content Include="Images\PublicMobile\btn-back.jpg" />
@@ -364,6 +370,8 @@
     <Content Include="Images\PublicMobile\MenuItem\item3.jpg" />
     <Content Include="Images\Public\0.jpg" />
     <Content Include="Images\Public\1.png" />
+    <Content Include="Images\Public\navbar-sub-menu-bg-2.png" />
+    <Content Include="Images\Public\navbar-sub-item-bg.png" />
     <Content Include="Images\Public\btn-login.png" />
     <Content Include="Images\Public\btn-register.png" />
     <Content Include="Images\Public\Login\1.png" />
@@ -378,11 +386,23 @@
     <Content Include="Images\Public\Login\9.png" />
     <Content Include="Images\Public\logo.png" />
     <Content Include="Images\Public\2.png" />
-    <Content Include="Images\Public\3_lg.jpg" />
+    <Content Include="Images\Public\navbar-sub-item-sep.png" />
+    <Content Include="Images\Public\navbar-item-sep.png" />
+    <Content Include="Images\Public\navbar-bg.jpg" />
     <Content Include="Images\Public\3.jpg" />
-    <Content Include="Images\Public\4_lg.png" />
-    <Content Include="Images\Public\5_lg.png" />
-    <Content Include="Images\Public\6_lg.png" />
+    <Content Include="Images\Public\navbar-item-bg.png" />
+    <Content Include="Images\Public\navbar-sub-menu-bg-1.png" />
+    <Content Include="Images\Public\NavbarMenu\1.png" />
+    <Content Include="Images\Public\NavbarMenu\2.png" />
+    <Content Include="Images\Public\NavbarMenu\3.png" />
+    <Content Include="Images\Public\NavbarMenu\4.png" />
+    <Content Include="Images\Public\NavbarMenu\5.png" />
+    <Content Include="Images\Public\NavbarMenu\SubMenu\1.png" />
+    <Content Include="Images\Public\NavbarMenu\SubMenu\2.png" />
+    <Content Include="Images\Public\NavbarMenu\SubMenu\3.png" />
+    <Content Include="Images\Public\NavbarMenu\SubMenu\4.png" />
+    <Content Include="Images\Public\Portfolio\0.jpg" />
+    <Content Include="Images\Public\Portfolio\1.jpg" />
     <Content Include="Images\Public\Register\1.png" />
     <Content Include="Images\Public\Register\2.png" />
     <Content Include="Images\Public\Register\3.png" />
@@ -489,6 +509,7 @@
     <Content Include="Scripts\directives\classy-loader.js" />
     <Content Include="Scripts\directives\clear-storage.js" />
     <Content Include="Scripts\directives\colorpicker.js" />
+    <Content Include="Scripts\directives\cropit.js" />
     <Content Include="Scripts\directives\datepicker.js" />
     <Content Include="Scripts\directives\ddlist-select.js" />
     <Content Include="Scripts\directives\colorbox.js" />
@@ -593,6 +614,7 @@
     <Content Include="Areas\Admin\Views\PublicContent\AboutUs.cshtml" />
     <Content Include="Areas\Admin\Views\PublicContent\ContactUs.cshtml" />
     <Content Include="Areas\Admin\Views\PublicContent\PublicHelp.cshtml" />
+    <Content Include="Fonts\IranianSerifWeb.woff" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Service References\BPService\configuration91.svcinfo" />
     <None Include="Service References\BPService\configuration.svcinfo" />
@@ -681,6 +703,7 @@
     <Content Include="Styles\form-elements\password-input.scss" />
     <Content Include="Styles\form-elements\form.scss" />
     <Content Include="Styles\form-elements\colorpicker.scss" />
+    <Content Include="Styles\fonts\IranianSerifWeb.scss" />
     <None Include="Styles\portal\loading-bar.scss" />
     <Content Include="Scripts\services\route-helpers.js" />
     <Content Include="Styles\Icons\fonts\HeaderIcon.svg" />
@@ -720,6 +743,7 @@
     <Content Include="Styles\fonts\NexaBold.scss" />
     <Content Include="Styles\form-elements\pagination.scss" />
     <None Include="Styles\Icons\HeaderIcons.scss" />
+    <Content Include="Vendors\cropit\jquery.cropit.js" />
     <Content Include="Vendors\ezmark\css\ezmark.css" />
     <Content Include="Vendors\ezmark\images\check-box.png" />
     <Content Include="Vendors\ezmark\images\radio-btn-2.png" />
@@ -3312,6 +3336,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Province\GetOption.cshtml" />
     <Content Include="Views\City\GetOption.cshtml" />
+    <Content Include="Views\Home\Help.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

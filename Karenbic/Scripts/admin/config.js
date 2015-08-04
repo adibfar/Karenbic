@@ -147,24 +147,6 @@ App
                     controller: 'PriceListController',
                     resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper')
                 })
-                .state('app.design.portfolio-categories', {
-                    url: '/portfolio-categories',
-                    templateUrl: helper.basepath('PortfolioCategory/Index'),
-                    controller: 'PortfolioCategoriesController',
-                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper')
-                })
-                .state('app.design.portfolio-add', {
-                    url: '/portfolio-add',
-                    templateUrl: helper.basepath('Portfolio/Add'),
-                    controller: 'AddPortfolioController',
-                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
-                })
-                .state('app.design.portfolios', {
-                    url: '/portfolios',
-                    templateUrl: helper.basepath('Portfolio/Index'),
-                    controller: 'PortfoliosController',
-                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
-                })
                 .state('app.design.send-message-new', {
                     url: '/send-message-new',
                     templateUrl: helper.basepath('SendMessage/New'),
@@ -297,24 +279,6 @@ App
                     controller: 'PriceListController',
                     resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper')
                 })
-                .state('app.print.portfolio-categories', {
-                    url: '/portfolio-categories',
-                    templateUrl: helper.basepath('PortfolioCategory/Index'),
-                    controller: 'PortfolioCategoriesController',
-                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper')
-                })
-                .state('app.print.portfolio-add', {
-                    url: '/portfolio-add',
-                    templateUrl: helper.basepath('Portfolio/Add'),
-                    controller: 'AddPortfolioController',
-                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
-                })
-                .state('app.print.portfolios', {
-                    url: '/portfolios',
-                    templateUrl: helper.basepath('Portfolio/Index'),
-                    controller: 'PortfoliosController',
-                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
-                })
                 .state('app.print.send-message-new', {
                     url: '/send-message-new',
                     templateUrl: helper.basepath('SendMessage/New'),
@@ -340,6 +304,54 @@ App
                 })
                 //Public Portal
                 //_____________________
+                 .state('app.print.portfolio-categories', {
+                     url: '/portfolio-categories',
+                     templateUrl: helper.basepath('PortfolioCategory/Index'),
+                     controller: 'PortfolioCategoriesController',
+                     resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper')
+                 })
+                .state('app.design.portfolio-categories', {
+                    url: '/portfolio-categories',
+                    templateUrl: helper.basepath('PortfolioCategory/Index'),
+                    controller: 'PortfolioCategoriesController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper')
+                })
+                .state('app.print.portfolio-add', {
+                    url: '/portfolio-add',
+                    templateUrl: helper.basepath('Portfolio/Add'),
+                    controller: 'AddPortfolioController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
+                })
+                .state('app.design.portfolio-add', {
+                    url: '/portfolio-add',
+                    templateUrl: helper.basepath('Portfolio/Add'),
+                    controller: 'AddPortfolioController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
+                })
+                .state('app.print.portfolios', {
+                    url: '/portfolios',
+                    templateUrl: helper.basepath('Portfolio/Index'),
+                    controller: 'PortfoliosController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
+                })
+                .state('app.design.portfolios', {
+                    url: '/portfolios',
+                    templateUrl: helper.basepath('Portfolio/Index'),
+                    controller: 'PortfoliosController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
+                })
+                .state('app.print.public-price', {
+                    url: '/public-price',
+                    templateUrl: helper.basepath('PublicPrice/Index'),
+                    controller: 'PublicPriceController',
+                    resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper', 'chosen')
+                })
+                .state('app.design.public-price', {
+                    url: '/public-price',
+                    templateUrl: helper.basepath('PublicPrice/Index'),
+                    controller: 'PublicPriceController',
+                    resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper', 'chosen')
+                })
                 .state('app.print.aboutus', {
                     url: '/aboutus',
                     templateUrl: helper.basepath('PublicContent/AboutUs'),

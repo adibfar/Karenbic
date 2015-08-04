@@ -1,162 +1,227 @@
-﻿@model List<Karenbic.DomainClasses.PriceList>
+﻿@model Karenbic.DomainClasses.PublicPriceCategory
 
 @{
-    ViewBag.PageTitle = "PriceList";
+    ViewBag.PageTitle = string.Format("{0} | {1}", "لیست قیمت", Model.Title);
+    List<Karenbic.DomainClasses.PublicPrice> prices = Model.Prices.OrderByDescending(x => x.Priority).ToList();
 }
 
 @section HeaderSection {
     <style type="text/css">
         .page-content {
             width: 100%;
-            padding: 1px 1px 1px 167px;
+            padding: 1px;
             position: relative;
         }
 
-        .left-menu {
-            background: transparent url(/Images/Public/0.jpg) no-repeat 0 0;
-            height: 464px;
-            left: 0;
-            margin: 0 auto;
-            padding: 1px;
-            position: absolute;
-            top: 0;
+        .page-title {
+            background: transparent url(/Images/Public/Portfolio/0.jpg) no-repeat 0 0;
+            height: 70px;
+            position: relative;
             width: 157px;
         }
-            .left-menu ul {
-                margin: 96px 37px 0 29px;
-                padding: 0;
-                list-style: none;
-                text-align: center;
-            }
-                .left-menu ul li {
-                    color: #fff;
-                    font-family: Calibri;
-                    font-size: 15px;
-                    font-weight: bold;
-                    margin: 0 0 3px 0;
-                    padding: 0;
-                    list-style: none;
-                }
-                    .left-menu ul li a {
-                        color: #fff;
-                        cursor: pointer;
-                        display: block;
-                        transition: all 300ms ease-out;
-                    }
-                        .left-menu ul li a:hover {
-                            text-decoration: none;
-                            text-shadow: 0 0 6px #fff;
-                            transition: all 300ms ease-in;
-                        }
-
-        .list {
-            position: relative;
-            padding: 71px 69px 20px 69px;
-        }
-            .list .label-left{
-                background: transparent url(/Images/Public/1.png) no-repeat 0 0;
-                height: 132px;
+            .page-title a {
+                bottom: 0;
+                display: block;
                 left: 0;
-                position: absolute;
-                top: 0;
-                width: 148px;
-            }
-            .list .label-right{
-                background: transparent url(/Images/Public/2.png) no-repeat 0 0;
-                height: 132px;
                 position: absolute;
                 right: 0;
                 top: 0;
-                width: 148px;
             }
-            .list .list-container {
-                background-color: #2a3234;
-                border: 2px solid #494949;
-                margin: 0;
-                padding: 3px;
+            .page-title .title-1 {
+                background: transparent url(/Images/Public/NavbarMenu/SubMenu/1.png) no-repeat 0 0;
+                height: 54px;
+                position: absolute;
+                right: 45px;
+                top: 6px;
+                width: 75px;
             }
+            .page-title .title-2 {
+                background: transparent url(/Images/Public/NavbarMenu/SubMenu/2.png) no-repeat 0 0;
+                height: 49px;
+                position: absolute;
+                right: 32px;
+                top: 11px;
+                width: 103px;
+            }
+            .page-title .title-3 {
+                background: transparent url(/Images/Public/NavbarMenu/SubMenu/3.png) no-repeat 0 0;
+                height: 37px;
+                position: absolute;
+                right: 41px;
+                top: 16px;
+                width: 70px;
+            }
+            .page-title .title-4 {
+                background: transparent url(/Images/Public/NavbarMenu/SubMenu/4.png) no-repeat 0 0;
+                height: 19px;
+                position: absolute;
+                right: 62px;
+                top: 30px;
+                width: 38px;
+            }
+
+        .price-lists {
+            padding: 1px;
+        }
+
+        .lists {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: right;
+        }
+            .lists > li {
+                float: right;
+                margin-right: 30px;
+            }
+            .lists > li:first-child {
+                margin-right: 0;
+            }
+
+        .price-list {
+            background: transparent url(/Images/Public/Portfolio/1.jpg) no-repeat 0 0;
+            height: 358px;
+            margin: 0;
+            padding: 1px;
+            width: 157px;
+        }
+            .price-list ul {
+                margin: 26px 27px 0 16px;
+                padding: 0;
+                list-style: none;
+                text-align: right;
+            }
+                .price-list ul li {
+                    margin: 0 0 3px 0;
+                    padding: 0;
+                    position: relative;
+                    list-style: none;
+                }
+                    .price-list ul li a {
+                        color: #503e18;
+                        cursor: pointer;
+                        display: block;
+                        font-family: IranianSerifWeb;
+                        font-size: 15px;
+                        font-weight: bold;
+                        padding: 5px 3px 1px 0;
+                        position: relative;
+                        text-decoration: none;
+                        z-index: 6;
+                    }
+                        .price-list ul li a:hover + .item-hover-bg {
+                            opacity: 1;
+                            transition: opacity 300ms ease-in;
+                        }
+                    .price-list ul li i {
+                        background-color: #503e18;
+                        border-radius: 50%;
+                        display: inline-block;
+                        height: 3px;
+                        left: 2px;
+                        position: relative;
+                        top: -2px;
+                        width: 3px;
+                    }
+                    .price-list ul li .item-sep {
+                        background: transparent url(/Images/Public/navbar-sub-item-sep.png) no-repeat center center;
+                        bottom: -13px;
+                        height: 15px;
+                        position: absolute;
+                        right: -10px;
+                        top: auto;
+                        width: 108px;
+                        z-index: 4;
+                    }
+                    .price-list ul li .item-hover-bg {
+                        background: transparent url(/Images/Public/Portfolio/3.png) no-repeat center center;
+				        height: 81px;
+                        left: -24px;
+				        opacity: 0;
+				        position: absolute;
+                        top: -26px;
+				        transition: opacity 300ms ease-out;
+				        width: 167px;
+				        z-index: 5;
+                    }
 
         /* Custom, iPhone Retina */
         @@media only screen and (min-width : 320px) {
-            .page-content {
-                padding-left: 0;
+            .page-title {
+                margin: 0 auto;
             }
-
-            .left-menu {
-                left: auto;
-                position: relative;
-                top: auto;
+            .lists > li {
+                float: none;
+                margin: 0 auto;
             }
-
-            .list {
-                padding: 10px 10px 20px 10px;
+            .price-list {
+                margin: 0 auto;
             }
         }
         /* Extra Small Devices, Phones */
         @@media only screen and (min-width : 480px) {
-            .page-content {
-                padding-left: 0;
+            .page-title {
+                margin: 0 auto;
             }
-
-            .left-menu {
-                left: auto;
-                position: relative;
-                top: auto;
+            .lists > li {
+                float: right;
+                margin: 0 30px 0 0;
             }
-
-            .list {
-                padding: 10px 10px 20px 10px;
+            .price-list {
+                margin: 0;
             }
         }
         /* Small Devices, Tablets */
         @@media only screen and (min-width : 768px) {
-            .page-content {
-                padding-left: 167px;
+            .page-title {
+                margin: 0;
             }
-
-            .left-menu {
-                left: 0;
-                position: absolute;
-                top: 0;
+            .lists > li {
+                float: right;
+                margin: 0 30px 0 0;
             }
-
-            .list {
-                padding: 71px 69px 20px 69px;
+            .price-list {
+                margin: 0;
             }
         }
         /* Medium Devices, Desktops */
         @@media only screen and (min-width : 992px) {
-            .page-content {
-                padding-left: 167px;
+             .page-title {
+                margin: 0;
             }
-
-            .left-menu {
-                left: 0;
-                position: absolute;
-                top: 0;
+             .lists > li {
+                float: right;
+                margin: 0 30px 0 0;
             }
-
-            .list {
-                padding: 71px 69px 20px 69px;
+             .price-list {
+                margin: 0;
             }
         }
         /* Large Devices, Wide Screens */
         @@media only screen and (min-width : 1200px) {
-            .page-content {
-                padding-left: 167px;
+             .page-title {
+                margin: 0;
             }
-
-            .left-menu {
-                left: 0;
-                position: absolute;
-                top: 0;
+             .lists > li {
+                float: right;
+                margin: 0 30px 0 0;
             }
-
-            .list {
-                padding: 71px 69px 20px 69px;
+            .price-list {
+                margin: 0;
             }
         }
     </style>
+
+    <link rel="stylesheet" type="text/css" href="/Vendors/jquery-colorbox/them/colorbox.css" />
+    <script type="text/javascript" src="/Vendors/jquery-colorbox/jquery.colorbox-min.js"></script>
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('.price-list ul li a').colorbox({
+                    rel: 'gallery'
+                });
+            });
+    </script>
 }
 
 <div id="header-mobile" class="visible-xs">
@@ -168,22 +233,40 @@
 </div>
 
 <div class="page-content">
-    <div class="hidden-xs left-menu">
-        <ul>
-            @foreach (Karenbic.DomainClasses.PriceList item in Model)
+    <div class="page-title">
+        <a href="/PriceList/@Model.Id">
+            <div class="title-@Model.Id"></div>
+        </a>
+    </div>
+
+    <div class="price-lists">
+        <ul class="lists">
+            @{
+                int loopIndex = 0;
+                int loopRow = 0;
+            }
+
+            @while (prices.Count > loopIndex)
             {
+                loopRow = 0;
                 <li>
-                    <a href="@Url.Action("Show", new { id = item.Id })">@item.Title</a>
+                    <div class="price-list">
+                        <ul>
+                            @while (prices.Count > loopIndex && loopRow < 9)
+                            {
+                                <li>
+                                    <a href="@prices[loopIndex].PicturePath"><i></i>@prices[loopIndex].Title</a>
+                                    <div class="item-hover-bg"></div>
+                                    <div class="item-sep"></div>
+                                </li>
+
+                                loopRow += Convert.ToInt32(Math.Ceiling(prices[loopIndex].Title.Length / 12.0));
+                                loopIndex++;
+                            }
+                        </ul>
+                    </div>
                 </li>
             }
         </ul>
-    </div>
-
-    <div class="list">
-        <div class="hidden-xs label-left"></div>
-        <div class="hidden-xs label-right"></div>
-        <div class="list-container">
-            <img style="display:block;height:auto;width:100%;" src="@ViewBag.selectedItem.PicturePath" />
-        </div>
     </div>
 </div>

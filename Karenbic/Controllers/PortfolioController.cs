@@ -19,11 +19,7 @@ namespace Karenbic.Controllers
         [HttpGet]
         public ActionResult ShowTypes()
         {
-            List<DomainClasses.PortfolioType> model = _context.PortfolioTypes
-                .OrderByDescending(x => x.Priority)
-                .ToList();
-
-            return View(model);
+            return View();
         }
 
         [HttpGet]

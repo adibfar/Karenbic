@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Karenbic.Controllers
 {
@@ -18,23 +19,17 @@ namespace Karenbic.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            List<DomainClasses.PriceList> list = _context.PriceLists
-                .OrderByDescending(x => x.Order)
-                .ToList();
-
-            return View(list);
+            return View();
         }
 
         [HttpGet]
         public ActionResult Show(int id)
         {
-            List<DomainClasses.PriceList> list = _context.PriceLists
-                .OrderByDescending(x => x.Order)
-                .ToList();
+            DomainClasses.PublicPriceCategory model = _context.PublicPriceCategories
+                .Include(x => x.Prices)
+                .Single(x => x.Id == id);
 
-            ViewBag.selectedItem = _context.PriceLists.Find(id);
-
-            return View(list);
+            return View(model);
         }
     }
 }

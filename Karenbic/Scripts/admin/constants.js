@@ -112,7 +112,7 @@ App
                 icon: "price-list"
             },
             {
-                text: "نمونه کارها",
+                text: "صفحات عمومی",
                 sref: "#",
                 icon: "price-list",
                 submenu: [
@@ -127,6 +127,10 @@ App
                     {
                         text: "نمونه کارهای ثبت شده",
                         sref: "app.design.portfolios"
+                    },
+                    {
+                        text: "لیست قیمت",
+                        sref: "app.design.public-price"
                     }
                 ]
             },
@@ -270,12 +274,12 @@ App
                 icon: "price-list"
             },
             {
-                text: "نمونه کارها",
+                text: "صفحات عمومی",
                 sref: "#",
                 icon: "price-list",
                 submenu: [
                     {
-                        text: "گروه بندی",
+                        text: "گروه بندی نمونه کار ها",
                         sref: "app.print.portfolio-categories"
                     },
                     {
@@ -285,6 +289,10 @@ App
                     {
                         text: "نمونه کارهای ثبت شده",
                         sref: "app.print.portfolios"
+                    },
+                    {
+                        text: "لیست قیمت",
+                        sref: "app.print.public-price"
                     }
                 ]
             },

@@ -7,6 +7,11 @@ namespace Karenbic.DomainClasses
     [Table("tbl_FormFiled_Numeric")]
     public class FormField_Numeric : FormField
     {
+        public FormField_Numeric()
+        {
+            UseForPrice = false;
+        }
+
         [Required]
         public bool IsInt { get; set; }
 
@@ -32,5 +37,8 @@ namespace Karenbic.DomainClasses
 
         [Required]
         public int FactorOrder { get; set; }
+
+        [Required]
+        public bool UseForPrice { get; set; }
     }
 }

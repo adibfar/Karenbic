@@ -42,6 +42,8 @@ namespace Karenbic.DomainClasses
 
         public virtual ICollection<FormField> Fields { get; set; }
 
+        public virtual ICollection<OrderPrice> OrderPrices { get; set; }
+
         public virtual ICollection<Order> Orders { get; set; }
     }
 }

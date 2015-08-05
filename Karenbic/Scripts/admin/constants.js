@@ -82,6 +82,10 @@ App
                   {
                       text: "فرم های ثبت شده",
                       sref: "app.design.forms-list"
+                  },
+                  {
+                      text: "قیمت سفارشات",
+                      sref: "app.design.order-prices"
                   }
                 ],
                 activedmenu: [

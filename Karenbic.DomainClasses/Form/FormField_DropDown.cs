@@ -8,6 +8,11 @@ namespace Karenbic.DomainClasses
     [Table("tbl_FormField_DropDown")]
     public class FormField_DropDown : FormField
     {
+        public FormField_DropDown()
+        {
+            UseForPrice = false;
+        }
+
         [Required]
         public bool IsRequired { get; set; }
 
@@ -16,6 +21,9 @@ namespace Karenbic.DomainClasses
 
         [Required]
         public int FactorOrder { get; set; }
+
+        [Required]
+        public bool UseForPrice { get; set; }
 
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 

@@ -63,18 +63,6 @@ App
                     controller: 'FormsListController',
                     resolve: helper.resolveFor('ngDialog')
                 })
-                .state('app.design.customer-group', {
-                    url: '/customer-group',
-                    templateUrl: helper.basepath('CustomerGroup/Index'),
-                    controller: 'CustomerGroupController',
-                    resolve: helper.resolveFor('ngDialog')
-                })
-                .state('app.design.customer', {
-                    url: '/customer',
-                    templateUrl: helper.basepath('Customer/List'),
-                    controller: 'CustomerController',
-                    resolve: helper.resolveFor('ngDialog', 'chosen')
-                })
                 .state('app.design.preorder', {
                     url: '/preorder',
                     templateUrl: helper.basepath('DesignOrder/PreOrder'),
@@ -141,35 +129,6 @@ App
                     controller: 'FinancialConflictListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker', 'ngDialog')
                 })
-                .state('app.design.price-list', {
-                    url: '/price-list',
-                    templateUrl: helper.basepath('PriceList/Index'),
-                    controller: 'PriceListController',
-                    resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper')
-                })
-                .state('app.design.send-message-new', {
-                    url: '/send-message-new',
-                    templateUrl: helper.basepath('SendMessage/New'),
-                    controller: 'NewSendMessageController',
-                    resolve: helper.resolveFor('chosen', 'ngDialog', 'froala')
-                })
-                .state('app.design.send-message-list', {
-                    url: '/send-message-list',
-                    templateUrl: helper.basepath('SendMessage/List'),
-                    controller: 'SendMessageListController',
-                    resolve: helper.resolveFor('ngDialog')
-                })
-                .state('app.design.receive-message-list', {
-                    url: '/receive-message-list',
-                    templateUrl: helper.basepath('ReceiveMessage/List'),
-                    controller: 'ReceiveMessageListController',
-                    resolve: helper.resolveFor('ngDialog', 'froala')
-                })
-                .state('app.design.change-password', {
-                    url: '/change-password',
-                    templateUrl: helper.basepath('Profile/ChangePassword'),
-                    controller: 'ChangePasswordController'
-                })
                 .state('app.print', {
                     url: '/print',
                     abstract: true,
@@ -206,18 +165,6 @@ App
                     templateUrl: helper.basepath('Form/List'),
                     controller: 'FormsListController',
                     resolve: helper.resolveFor('ngDialog')
-                })
-                .state('app.print.customer-group', {
-                    url: '/customer-group',
-                    templateUrl: helper.basepath('CustomerGroup/Index'),
-                    controller: 'CustomerGroupController',
-                    resolve: helper.resolveFor('ngDialog')
-                })
-                .state('app.print.customer', {
-                    url: '/customer',
-                    templateUrl: helper.basepath('Customer/List'),
-                    controller: 'CustomerController',
-                    resolve: helper.resolveFor('ngDialog', 'chosen')
                 })
                 .state('app.print.preorder', {
                     url: '/preorder',
@@ -273,7 +220,46 @@ App
                     controller: 'FinancialConflictListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker', 'ngDialog')
                 })
+                
+                //Shared Pages
+                //_____________________
+                .state('app.design.order-prices', {
+                    url: '/order-prices',
+                    templateUrl: helper.basepath('OrderPrice/Index'),
+                    controller: 'OrderPriceController',
+                    resolve: helper.resolveFor('ngDialog', 'chosen')
+                })
+                .state('app.print.customer-group', {
+                    url: '/customer-group',
+                    templateUrl: helper.basepath('CustomerGroup/Index'),
+                    controller: 'CustomerGroupController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.design.customer-group', {
+                    url: '/customer-group',
+                    templateUrl: helper.basepath('CustomerGroup/Index'),
+                    controller: 'CustomerGroupController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.print.customer', {
+                    url: '/customer',
+                    templateUrl: helper.basepath('Customer/List'),
+                    controller: 'CustomerController',
+                    resolve: helper.resolveFor('ngDialog', 'chosen')
+                })
+                .state('app.design.customer', {
+                    url: '/customer',
+                    templateUrl: helper.basepath('Customer/List'),
+                    controller: 'CustomerController',
+                    resolve: helper.resolveFor('ngDialog', 'chosen')
+                })
                 .state('app.print.price-list', {
+                    url: '/price-list',
+                    templateUrl: helper.basepath('PriceList/Index'),
+                    controller: 'PriceListController',
+                    resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper')
+                })
+                .state('app.design.price-list', {
                     url: '/price-list',
                     templateUrl: helper.basepath('PriceList/Index'),
                     controller: 'PriceListController',
@@ -285,7 +271,19 @@ App
                     controller: 'NewSendMessageController',
                     resolve: helper.resolveFor('chosen', 'ngDialog', 'froala')
                 })
+                .state('app.design.send-message-new', {
+                    url: '/send-message-new',
+                    templateUrl: helper.basepath('SendMessage/New'),
+                    controller: 'NewSendMessageController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'froala')
+                })
                 .state('app.print.send-message-list', {
+                    url: '/send-message-list',
+                    templateUrl: helper.basepath('SendMessage/List'),
+                    controller: 'SendMessageListController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
+                .state('app.design.send-message-list', {
                     url: '/send-message-list',
                     templateUrl: helper.basepath('SendMessage/List'),
                     controller: 'SendMessageListController',
@@ -297,11 +295,23 @@ App
                     controller: 'ReceiveMessageListController',
                     resolve: helper.resolveFor('ngDialog', 'froala')
                 })
+                .state('app.design.receive-message-list', {
+                    url: '/receive-message-list',
+                    templateUrl: helper.basepath('ReceiveMessage/List'),
+                    controller: 'ReceiveMessageListController',
+                    resolve: helper.resolveFor('ngDialog', 'froala')
+                })
                 .state('app.print.change-password', {
                     url: '/change-password',
                     templateUrl: helper.basepath('Profile/ChangePassword'),
                     controller: 'ChangePasswordController'
                 })
+                .state('app.design.change-password', {
+                    url: '/change-password',
+                    templateUrl: helper.basepath('Profile/ChangePassword'),
+                    controller: 'ChangePasswordController'
+                })
+                
                 //Public Portal
                 //_____________________
                  .state('app.print.portfolio-categories', {

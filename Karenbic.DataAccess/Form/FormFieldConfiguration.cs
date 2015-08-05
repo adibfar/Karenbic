@@ -22,6 +22,10 @@ namespace Karenbic.DataAccess
                 .WithMany(x => x.Fields)
                 .WillCascadeOnDelete(true);
 
+            HasMany(x => x.OrderPriceValues)
+                .WithRequired(x => x.Field)
+                .WillCascadeOnDelete(false);
+
             HasMany(x => x.Orders_Value)
                 .WithRequired(x => x.Field)
                 .WillCascadeOnDelete(false);

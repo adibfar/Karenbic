@@ -293,7 +293,8 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
             pictureHelpFile: '',
             pictureHelpPath: '',
             hasPictureHelpFile: false,
-            priority: 0
+            priority: 0,
+            useForPrice: false
         };
 
         $scope.$watch(function () {
@@ -427,7 +428,8 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
             pictureHelpFile: '',
             pictureHelpPath: '',
             hasPictureHelpFile: false,
-            priority: 0
+            priority: 0,
+            useForPrice: false
         };
 
         $scope.newField_Checkbox_Reset = function () {
@@ -515,7 +517,8 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
             pictureHelpFile: '',
             pictureHelpPath: '',
             hasPictureHelpFile: false,
-            priority: 0
+            priority: 0,
+            useForPrice: false
         };
 
         $scope.newField_DropDown_AddItem = function () {
@@ -575,7 +578,8 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
             pictureHelpFile: '',
             pictureHelpPath: '',
             hasPictureHelpFile: false,
-            priority: 0
+            priority: 0,
+            useForPrice: false
         };
 
         $scope.newField_MultipleChoice_AddItem = function () {
@@ -634,7 +638,8 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
             pictureHelpFile: '',
             pictureHelpPath: '',
             hasPictureHelpFile: false,
-            priority: 0
+            priority: 0,
+            useForPrice: false
         };
 
         $scope.newField_CheckboxGroup_AddItem = function () {
@@ -1654,6 +1659,7 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                         obj.Min = item.data.min;
                         obj.Max = item.data.max;
                         obj.ShowInFactor = item.data.showInFactor;
+                        obj.UseForPrice = item.data.useForPrice;
                         if (item.data.showInFactor != true) {
                             obj.FactorOrder = -1;
                         }
@@ -1685,6 +1691,7 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                     //Checkbox
                     case 5:
                         obj.ShowInFactor = item.data.showInFactor;
+                        obj.UseForPrice = item.data.useForPrice;
                         if (item.data.showInFactor != true) {
                             obj.FactorOrder = -1;
                         }
@@ -1713,9 +1720,11 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                         }
                         break;
                         
+                    //Drop Down
                     case 8:
                         obj.IsRequired = item.data.isRequired;
                         obj.ShowInFactor = item.data.showInFactor;
+                        obj.UseForPrice = item.data.useForPrice;
                         if (item.data.showInFactor != true) {
                             obj.FactorOrder = -1;
                         }
@@ -1732,9 +1741,11 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                         })
                         break;
 
+                    //Multi Choice
                     case 9:
                         obj.IsRequired = item.data.isRequired;
                         obj.ShowInFactor = item.data.showInFactor;
+                        obj.UseForPrice = item.data.useForPrice;
                         if (item.data.showInFactor != true) {
                             obj.FactorOrder = -1;
                         }
@@ -1751,8 +1762,10 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                         })
                         break;
 
+                    //Checkbox Group
                     case 10:
                         obj.ShowInFactor = item.data.showInFactor;
+                        obj.UseForPrice = item.data.useForPrice;
                         if (item.data.showInFactor != true) {
                             obj.FactorOrder = -1;
                         }

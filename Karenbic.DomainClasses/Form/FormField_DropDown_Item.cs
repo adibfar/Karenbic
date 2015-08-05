@@ -38,6 +38,8 @@ namespace Karenbic.DomainClasses
 
         public virtual FormField_DropDown DropDown { get; set; }
 
+        public virtual ICollection<OrderPriceValue_DropDown> OrderPriceValues { get; set; }
+
         public virtual ICollection<Order_Value_DropDown> Orders_Value { get; set; }
     }
 }

@@ -37,6 +37,7 @@ namespace Karenbic.DomainClasses
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 
         public virtual FormField_CheckBoxGroup CheckBoxGroup { get; set; }
+        public virtual ICollection<OrderPriceValue_CheckboxGroup> OrderPriceValues { get; set; }
         public virtual ICollection<Order_Value_CheckboxGroup> Orders_Value { get; set; }
     }
 }

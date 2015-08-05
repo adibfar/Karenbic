@@ -10,6 +10,10 @@ namespace Karenbic.DataAccess
                 .WithMany(x => x.Items)
                 .WillCascadeOnDelete(true);
 
+            HasMany(x => x.OrderPriceValues)
+                .WithOptional(x => x.Value)
+                .WillCascadeOnDelete(false);
+
             HasMany(x => x.Orders_Value)
                 .WithOptional(x => x.Value)
                 .WillCascadeOnDelete(false);

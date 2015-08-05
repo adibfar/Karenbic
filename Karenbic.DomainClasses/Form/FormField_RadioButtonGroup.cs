@@ -8,6 +8,11 @@ namespace Karenbic.DomainClasses
     [Table("tbl_FormField_RadioButtonGroup")]
     public class FormField_RadioButtonGroup : FormField
     {
+        public FormField_RadioButtonGroup()
+        {
+            UseForPrice = false;
+        }
+
         [Required]
         public bool IsRequired { get; set; }
 
@@ -16,6 +21,9 @@ namespace Karenbic.DomainClasses
 
         [Required]
         public int FactorOrder { get; set; }
+
+        [Required]
+        public bool UseForPrice { get; set; }
 
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 

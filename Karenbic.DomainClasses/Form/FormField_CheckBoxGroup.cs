@@ -8,11 +8,19 @@ namespace Karenbic.DomainClasses
     [Table("tbl_FormField_CheckBoxGroup")]
     public class FormField_CheckBoxGroup : FormField
     {
+        public FormField_CheckBoxGroup()
+        {
+            UseForPrice = false;
+        }
+
         [Required]
         public bool ShowInFactor { get; set; }
 
         [Required]
         public int FactorOrder { get; set; }
+
+        [Required]
+        public bool UseForPrice { get; set; }
 
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 

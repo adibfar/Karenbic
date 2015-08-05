@@ -63,6 +63,7 @@ namespace Karenbic.DomainClasses
         public virtual FormField_Position_Desktop DesktopPosition { get; set; }
         public virtual FormField_Position_Tablet TabletPosition { get; set; }
         public virtual FormField_Position_Mobile MobilePosition { get; set; }
+        public virtual ICollection<OrderPriceValue> OrderPriceValues { get; set; }
         public virtual ICollection<Order_Value> Orders_Value { get; set; }
     }
 }

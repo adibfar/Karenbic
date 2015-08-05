@@ -80,6 +80,7 @@ namespace Karenbic
                 "~/Scripts/admin/controllers/form-add.js",
                 "~/Scripts/admin/controllers/form-edit.js",
                 "~/Scripts/admin/controllers/form-list.js",
+                "~/Scripts/admin/controllers/order-price.js",
                 "~/Scripts/admin/controllers/financial-conflict-add.js",
                 "~/Scripts/admin/controllers/financial-conflict-list.js",
                 "~/Scripts/admin/controllers/customer-group.js",

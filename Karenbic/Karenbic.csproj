@@ -218,6 +218,7 @@
     <Compile Include="Areas\Admin\Controllers\FroalaController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderPriceController.cs" />
     <Compile Include="Areas\Admin\Controllers\PortfolioCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\PortfolioController.cs" />
     <Compile Include="Areas\Admin\Controllers\PriceListController.cs" />
@@ -466,6 +467,7 @@
     <Content Include="Scripts\admin\controllers\form-list.js" />
     <Content Include="Scripts\admin\controllers\main.js" />
     <Content Include="Scripts\admin\controllers\mobile-menu.js" />
+    <Content Include="Scripts\admin\controllers\order-price.js" />
     <Content Include="Scripts\admin\controllers\portfolio-add.js" />
     <Content Include="Scripts\admin\controllers\portfolio-categories.js" />
     <Content Include="Scripts\admin\controllers\portfolios.js" />
@@ -629,6 +631,7 @@
       <SubType>
       </SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\OrderPrice\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Service References\BPService\configuration91.svcinfo" />
     <None Include="Service References\BPService\configuration.svcinfo" />

@@ -205,14 +205,3 @@ FakesAssemblies/
 #Upload Folder
 [Cc]ontents/
 [Cc]ontent/
-
-#Images Folder
-[Ii]mages/
-
-#Compiled CSS Files
-Karenbic/Styles/portal.css
-Karenbic/Styles/portal.css.map
-Karenbic/Styles/portal-them/pink.css
-Karenbic/Styles/portal-them/pink.css.map
-Karenbic/Styles/portal-them/blue.css
-Karenbic/Styles/portal-them/blue.css.map

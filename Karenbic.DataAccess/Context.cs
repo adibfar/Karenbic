@@ -44,6 +44,8 @@ namespace Karenbic.DataAccess
 
 
         public DbSet<DomainClasses.OrderPrice> OrderPrices { get; set; }
+        public DbSet<DomainClasses.DesignOrderPrice> DesignOrderPrices { get; set; }
+        public DbSet<DomainClasses.PrintOrderPrice> PrintOrderPrices { get; set; }
         public DbSet<DomainClasses.OrderPriceValue> OrderPriceValues { get; set; }
         public DbSet<DomainClasses.OrderPriceValue_Checkbox> OrderPriceValues_Checkbox { get; set; }
         public DbSet<DomainClasses.OrderPriceValue_Numeric> OrderPriceValues_Numeric { get; set; }
@@ -121,6 +123,8 @@ namespace Karenbic.DataAccess
             modelBuilder.Configurations.Add(new FormField_CheckBoxGroup_ItemConfiguration());
 
             modelBuilder.Configurations.Add(new OrderPriceConfiguration());
+            modelBuilder.Configurations.Add(new PrintOrderPriceConfiguration());
+            modelBuilder.Configurations.Add(new DesignOrderPriceConfiguration());
             modelBuilder.Configurations.Add(new OrderPriceValueConfiguration());
             modelBuilder.Configurations.Add(new OrderPriceValue_DropDownConfiguration());
             modelBuilder.Configurations.Add(new OrderPriceValue_RadioButtonGroupConfiguration());

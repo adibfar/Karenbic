@@ -7,6 +7,10 @@ namespace Karenbic.DomainClasses
     [Table("tbl_OrderPriceValue_Numeric")]
     public class OrderPriceValue_Numeric : OrderPriceValue
     {
-        public float? Value { get; set; }
+        [Required]
+        public float MinValue { get; set; }
+
+        [Required]
+        public float MaxValue { get; set; }
     }
 }

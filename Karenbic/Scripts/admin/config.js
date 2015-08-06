@@ -223,11 +223,17 @@ App
                 
                 //Shared Pages
                 //_____________________
+                .state('app.print.order-prices', {
+                    url: '/order-prices',
+                    templateUrl: helper.basepath('PrintOrderPrice/Index'),
+                    controller: 'PrintOrderPriceController',
+                    resolve: helper.resolveFor('ngDialog', 'chosen', 'stepper')
+                })
                 .state('app.design.order-prices', {
                     url: '/order-prices',
-                    templateUrl: helper.basepath('OrderPrice/Index'),
-                    controller: 'OrderPriceController',
-                    resolve: helper.resolveFor('ngDialog', 'chosen')
+                    templateUrl: helper.basepath('DesignOrderPrice/Index'),
+                    controller: 'DesignOrderPriceController',
+                    resolve: helper.resolveFor('ngDialog', 'chosen', 'stepper')
                 })
                 .state('app.print.customer-group', {
                     url: '/customer-group',

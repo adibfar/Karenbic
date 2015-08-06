@@ -248,6 +248,10 @@ App
                     {
                         text: "فرم های ثبت شده",
                         sref: "app.print.forms-list"
+                    },
+                    {
+                        text: "قیمت سفارشات",
+                        sref: "app.print.order-prices"
                     }
                 ],
                 activedmenu: [

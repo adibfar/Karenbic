@@ -64,6 +64,7 @@
     <Compile Include="Message\AdminMessage_Customer.cs" />
     <Compile Include="Message\CustomerMessage.cs" />
     <Compile Include="Message\Message.cs" />
+    <Compile Include="OrderPrice\DesignOrderPrice.cs" />
     <Compile Include="OrderPrice\OrderPriceValue.cs" />
     <Compile Include="OrderPrice\OrderPrice.cs" />
     <Compile Include="OrderPrice\OrderPriceValue_Checkbox.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="OrderPrice\OrderPriceValue_DropDown.cs" />
     <Compile Include="OrderPrice\OrderPriceValue_Numeric.cs" />
     <Compile Include="OrderPrice\OrderPriceValue_RadioButtonGroup.cs" />
+    <Compile Include="OrderPrice\PrintOrderPrice.cs" />
     <Compile Include="Order\DesignOrder.cs" />
     <Compile Include="Form\FileFormat.cs" />
     <Compile Include="Form\Form.cs" />

@@ -62,11 +62,13 @@
     <Compile Include="Message\AdminMessage_AdminConfiguration.cs" />
     <Compile Include="Message\AdminMessage_CustomerConfiguration.cs" />
     <Compile Include="Message\CustomerMessageConfiguration.cs" />
+    <Compile Include="OrderPrice\DesignOrderPriceConfiguration.cs" />
     <Compile Include="OrderPrice\OrderPriceConfiguration.cs" />
     <Compile Include="OrderPrice\OrderPriceValueConfiguration.cs" />
     <Compile Include="OrderPrice\OrderPriceValue_RadioButtonGroupConfiguration.cs" />
     <Compile Include="OrderPrice\OrderPriceValue_DropDownConfiguration.cs" />
     <Compile Include="OrderPrice\OrderPriceValue_CheckboxGroupConfiguration.cs" />
+    <Compile Include="OrderPrice\PrintOrderPriceConfiguration.cs" />
     <Compile Include="Order\DesignOrderConfiguration.cs" />
     <Compile Include="Form\FileFormatConfiguration.cs" />
     <Compile Include="Form\FormConfiguration.cs" />

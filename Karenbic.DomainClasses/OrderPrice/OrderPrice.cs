@@ -8,15 +8,20 @@ namespace Karenbic.DomainClasses
     [Table("tbl_OrderPrice")]
     public class OrderPrice
     {
+        public OrderPrice()
+        {
+            RegisterDate = DateTime.Now;
+        }
+
         [Key]
         [Required]
         public int Id { get; set; }
 
         [Required]
-        public decimal Price { get; set; }
+        public int Priority { get; set; }
 
         [Required]
-        public int Priority { get; set; }
+        public DateTime RegisterDate { get; set; }
 
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 

@@ -209,6 +209,7 @@
     <Compile Include="Areas\Admin\Controllers\CustomerGroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\DesignAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\DesignOrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DesignOrderPrice.cs" />
     <Compile Include="Areas\Admin\Controllers\DesignPaymentController.cs" />
     <Compile Include="Areas\Admin\Controllers\FactorOfDesignOrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\FactorOfPrintOrderController.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Areas\Admin\Controllers\PriceListController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrintAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrintOrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PrintOrderPriceController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrintPaymentController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProvinceController.cs" />
@@ -264,6 +266,12 @@
     <Compile Include="Areas\Customer\Controllers\ReceiveMessageController.cs" />
     <Compile Include="Areas\Customer\Controllers\SendMessageController.cs" />
     <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
+    <Compile Include="Areas\Customer\Models\OrderPriceValue.cs" />
+    <Compile Include="Areas\Customer\Models\OrderPriceValue_Checkbox.cs" />
+    <Compile Include="Areas\Customer\Models\OrderPriceValue_CheckboxGroup.cs" />
+    <Compile Include="Areas\Customer\Models\OrderPriceValue_DropDown.cs" />
+    <Compile Include="Areas\Customer\Models\OrderPriceValue_Numeric.cs" />
+    <Compile Include="Areas\Customer\Models\OrderPriceValue_RadioButtonGroup.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue_Checkbox.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue_CheckboxGroup.cs" />
@@ -467,7 +475,7 @@
     <Content Include="Scripts\admin\controllers\form-list.js" />
     <Content Include="Scripts\admin\controllers\main.js" />
     <Content Include="Scripts\admin\controllers\mobile-menu.js" />
-    <Content Include="Scripts\admin\controllers\order-price.js" />
+    <Content Include="Scripts\admin\controllers\design-order-price.js" />
     <Content Include="Scripts\admin\controllers\portfolio-add.js" />
     <Content Include="Scripts\admin\controllers\portfolio-categories.js" />
     <Content Include="Scripts\admin\controllers\portfolios.js" />
@@ -477,6 +485,7 @@
     <Content Include="Scripts\admin\controllers\print-finished-order-list.js" />
     <Content Include="Scripts\admin\controllers\print-new-order-list.js" />
     <Content Include="Scripts\admin\controllers\print-ongoing-order-list.js" />
+    <Content Include="Scripts\admin\controllers\print-order-price.js" />
     <Content Include="Scripts\admin\controllers\print-payment-list.js" />
     <Content Include="Scripts\admin\controllers\print-preorder.js" />
     <Content Include="Scripts\admin\controllers\public-aboutus.js" />
@@ -631,7 +640,13 @@
       <SubType>
       </SubType>
     </Content>
-    <Content Include="Areas\Admin\Views\OrderPrice\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PrintOrderPrice\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderPrice\FormField_Checkbox.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderPrice\FormField_CheckboxGroup.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderPrice\FormField_DropDown.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderPrice\FormField_MultipleChoice.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderPrice\FormField_NumericStepper.cshtml" />
+    <Content Include="Areas\Admin\Views\DesignOrderPrice\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Service References\BPService\configuration91.svcinfo" />
     <None Include="Service References\BPService\configuration.svcinfo" />

@@ -1,0 +1,12 @@
+﻿<div ng-if="item.type == 8">
+    <label class="control-label">
+        {{item.data.title + ':'}}
+        <span class="text-danger" ng-if="item.data.isRequired">*</span>
+    </label>
+    <select chosen="item.data.items"
+            ng-options="item.title for item in item.data.items"
+            ng-model="item.value"
+            ng-class="{'ng-invalid': fromSumbited == true && validateForm_DropDown(item) == false}"
+            width="100%"
+            tabindex="{{item.data.priority}}"></select>
+</div>

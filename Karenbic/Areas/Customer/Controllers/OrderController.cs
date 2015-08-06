@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Karenbic.Areas.Customer.Models;
 using System.Web.Hosting;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
@@ -26,7 +27,7 @@ namespace Karenbic.Areas.Customer.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(int formId,
+        public async Task<ActionResult> Add(int formId,
             OrderValue_TextBox[] textBoxs,
             OrderValue_TextArea[] textAreas,
             OrderValue_Numeric[] numerics,
@@ -44,8 +45,11 @@ namespace Karenbic.Areas.Customer.Controllers
             DomainClasses.DesignOrder designOrder = new DomainClasses.DesignOrder();
             DomainClasses.PrintOrder printOrder = new DomainClasses.PrintOrder();
 
+            //Get Price 
+            int priceId = await Add_GetOrderPrice(formId, numerics, checkboxs, dropDowns, radioButtonGroups, checkBoxGroups);
+
             //Get Form
-            DomainClasses.Form form = _context.Forms.Find(formId);
+            DomainClasses.Form form = await _context.Forms.FindAsync(formId);
             form.CanDelete = false;
 
             //Define Order
@@ -56,7 +60,28 @@ namespace Karenbic.Areas.Customer.Controllers
                 designOrder.SpecialCreativity = specialCreativity;
                 designOrder.RegisterDate = DateTime.Now;
                 designOrder.Customer = _context.Customers.Find(1);
-                //designOrder.Customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+                //designOrder.Customer = _context.Customers.Single(x => x.Username == User.Identity.Name); 
+
+                //Check Price
+                if (priceId != -1)
+                {
+                    //set Price
+                    DomainClasses.DesignOrderPrice orderPrice = await _context.DesignOrderPrices.FindAsync(priceId);
+                    designOrder.IsConfirm = true;
+                    designOrder.ConfirmDate = designOrder.RegisterDate;
+                    designOrder.Price = specialCreativity ? orderPrice.SpecialCreativityPrice : orderPrice.Price;
+                    designOrder.Prepayment = specialCreativity ? orderPrice.SpecialCreativityPrepayment : orderPrice.Prepayment;
+
+                    //Set Prepayment Factor
+                    designOrder.PrepaymentFactor = new DomainClasses.PrepaymentDesignFactor();
+                    designOrder.PrepaymentFactor.Price = designOrder.Price;
+                    designOrder.PrepaymentFactor.RegisterDate = designOrder.RegisterDate;
+
+                    //Set Final Factor
+                    designOrder.FinalFactor = new DomainClasses.FinalDesignFactor();
+                    designOrder.FinalFactor.Price = designOrder.Price - designOrder.Prepayment;
+                    designOrder.FinalFactor.RegisterDate = designOrder.RegisterDate;
+                }
             }
             else
             {
@@ -64,6 +89,22 @@ namespace Karenbic.Areas.Customer.Controllers
                 printOrder.RegisterDate = DateTime.Now;
                 printOrder.Customer = _context.Customers.Find(1);
                 //printOrder.Customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+
+                //Check Price
+                if (priceId != -1)
+                {
+                    //set Price
+                    DomainClasses.PrintOrderPrice orderPrice = await _context.PrintOrderPrices.FindAsync(priceId);
+                    printOrder.IsConfirm = true;
+                    printOrder.ConfirmDate = designOrder.RegisterDate;
+                    printOrder.PrintPrice = orderPrice.PrintPrice;
+                    printOrder.PackingPrice = orderPrice.PackingPrice;
+
+                    //Set Factor
+                    printOrder.Factor = new DomainClasses.PrintFactor();
+                    printOrder.Factor.Price = orderPrice.Price;
+                    printOrder.Factor.RegisterDate = designOrder.RegisterDate; ;
+                }
             }
 
             //TextBox
@@ -449,6 +490,26 @@ namespace Karenbic.Areas.Customer.Controllers
 
             if (isDesignOrder)
             {
+                if (priceId != -1)
+                {
+                    return Json(new
+                    {
+                        Id = designOrder.Id,
+                        Price = designOrder.Price,
+                        Prepayment = designOrder.Prepayment,
+                        PrepaymentFactor = new
+                        {
+                            Id = designOrder.PrepaymentFactor.Id,
+                            Price = designOrder.PrepaymentFactor.Price
+                        },
+                        FinalFactor = new
+                        {
+                            Id = designOrder.FinalFactor.Id,
+                            Price = designOrder.FinalFactor.Price
+                        }
+                    });
+                }
+
                 return Json(new
                 {
                     Id = designOrder.Id
@@ -456,6 +517,22 @@ namespace Karenbic.Areas.Customer.Controllers
             }
             else
             {
+                if (priceId != -1)
+                {
+                    return Json(new
+                    {
+                        Id = printOrder.Id,
+                        PrintPrice = printOrder.PrintPrice,
+                        PackingPrice = printOrder.PackingPrice,
+                        Price = printOrder.Price,
+                        Factor = new
+                        {
+                            Id = printOrder.Factor.Id,
+                            Price = printOrder.Factor.Price
+                        }
+                    });
+                }
+
                 return Json(new
                 {
                     Id = printOrder.Id
@@ -650,6 +727,94 @@ namespace Karenbic.Areas.Customer.Controllers
             }
 
             return result;
+        }
+
+        [NonAction]
+        public async Task<int> Add_GetOrderPrice(int formId,
+            OrderValue_Numeric[] numerics,
+            OrderValue_Checkbox[] checkboxs,
+            OrderValue_DropDown[] dropDowns,
+            OrderValue_RadioButtonGroup[] radioButtonGroups,
+            OrderValue_CheckboxGroup[] checkBoxGroups)
+        {
+            List<DomainClasses.OrderPrice> prices = await _context.OrderPrices
+                .Include(x => x.Values)
+                .Include(x => x.Values.Select(c => c.Field))
+                .Include(x => x.Values.Select(c => c.Field.MobilePosition))
+                .Where(x => x.Form.Id == formId)
+                .OrderByDescending(x => x.Priority)
+                .ThenByDescending(x => x.RegisterDate)
+                .ToListAsync();
+
+            int findIndex = -1;
+
+            foreach (DomainClasses.OrderPrice price in prices)
+            {
+                if (findIndex != -1) break;
+
+                List<DomainClasses.OrderPriceValue> values = price.Values
+                    .OrderByDescending(x => x.Field.MobilePosition.Row).ToList();
+
+                int checkedItem = 0;
+
+                foreach (DomainClasses.OrderPriceValue value in values)
+                {
+                    //Numeric
+                    if (value is DomainClasses.OrderPriceValue_Numeric)
+                    {
+                        DomainClasses.OrderPriceValue_Numeric item = (DomainClasses.OrderPriceValue_Numeric)value;
+
+                        if (!numerics.Any(x => x.FieldId == item.Field.Id && 
+                            (x.Value >= item.MinValue && x.Value <= item.MaxValue)))
+                            break;
+                    }
+
+                    //Drop Down
+                    if (value is DomainClasses.OrderPriceValue_DropDown)
+                    {
+                        DomainClasses.OrderPriceValue_DropDown item = (DomainClasses.OrderPriceValue_DropDown)value;
+
+                        if (!dropDowns.Any(x => x.FieldId == item.Field.Id && x.Value == item.Value.Id)) break;
+                    }
+
+                    //Multiple Choice
+                    if (value is DomainClasses.OrderPriceValue_RadioButtonGroup)
+                    {
+                        DomainClasses.OrderPriceValue_RadioButtonGroup item = (DomainClasses.OrderPriceValue_RadioButtonGroup)value;
+                        
+                        if (!radioButtonGroups.Any(x => x.FieldId == item.Field.Id && x.Value == item.Value.Id)) break;
+                    }
+
+                    //Checkbox Group
+                    if (value is DomainClasses.OrderPriceValue_CheckboxGroup)
+                    {
+                        DomainClasses.OrderPriceValue_CheckboxGroup item = (DomainClasses.OrderPriceValue_CheckboxGroup)value;
+
+                        if (!checkBoxGroups.Any(x => x.FieldId == item.Field.Id)) break;
+                        else
+                        {
+                            List<DomainClasses.FormField_CheckBoxGroup_Item> itemValues = item.Values.ToList();
+
+                            int checkedCheckboxValue = 0;
+
+                            foreach (DomainClasses.FormField_CheckBoxGroup_Item itemValue in itemValues)
+                            {
+                                if (!checkBoxGroups.Any(x => x.Values.Contains(itemValue.Id))) break;
+
+                                checkedCheckboxValue++;
+                            }
+
+                            if (checkedCheckboxValue != itemValues.Count) break;
+                        }
+                    }
+
+                    checkedItem++;
+                }
+
+                if (checkedItem == values.Count) findIndex = price.Id;
+            }
+
+            return findIndex;
         }
 
         [HttpGet]

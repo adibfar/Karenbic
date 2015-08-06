@@ -3,8 +3,8 @@
  * Send New Order
  =========================================================*/
 
-App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$upload', 'toaster', 'ngDialog',
-    function ($scope, $http, baseUri, $upload, toaster, ngDialog) {
+App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$upload', 'toaster', 'ngDialog', '$state',
+    function ($scope, $http, baseUri, $upload, toaster, ngDialog, $state) {
 
         /*=-=-=-=-= Start Fetch Forms =-=-=-=-=*/
         $scope.formGroups = [];
@@ -601,8 +601,8 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
             success(function (data, status, headers, config) {
                 $scope.addLoading = false;
                 if (data.Id != -1) {
-                    toaster.pop('success', "اطلاعات با موفقیت ثبت گردید");
                     $scope.resetForm();
+                    $scope.showSaveMessage(data);
                 }
                 else {
                     toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
@@ -701,6 +701,123 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
             });
             $scope.fromSumbited = false;
             $scope.specialCreativity = false;
+        };
+
+        $scope.showSaveMessage = function (data) {
+            if (data.Price == null) {
+                ngDialog.open({
+                    template: '<div style="font-family:yekan;font-size:14px;">' +
+                        '<p>' + 'سفارش شما با موفقیت ثبت گردید' + '</p>' +
+                        '<p>' + 'سفارش شما در انتظار تأیید و استعلام قیمت از طرف مدیریت می باشد' + '</p>' +
+                        '<div style="text-align:left;">' +
+                        '<button type="button" class="btn btn-primary" ng-click="closeThisDialog(0)">خروج</button>' +
+                        '</div></div>',
+                    plain: true,
+                    showClose: false
+                });
+
+                return;
+            }
+
+            if ($scope.isDesignPortal() == true) {
+                var price = data.Price;
+                var premayment = data.Premayment;
+
+                var priceStr = escape(price).replace(new RegExp(separator, "g"), "");
+                var premaymentStr = escape(premayment).replace(new RegExp(separator, "g"), "");
+
+                var separator = ",";
+                var regexp = new RegExp("\\B(\\d{3})(" + separator + "|$)");
+
+                do {
+                    priceStr = priceStr.replace(regexp, separator + "$1");
+                }while (priceStr.search(regexp) >= 0)
+
+                do {
+                    premaymentStr = premaymentStr.replace(regexp, separator + "$1");
+                } while (premaymentStr.search(regexp) >= 0)
+
+                ngDialog.open({
+                    template: '<div style="font-family:yekan;font-size:14px;">' +
+                        '<p>' +
+                        priceStr +
+                        ' ریال ' +
+                        'می باشد' +
+                        '</p>' +
+                        '<div style="text-align:left;">' +
+                        '<button class="btn btn-warning" ng-click="close()" type="button">خروج</button>' +
+                        '<button class="btn btn-primary" ng-click="confirm()" type="button" style="margin-right:4px;">پرداخت</button>' +
+                        '</div></div>',
+                    plain: true,
+                    showClose: false,
+                    controller: ['$scope', 'ngDialog', function ($scope, ngDialog) {
+                        $scope.close = function () {
+                            $scope.closeThisDialog(0);
+                        };
+                        $scope.confirm = function () {
+                            $scope.closeThisDialog(1);
+                        };
+                    }],
+                    preCloseCallback: function (value) {
+                        if (value != 1) return true;
+
+                        $state.go('^.final-payment-preview', { id: "p" + data.PrepaymentFactor.Id });
+
+                        return true;
+                    }
+                });
+            }
+
+            else if ($scope.isPrintPortal() == true) {
+                var price = data.Price;
+                var printPrice = data.PrintPrice;
+                var packingPrice = data.PackingPrice;
+
+                var priceStr = escape(price).replace(new RegExp(separator, "g"), "");
+                var printPriceStr = escape(printPrice).replace(new RegExp(separator, "g"), "");
+                var packingPriceStr = escape(packingPrice).replace(new RegExp(separator, "g"), "");
+
+                var separator = ",";
+                var regexp = new RegExp("\\B(\\d{3})(" + separator + "|$)");
+
+                do {
+                    priceStr = priceStr.replace(regexp, separator + "$1");
+                } while (priceStr.search(regexp) >= 0)
+
+                do {
+                    premaymentStr = premaymentStr.replace(regexp, separator + "$1");
+                } while (premaymentStr.search(regexp) >= 0)
+
+                ngDialog.open({
+                    template: '<div style="font-family:yekan;font-size:14px;">' +
+                        '<p>' +
+                        priceStr +
+                        ' ریال ' +
+                        'می باشد' +
+                        '</p>' +
+                        '<div style="text-align:left;">' +
+                        '<button class="btn btn-warning" ng-click="close()" type="button">خروج</button>' +
+                        '<button class="btn btn-primary" ng-click="confirm()" type="button" style="margin-right:4px;">پرداخت</button>' +
+                        '</div></div>',
+                    plain: true,
+                    showClose: false,
+                    controller: ['$scope', 'ngDialog', function ($scope, ngDialog) {
+                        $scope.close = function () {
+                            $scope.closeThisDialog(0);
+                        };
+                        $scope.confirm = function () {
+                            $scope.closeThisDialog(1);
+                        };
+                    }],
+                    preCloseCallback: function (value) {
+                        if (value != 1) return true;
+
+                        $state.go('^.final-payment-preview', { id: "p" + data.PrepaymentFactor.Id });
+
+                        return true;
+                    }
+                });
+            }
         };
         /*=-=-=-=-= End Send Data =-=-=-=-=*/
 

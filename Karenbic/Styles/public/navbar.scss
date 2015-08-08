@@ -195,6 +195,7 @@
 			.item-hover-bg {
 				background: transparent url(/Images/Public/navbar-sub-item-bg.png) no-repeat center center;
 				height: 87px;
+				left: -11px;
 				opacity: 0;
 				position: absolute;
 				transition: opacity 300ms ease-out;
@@ -223,7 +224,6 @@
 				}
 
 				.item-hover-bg {
-					left: -20px;
 					top: -17px;
 				}
 			}
@@ -239,7 +239,6 @@
 				}
 
 				.item-hover-bg {
-					left: -20px;
 					top: -25px;
 				}
 			}
@@ -250,25 +249,26 @@
 				a {
 					background: transparent url(/Images/Public/NavbarMenu/SubMenu/3.png) no-repeat center right;
 					height: 33px;
+					right: 7px;
 					top: 0;
 				}
 
 				.item-hover-bg {
-					left: -20px;
 					top: -26px;
 				}
 			}
 
 			&.item4 {
+				height: 40px;
+
 				a {
 					background: transparent url(/Images/Public/NavbarMenu/SubMenu/4.png) no-repeat center right;
 					height: 17px;
-					right: 12px;
+					right: 20px;
 					top: 14px;
 				}
 
 				.item-hover-bg {
-					left: -20px;
 					top: -26px;
 				}
 			}
@@ -278,15 +278,15 @@
 	ul.menu li.item2 .submenu {
 		background: transparent url(/Images/Public/navbar-sub-menu-bg-2.png) no-repeat 0 0;
 		display: none;
-		height: 307px;
+		height: 390px;
 		left: -62px;
 		position: absolute;
-		top: -32px;
+		top: -55px;
 		width: 245px;
 		z-index: 7;
 
 		ul {
-			margin: 73px 51px 10px 55px;
+			margin: 96px 51px 10px 55px;
 			padding: 0;
 		}
 
@@ -314,6 +314,7 @@
 			.item-hover-bg {
 				background: transparent url(/Images/Public/navbar-sub-item-bg.png) no-repeat center center;
 				height: 87px;
+				left: -11px;
 				opacity: 0;
 				position: absolute;
 				transition: opacity 300ms ease-out;
@@ -342,7 +343,6 @@
 				}
 
 				.item-hover-bg {
-					left: -20px;
 					top: -17px;
 				}
 			}
@@ -358,7 +358,6 @@
 				}
 
 				.item-hover-bg {
-					left: -20px;
 					top: -25px;
 				}
 			}
@@ -369,11 +368,11 @@
 				a {
 					background: transparent url(/Images/Public/NavbarMenu/SubMenu/3.png) no-repeat center right;
 					height: 33px;
+					right: 7px;
 					top: 0;
 				}
 
 				.item-hover-bg {
-					left: -20px;
 					top: -26px;
 				}
 			}
@@ -384,12 +383,26 @@
 				a {
 					background: transparent url(/Images/Public/NavbarMenu/SubMenu/4.png) no-repeat center right;
 					height: 17px;
-					right: 12px;
+					right: 20px;
 					top: 14px;
 				}
 
 				.item-hover-bg {
-					left: -20px;
+					top: -26px;
+				}
+			}
+
+			&.item5 {
+				height: 45px;
+
+				a {
+					background: transparent url(/Images/Public/NavbarMenu/SubMenu/5.png) no-repeat center right;
+					height: 33px;
+					right: 12px;
+					top: 6px;
+				}
+
+				.item-hover-bg {
 					top: -26px;
 				}
 			}

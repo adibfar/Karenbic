@@ -376,9 +376,11 @@
     <Content Include="Images\PublicMobile\SubMenuItem\2.png" />
     <Content Include="Images\PublicMobile\SubMenuItem\3.png" />
     <Content Include="Images\PublicMobile\SubMenuItem\4.png" />
+    <Content Include="Images\PublicMobile\SubMenuItem\5.png" />
     <Content Include="Images\Public\0.jpg" />
     <Content Include="Images\Public\1.png" />
     <Content Include="Images\Public\navbar-sub-menu-bg-1.png" />
+    <Content Include="Images\Public\NavbarMenu\SubMenu\5.png" />
     <Content Include="Images\Public\navbar-sub-menu-bg-2.png" />
     <Content Include="Images\Public\navbar-sub-item-bg.png" />
     <Content Include="Images\Public\btn-login.png" />
@@ -412,6 +414,7 @@
     <Content Include="Images\Public\Portfolio\0.jpg" />
     <Content Include="Images\Public\Portfolio\1.jpg" />
     <Content Include="Images\Public\Portfolio\3.png" />
+    <Content Include="Images\Public\public0001.jpg" />
     <Content Include="Images\Public\Register\1.png" />
     <Content Include="Images\Public\Register\2.png" />
     <Content Include="Images\Public\Register\3.png" />

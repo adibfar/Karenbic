@@ -1,0 +1,26 @@
+﻿<div ng-if="item.type == 2">
+    <label class="control-label">
+        {{item.data.title + ':'}}
+        <span class="text-danger" ng-if="item.data.isRequired">*</span>
+    </label>
+    <br />
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+            <input type="text"
+                   stepper=""
+                   number-type="float"
+                   ng-class="{'ng-invalid': fromSumbited == true && validateForm_Nummeric(item) == false}"
+                   ng-model="item.minValue" />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label class="control-label" style="text-align:center;">الی</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+            <input type="text"
+                   stepper=""
+                   number-type="float"
+                   ng-class="{'ng-invalid': fromSumbited == true && validateForm_Nummeric(item) == false}"
+                   ng-model="item.maxValue" />
+        </div>
+    </div>
+</div>

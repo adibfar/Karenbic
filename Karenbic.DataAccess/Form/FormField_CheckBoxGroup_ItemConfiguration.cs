@@ -10,6 +10,15 @@ namespace Karenbic.DataAccess
                 .WithMany(x => x.Items)
                 .WillCascadeOnDelete(true);
 
+            HasMany(x => x.OrderPriceValues)
+                .WithMany(x => x.Values)
+                .Map(x =>
+                {
+                    x.ToTable("tbl_OrderPriceValue_CheckBoxGroup_Items");
+                    x.MapLeftKey("OrderPriceValue_CheckBoxGroup_Id");
+                    x.MapRightKey("FormField_CheckBoxGroup_Item_Id");
+                });
+
             HasMany(x => x.Orders_Value)
                 .WithMany(x => x.Values)
                 .Map(x =>

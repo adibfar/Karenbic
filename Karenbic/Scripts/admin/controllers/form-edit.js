@@ -315,7 +315,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             pictureHelpFile: '',
             pictureHelpPath: '',
             hasPictureHelpFile: false,
-            priority: 0
+            priority: 0,
+            useForPrice: false
         };
 
         $scope.$watch(function () {
@@ -452,7 +453,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             pictureHelpFile: '',
             pictureHelpPath: '',
             hasPictureHelpFile: false,
-            priority: 0
+            priority: 0,
+            useForPrice: false
         };
 
         $scope.newField_Checkbox_Reset = function () {
@@ -543,7 +545,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             pictureHelpFile: '',
             pictureHelpPath: '',
             hasPictureHelpFile: false,
-            priority: 0
+            priority: 0,
+            useForPrice: false
         };
 
         $scope.newField_DropDown_AddItem = function () {
@@ -604,7 +607,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             pictureHelpFile: '',
             pictureHelpPath: '',
             hasPictureHelpFile: false,
-            priority: 0
+            priority: 0,
+            useForPrice: false
         };
 
         $scope.newField_MultipleChoice_AddItem = function () {
@@ -664,7 +668,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             pictureHelpFile: '',
             pictureHelpPath: '',
             hasPictureHelpFile: false,
-            priority: 0
+            priority: 0,
+            useForPrice: false
         };
 
         $scope.newField_CheckboxGroup_AddItem = function () {
@@ -1767,6 +1772,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                         obj.Limits = item.data.limits;
                         obj.Min = item.data.min;
                         obj.Max = item.data.max;
+                        obj.UseForPrice = item.data.useForPrice;
                         obj.ShowInFactor = item.data.showInFactor;
                         if (item.data.showInFactor != true) {
                             obj.FactorOrder = -1;
@@ -1799,6 +1805,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     //Checkbox
                     case 5:
                         obj.ShowInFactor = item.data.showInFactor;
+                        obj.UseForPrice = item.data.useForPrice;
                         if (item.data.showInFactor != true) {
                             obj.FactorOrder = -1;
                         }
@@ -1831,6 +1838,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     case 8:
                         obj.IsRequired = item.data.isRequired;
                         obj.ShowInFactor = item.data.showInFactor;
+                        obj.UseForPrice = item.data.useForPrice;
                         if (item.data.showInFactor != true) {
                             obj.FactorOrder = -1;
                         }
@@ -1852,6 +1860,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     case 9:
                         obj.IsRequired = item.data.isRequired;
                         obj.ShowInFactor = item.data.showInFactor;
+                        obj.UseForPrice = item.data.useForPrice;
                         if (item.data.showInFactor != true) {
                             obj.FactorOrder = -1;
                         }
@@ -1872,6 +1881,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     //Checkbox Group
                     case 10:
                         obj.ShowInFactor = item.data.showInFactor;
+                        obj.UseForPrice = item.data.useForPrice;
                         if (item.data.showInFactor != true) {
                             obj.FactorOrder = -1;
                         }

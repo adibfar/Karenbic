@@ -43,6 +43,17 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.FormField_DatePicker> FormFields_DatePicker { get; set; }
 
 
+        public DbSet<DomainClasses.OrderPrice> OrderPrices { get; set; }
+        public DbSet<DomainClasses.DesignOrderPrice> DesignOrderPrices { get; set; }
+        public DbSet<DomainClasses.PrintOrderPrice> PrintOrderPrices { get; set; }
+        public DbSet<DomainClasses.OrderPriceValue> OrderPriceValues { get; set; }
+        public DbSet<DomainClasses.OrderPriceValue_Checkbox> OrderPriceValues_Checkbox { get; set; }
+        public DbSet<DomainClasses.OrderPriceValue_Numeric> OrderPriceValues_Numeric { get; set; }
+        public DbSet<DomainClasses.OrderPriceValue_DropDown> OrderPriceValues_DropDown { get; set; }
+        public DbSet<DomainClasses.OrderPriceValue_RadioButtonGroup> OrderPriceValues_RadioButtonGroup { get; set; }
+        public DbSet<DomainClasses.OrderPriceValue_CheckboxGroup> OrderPriceValues_CheckboxGroup { get; set; }
+
+
         public DbSet<DomainClasses.Order> Orders { get; set; }
         public DbSet<DomainClasses.PrintOrder> PrintOrders { get; set; }
         public DbSet<DomainClasses.DesignOrder> DesignOrders { get; set; }
@@ -110,6 +121,14 @@ namespace Karenbic.DataAccess
             modelBuilder.Configurations.Add(new FormField_RadioButtonGroup_ItemConfiguration());
             modelBuilder.Configurations.Add(new FormField_CheckBoxGroupConfiguration());
             modelBuilder.Configurations.Add(new FormField_CheckBoxGroup_ItemConfiguration());
+
+            modelBuilder.Configurations.Add(new OrderPriceConfiguration());
+            modelBuilder.Configurations.Add(new PrintOrderPriceConfiguration());
+            modelBuilder.Configurations.Add(new DesignOrderPriceConfiguration());
+            modelBuilder.Configurations.Add(new OrderPriceValueConfiguration());
+            modelBuilder.Configurations.Add(new OrderPriceValue_DropDownConfiguration());
+            modelBuilder.Configurations.Add(new OrderPriceValue_RadioButtonGroupConfiguration());
+            modelBuilder.Configurations.Add(new OrderPriceValue_CheckboxGroupConfiguration());
 
             modelBuilder.Configurations.Add(new OrderConfiguration());
             modelBuilder.Configurations.Add(new PrintOrderConfiguration());

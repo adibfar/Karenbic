@@ -37,6 +37,7 @@ namespace Karenbic.DomainClasses
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 
         public virtual FormField_RadioButtonGroup RadioButtonGroup { get; set; }
+        public virtual ICollection<OrderPriceValue_RadioButtonGroup> OrderPriceValues { get; set; }
         public virtual ICollection<Order_Value_RadioButtonGroup> Orders_Value { get; set; }
     }
 }

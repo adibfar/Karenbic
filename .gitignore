@@ -204,4 +204,8 @@ FakesAssemblies/
 
 #Upload Folder
 [Cc]ontents/
+<<<<<<< HEAD
 [Cc]ontent/
+=======
+[Cc]ontent/
+>>>>>>> printPriceFeature

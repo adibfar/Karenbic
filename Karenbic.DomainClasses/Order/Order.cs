@@ -12,6 +12,7 @@ namespace Karenbic.DomainClasses
         {
             IsCanceled = false;
             IsConfirm = false;
+            RegisterDate = DateTime.Now;
         }
 
         [Key]

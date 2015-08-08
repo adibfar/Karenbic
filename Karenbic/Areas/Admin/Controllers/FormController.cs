@@ -674,6 +674,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Max = field.Max;
                     item.ShowInFactor = field.ShowInFactor;
                     item.FactorOrder = field.FactorOrder;
+                    item.UseForPrice = field.UseForPrice;
 
                     item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
                     item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
@@ -981,6 +982,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Priority = field.Priority;
                     item.ShowInFactor = field.ShowInFactor;
                     item.FactorOrder = field.FactorOrder;
+                    item.UseForPrice = field.UseForPrice;
 
                     item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
                     item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
@@ -1250,6 +1252,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.IsRequired = field.IsRequired;
                     item.ShowInFactor = field.ShowInFactor;
                     item.FactorOrder = field.FactorOrder;
+                    item.UseForPrice = field.UseForPrice;
 
                     item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
                     item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
@@ -1394,6 +1397,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.IsRequired = field.IsRequired;
                     item.ShowInFactor = field.ShowInFactor;
                     item.FactorOrder = field.FactorOrder;
+                    item.UseForPrice = field.UseForPrice;
 
                     item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
                     item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
@@ -1537,6 +1541,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     item.Priority = field.Priority;
                     item.ShowInFactor = field.ShowInFactor;
                     item.FactorOrder = field.FactorOrder;
+                    item.UseForPrice = field.UseForPrice;
 
                     item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
                     item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
@@ -1832,7 +1837,8 @@ namespace Karenbic.Areas.Admin.Controllers
                                 min = item.Min,
                                 max = item.Max,
                                 showInFactor = item.ShowInFactor,
-                                factorOrder = item.FactorOrder
+                                factorOrder = item.FactorOrder,
+                                useForPrice = item.UseForPrice
                             },
                             desktop_position = new
                             {
@@ -1999,7 +2005,8 @@ namespace Karenbic.Areas.Admin.Controllers
                                 priority = item.Priority,
                                 canDelete = item.CanDelete,
                                 showInFactor = item.ShowInFactor,
-                                factorOrder = item.FactorOrder
+                                factorOrder = item.FactorOrder,
+                                useForPrice = item.UseForPrice
                             },
                             desktop_position = new
                             {
@@ -2163,6 +2170,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 isRequired = item.IsRequired,
                                 showInFactor = item.ShowInFactor,
                                 factorOrder = item.FactorOrder,
+                                useForPrice = item.UseForPrice,
                                 items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
                                 {
                                     id = c.Id,
@@ -2222,6 +2230,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 isRequired = item.IsRequired,
                                 showInFactor = item.ShowInFactor,
                                 factorOrder = item.FactorOrder,
+                                useForPrice = item.UseForPrice,
                                 items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
                                 {
                                     id = c.Id,
@@ -2280,6 +2289,7 @@ namespace Karenbic.Areas.Admin.Controllers
                                 canDelete = item.CanDelete,
                                 showInFactor = item.ShowInFactor,
                                 factorOrder = item.FactorOrder,
+                                useForPrice = item.UseForPrice,
                                 items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
                                 {
                                     id = c.Id,
@@ -2388,6 +2398,25 @@ namespace Karenbic.Areas.Admin.Controllers
             };
 
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetByGroup(int groupId)
+        {
+            List<DomainClasses.Form> list = _context.Forms
+                .OrderByDescending(x => x.Priority)
+                .Where(x => x.Group.Id == groupId)
+                .ToList();
+
+            return Json(list.Select(x => new
+            {
+                Id = x.Id,
+                Title = x.Title,
+                SpecialCreativity = x.SpecialCreativity,
+                IsShow = x.IsShow,
+                Description = x.Description,
+                CanDelete = x.CanDelete
+            }).ToArray(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

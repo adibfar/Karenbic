@@ -3,25 +3,53 @@
 
         $scope.text = '';
 
-        $scope.froalaOptions = {
-            buttons: ["bold", "italic", "underline", "strikeThrough", "fontFamily", "fontSize", "color",
-                    "sep",
-                    "formatBlock", "align", "insertOrderedList", "insertUnorderedList", "outdent", "indent", "selectAll",
-                    "sep",
-                    "insertHorizontalRule", "createLink", "table", "insertImage", "insertVideo", "undo", "redo", "html"],
-            inlineMode: false,
-            inverseSkin: true,
-            allowedImageTypes: ["jpeg", "jpg", "png"],
-            height: 500,
-            language: "fa",
-            direction: "rtl",
-            fontList: ["Tahoma, Geneva", "Arial, Helvetica", "Impact, Charcoal"],
-            spellcheck: true,
-            plainPaste: true,
-            imageButtons: ["removeImage", "replaceImage", "linkImage"],
-            borderColor: '#00008b',
-            imageUploadURL: baseUri + 'Froala/UploadImage',
-            enableScript: false
+        $scope.editorOptions = {
+            language: 'fa',
+            uiColor: '#f2f2f2',
+            resize_enabled: false,
+            height: 290,
+            enterMode: CKEDITOR.ENTER_BR,
+            font_names: 'Arial;BNAZANB;BNazanin;IranianSerifWeb;NexaBold;Thoma;yekan;',// + config.font_names,
+            toolbar: [
+	            { name: 'document', groups: ['mode', 'document', 'doctools'], items: ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates'] },
+	            { name: 'clipboard', groups: ['clipboard', 'undo'], items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
+	            { name: 'editing', groups: ['find', 'selection', 'spellchecker'], items: ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'] },
+	            //{ name: 'forms', items: ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'] },
+	            '/',
+	            { name: 'basicstyles', groups: ['basicstyles', 'cleanup'], items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
+	            { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'], items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl'] },
+	            { name: 'links', items: ['Link', 'Unlink', 'Anchor'] },
+	            { name: 'insert', items: ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'] },
+	            '/',
+	            { name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize'] },
+	            { name: 'colors', items: ['TextColor', 'BGColor'] },
+	            { name: 'tools', items: ['Maximize', 'ShowBlocks'] },
+	            { name: 'others', items: ['-'] }
+            ],
+            toolbarGroups: [
+	            { name: 'document', groups: ['mode', 'document', 'doctools'] },
+	            { name: 'clipboard', groups: ['clipboard', 'undo'] },
+	            { name: 'editing', groups: ['find', 'selection', 'spellchecker'] },
+	            { name: 'forms' },
+	            '/',
+	            { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+	            { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
+	            { name: 'links' },
+	            { name: 'insert' },
+	            '/',
+	            { name: 'styles' },
+	            { name: 'colors' },
+	            { name: 'tools' },
+	            { name: 'others' },
+	            { name: 'about' }
+            ],
+            ImageBrowser: true,
+            ImageBrowserURL: '/Vendors/ckeditor/finder/index.html',
+            filebrowserImageBrowseUrl: '/Vendors/ckeditor/finder/index.html',
+            filebrowserFlashBrowseUrl: '/Vendors/ckeditor/finder/index.html',
+            filebrowserUploadUrl: '/Vendors/ckeditor/finder/connectors/ashx/filemanager.ashx',
+            filebrowserImageUploadUrl: '/Vendors/ckeditor/finder/connectors/apsx/filemanager.ashx',
+            filebrowserFlashUploadUrl: '/Vendors/ckeditor/finder/connectors/apsx/filemanager.ashx'
         };
 
         $scope.fetchText = function () {

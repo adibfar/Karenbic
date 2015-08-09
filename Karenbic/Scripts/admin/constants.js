@@ -121,7 +121,7 @@ App
                 icon: "price-list",
                 submenu: [
                     {
-                        text: "گروه بندی",
+                        text: "گروه بندی نمونه کارها",
                         sref: "app.design.portfolio-categories"
                     },
                     {
@@ -135,6 +135,18 @@ App
                     {
                         text: "لیست قیمت",
                         sref: "app.design.public-price"
+                    },
+                    {
+                        text: "متن درباره ما",
+                        sref: "app.design.aboutus"
+                    },
+                    {
+                        text: "متن ارتباط ما",
+                        sref: "app.design.contactus"
+                    },
+                    {
+                        text: "متن راهنما",
+                        sref: "app.design.public-help"
                     }
                 ]
             },
@@ -165,18 +177,6 @@ App
                     {
                         text: "متن پیش از سفارش",
                         sref: "app.design.preorder"
-                    },
-                    {
-                        text: "متن درباره ما",
-                        sref: "app.design.aboutus"
-                    },
-                    {
-                        text: "متن ارتباط ما",
-                        sref: "app.design.contactus"
-                    },
-                    {
-                        text: "متن راهنما",
-                        sref: "app.design.public-help"
                     },
                     {
                         text: "تغییر رمز عبور",
@@ -301,6 +301,18 @@ App
                     {
                         text: "لیست قیمت",
                         sref: "app.print.public-price"
+                    },
+                    {
+                        text: "متن درباره ما",
+                        sref: "app.print.aboutus"
+                    },
+                    {
+                        text: "متن ارتباط ما",
+                        sref: "app.print.contactus"
+                    },
+                    {
+                        text: "متن راهنما",
+                        sref: "app.print.public-help"
                     }
                 ]
             },
@@ -331,18 +343,6 @@ App
                     {
                         text: "متن پیش از سفارش",
                         sref: "app.print.preorder"
-                    },
-                    {
-                        text: "متن درباره ما",
-                        sref: "app.print.aboutus"
-                    },
-                    {
-                        text: "متن ارتباط ما",
-                        sref: "app.print.contactus"
-                    },
-                    {
-                        text: "متن راهنما",
-                        sref: "app.print.public-help"
                     },
                     {
                         text: "تغییر رمز عبور",
@@ -425,6 +425,13 @@ App
                     '/Vendors/froala-editor/css/froala_style.min.css',
                     '/Vendors/froala-editor/css/froala_content.min.css',
                     '/Vendors/froala-editor/css/themes/gray.min.css']
+            },
+            {
+                name: 'ngCkeditor',
+                files: ["/Vendors/ckeditor/ckeditor.js",
+                "/Vendors/angular-ckeditor/ng-ckeditor.js",
+                    '/Vendors/ckeditor/skins/moono/editor.css',
+                    '/Vendors/ckeditor/skins/moono/dialog.css']
             }
         ]
     });

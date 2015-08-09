@@ -275,13 +275,13 @@ App
                     url: '/send-message-new',
                     templateUrl: helper.basepath('SendMessage/New'),
                     controller: 'NewSendMessageController',
-                    resolve: helper.resolveFor('chosen', 'ngDialog', 'froala')
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'ngCkeditor')
                 })
                 .state('app.design.send-message-new', {
                     url: '/send-message-new',
                     templateUrl: helper.basepath('SendMessage/New'),
                     controller: 'NewSendMessageController',
-                    resolve: helper.resolveFor('chosen', 'ngDialog', 'froala')
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'ngCkeditor')
                 })
                 .state('app.print.send-message-list', {
                     url: '/send-message-list',
@@ -372,37 +372,37 @@ App
                     url: '/aboutus',
                     templateUrl: helper.basepath('PublicContent/AboutUs'),
                     controller: 'Public_AboutUsController',
-                    resolve: helper.resolveFor('ngDialog', 'froala')
+                    resolve: helper.resolveFor('ngDialog', 'ngCkeditor')
                 })
                 .state('app.design.aboutus', {
                     url: '/aboutus',
                     templateUrl: helper.basepath('PublicContent/AboutUs'),
                     controller: 'Public_AboutUsController',
-                    resolve: helper.resolveFor('ngDialog', 'froala')
+                    resolve: helper.resolveFor('ngDialog', 'ngCkeditor')
                 })
                 .state('app.print.contactus', {
                     url: '/contactus',
                     templateUrl: helper.basepath('PublicContent/ContactUs'),
                     controller: 'Public_ContactUsController',
-                    resolve: helper.resolveFor('ngDialog', 'froala')
+                    resolve: helper.resolveFor('ngDialog', 'ngCkeditor')
                 })
                 .state('app.design.contactus', {
                     url: '/contactus',
                     templateUrl: helper.basepath('PublicContent/ContactUs'),
                     controller: 'Public_ContactUsController',
-                    resolve: helper.resolveFor('ngDialog', 'froala')
+                    resolve: helper.resolveFor('ngDialog', 'ngCkeditor')
                 })
                 .state('app.print.public-help', {
                     url: '/public-help',
                     templateUrl: helper.basepath('PublicContent/PublicHelp'),
                     controller: 'Public_HelpController',
-                    resolve: helper.resolveFor('ngDialog', 'froala')
+                    resolve: helper.resolveFor('ngDialog', 'ngCkeditor')
                 })
                 .state('app.design.public-help', {
                     url: '/public-help',
                     templateUrl: helper.basepath('PublicContent/PublicHelp'),
                     controller: 'Public_HelpController',
-                    resolve: helper.resolveFor('ngDialog', 'froala')
+                    resolve: helper.resolveFor('ngDialog', 'ngCkeditor')
                 });
 
     }]).config(['$ocLazyLoadProvider', 'APP_REQUIRES',

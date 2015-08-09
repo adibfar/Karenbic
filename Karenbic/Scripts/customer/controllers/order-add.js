@@ -761,7 +761,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                     preCloseCallback: function (value) {
                         if (value != 1) return true;
 
-                        $state.go('^.final-payment-preview', { id: "p" + data.PrepaymentFactor.Id });
+                        $state.go('^.payment-preview', { id: "p" + data.PrepaymentFactor.Id });
 
                         return true;
                     }
@@ -812,7 +812,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                     preCloseCallback: function (value) {
                         if (value != 1) return true;
 
-                        $state.go('^.final-payment-preview', { id: "p" + data.PrepaymentFactor.Id });
+                        $state.go('^.payment-preview', { id: data.Factor.Id });
 
                         return true;
                     }

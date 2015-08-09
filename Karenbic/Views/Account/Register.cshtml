@@ -187,7 +187,10 @@
 
         $('input[type="radio"]').ezMark();
 
-        $('select').chosen();
+        $('select').chosen({
+            placeholder_text_single: 'انتخاب کنید',
+            placeholder_text_multiple: 'انتخاب کنید'
+        });
 
         $('#Province').change(function () {
             $.ajax({
@@ -197,7 +200,10 @@
                         $select = $('<select>').attr({ 'id': 'City', 'name': 'CityID' }).css('width', '201px');
                         $($select).html(m);
                         $('#City').closest('td').html($select);
-                        $($select).chosen();
+                        $($select).chosen({
+                            placeholder_text_single: 'انتخاب کنید',
+                            placeholder_text_multiple: 'انتخاب کنید'
+                        });
                     },
                     data: 'ProvinceID=' + $('#Province').val()
                 });
@@ -211,7 +217,10 @@
                         $select = $('<select>').attr({ 'id': 'City', 'name': 'CityID' }).css('width', '100%');
                         $($select).html(m);
                         $('#city-mobile').closest('td').html($select);
-                        $($select).chosen();
+                        $($select).chosen({
+                            placeholder_text_single: 'انتخاب کنید',
+                            placeholder_text_multiple: 'انتخاب کنید'
+                        });
                     },
                     data: 'ProvinceID=' + $('#province-mobile').val()
                 });

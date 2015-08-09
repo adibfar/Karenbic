@@ -4,6 +4,41 @@
     ViewBag.PageTitle = "درباره ما";
 }
 
-<div style="margin:0 88px;">
+@section HeaderSection {
+    <style type="text/css">
+        /* Custom, iPhone Retina */
+        @@media only screen and (min-width : 320px) {
+            .page-content {
+                margin:0 22px;
+            }
+        }
+        /* Extra Small Devices, Phones */
+        @@media only screen and (min-width : 480px) {
+            .page-content {
+                margin:0 22px;
+            }
+        }
+        /* Small Devices, Tablets */
+        @@media only screen and (min-width : 768px) {
+            .page-content {
+                margin:0 88px;
+            }
+        }
+        /* Medium Devices, Desktops */
+        @@media only screen and (min-width : 992px) {
+            .page-content {
+                margin:0 88px;
+            }
+        }
+        /* Large Devices, Wide Screens */
+        @@media only screen and (min-width : 1200px) {
+            .page-content {
+                margin:0 88px;
+            }
+        }
+    </style>
+}
+
+<div class="page-content">
     @Html.Raw(Model.AboutUsText)
 </div>

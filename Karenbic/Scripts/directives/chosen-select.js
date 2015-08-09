@@ -1,4 +1,4 @@
-/**=========================================================
+﻿/**=========================================================
  * Module: chosen-select.js
  * Initializes the chose select plugin
  =========================================================*/
@@ -23,7 +23,9 @@ App.directive('chosen', function() {
 
         element.chosen({
             width: attrs['width'],
-            disable_search_threshold: 10
+            disable_search_threshold: 10,
+            placeholder_text_single: 'انتخاب کنید',
+            placeholder_text_multiple: 'انتخاب کنید'
         });
     };
 

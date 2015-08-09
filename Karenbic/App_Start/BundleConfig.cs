@@ -189,6 +189,12 @@ namespace Karenbic
                 "~/Vendors/froala-editor/js/langs/fa.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/Vendors/ckeditor/js").Include(
+                "~/Vendors/ckeditor/ckeditor.js",
+                "~/Vendors/ckeditor/lang/fa.js",
+                "~/Vendors/angular-ckeditor/ng-ckeditor.js"
+            ));
+
             bundles.Add(new StyleBundle("~/Styles/AdminStyle").Include(
                 "~/Vendors/bootstrap-3.3.4/css/bootstrap.css",
                 "~/Vendors/bootstrap-rtl/bootstrap-rtl.css",

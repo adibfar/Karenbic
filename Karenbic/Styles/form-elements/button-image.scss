@@ -153,6 +153,18 @@
 	cursor: pointer;
 }
 
+.btn-img-preview-1 {
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	border: none;
+	background: transparent url(/Images/UI/Button/btn-preview-1.png) no-repeat 0px 0px;
+	cursor: pointer;
+}
+.btn-img-preview-1:hover, .btn-img-preview-1:focus {
+	background-position: 0px -22px;
+}
+
 .btn-img-up-1 {
 	display: inline-block;
 	width: 19px;

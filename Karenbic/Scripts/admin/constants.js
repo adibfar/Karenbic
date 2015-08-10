@@ -111,14 +111,14 @@ App
                 ]
             },
             {
-                text: "لیست قیمت",
+                text: "لیست قیمت طراحی",
                 sref: "app.design.price-list",
                 icon: "price-list"
             },
             {
                 text: "صفحات عمومی",
                 sref: "#",
-                icon: "price-list",
+                icon: "public-contents",
                 submenu: [
                     {
                         text: "گروه بندی نمونه کارها",
@@ -277,14 +277,14 @@ App
                 ]
             },
             {
-                text: "لیست قیمت",
+                text: "لیست قیمت چاپ",
                 sref: "app.print.price-list",
                 icon: "price-list"
             },
             {
                 text: "صفحات عمومی",
                 sref: "#",
-                icon: "price-list",
+                icon: "public-contents",
                 submenu: [
                     {
                         text: "گروه بندی نمونه کار ها",

@@ -113,6 +113,7 @@
             modalInstance.result.then(function (result) {
                 $scope.fetchPrices();
             }, function () {
+                $scope.fetchPrices();
             });
         };
 
@@ -254,7 +255,16 @@
                     $scope.addLoading = false;
                     if (data.Id != -1) {
                         toaster.pop('success', "اطلاعات با موفقیت ثبت گردید");
-                        $modalInstance.close(data.Id);
+
+                        $scope.newPrice = {
+                            Priority: 0,
+                            Price: 0,
+                            Prepayment: 0,
+                            SpecialCreativityPrice: 0,
+                            SpecialCreativityPrepayment: 0
+                        };
+                        $scope.resetFields();
+                        $scope.fromSumbited = false;
                     }
                     else {
                         toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
@@ -310,6 +320,33 @@
                 });
 
                 return values;
+            };
+
+            $scope.resetFields = function () {
+                _.each($scope.fields, function (item) {
+                    switch (item.type) {
+                        case 2:
+                            item.minValue = '';
+                            item.maxValue = '';
+                            break;
+
+                        case 5:
+                            item.value = false;
+                            break;
+
+                        case 8:
+                            item.value = null;
+                            break;
+                        case 9:
+                            item.value = null;
+                            break;
+                        case 10:
+                            _.each(item.data.items, function (val) {
+                                val.value = false;
+                            });
+                            break;
+                    }
+                });
             };
             /*=-=-=-=-= End Send Data =-=-=-=-=*/
 

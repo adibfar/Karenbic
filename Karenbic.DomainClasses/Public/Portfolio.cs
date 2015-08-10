@@ -16,6 +16,8 @@ namespace Karenbic.DomainClasses
         [Range(0, Int32.MaxValue)]
         public int Priority { get; set; }
 
+        public string Description { get; set; }
+
         [Required]
         public string TumbPictureFile { get; set; }
 

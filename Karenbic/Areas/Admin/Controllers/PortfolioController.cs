@@ -31,7 +31,8 @@ namespace Karenbic.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(int categoryId, int priority, HttpPostedFileBase tumbPicture, HttpPostedFileBase picture)
+        public ActionResult Add(int categoryId, int priority, string description, 
+            HttpPostedFileBase tumbPicture, HttpPostedFileBase picture)
         {
             if (!ModelState.IsValid) throw new Exception();
 
@@ -42,6 +43,7 @@ namespace Karenbic.Areas.Admin.Controllers
             DomainClasses.Portfolio model = new DomainClasses.Portfolio();
             model.Category = category;
             model.Priority = priority;
+            model.Description = description;
 
             if (tumbPicture != null &&
                 (tumbPicture.ContentType == "image/jpg" || tumbPicture.ContentType == "image/jpeg" || tumbPicture.ContentType == "image/png") &&
@@ -84,7 +86,7 @@ namespace Karenbic.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, int categoryId, int priority, 
+        public ActionResult Edit(int id, int categoryId, int priority, string description,
             HttpPostedFileBase tumbPicture, HttpPostedFileBase picture)
         {
             //if (!ModelState.IsValid) throw new Exception();
@@ -96,6 +98,7 @@ namespace Karenbic.Areas.Admin.Controllers
             DomainClasses.Portfolio model = _context.Portfolios.Find(id);
             model.Category = category;
             model.Priority = priority;
+            model.Description = description;
 
             if (tumbPicture != null &&
                 (tumbPicture.ContentType == "image/jpg" || tumbPicture.ContentType == "image/jpeg" || tumbPicture.ContentType == "image/png") &&
@@ -199,6 +202,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     TumbPicturePath = x.TumbPicturePath,
                     PictureFile = x.PictureFile,
                     PicturePath = x.PicturePath,
+                    Description = x.Description,
                     Category = new
                     {
                         Id = x.Category.Id,

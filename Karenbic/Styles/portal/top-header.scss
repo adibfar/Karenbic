@@ -113,7 +113,7 @@
                     display: block;
 					margin: 6px auto;
                     height: 45px;
-					width: 56px;
+					width: 67px;
 
 					&.billing {
 						background: transparent url(/Images/PortalMenu/billing.png) no-repeat center 0;
@@ -138,6 +138,9 @@
 					}
 					&.pre-order {
 						background: transparent url(/Images/PortalMenu/pre-order.png) no-repeat center 0;
+					}
+					&.public-contents {
+						background: transparent url(/Images/PortalMenu/public-contents.png) no-repeat center 0;
 					}
 					&.price-list {
 						background: transparent url(/Images/PortalMenu/price-list.png) no-repeat center 0;

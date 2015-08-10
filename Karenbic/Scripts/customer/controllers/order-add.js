@@ -709,6 +709,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                     template: '<div style="font-family:yekan;font-size:14px;">' +
                         '<p>' + 'سفارش شما با موفقیت ثبت گردید' + '</p>' +
                         '<p>' + 'سفارش شما در انتظار تأیید و استعلام قیمت از طرف مدیریت می باشد' + '</p>' +
+                        '<p>' + 'پس از تأیید جهت پرداخت به بخش صورت حساب مراجعه نمائید' + '</p>' +
                         '<div style="text-align:left;">' +
                         '<button type="button" class="btn btn-primary" ng-click="closeThisDialog(0)">خروج</button>' +
                         '</div></div>',
@@ -739,11 +740,9 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
 
                 ngDialog.open({
                     template: '<div style="font-family:yekan;font-size:14px;">' +
-                        '<p>' +
-                        priceStr +
-                        ' ریال ' +
-                        'می باشد' +
-                        '</p>' +
+                        '<p>' + 'سفارش شما با موفقیت ثبت گردید' + '</p>' +
+                        '<p>' + 'مبلغ سفارش ' + priceStr + ' ریال' + '</p>' +
+                        '<p>' + 'مبلغ پیش پرداخت ' + premaymentStr + ' ریال' + '</p>' +
                         '<div style="text-align:left;">' +
                         '<button class="btn btn-warning" ng-click="close()" type="button">خروج</button>' +
                         '<button class="btn btn-primary" ng-click="confirm()" type="button" style="margin-right:4px;">پرداخت</button>' +
@@ -759,11 +758,25 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                         };
                     }],
                     preCloseCallback: function (value) {
-                        if (value != 1) return true;
+                        if (value == 0) {
+                            var nestedDialog = ngDialog.open({
+                                template: '<div style="font-family:yekan;font-size:14px;">' +
+                                    '<p>' + 'جهت پرداخت به بخش صورت حساب مراجعه فرمائید' + '</p>' +
+                                    '<p>' + 'در صورت عدم پرداخت صورت حساب سفارش شما انجام نخواهد شد.' + '</p>' +
+                                    '<div style="text-align:left;">' +
+                                    '<button type="button" class="btn btn-primary" ng-click="closeThisDialog(2)">خروج</button>' +
+                                    '</div></div>',
+                                plain: true,
+                                showClose: false
+                            });
 
-                        $state.go('^.payment-preview', { id: "p" + data.PrepaymentFactor.Id });
+                            return nestedDialog;
+                        }
+                        else if (value == 1) {
+                            $state.go('^.payment-preview', { id: "p" + data.PrepaymentFactor.Id });
 
-                        return true;
+                            return true;
+                        }
                     }
                 });
             }
@@ -790,11 +803,9 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
 
                 ngDialog.open({
                     template: '<div style="font-family:yekan;font-size:14px;">' +
-                        '<p>' +
-                        priceStr +
-                        ' ریال ' +
-                        'می باشد' +
-                        '</p>' +
+                        '<p>' + 'سفارش شما با موفقیت ثبت گردید' + '</p>' +
+                        '<p>' + 'مبلغ چاپ ' + printPriceStr + ' ریال' + '</p>' +
+                        '<p>' + 'مبلغ بسته بندی ' + packingPriceStr + ' ریال' + '</p>' +
                         '<div style="text-align:left;">' +
                         '<button class="btn btn-warning" ng-click="close()" type="button">خروج</button>' +
                         '<button class="btn btn-primary" ng-click="confirm()" type="button" style="margin-right:4px;">پرداخت</button>' +
@@ -810,11 +821,25 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                         };
                     }],
                     preCloseCallback: function (value) {
-                        if (value != 1) return true;
+                        if (value == 0) {
+                            var nestedDialog = ngDialog.open({
+                                template: '<div style="font-family:yekan;font-size:14px;">' +
+                                    '<p>' + 'جهت پرداخت به بخش صورت حساب مراجعه فرمائید' + '</p>' +
+                                    '<p>' + 'در صورت عدم پرداخت صورت حساب سفارش شما انجام نخواهد شد.' + '</p>' +
+                                    '<div style="text-align:left;">' +
+                                    '<button type="button" class="btn btn-primary" ng-click="closeThisDialog(2)">خروج</button>' +
+                                    '</div></div>',
+                                plain: true,
+                                showClose: false
+                            });
 
-                        $state.go('^.payment-preview', { id: data.Factor.Id });
+                            return nestedDialog;
+                        }
+                        else if (value == 1) {
+                            $state.go('^.payment-preview', { id: data.Factor.Id });
 
-                        return true;
+                            return true;
+                        }
                     }
                 });
             }

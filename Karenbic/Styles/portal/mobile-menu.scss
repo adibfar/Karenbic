@@ -66,7 +66,7 @@
                     height: 24px;
 					position: relative;
 					top: 8px;
-                    width: 30px;
+                    width: 36px;
 
                     &.billing {
                         background: transparent url(/Images/PortalMobileMenu/billing.png) no-repeat center 0;
@@ -88,6 +88,9 @@
                     }
                     &.order-track {
                         background: transparent url(/Images/PortalMobileMenu/order-track.png) no-repeat center 0;
+                    }
+					&.public-contents {
+                        background: transparent url(/Images/PortalMobileMenu/public-contents.png) no-repeat center 0;
                     }
                     &.pre-order {
                         background: transparent url(/Images/PortalMobileMenu/pre-order.png) no-repeat center 0;

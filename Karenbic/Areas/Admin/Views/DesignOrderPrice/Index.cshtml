@@ -6,6 +6,15 @@
     .whirl.shadow::before  {
         z-index:13;
     }
+
+    .total-price {
+        border:1px solid #6c6c6c;
+        font-family:BNazanin;
+        font-size:15.5px;
+        height:41px;
+        padding:6px 8px;
+        width:100%;
+    }
 </style>
 
 <div class="container-fluid">
@@ -72,9 +81,10 @@
                         </div>
                     </div>
 
-                    <div class="row" ng-repeat="price in prices">
+                    <div class="row" ng-repeat="price in prices"
+                         style="margin-bottom:15px;">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div style="background-color:#f9f9f9;border:1px solid #6c6c6c;margin-bottom:200px;min-height:120px;position:relative;">
+                            <div style="background-color:#f9f9f9;border:1px solid #6c6c6c;min-height:120px;position:relative;">
                                 <button class="btn-img-delete-1" type="button"
                                         style="position:absolute;top:3px;left:3px;"
                                         ng-click="remove($index)"
@@ -97,50 +107,158 @@
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
 
-                                <div class="total-price"
-                                     style="border:1px solid #6c6c6c;font-family:BNAZANB;font-size:19px;bottom:-41px;height:41px;left:-1px;padding:6px 8px;position:absolute;width:278px;">
-                                    <span>قیمت سفارش :</span>
-                                    &nbsp;&nbsp;
-                                    <span style="float:left;">
-                                        {{price.Price | riyal}}
-                                        &nbsp;
-                                        ریال
-                                    </span>
-                                </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 visible-lg visible-md"
+                             style="padding-left:0;">
+                            <div class="total-price">
+                                <span>قیمت سفارش :</span>
+                                &nbsp;&nbsp;
+                                <span style="float:left;">
+                                    {{price.Price | riyal}}
+                                    &nbsp;
+                                    ریال
+                                </span>
+                            </div>
+                        </div>
 
-                                <div class="total-price"
-                                     style="border:1px solid #6c6c6c;font-family:BNAZANB;font-size:19px;bottom:-81px;height:41px;left:-1px;padding:6px 8px;position:absolute;width:278px;">
-                                    <span>مبلغ پیش پرداخت :</span>
-                                    &nbsp;&nbsp;
-                                    <span style="float:left;">
-                                        {{price.Prepayment | riyal}}
-                                        &nbsp;
-                                        ریال
-                                    </span>
-                                </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 visible-sm"
+                             style="padding-left:0;">
+                            <div class="total-price">
+                                <span>قیمت سفارش :</span>
+                                &nbsp;&nbsp;
+                                <span style="float:left;">
+                                    {{price.Price | riyal}}
+                                    &nbsp;
+                                    ریال
+                                </span>
+                            </div>
+                        </div>
 
-                                <div class="total-price"
-                                     style="border:1px solid #6c6c6c;font-family:BNAZANB;font-size:19px;bottom:-121px;height:41px;left:-1px;padding:6px 8px;position:absolute;width:278px;">
-                                    <span>قیمت سفارش (خ) :</span>
-                                    &nbsp;&nbsp;
-                                    <span style="float:left;">
-                                        {{price.SpecialCreativityPrice | riyal}}
-                                        &nbsp;
-                                        ریال
-                                    </span>
-                                </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 visible-xs">
+                            <div class="total-price">
+                                <span>قیمت سفارش :</span>
+                                &nbsp;&nbsp;
+                                <span style="float:left;">
+                                    {{price.Price | riyal}}
+                                    &nbsp;
+                                    ریال
+                                </span>
+                            </div>
+                        </div>
 
-                                <div class="total-price"
-                                     style="border:1px solid #6c6c6c;font-family:BNAZANB;font-size:19px;bottom:-161px;height:41px;left:-1px;padding:6px 8px;position:absolute;width:278px;">
-                                    <span>مبلغ پیش پرداخت (خ) :</span>
-                                    &nbsp;&nbsp;
-                                    <span style="float:left;">
-                                        {{price.Prepayment | riyal}}
-                                        &nbsp;
-                                        ریال
-                                    </span>
-                                </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 visible-lg visible-md"
+                             style="padding-left:0;padding-right:0;">
+                            <div class="total-price">
+                                <span>مبلغ پیش پرداخت :</span>
+                                &nbsp;&nbsp;
+                                <span style="float:left;">
+                                    {{price.Prepayment | riyal}}
+                                    &nbsp;
+                                    ریال
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 visible-sm"
+                             style="padding-right:0;">
+                            <div class="total-price">
+                                <span>مبلغ پیش پرداخت :</span>
+                                &nbsp;&nbsp;
+                                <span style="float:left;">
+                                    {{price.Prepayment | riyal}}
+                                    &nbsp;
+                                    ریال
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 visible-xs">
+                            <div class="total-price">
+                                <span>مبلغ پیش پرداخت :</span>
+                                &nbsp;&nbsp;
+                                <span style="float:left;">
+                                    {{price.Prepayment | riyal}}
+                                    &nbsp;
+                                    ریال
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 visible-lg visible-md"
+                             style="padding-left:0;padding-right:0;">
+                            <div class="total-price">
+                                <span>قیمت سفارش (خ) :</span>
+                                &nbsp;&nbsp;
+                                <span style="float:left;">
+                                    {{price.SpecialCreativityPrice | riyal}}
+                                    &nbsp;
+                                    ریال
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 visible-sm"
+                             style="padding-left:0;">
+                            <div class="total-price">
+                                <span>قیمت سفارش (خ) :</span>
+                                &nbsp;&nbsp;
+                                <span style="float:left;">
+                                    {{price.SpecialCreativityPrice | riyal}}
+                                    &nbsp;
+                                    ریال
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 visible-xs">
+                            <div class="total-price">
+                                <span>قیمت سفارش (خ) :</span>
+                                &nbsp;&nbsp;
+                                <span style="float:left;">
+                                    {{price.SpecialCreativityPrice | riyal}}
+                                    &nbsp;
+                                    ریال
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 visible-lg visible-md"
+                             style="padding-right:0;">
+                            <div class="total-price">
+                                <span>مبلغ پیش پرداخت (خ) :</span>
+                                &nbsp;&nbsp;
+                                <span style="float:left;">
+                                    {{price.Prepayment | riyal}}
+                                    &nbsp;
+                                    ریال
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 visible-sm"
+                             style="padding-right:0;">
+                            <div class="total-price">
+                                <span>مبلغ پیش پرداخت (خ) :</span>
+                                &nbsp;&nbsp;
+                                <span style="float:left;">
+                                    {{price.Prepayment | riyal}}
+                                    &nbsp;
+                                    ریال
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 visible-xs">
+                            <div class="total-price">
+                                <span>مبلغ پیش پرداخت (خ) :</span>
+                                &nbsp;&nbsp;
+                                <span style="float:left;">
+                                    {{price.Prepayment | riyal}}
+                                    &nbsp;
+                                    ریال
+                                </span>
                             </div>
                         </div>
                     </div>

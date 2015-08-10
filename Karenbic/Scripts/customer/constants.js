@@ -63,7 +63,7 @@ App
                 icon: "show-order"
             },
             {
-                text: "لیست قیمت",
+                text: "لیست قیمت طراحی",
                 sref: "app.design.price-list",
                 icon: "price-list"
             },
@@ -148,7 +148,7 @@ App
                 icon: "order-track"
             },
             {
-                text: "لیست قیمت",
+                text: "لیست قیمت چاپ",
                 sref: "app.print.price-list",
                 icon: "price-list"
             },

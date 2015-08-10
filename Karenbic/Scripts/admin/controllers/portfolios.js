@@ -174,6 +174,7 @@
                         var portfolio = {
                             Id: $scope.portfolios[index].Id,
                             Priority: $scope.portfolios[index].Priority,
+                            Description: $scope.portfolios[index].Description,
                             TumbPictureFile: $scope.portfolios[index].TumbPictureFile,
                             TumbPicturePath: $scope.portfolios[index].TumbPicturePath,
                             PictureFile: $scope.portfolios[index].PictureFile,
@@ -316,7 +317,8 @@
                 {
                     id: $scope.portfolio.Id,
                     categoryId: $scope.portfolio.Category.Id,
-                    priority: $scope.portfolio.Priority
+                    priority: $scope.portfolio.Priority,
+                    description: $scope.portfolio.Description
                 }).
                 success(function (data, status, headers, config) {
                     $scope.editLoading = false;
@@ -355,7 +357,8 @@
                     data: {
                         id: $scope.portfolio.Id,
                         categoryId: $scope.portfolio.Category.Id,
-                        priority: $scope.portfolio.Priority
+                        priority: $scope.portfolio.Priority,
+                        description: $scope.portfolio.Description
                     }
                 }).success(function (data, status, headers, config) {
                     $scope.editLoading = false;

@@ -181,6 +181,15 @@
                         width: 194px;
                     }
 
+        #cboxTitle {
+            font-family: IranianSerifWeb;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        #cboxCurrent{
+            display: none !important;
+        }
+
         /* Custom, iPhone Retina */
 	    @@media only screen and (min-width : 320px) {
             .page-content {
@@ -299,7 +308,7 @@
             @foreach (Karenbic.DomainClasses.Portfolio item in portfolios)
             {
                 <li>
-                    <a href="@item.PicturePath">
+                    <a href="@item.PicturePath" title="@item.Description">
                         <img src="@item.TumbPicturePath" />
                     </a>
                 </li>

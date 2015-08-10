@@ -344,6 +344,7 @@
     <Content Include="Images\PortalMenu\order.png" />
     <Content Include="Images\PortalMenu\pre-order.png" />
     <Content Include="Images\PortalMenu\price-list.png" />
+    <Content Include="Images\PortalMenu\public-contents.png" />
     <Content Include="Images\PortalMenu\setting.png" />
     <Content Include="Images\PortalMenu\show-order.png" />
     <Content Include="Images\PortalMenu\financial-transaction.png" />
@@ -356,6 +357,7 @@
     <Content Include="Images\PortalMobileMenu\order.png" />
     <Content Include="Images\PortalMobileMenu\pre-order.png" />
     <Content Include="Images\PortalMobileMenu\price-list.png" />
+    <Content Include="Images\PortalMobileMenu\public-contents.png" />
     <Content Include="Images\PortalMobileMenu\setting.png" />
     <Content Include="Images\PortalMobileMenu\show-order.png" />
     <Content Include="Images\PortalNavbar\design-nav.png" />
@@ -394,7 +396,6 @@
     <Content Include="Images\Public\navbar-sub-item-bg.png" />
     <Content Include="Images\Public\btn-login.png" />
     <Content Include="Images\Public\btn-register.png" />
-    <Content Include="Images\Public\Login\1.png" />
     <Content Include="Images\Public\Login\10.png" />
     <Content Include="Images\Public\Login\2.png" />
     <Content Include="Images\Public\Login\3.png" />
@@ -402,7 +403,6 @@
     <Content Include="Images\Public\Login\5.png" />
     <Content Include="Images\Public\Login\6.png" />
     <Content Include="Images\Public\Login\7.png" />
-    <Content Include="Images\Public\Login\8.png" />
     <Content Include="Images\Public\Login\9.png" />
     <Content Include="Images\Public\logo.png" />
     <Content Include="Images\Public\2.png" />
@@ -425,10 +425,8 @@
     <Content Include="Images\Public\Portfolio\3.png" />
     <Content Include="Images\Public\public0001.jpg" />
     <Content Include="Images\Public\Register\1.png" />
-    <Content Include="Images\Public\Register\2.png" />
     <Content Include="Images\Public\Register\3.png" />
-    <Content Include="Images\Public\Register\4.png" />
-    <Content Include="Images\Public\Register\5.png" />
+    <Content Include="Images\Public\Register\2.png" />
     <Content Include="Images\ReviewIcon\accept.png" />
     <Content Include="Images\ReviewIcon\maybe.png" />
     <Content Include="Images\ReviewIcon\unaccept.png" />
@@ -441,6 +439,7 @@
     <Content Include="Images\UI\Button\btn-confirm-1.png" />
     <Content Include="Images\UI\Button\btn-credit-1.png" />
     <Content Include="Images\UI\Button\btn-hide-1.png" />
+    <Content Include="Images\UI\Button\btn-preview-1.png" />
     <Content Include="Images\UI\Button\btn-search-1.png" />
     <Content Include="Images\UI\Button\btn-search-2.png" />
     <Content Include="Images\UI\Button\btn-up-1.png" />

@@ -58,6 +58,7 @@
             Type: null,
             Category: null,
             Priority: 0,
+            Description: '',
             TumbPictureFile: null,
             PictureFile: null,
             ReadedPictureFile: null
@@ -129,13 +130,15 @@
                 fileFormDataName: ["tumbPicture", "picture"],
                 data: {
                     categoryId: $scope.newPortfolio.Category.Id,
-                    priority: $scope.newPortfolio.Priority
+                    priority: $scope.newPortfolio.Priority,
+                    description: $scope.newPortfolio.Description
                 }
             }).success(function (data, status, headers, config) {
                 $scope.newPortfolio = {
                     Type: null,
                     Category: null,
                     Priority: 0,
+                    Description: '',
                     TumbPictureFile: null,
                     PictureFile: null,
                     ReadedPictureFile: null

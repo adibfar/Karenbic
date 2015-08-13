@@ -8,7 +8,12 @@
                 ng-click="itemMenuClicked($event, menuItem)">
                 <a ng-class="{'active' : isActive(menuItem) || menuItem == clickedItem}"
                    ng-href="{{$state.href(menuItem.sref)}}">
-                    <i class="{{menuItem.icon}}"></i>
+                    <i class="{{menuItem.icon}}">
+                        <span class="menu-item-notification"
+                              ng-if="menuItem.notification_count && menuItem.notification_count > 0">
+                            {{menuItem.notification_count}}
+                        </span>
+                    </i>
                     {{menuItem.text}}
                 </a>
                 <ul class="sub-menu" ng-if="menuItem.submenu"
@@ -17,8 +22,17 @@
                         ng-repeat="subMenuItem in menuItem.submenu">
                         <a ng-class="{'active' : isActive(subMenuItem)}"
                            ng-href="{{$state.href(subMenuItem.sref)}}">
-                            <i class="icon-notepad30"></i>
-                            {{subMenuItem.text}}
+                            <i class="icon-notepad30">
+                                <span class="menu-item-notification"
+                                      ng-if="subMenuItem.notification_count && subMenuItem.notification_count > 0">
+                                </span>
+                            </i>
+                            <span ng-if="subMenuItem.notification_count == undefined || subMenuItem.notification_count == 0">
+                                {{subMenuItem.text}}
+                            </span>
+                            <span ng-if="subMenuItem.notification_count && subMenuItem.notification_count > 0">
+                                {{subMenuItem.text + ' ( ' + subMenuItem.notification_count + ' ) '}}
+                            </span>
                         </a>
                     </li>
                 </ul>

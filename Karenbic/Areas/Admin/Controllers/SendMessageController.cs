@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
@@ -47,7 +49,7 @@ namespace Karenbic.Areas.Admin.Controllers
                 mainMessage.Customers = new List<DomainClasses.Customer>();
                 foreach (int id in customersId)
                 {
-                    mainMessage.Customers.Add(await _context.Customers.FindAsync(customersId));
+                    mainMessage.Customers.Add(await _context.Customers.FindAsync(id));
                 }
             }
 
@@ -107,6 +109,69 @@ namespace Karenbic.Areas.Admin.Controllers
             }
 
             _context.SaveChanges();
+
+            //Send Notification To The Customer
+            //new HubConnection
+            var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+
+            if (isCustomerFilter && customersId != null && customersId.Length > 0)
+            {
+                foreach (int id in customersId)
+                {
+                    DomainClasses.Customer customer = await _context.Customers.FindAsync(id);
+
+                    if (Hubs.CustomerNotification.Users.Any(x => x.Key == customer.Username))
+                    {
+                        notificationHub.Clients
+                            .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == customer.Username)
+                            .Value.ConnectionIds.ToArray<string>()).newUnReadMessage();
+
+                        notificationHub.Clients
+                            .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == customer.Username)
+                            .Value.ConnectionIds.ToArray<string>()).newUnReadAdminMessage();
+                    }
+                }
+            }
+            else if (isCustomerGroupFilter && customerGroupsId != null && customerGroupsId.Length > 0)
+            {
+                foreach (int groupId in customerGroupsId)
+                {
+                    DomainClasses.CustomerGroup group = await _context.CustomerGroups
+                        .Include(x => x.Customers)
+                        .SingleAsync(x => x.Id == groupId);
+
+                    foreach (DomainClasses.Customer customer in group.Customers)
+                    {
+                        if (Hubs.CustomerNotification.Users.Any(x => x.Key == customer.Username))
+                        {
+                            notificationHub.Clients
+                            .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == customer.Username)
+                            .Value.ConnectionIds.ToArray<string>()).newUnReadMessage();
+
+                            notificationHub.Clients
+                            .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == customer.Username)
+                            .Value.ConnectionIds.ToArray<string>()).newUnReadAdminMessage();
+                        }
+                    }
+                }
+            }
+            else if (isCustomerGroupFilter == false && isCustomerFilter == false)
+            {
+                List<DomainClasses.Customer> customers = await _context.Customers.ToListAsync();
+                foreach (DomainClasses.Customer customer in customers)
+                {
+                    if (Hubs.CustomerNotification.Users.Any(x => x.Key == customer.Username))
+                    {
+                        notificationHub.Clients
+                            .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == customer.Username)
+                            .Value.ConnectionIds.ToArray<string>()).newUnReadMessage();
+
+                        notificationHub.Clients
+                            .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == customer.Username)
+                            .Value.ConnectionIds.ToArray<string>()).newUnReadAdminMessage();
+                    }
+                }
+            }
 
             return Json(new
             {

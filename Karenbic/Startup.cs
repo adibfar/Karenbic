@@ -8,6 +8,8 @@ namespace Karenbic
     {
         public void Configuration(IAppBuilder app)
         {
+            app.MapSignalR();
+
             ConfigureAuth(app);
         }
     }

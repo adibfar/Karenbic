@@ -13,7 +13,7 @@ App
             $locationProvider.html5Mode(false);
 
             // defaults to dashboard
-            $urlRouterProvider.otherwise('/app/design/dashboard');
+            $urlRouterProvider.otherwise('/app/design/preorder');
 
             // 
             // Application Routes

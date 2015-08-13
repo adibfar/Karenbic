@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Data.Entity.SqlServer;
+using Microsoft.AspNet.SignalR;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
@@ -366,6 +367,14 @@ namespace Karenbic.Areas.Customer.Controllers
                 }
             }
             _context.SaveChanges();
+
+            //send notification
+            var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+
+            notificationHub.Clients
+                //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
+                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                .Value.ConnectionIds.ToArray<string>()).minusUnreviewedDesign();
 
             return Content("True");
         }

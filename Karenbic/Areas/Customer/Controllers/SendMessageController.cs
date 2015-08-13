@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Microsoft.AspNet.SignalR;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
@@ -31,6 +32,10 @@ namespace Karenbic.Areas.Customer.Controllers
 
             _context.CustomerMessages.Add(message);
             _context.SaveChanges();
+
+            //Send Notification To The Admin
+            var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
+            notificationHub.Clients.All.newUnReadCustomerMessage();
 
             return Json(new 
             { 
@@ -104,10 +109,21 @@ namespace Karenbic.Areas.Customer.Controllers
                     .Single(x => x.Id == id && x.Sender.Id == customer.Id);
 
             message.IsReadCustomer = true;
-
             _context.SaveChanges();
-
             result = true;
+
+            //send notification
+            var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+
+            notificationHub.Clients
+                //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
+                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                .Value.ConnectionIds.ToArray<string>()).minusUnReadMessage();
+
+            notificationHub.Clients
+                //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
+                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                .Value.ConnectionIds.ToArray<string>()).minusUnReadReplyMessage();
 
             return Content(result.ToString());
         }

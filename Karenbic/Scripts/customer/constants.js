@@ -24,10 +24,16 @@ App
                 text: "صورت حساب",
                 sref: "#",
                 icon: "billing",
+                notification_get_fn: 'getUnpayedDesignFactor',
+                notification_new_fn: 'newUnpayedDesignFactor',
+                notification_minus_fn: 'minusUnpayedDesignFactor',
                 submenu: [
                     {
                         text: "صورت حساب خدمات طراحی",
-                        sref: "app.design.factor-list"
+                        sref: "app.design.factor-list",
+                        notification_get_fn: 'getUnpayedDesignFactor',
+                        notification_new_fn: 'newUnpayedDesignFactor',
+                        notification_minus_fn: 'minusUnpayedDesignFactor'
                     },
                     {
                         text: "فاکتور های پرداخت شده",
@@ -60,7 +66,10 @@ App
             {
                 text: "نمایش سفارشات",
                 sref: "app.design.order-list",
-                icon: "show-order"
+                icon: "show-order",
+                notification_get_fn: 'getUnreviewedDesign',
+                notification_new_fn: 'newUnreviewedDesign',
+                notification_minus_fn: 'minusUnreviewedDesign'
             },
             {
                 text: "لیست قیمت طراحی",
@@ -71,6 +80,9 @@ App
                 text: "پیام ها",
                 sref: "#",
                 icon: "message",
+                notification_get_fn: 'getUnReadMessage',
+                notification_new_fn: 'newUnReadMessage',
+                notification_minus_fn: 'minusUnReadMessage',
                 submenu: [
                     {
                         text: "ارسال پیام جدید",
@@ -78,11 +90,17 @@ App
                     },
                     {
                         text: "پیام های من / پاسخ",
-                        sref: "app.design.send-message-list"
+                        sref: "app.design.send-message-list",
+                        notification_get_fn: 'getUnReadReplyMessage',
+                        notification_new_fn: 'newUnReadReplyMessage',
+                        notification_minus_fn: 'minusUnReadReplyMessage'
                     },
                     {
                         text: "پیام از مدیر",
-                        sref: "app.design.receive-message-list"
+                        sref: "app.design.receive-message-list",
+                        notification_get_fn: 'getUnReadAdminMessage',
+                        notification_new_fn: 'newUnReadAdminMessage',
+                        notification_minus_fn: 'minusUnReadAdminMessage'
                     }
                 ]
             },
@@ -117,10 +135,16 @@ App
                 text: "صورت حساب",
                 sref: "#",
                 icon: "billing",
+                notification_get_fn: 'getUnpayedPrintFactor',
+                notification_new_fn: 'newUnpayedPrintFactor',
+                notification_minus_fn: 'minusUnpayedPrintFactor',
                 submenu: [
                     {
                         text: "صورت حساب خدمات چاپ",
-                        sref: "app.print.factor-list"
+                        sref: "app.print.factor-list",
+                        notification_get_fn: 'getUnpayedPrintFactor',
+                        notification_new_fn: 'newUnpayedPrintFactor',
+                        notification_minus_fn: 'minusUnpayedPrintFactor'
                     },
                     {
                         text: "فاکتور های پرداخت شده",
@@ -156,6 +180,9 @@ App
                 text: "پیام ها",
                 sref: "#",
                 icon: "message",
+                notification_get_fn: 'getUnReadMessage',
+                notification_new_fn: 'newUnReadMessage',
+                notification_minus_fn: 'minusUnReadMessage',
                 submenu: [
                     {
                         text: "ارسال پیام جدید",
@@ -163,11 +190,17 @@ App
                     },
                     {
                         text: "پیام های من / پاسخ",
-                        sref: "app.print.send-message-list"
+                        sref: "app.print.send-message-list",
+                        notification_get_fn: 'getUnReadReplyMessage',
+                        notification_new_fn: 'newUnReadReplyMessage',
+                        notification_minus_fn: 'minusUnReadReplyMessage'
                     },
                     {
                         text: "پیام از مدیر",
-                        sref: "app.print.receive-message-list"
+                        sref: "app.print.receive-message-list",
+                        notification_get_fn: 'getUnReadAdminMessage',
+                        notification_new_fn: 'newUnReadAdminMessage',
+                        notification_minus_fn: 'minusUnReadAdminMessage'
                     }
                 ]
             },

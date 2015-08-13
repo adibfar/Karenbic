@@ -154,6 +154,9 @@ App
                 text: "پیام ها",
                 sref: "#",
                 icon: "message",
+                notification_get_fn: 'getUnReadCustomerMessage',
+                notification_new_fn: 'newUnReadCustomerMessage',
+                notification_minus_fn: 'minusUnReadCustomerMessage',
                 submenu: [
                     {
                         text: "ارسال پیام جدید",
@@ -165,7 +168,10 @@ App
                     },
                     {
                         text: "پیام های دریافتی",
-                        sref: "app.design.receive-message-list"
+                        sref: "app.design.receive-message-list",
+                        notification_get_fn: 'getUnReadCustomerMessage',
+                        notification_new_fn: 'newUnReadCustomerMessage',
+                        notification_minus_fn: 'minusUnReadCustomerMessage'
                     }
                 ]
             },
@@ -320,6 +326,9 @@ App
                 text: "پیام ها",
                 sref: "#",
                 icon: "message",
+                notification_get_fn: 'getUnReadCustomerMessage',
+                notification_new_fn: 'newUnReadCustomerMessage',
+                notification_minus_fn: 'minusUnReadCustomerMessage',
                 submenu: [
                     {
                         text: "ارسال پیام جدید",
@@ -331,7 +340,10 @@ App
                     },
                     {
                         text: "پیام های دریافتی",
-                        sref: "app.print.receive-message-list"
+                        sref: "app.print.receive-message-list",
+                        notification_get_fn: 'getUnReadCustomerMessage',
+                        notification_new_fn: 'newUnReadCustomerMessage',
+                        notification_minus_fn: 'minusUnReadCustomerMessage'
                     }
                 ]
             },

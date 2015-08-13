@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Microsoft.AspNet.SignalR;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
@@ -73,6 +74,19 @@ namespace Karenbic.Areas.Customer.Controllers
             message.IsRead = true;
             _context.SaveChanges();
             result = true;
+
+            //send notification
+            var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+
+            notificationHub.Clients
+                //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
+                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                .Value.ConnectionIds.ToArray<string>()).minusUnReadMessage();
+
+            notificationHub.Clients
+                //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
+                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                .Value.ConnectionIds.ToArray<string>()).minusUnReadAdminMessage();
 
             return Content(result.ToString());
         }

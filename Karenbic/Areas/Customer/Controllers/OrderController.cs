@@ -74,7 +74,7 @@ namespace Karenbic.Areas.Customer.Controllers
 
                     //Set Prepayment Factor
                     designOrder.PrepaymentFactor = new DomainClasses.PrepaymentDesignFactor();
-                    designOrder.PrepaymentFactor.Price = designOrder.Price;
+                    designOrder.PrepaymentFactor.Price = designOrder.Prepayment;
                     designOrder.PrepaymentFactor.RegisterDate = designOrder.RegisterDate;
 
                     //Set Final Factor

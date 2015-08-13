@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Data.Entity.SqlServer;
+using Microsoft.AspNet.SignalR;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
@@ -474,6 +475,8 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
+            var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+
             DomainClasses.PrintOrder order = _context.PrintOrders
                 .Include(x => x.Factor)
                 .Single(x => x.Id == orderId);
@@ -497,6 +500,14 @@ namespace Karenbic.Areas.Admin.Controllers
                     order.Factor.Price = order.Price;
                     order.Factor.RegisterDate = DateTime.Now;
                     order.Factor.Order = order;
+
+                    //send notification
+                    if (Hubs.CustomerNotification.Users.Any(x => x.Key == order.Customer.Username))
+                    {
+                        notificationHub.Clients
+                            .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == order.Customer.Username)
+                            .Value.ConnectionIds.ToArray<string>()).newUnpayedPrintFactor();
+                    }
                 }
 
                 _context.SaveChanges();

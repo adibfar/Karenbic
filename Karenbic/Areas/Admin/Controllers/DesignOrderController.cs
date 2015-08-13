@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Web.Hosting;
+using Microsoft.AspNet.SignalR;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
@@ -527,7 +528,10 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
+            var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+
             DomainClasses.DesignOrder order = _context.DesignOrders
+                .Include(x => x.Customer)
                 .Include(x => x.PrepaymentFactor)
                 .Include(x => x.FinalFactor)
                 .Single(x => x.Id == orderId);
@@ -564,6 +568,14 @@ namespace Karenbic.Areas.Admin.Controllers
                     order.FinalFactor = new DomainClasses.FinalDesignFactor();
                     order.FinalFactor.Price = price - prepayment;
                     order.FinalFactor.RegisterDate = DateTime.Now;
+
+                    //send notification
+                    if (Hubs.CustomerNotification.Users.Any(x => x.Key == order.Customer.Username))
+                    {
+                        notificationHub.Clients
+                            .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == order.Customer.Username)
+                            .Value.ConnectionIds.ToArray<string>()).newUnpayedDesignFactor();
+                    }
                 }
 
                 _context.SaveChanges();
@@ -586,7 +598,9 @@ namespace Karenbic.Areas.Admin.Controllers
 
             if (file != null && file.Length > 0)
             {
-                DomainClasses.DesignOrder order = _context.DesignOrders.Find(orderId);
+                DomainClasses.DesignOrder order = _context.DesignOrders
+                    .Include(x => x.Customer)
+                    .Single(x => x.Id == orderId);
                 order.LastChange = DateTime.Now;
 
                 design.Order = _context.DesignOrders.Find(orderId);
@@ -609,6 +623,16 @@ namespace Karenbic.Areas.Admin.Controllers
 
                 _context.DesignOrder_Designs.Add(design);
                 _context.SaveChanges();
+
+                //send notification
+                var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+
+                if (Hubs.CustomerNotification.Users.Any(x => x.Key == order.Customer.Username))
+                {
+                    notificationHub.Clients
+                        .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == order.Customer.Username)
+                        .Value.ConnectionIds.ToArray<string>()).newUnreviewedDesign();
+                }
             }
 
             return Json(new

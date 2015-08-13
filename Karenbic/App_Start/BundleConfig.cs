@@ -12,6 +12,8 @@ namespace Karenbic
                 // jQuery
                 "~/Vendors/jquery-1.11.2/jquery-1.11.2.min.js",
                 "~/Vendors/jquery-1.11.2/jquery-migrate-1.2.1.min.js",
+                // SignalR
+                "~/Scripts/jquery.signalR-2.2.0.min.js",
                 // lodash
                 "~/Vendors/lodash-3.5.0/lodash.min.js",
                 // Angular

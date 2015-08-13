@@ -85,4 +85,62 @@ App.controller('TopMenuController', ['$rootScope', '$scope', '$state', '$locatio
 
         if ($scope.isDesignPortal() == true) $scope.menuItems = portalMenu.menuItems_design;
         else if ($scope.isPrintPortal() == true) $scope.menuItems = portalMenu.menuItems_print;
+
+        //configuration notification
+        $.connection.hub.logging = true;
+
+        var connection = $.hubConnection();
+        connection.url = 'http://localhost:22182//signalr';
+        var proxy = connection.createHubProxy('customerNotification');
+
+        _.each($scope.menuItems, function (menuItem) {
+            if (menuItem.notification_get_fn)
+                proxy.on(menuItem.notification_get_fn, function (count) {
+                    menuItem.notification_count = count;
+                    $scope.$apply();
+                });
+
+            if (menuItem.notification_new_fn)
+                proxy.on(menuItem.notification_new_fn, function () {
+                    menuItem.notification_count++;
+                    $scope.$apply();
+                });
+
+            if (menuItem.notification_minus_fn)
+                proxy.on(menuItem.notification_minus_fn, function () {
+                    menuItem.notification_count--;
+                    $scope.$apply();
+                });
+
+            _.each(menuItem.submenu, function (subMenuItem) {
+
+                if (subMenuItem.notification_get_fn)
+                    proxy.on(subMenuItem.notification_get_fn, function (count) {
+                        subMenuItem.notification_count = count;
+                        $scope.$apply();
+                    });
+
+                if (subMenuItem.notification_new_fn)
+                    proxy.on(subMenuItem.notification_new_fn, function () {
+                        subMenuItem.notification_count++;
+                        $scope.$apply();
+                    });
+
+                if (subMenuItem.notification_minus_fn)
+                    proxy.on(subMenuItem.notification_minus_fn, function () {
+                        subMenuItem.notification_count--;
+                        $scope.$apply();
+                    });
+            });
+        });
+
+        connection.start().done(function () {
+            _.each($scope.menuItems, function (menuItem) {
+                if (menuItem.notification_get_fn) proxy.invoke(menuItem.notification_get_fn);
+
+                _.each(menuItem.submenu, function (subMenuItem) {
+                    if (subMenuItem.notification_get_fn) proxy.invoke(subMenuItem.notification_get_fn);
+                });
+            });
+        });
 }]);

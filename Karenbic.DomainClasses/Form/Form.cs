@@ -10,6 +10,7 @@ namespace Karenbic.DomainClasses
     {
         public Form()
         {
+            IsShowAdmin = true;
             CanDelete = true;
         }
 
@@ -30,6 +31,9 @@ namespace Karenbic.DomainClasses
 
         [Required]
         public bool IsShow { get; set; }
+
+        [Required]
+        public bool IsShowAdmin { get; set; }
 
         public string Description { get; set; }
 

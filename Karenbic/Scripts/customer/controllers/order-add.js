@@ -104,7 +104,10 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                 ngDialog.open({
                     template: '<div style="font-family:yekan;font-size:14px;">' +
                         '<p>' +
-                        'در صورت انتخاب این گزینه، هزینه طراحی با توجه به نرخ خلاقیت ویژه محاسبه می گردد.' +
+                        'در صورت انتخاب این گزینه، هزینه طراحی با توجه به تعرفه خلاقیت ویژه محاسبه می گردد.' +
+                        '</p>' +
+                        '<p>' +
+                        'برای مشاهده تعرفه خلاقیت ویژه به لیست قیمت مراجعه نمایید.' +
                         '</p>' +
                         '<div style="text-align:left;">' +
                         '<button class="btn btn-warning" ng-click="close()" type="button">خیر</button>' +
@@ -722,7 +725,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
 
             if ($scope.isDesignPortal() == true) {
                 var price = data.Price;
-                var premayment = data.Premayment;
+                var premayment = data.Prepayment;
 
                 var priceStr = escape(price).replace(new RegExp(separator, "g"), "");
                 var premaymentStr = escape(premayment).replace(new RegExp(separator, "g"), "");
@@ -740,25 +743,52 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
 
                 ngDialog.open({
                     template: '<div style="font-family:yekan;font-size:14px;">' +
-                        '<p>' + 'سفارش شما با موفقیت ثبت گردید' + '</p>' +
-                        '<p>' + 'مبلغ سفارش ' + priceStr + ' ریال' + '</p>' +
-                        '<p>' + 'مبلغ پیش پرداخت ' + premaymentStr + ' ریال' + '</p>' +
-                        '<div style="text-align:left;">' +
-                        '<button class="btn btn-warning" ng-click="close()" type="button">خروج</button>' +
-                        '<button class="btn btn-primary" ng-click="confirm()" type="button" style="margin-right:4px;">پرداخت</button>' +
-                        '</div></div>',
+                          '<form>' +
+                            '<p>' + 'سفارش شما با موفقیت ثبت گردید' + '</p>' +
+                            '<div class="form-group">' +
+                              '<div class="radio-inline c-radio">' +
+                                '<label>' +
+                                  '<input type="radio" ng-value="1" ng-model="paymentType" />' +
+                                  '<span></span>' +
+                                  'مبلغ پیش پرداخت ' + premaymentStr + ' ریال' +
+                                '</label>' +
+                              '</div>' +
+                            '</div>' +
+                            '<div class="form-group">' +
+                              '<div class="radio-inline c-radio">' +
+                                '<label>' +
+                                  '<input type="radio" ng-value="2" ng-model="paymentType" />' +
+                                  '<span></span>' +
+                                  'مبلغ کل سفارش ' + priceStr + ' ریال' +
+                                '</label>' +
+                              '</div>' +
+                            '</div>' +
+                            '<div style="text-align:left;">' +
+                              '<button class="btn btn-warning" ng-click="close()" type="button">خروج</button>' +
+                              '<button class="btn btn-primary" ng-click="confirm()" type="button" style="margin-right:4px;">پرداخت</button>' +
+                            '</div>' +
+                          '</form>' +
+                        '</div>',
                     plain: true,
                     showClose: false,
                     controller: ['$scope', 'ngDialog', function ($scope, ngDialog) {
+                        $scope.paymentType = 1;
+
                         $scope.close = function () {
-                            $scope.closeThisDialog(0);
+                            $scope.closeThisDialog({
+                                response: 0,
+                                type: 0
+                            });
                         };
                         $scope.confirm = function () {
-                            $scope.closeThisDialog(1);
+                            $scope.closeThisDialog({
+                                response: 1,
+                                type: $scope.paymentType
+                            });
                         };
                     }],
                     preCloseCallback: function (value) {
-                        if (value == 0) {
+                        if (value.response == 0) {
                             var nestedDialog = ngDialog.open({
                                 template: '<div style="font-family:yekan;font-size:14px;">' +
                                     '<p>' + 'جهت پرداخت به بخش صورت حساب مراجعه فرمائید' + '</p>' +
@@ -772,8 +802,16 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
 
                             return nestedDialog;
                         }
-                        else if (value == 1) {
-                            $state.go('^.payment-preview', { id: "p" + data.PrepaymentFactor.Id });
+                        else if (value.response == 1) {
+                            if (value.type == 1) {
+                                $state.go('^.payment-preview', { id: "p" + data.PrepaymentFactor.Id });
+                            }
+                            else if (value.type == 2) {
+                                var id = [];
+                                id.push("p" + data.PrepaymentFactor.Id);
+                                id.push("f" + data.FinalFactor.Id);
+                                $state.go('^.payment-preview', { id: id });
+                            }
 
                             return true;
                         }
@@ -798,8 +836,12 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                 } while (priceStr.search(regexp) >= 0)
 
                 do {
-                    premaymentStr = premaymentStr.replace(regexp, separator + "$1");
-                } while (premaymentStr.search(regexp) >= 0)
+                    printPriceStr = printPriceStr.replace(regexp, separator + "$1");
+                } while (printPriceStr.search(regexp) >= 0)
+
+                do {
+                    packingPriceStr = packingPriceStr.replace(regexp, separator + "$1");
+                } while (packingPriceStr.search(regexp) >= 0)
 
                 ngDialog.open({
                     template: '<div style="font-family:yekan;font-size:14px;">' +

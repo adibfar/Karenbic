@@ -2364,7 +2364,7 @@ namespace Karenbic.Areas.Admin.Controllers
 
             IQueryable<DomainClasses.Form> query = _context.Forms.AsQueryable();
 
-            query = query.Where(x => x.Portal == portal);
+            query = query.Where(x => x.IsShowAdmin && x.Portal == portal);
 
             if (!string.IsNullOrEmpty(title))
             {
@@ -2405,7 +2405,7 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             List<DomainClasses.Form> list = _context.Forms
                 .OrderByDescending(x => x.Priority)
-                .Where(x => x.Group.Id == groupId)
+                .Where(x => x.IsShowAdmin && x.Group.Id == groupId)
                 .ToList();
 
             return Json(list.Select(x => new
@@ -2473,6 +2473,15 @@ namespace Karenbic.Areas.Admin.Controllers
                 }
                 //}
                 //catch { }
+            }
+            else
+            {
+                item.IsShowAdmin = false;
+                item.IsShow = false;
+
+                _context.SaveChanges();
+
+                result = true;
             }
 
             return Content(result.ToString());

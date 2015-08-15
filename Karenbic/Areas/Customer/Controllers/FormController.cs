@@ -23,7 +23,7 @@ namespace Karenbic.Areas.Customer.Controllers
             JsonResult result = new JsonResult();
 
             List<DomainClasses.Form> list = _context.Forms
-                .Where(x => x.IsShow && x.Portal == portal)
+                .Where(x => x.IsShow && x.IsShowAdmin && x.Portal == portal)
                 .OrderBy(x => x.Title)
                 .ToList();
 

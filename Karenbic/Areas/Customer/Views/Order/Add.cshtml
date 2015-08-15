@@ -1,4 +1,39 @@
 ﻿<style type="text/css">
+    .btn-back {
+        color: #5e5e5e;
+        cursor: pointer;
+        font-family: yekan;
+        font-size: 20px;
+
+        text-decoration: none;
+        -moz-transition: background-color 300ms ease-out;
+        -webkit-transition: background-color 300ms ease-out;
+        -o-transition: background-color 300ms ease-out;
+        transition: background-color 300ms ease-out;
+    }
+        .btn-back .icon-action-undo {
+            font-size: 25px;
+            position: relative;
+            top: 3px;
+        }
+        .btn-back:hover {
+            color: #FF7200;
+            text-decoration: none;
+            -moz-transition: background-color 300ms ease-in;
+            -webkit-transition: background-color 300ms ease-in;
+            -o-transition: background-color 300ms ease-in;
+            transition: background-color 300ms ease-in;
+        }
+
+    .btn-labeled.btn-default {
+        background-color: #ffed00;
+        border: 1px solid #ffed00;
+    }
+    .btn-labeled.btn-default:hover {
+        background-color: #F9E500;
+        border: 1px solid #F9E500;
+    }
+
     pre.description {
         font-family: yekan;
         font-size: 14px;
@@ -177,15 +212,24 @@
 </style>
 
 <div class="container-fluid">
+    <div class="row"
+         ng-if="form.id != null">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="clearfix" style="margin-bottom: 15px;">
+                <div class="pull-left">
+                    <a class="btn-back" ng-click="unSelectForm()">
+                        بازگشت
+                        <i class="icon-action-undo fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="panel panel-default"
              ng-class="{'whirl': addLoading || fetchFormsLoading || fetchFieldsLoading, 'shadow': addLoading || fetchFormsLoading || fetchFieldsLoading}">
             <div class="panel-heading">
-                <div class="pull-left">
-                    <a class="icon-action-undo fa-2x"
-                       ng-click="unSelectForm()"
-                       ng-if="form.id != null"></a>
-                </div>
                 <div class="panel-title">
                     <i></i>
                     ثبت سفارش جدید
@@ -215,6 +259,7 @@
                         </ul>
                     </div>
                     <!-- End Column#1 -->
+
                     <!-- Start Column#2 -->
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <ul class="formGroups-list">
@@ -236,6 +281,7 @@
                         </ul>
                     </div>
                     <!-- End Column#2 -->
+
                     <!-- Start Column#3 -->
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <ul class="formGroups-list">
@@ -273,17 +319,20 @@
                     </div>
 
                     <div class="row" ng-if="isDesignPortal() == true && form.specialCreativity == true">
-                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                            <button class="btn btn-block btn-labeled"
-                                    type="button" style="text-align:right;min-height:30px;"
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="btn btn-lg btn-block btn-labeled"
+                                    type="button" style="display:inline-block;font-size:15px;margin-bottom:10px;min-height:30px;padding:6px 37px 8px 10px;position:relative;text-align:right;width:auto;white-space:normal;"
                                     ng-class="{'btn-default': specialCreativity == false, 'btn-info': specialCreativity == true}"
                                     ng-click="selectSpecialCreativity()">
-                                <span class="btn-label btn-label-right">
+                                <span class="btn-label btn-label-right"
+                                      style="position:absolute;top:0;right:0;bottom:0;left:auto;">
                                     <i class="fa"
                                        ng-class="{'fa-check': specialCreativity == true, 'fa-times': specialCreativity == false}"></i>
                                 </span>
-                                انتخاب خلاقیت ویژه در سفارش
-                            </button>
+                                آیا مایل به کارگیری خلاقیت ویژه در سفارش خود می باشید ؟
+                                &nbsp;&nbsp;
+                                <small>(کلیک کنید)</small>
+                            </div>
                             <br />
                         </div>
                     </div>

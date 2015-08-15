@@ -141,7 +141,7 @@ App
                         sref: "app.design.aboutus"
                     },
                     {
-                        text: "متن ارتباط ما",
+                        text: "متن تماس با ما",
                         sref: "app.design.contactus"
                     },
                     {
@@ -313,7 +313,7 @@ App
                         sref: "app.print.aboutus"
                     },
                     {
-                        text: "متن ارتباط ما",
+                        text: "متن تماس با ما",
                         sref: "app.print.contactus"
                     },
                     {

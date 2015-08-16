@@ -14,6 +14,9 @@ App
                 text: "سفارشات",
                 sref: "#",
                 icon: "show-order",
+                notification_get_fn: 'getUnCheckedDesignOrders',
+                notification_new_fn: 'newUnCheckedDesignOrders',
+                notification_minus_fn: 'minusUnCheckedDesignOrders',
                 submenu: [
                   {
                       text: "سفارشات جدید",
@@ -25,7 +28,10 @@ App
                   },
                   {
                       text: "سفارشات انجام شده",
-                      sref: "app.design.finished-order-list"
+                      sref: "app.design.finished-order-list",
+                      notification_get_fn: 'getUnSendedFinalDesignOfDesignOrders',
+                      notification_new_fn: 'newUnSendedFinalDesignOfDesignOrders',
+                      notification_minus_fn: 'minusUnSendedFinalDesignOfDesignOrders'
                   },
                   {
                       text: "سفارشات لغو شده",

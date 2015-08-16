@@ -18,6 +18,7 @@ namespace Karenbic.DomainClasses
             IsPaidFinal = false;
             IsPreAcceptDesign = false;
             IsAcceptDesign = false;
+            IsSendFinalDesign = false;
         }
 
         [Required]
@@ -44,6 +45,9 @@ namespace Karenbic.DomainClasses
         [Required]
         public bool IsAcceptDesign { get; set; }
 
+        [Required]
+        public bool IsSendFinalDesign { get; set; }
+
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 
         public virtual PrepaymentDesignFactor PrepaymentFactor { get; set; }
@@ -51,5 +55,7 @@ namespace Karenbic.DomainClasses
         public virtual FinalDesignFactor FinalFactor { get; set; }
 
         public virtual ICollection<DesignOrder_Design> Designs { get; set; }
+
+        public virtual ICollection<DesignOrder_FinalDesign> FinalDesigns { get; set; }
     }
 }

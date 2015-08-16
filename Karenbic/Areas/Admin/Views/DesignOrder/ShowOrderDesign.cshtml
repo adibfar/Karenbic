@@ -76,6 +76,30 @@
             width: 90px;
         }
 
+    .final-design-items {
+        background-color: #f1f1f1;
+        border: 1px solid #bebebe;
+        height: 350px;
+        margin-bottom: 50px;
+        position: relative;
+    }
+        .final-design-items table {
+            margin-bottom: 0;
+        }
+        .final-design-items tr {
+            background-color: #fff;
+        }
+        .final-design-items tr td {
+            padding: 0 !important;
+        }
+        .final-design-items tr input[type=text] {
+            border: none;
+            width: 100%;
+        }
+        .from-sumbited .final-design-items tr input[type=text].ng-invalid {
+			border: 1px solid #d9534f;
+		}
+
     .pre {
         background-color: transparent;
         border: none;
@@ -208,6 +232,29 @@
             </div>
             <div class="panel-body"
                  style="min-height:250px;">
+                <div class="row"
+                     ng-if="order.IsAcceptDesign == true">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button class="btn btn-labeled" type="button"
+                                        ng-class="{'btn-default': order.IsSendFinalDesign == false, 'btn-success': order.IsSendFinalDesign == true}"
+                                        ng-click="finalDesignModal($index)">
+                                    <span class="btn-label btn-label-right">
+                                        <i class="fa"
+                                           ng-class="{'fa-plus': order.IsSendFinalDesign == false, 'fa-check': order.IsSendFinalDesign == true}"></i>
+                                    </span>
+                                    ارسال فایل نهایی
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <hr class="hr1" style="margin:15px 0;" />
+                    </div>
+                </div>
+
                 <div ng-repeat="design in designs">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -386,6 +433,81 @@
     </div>
 </script>
 <!-- End Order Details Modal -->
+
+<!-- Start Send Design Order Modal -->
+<script type="text/ng-template" id="/SendFinalDesignContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            ارسال فایل نهایی
+        </div>
+    </div>
+    <div class="modal-body" ng-class="{'whirl': fetchLoading || addLoading , 'shadow': fetchLoading || addLoading}">
+        <form name="form"
+              ng-class="{'from-sumbited': fromSubmited}">
+            <div class="final-design-items">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="min-width:200px;width:200px;">عنوان</th>
+                            <th style="min-width:200px;">لینک</th>
+                            <th style="min-width:27px;width:27px;">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" ng-model="newItem.Title" />
+                            </td>
+                            <td>
+                                <input class="ltr" type="text" ng-model="newItem.Link" />
+                            </td>
+                            <td>
+                                <a class="btn-img-add-1"
+                                   style="position:relative;top:3px;right:2px;"
+                                   ng-click="addItem()"></a>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="item in items">
+                            <td>
+                                <input type="text" ng-model="item.Title" />
+                            </td>
+                            <td>
+                                <input class="ltr" type="text" ng-model="item.Link" required="" />
+                            </td>
+                            <td>
+                                <a class="btn-img-delete-2"
+                                   style="position:relative;top:4px;right:4px;"
+                                   ng-click="removeItem($index)"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+                <button class="btn btn-labeled btn-warning" type="button"
+                        ng-click="save()">
+                    <span class="btn-label btn-label-right">
+                        <i class="fa fa-pencil"></i>
+                    </span>
+                    ثبت
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End Send Design Order Modal -->
 
 <!-- Start Designs Modal -->
 <script type="text/ng-template" id="/DesignContent.html">

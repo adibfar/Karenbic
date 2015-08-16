@@ -216,6 +216,7 @@
     <Compile Include="Areas\Admin\Controllers\DesignAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\DesignOrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\DesignOrderPrice.cs" />
+    <Compile Include="Areas\Admin\Controllers\DesignOrder_FinalDesignController.cs" />
     <Compile Include="Areas\Admin\Controllers\DesignPaymentController.cs" />
     <Compile Include="Areas\Admin\Controllers\FactorOfDesignOrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\FactorOfPrintOrderController.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="Areas\Customer\Controllers\CityController.cs" />
     <Compile Include="Areas\Customer\Controllers\DesignFinalPaymentController.cs" />
     <Compile Include="Areas\Customer\Controllers\DesignOrderController.cs" />
+    <Compile Include="Areas\Customer\Controllers\DesignOrder_FinalDesignController.cs" />
     <Compile Include="Areas\Customer\Controllers\DesignPaymentController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -457,6 +459,9 @@
     <Content Include="Images\UI\Button\btn-edit-1.png" />
     <Content Include="Images\UI\Button\btn-info-1.png" />
     <Content Include="Images\UI\Button\btn-down-1.png" />
+    <Content Include="Images\UI\Button\btn-download-1.png" />
+    <Content Include="Images\UI\Button\btn-print-1.png" />
+    <Content Include="Images\UI\Button\btn-view-1.png" />
     <Content Include="Images\UI\checkbox-1.png" />
     <Content Include="Images\UI\hr-1.png" />
     <Content Include="Images\UI\Pagination\btn-back-2.png" />
@@ -478,6 +483,7 @@
     <Content Include="Scripts\admin\controllers\design-payment-list.js" />
     <Content Include="Scripts\admin\controllers\design-preorder.js" />
     <Content Include="Scripts\admin\controllers\design-send-design.js" />
+    <Content Include="Scripts\admin\controllers\design-show-design.js" />
     <Content Include="Scripts\admin\controllers\financial-conflict-add.js" />
     <Content Include="Scripts\admin\controllers\financial-conflict-list.js" />
     <Content Include="Scripts\admin\controllers\form-add.js" />
@@ -2422,6 +2428,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\City\" />
+    <Folder Include="Areas\Admin\Views\DesignOrder_FinalDesign\" />
     <Folder Include="Areas\Admin\Views\Froala\" />
     <Folder Include="Areas\Admin\Views\Order\" />
     <Folder Include="Areas\Admin\Views\PortfolioType\" />

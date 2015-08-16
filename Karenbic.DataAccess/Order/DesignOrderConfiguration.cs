@@ -20,6 +20,10 @@ namespace Karenbic.DataAccess
             HasMany(x => x.Designs)
                 .WithRequired(x => x.Order)
                 .WillCascadeOnDelete(false);
+
+            HasMany(x => x.FinalDesigns)
+                .WithRequired(x => x.Order)
+                .WillCascadeOnDelete(false);
         }
     }
 }

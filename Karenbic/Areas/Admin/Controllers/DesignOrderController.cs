@@ -677,6 +677,8 @@ namespace Karenbic.Areas.Admin.Controllers
                 ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(order.ConfirmDate)),
                 Price = order.Price,
                 Prepayment = order.Prepayment,
+                IsAcceptDesign = order.IsAcceptDesign,
+                IsSendFinalDesign = order.IsSendFinalDesign,
                 Customer = new
                 {
                     Name = order.Customer.Name,
@@ -793,5 +795,7 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             return View();
         }
+
+
     }
 }

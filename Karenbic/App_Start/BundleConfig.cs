@@ -101,6 +101,7 @@ namespace Karenbic
                 "~/Scripts/admin/controllers/design-finished-order-list.js",
                 "~/Scripts/admin/controllers/design-canceled-order-list.js",
                 "~/Scripts/admin/controllers/design-send-design.js",
+                "~/Scripts/admin/controllers/design-show-design.js",
                 "~/Scripts/admin/controllers/design-payment-list.js",
                 "~/Scripts/admin/controllers/design-factor-list.js",
                 "~/Scripts/admin/controllers/print-order-price.js",

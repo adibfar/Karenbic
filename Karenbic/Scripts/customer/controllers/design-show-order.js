@@ -3,6 +3,7 @@
         $scope.orderId = $stateParams.id;
         $scope.order = {};
         $scope.designs = [];
+        $scope.finalDesigns = [];
         $scope.states = {
             None: 1,
             Accept: 2,
@@ -480,12 +481,73 @@
         }];
         /*=-=-=-=-=-=-=-=-= End Design =-=-=-=-=-=-=-=-=*/
 
-        $scope.back = function (index) {
+        /*=-=-=-=-=-=-=-=-= Start Final Design =-=-=-=-=-=-=-=-=*/
+        $scope.fetchFinalDesigns = function () {
+            $scope.fetchFinalDesignsLoading = true;
+
+            $http.get(baseUri + 'DesignOrder_FinalDesign/Get', {
+                params: {
+                    orderId: $scope.orderId
+                }
+            })
+            .success(function (data, status, headers, config) {
+                $scope.finalDesigns = data;
+                $scope.fetchFinalDesignsLoading = false;
+            }).error(function (data, status, headers, config) {
+                if (status == 403) {
+                    window.location = "/Account/Login";
+                }
+                else {
+                    toaster.pop('error', "خطایی رخ داده صفحه را مجدداً بارگزاری کنید");
+                }
+                $scope.fetchFinalDesignsLoading = false;
+            });
+        };
+
+        $scope.downloadFinalDesign = function () {
+            if ($scope.finalDesigns.length > 1) $scope.showFinalDesignModal();
+            else $scope.showFinalDesignModal();
+        };
+
+        $scope.showFinalDesignModal = function () {
+            var modalInstance = $modal.open({
+                templateUrl: '/FinalDesignContent.html',
+                controller: FinalShowDesignCtrl,
+                size: 'md',
+                resolve: {
+                    finalDesigns: function () {
+                        return $scope.finalDesigns;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (result) {
+            }, function () {
+            });
+        };
+
+        var FinalShowDesignCtrl = ['$scope', '$http', '$modalInstance', 'finalDesigns', function ($scope, $http, $modalInstance, finalDesigns) {
+
+            $scope.finalDesigns = finalDesigns;
+
+            $scope.close = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        }];
+        /*=-=-=-=-=-=-=-=-= End Final Design =-=-=-=-=-=-=-=-=*/
+
+        $scope.back = function () {
             $scope.fetchLoading = true;
             $state.go('^.order-list');
+        };
+
+        $scope.printDesign = function () {
+            $scope.fetchDesignLoading = true;
+            $state.go('app.print.add-order');
         };
 
         //init
         $scope.fetchData();
         $scope.fetchDesigns();
+        $scope.fetchFinalDesigns();
     }]);

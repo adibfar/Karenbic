@@ -102,7 +102,7 @@ App
                 .state('app.design.show-order-design', {
                     url: '/show-order-design/:id',
                     templateUrl: helper.basepath('DesignOrder/ShowOrderDesign'),
-                    controller: 'SendOrderDesignController',
+                    controller: 'ShowOrderDesignController',
                     resolve: helper.resolveFor('ngDialog', 'image-scale', 'jquery-colorbox')
                 })
                 .state('app.design.payment-list', {

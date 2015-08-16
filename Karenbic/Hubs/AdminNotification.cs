@@ -10,6 +10,36 @@ namespace Karenbic.Hubs
     [HubName("adminNotification")]
     public class AdminNotification : Hub
     {
+        public void GetUnCheckedDesignOrders()
+        {
+            int count = 0;
+
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                count = context.DesignOrders
+                    .Count(x => x.IsCanceled == false &&
+                        x.IsAcceptDesign == true &&
+                        x.IsSendFinalDesign == false);
+            }
+
+            Clients.Caller.getUnCheckedDesignOrders(count);
+        }
+
+        public void GetUnSendedFinalDesignOfDesignOrders()
+        {
+            int count = 0;
+
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                count = context.DesignOrders
+                    .Count(x => x.IsCanceled== false && 
+                        x.IsAcceptDesign == true && 
+                        x.IsSendFinalDesign == false);
+            }
+
+            Clients.Caller.getUnSendedFinalDesignOfDesignOrders(count);
+        }
+
         public void GetUnReadCustomerMessage()
         {
             int count = 0;

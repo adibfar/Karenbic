@@ -211,6 +211,8 @@ namespace Karenbic.Areas.Customer.Controllers
                 Time = string.Format("{0:D2}:{1:D2}", order.RegisterDate.Hour, order.RegisterDate.Minute),
                 RegisterDate = order.RegisterDate.ToShortDateString(),
                 PersianRegisterDate = order.PersianRegisterDate,
+                IsAcceptDesign = order.IsAcceptDesign,
+                IsSendFinalDesign = order.IsSendFinalDesign,
                 //Confirm Order
                 IsConfirm = order.IsConfirm,
                 ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(order.ConfirmDate)),

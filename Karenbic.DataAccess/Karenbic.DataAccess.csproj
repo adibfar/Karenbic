@@ -85,6 +85,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order\DesignOrder_DesignConfiguration.cs" />
     <Compile Include="Order\DesignOrder_Design_FileConfiguration.cs" />
+    <Compile Include="Order\DesignOrder_FinalDesignConfiguration.cs" />
     <Compile Include="Order\OrderConfiguration.cs" />
     <Compile Include="Order\Order_ValueConfiguration.cs" />
     <Compile Include="Order\Order_Value_CheckboxGroupConfiguration.cs" />

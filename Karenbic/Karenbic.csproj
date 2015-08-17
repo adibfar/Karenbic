@@ -254,6 +254,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Areas\Customer\Controllers\FactorOfPrintOrderController.cs" />
+    <Compile Include="Areas\Customer\Controllers\FinancialConflictController.cs" />
     <Compile Include="Areas\Customer\Controllers\FormController.cs" />
     <Compile Include="Areas\Customer\Controllers\FormGroupController.cs" />
     <Compile Include="Areas\Customer\Controllers\HomeController.cs" />
@@ -350,6 +351,7 @@
     <Content Include="Images\PortalMenu\billing.png" />
     <Content Include="Images\PortalMenu\customers.png" />
     <Content Include="Images\PortalMenu\form.png" />
+    <Content Include="Images\PortalNavbar\help-nav.png" />
     <Content Include="Images\PortalMenu\message.png" />
     <Content Include="Images\PortalMenu\order-track.png" />
     <Content Include="Images\PortalMenu\order.png" />
@@ -373,7 +375,6 @@
     <Content Include="Images\PortalMobileMenu\show-order.png" />
     <Content Include="Images\PortalNavbar\design-nav.png" />
     <Content Include="Images\PortalNavbar\print-nav.png" />
-    <Content Include="Images\PortalNavbar\help-nav.png" />
     <Content Include="Images\PublicMobile\MenuItem\item0_text.png" />
     <Content Include="Images\PublicMobile\MenuItem\item1_text.png" />
     <Content Include="Images\PublicMobile\MenuItem\item2_text.png" />
@@ -526,6 +527,8 @@
     <Content Include="Scripts\customer\controllers\design-payment-preview.js" />
     <Content Include="Scripts\customer\controllers\design-preorder.js" />
     <Content Include="Scripts\customer\controllers\design-show-order.js" />
+    <Content Include="Scripts\customer\controllers\financial-conflict-list.js" />
+    <Content Include="Scripts\customer\controllers\financial-conflict-payment-preview.js" />
     <Content Include="Scripts\customer\controllers\main.js" />
     <Content Include="Scripts\customer\controllers\mobile-menu.js" />
     <Content Include="Scripts\customer\controllers\order-add.js" />
@@ -561,6 +564,11 @@
     <Content Include="Scripts\directives\stopEvent.js" />
     <Content Include="Scripts\directives\tooltipster.js" />
     <Content Include="Scripts\filters\riyal-currency.js" />
+    <Content Include="Areas\Customer\Views\FinancialConflict\List.cshtml">
+      <SubType>
+      </SubType>
+    </Content>
+    <Content Include="Areas\Customer\Views\FinancialConflict\PaymentPreview.cshtml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />

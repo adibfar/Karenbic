@@ -15,6 +15,10 @@ namespace Karenbic.DataAccess
             HasMany(x => x.Items)
                 .WithRequired(x => x.FinancialConflict)
                 .WillCascadeOnDelete(true);
+
+            HasMany(x => x.Payments)
+                .WithRequired(x => x.FinancialConflict)
+                .WillCascadeOnDelete(false);
         }
     }
 }

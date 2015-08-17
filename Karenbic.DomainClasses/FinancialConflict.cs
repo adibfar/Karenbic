@@ -46,5 +46,7 @@ namespace Karenbic.DomainClasses
         public virtual Customer Customer { get; set; }
 
         public virtual ICollection<FinancialConflictItem> Items { get; set; }
+
+        public virtual ICollection<FinancialConflictPayment> Payments { get; set; }
     }
 }

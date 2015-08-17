@@ -168,6 +168,8 @@ namespace Karenbic
                 "~/Scripts/customer/controllers/design-final-payment-preview.js",
                 "~/Scripts/customer/controllers/design-final-payment-checkout.js",
                 "~/Scripts/customer/controllers/design-payment-list.js",
+                "~/Scripts/customer/controllers/financial-conflict-list.js",
+                "~/Scripts/customer/controllers/financial-conflict-payment-preview.js",
                 "~/Scripts/customer/controllers/design-order-list.js",
                 "~/Scripts/customer/controllers/design-show-order.js",
                 "~/Scripts/customer/controllers/print-preorder.js",

@@ -88,6 +88,18 @@ App
                     controller: 'DesignPaymentListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
                 })
+                .state('app.design.financial-conflict-list', {
+                    url: '/financial-conflict-list',
+                    templateUrl: helper.basepath('FinancialConflict/List'),
+                    controller: 'FinancialConflictListController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker', 'ngDialog')
+                })
+                .state('app.design.financial-conflict-payment-preview', {
+                    url: '/financial-conflict-payment-preview/:id',
+                    templateUrl: helper.basepath('FinancialConflict/PaymentPreview'),
+                    controller: 'FinancialConflictPaymentPreviewController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
                 .state('app.design.order-list', {
                     url: '/order-list',
                     templateUrl: helper.basepath('DesignOrder/List'),

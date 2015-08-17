@@ -186,6 +186,66 @@ App.controller('DesignOrderListController', ['$scope', '$http', 'ngDialog', 'APP
             $state.go('^.show-order', { id: $scope.orders[index].Id });
         };
 
+        $scope.print = function (index) {
+            $scope.fetchLoading = true;
+            $state.go('app.print.add-order');
+        };
+
+        /*=-=-=-=-=-=-=-=-= Start Final Design =-=-=-=-=-=-=-=-=*/
+
+        $scope.showFinalDesignModal = function (index) {
+            var modalInstance = $modal.open({
+                templateUrl: '/FinalDesignContent.html',
+                controller: FinalShowDesignCtrl,
+                size: 'md',
+                resolve: {
+                    orderId: function () {
+                        return $scope.orders[index].Id;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (result) {
+            }, function () {
+            });
+        };
+
+        var FinalShowDesignCtrl = ['$scope', '$http', '$modalInstance', 'orderId', function ($scope, $http, $modalInstance, orderId) {
+
+            $scope.orderId = orderId;
+            $scope.finalDesigns = [];
+
+            $scope.fetchFinalDesigns = function () {
+                $scope.fetchFinalDesignsLoading = true;
+
+                $http.get(baseUri + 'DesignOrder_FinalDesign/Get', {
+                    params: {
+                        orderId: $scope.orderId
+                    }
+                })
+                .success(function (data, status, headers, config) {
+                    $scope.finalDesigns = data;
+                    $scope.fetchFinalDesignsLoading = false;
+                }).error(function (data, status, headers, config) {
+                    if (status == 403) {
+                        window.location = "/Account/Login";
+                    }
+                    else {
+                        toaster.pop('error', "خطایی رخ داده صفحه را مجدداً بارگزاری کنید");
+                    }
+                    $scope.fetchFinalDesignsLoading = false;
+                });
+            };
+
+            $scope.close = function () {
+                $modalInstance.dismiss('cancel');
+            };
+
+            //init
+            $scope.fetchFinalDesigns();
+        }];
+        /*=-=-=-=-=-=-=-=-= End Final Design =-=-=-=-=-=-=-=-=*/
+
         //Init
         $scope.fetchOrders(1);
     }]);

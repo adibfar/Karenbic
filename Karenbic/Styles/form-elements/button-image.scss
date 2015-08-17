@@ -73,11 +73,14 @@
 	width: 50px;
 	height: 40px;
 	border: none;
-	background: transparent url(/Images/UI/Button/btn-download-1.png) no-repeat 0 0;
+	background: transparent url(/Images/UI/Button/btn-download-1.png) no-repeat 0 -40px;
 	cursor: pointer;
 }
 .btn-img-download-1:hover, .btn-img-download-1:focus {
-	background-position: 0px -40px;
+	background-position: 0px -80px;
+}
+.btn-img-download-1.disabled {
+	background-position: 0px 0;
 }
 
 .btn-img-delete-1 {
@@ -138,11 +141,14 @@
 	width: 50px;
 	height: 40px;
 	border: none;
-	background: transparent url(/Images/UI/Button/btn-print-1.png) no-repeat 0 0;
+	background: transparent url(/Images/UI/Button/btn-print-1.png) no-repeat 0 -40px;
 	cursor: pointer;
 }
 .btn-img-print-1:hover, .btn-img-print-1:focus {
-	background-position: 0px -40px;
+	background-position: 0px -80px;
+}
+.btn-img-print-1.disabled {
+	background-position: 0px 0;
 }
 
 .btn-img-search-1 {

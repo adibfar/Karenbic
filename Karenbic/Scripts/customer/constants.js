@@ -38,6 +38,10 @@ App
                     {
                         text: "فاکتور های پرداخت شده",
                         sref: "app.design.payment-list"
+                    },
+                    {
+                        text: "مغایرت های مالی",
+                        sref: "app.design.financial-conflict-list"
                     }
                 ],
                 activedmenu: [

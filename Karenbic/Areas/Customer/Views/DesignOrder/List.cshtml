@@ -110,6 +110,8 @@
                                 <th style="min-width:80px;width:80px;">تاریخ</th>
                                 <th style="min-width:200px;">شرح سفارش</th>
                                 <th style="min-width:100px;width:100px;">مبلغ کل (ریال)</th>
+                                <th style="min-width:71px;width:71px;">چاپ سفارش</th>
+                                <th style="min-width:61px;width:61px;">دانلود طرح</th>
                                 <th style="min-width:80px;width:80px;">نمایش طراحی</th>
                             </tr>
                         </thead>
@@ -121,7 +123,19 @@
                                 <td>{{item.Form.Title}}</td>
                                 <td>{{item.Price | riyal}}</td>
                                 <td style="text-align:center;">
-                                    <button class="btn-img-preview-1" type="button"
+                                    <button class="btn-img-print-1" type="button"
+                                            ng-click="print($index)"
+                                            ng-class="{'disabled': item.IsAcceptDesign == false || item.IsSendFinalDesign == false}"
+                                            ng-disabled="item.IsAcceptDesign == false || item.IsSendFinalDesign == false"></button>
+                                </td>
+                                <td style="text-align:center;">
+                                    <button class="btn-img-download-1" type="button"
+                                            ng-click="showFinalDesignModal($index)"
+                                            ng-class="{'disabled': item.IsAcceptDesign == false || item.IsSendFinalDesign == false}"
+                                            ng-disabled="item.IsAcceptDesign == false || item.IsSendFinalDesign == false"></button>
+                                </td>
+                                <td style="text-align:center;">
+                                    <button class="btn-img-view-1" type="button"
                                             ng-click="show($index)"></button>                                
                                 </td>
                             </tr>
@@ -344,5 +358,41 @@
     </div>
 </script>
 <!-- End Payment Details Modal -->
+
+<!-- Start Final Designs Modal -->
+<script type="text/ng-template" id="/FinalDesignContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            دانلود فایل نهایی
+        </div>
+    </div>
+
+    <div class="modal-body" ng-class="{'whirl': fetchFinalDesignsLoading , 'shadow': fetchFinalDesignsLoading }">
+        <table class="table table-bordered table-striped">
+            <tr ng-repeat="design in finalDesigns">
+                <td>
+                    <a href="{{design.Link}}" target="_blank"
+                       style="color:#5e5e5e;display:block;text-decoration:none;">{{design.Title}}</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End Final Designs Modal -->
 
 <toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

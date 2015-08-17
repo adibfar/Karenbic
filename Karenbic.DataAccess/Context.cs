@@ -87,6 +87,7 @@ namespace Karenbic.DataAccess
 
         public DbSet<DomainClasses.FinancialConflict> FinancialConflicts { get; set; }
         public DbSet<DomainClasses.FinancialConflictItem> FinancialConflictItems { get; set; }
+        public DbSet<DomainClasses.FinancialConflictPayment> FinancialConflictPayments { get; set; }
 
         public DbSet<DomainClasses.PriceList> PriceLists { get; set; }
 
@@ -154,6 +155,7 @@ namespace Karenbic.DataAccess
 
             modelBuilder.Configurations.Add(new FinancialConflictConfiguration());
             modelBuilder.Configurations.Add(new FinancialConflictItemConfiguration());
+            modelBuilder.Configurations.Add(new FinancialConflictPaymentConfiguration());
 
             modelBuilder.Configurations.Add(new CustomerMessageConfiguration());
             modelBuilder.Configurations.Add(new AdminMessage_AdminConfiguration());

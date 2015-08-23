@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Microsoft.AspNet.SignalR;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
@@ -35,6 +36,32 @@ namespace Karenbic.Areas.Admin.Controllers
 
             _context.FinancialConflicts.Add(model);
             _context.SaveChanges();
+
+            //send notification
+            var customerNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+            if (Hubs.CustomerNotification.Users.Any(x => x.Key == model.Customer.Username))
+            {
+                if (portal == DomainClasses.Portal.Print)
+                {
+                    customerNotification.Clients
+                        .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == model.Customer.Username)
+                        .Value.ConnectionIds.ToArray<string>()).newUnpayedPrintFinancialConflict();
+
+                    customerNotification.Clients
+                        .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == model.Customer.Username)
+                        .Value.ConnectionIds.ToArray<string>()).newUnpayedPrintBilling();
+                }
+                else
+                {
+                    customerNotification.Clients
+                        .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == model.Customer.Username)
+                        .Value.ConnectionIds.ToArray<string>()).newUnpayedDesignFinancialConflict();
+
+                    customerNotification.Clients
+                        .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == model.Customer.Username)
+                        .Value.ConnectionIds.ToArray<string>()).newUnpayedDesignBilling();
+                }
+            }
 
             return Json(new
             {

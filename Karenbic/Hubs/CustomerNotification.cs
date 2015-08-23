@@ -74,6 +74,29 @@ namespace Karenbic.Hubs
 
         #endregion
 
+        public void GetUnpayedDesignBilling()
+        {
+            int count = 0;
+
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
+                DomainClasses.Customer customer = context.Customers.Find(1);
+
+                int count1 = context.DesignOrders
+                    .Count(x => x.IsCanceled == false &&
+                        x.Customer.Id == customer.Id &&
+                        (x.PrepaymentFactor.IsPaid == false || x.FinalFactor.IsPaid == false));
+
+                int count2 = context.FinancialConflicts
+                    .Count(x => x.Portal == DomainClasses.Portal.Design && x.IsPaid == false && x.Customer.Id == customer.Id);
+
+                count = count1 + count2;
+            }
+
+            Clients.Caller.getUnpayedDesignBilling(count);
+        }
+
         public void GetUnpayedDesignFactor()
         {
             int count = 0;
@@ -84,10 +107,49 @@ namespace Karenbic.Hubs
                 DomainClasses.Customer customer = context.Customers.Find(1);
 
                 count = context.DesignOrders
-                    .Count(x => x.IsCanceled == false && (x.PrepaymentFactor.IsPaid == false || x.FinalFactor.IsPaid == false));
+                    .Count(x => x.IsCanceled == false && 
+                        x.Customer.Id == customer.Id &&
+                        (x.PrepaymentFactor.IsPaid == false || x.FinalFactor.IsPaid == false));
             }
 
             Clients.Caller.getUnpayedDesignFactor(count);
+        }
+
+        public void GetUnpayedDesignFinancialConflict()
+        {
+            int count = 0;
+
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
+                DomainClasses.Customer customer = context.Customers.Find(1);
+
+                count = context.FinancialConflicts
+                    .Count(x => x.Portal == DomainClasses.Portal.Design && x.IsPaid == false && x.Customer.Id == customer.Id);
+            }
+
+            Clients.Caller.getUnpayedDesignFinancialConflict(count);
+        }
+
+        public void GetUnpayedPrintBilling()
+        {
+            int count = 0;
+
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
+                DomainClasses.Customer customer = context.Customers.Find(1);
+
+                int count1 = context.PrintFactors
+                    .Count(x => x.IsPaid == false && x.Order.IsCanceled == false);
+
+                int count2 = context.FinancialConflicts
+                    .Count(x => x.Portal == DomainClasses.Portal.Print && x.IsPaid == false && x.Customer.Id == customer.Id);
+
+                count = count1 + count2;
+            }
+
+            Clients.Caller.getUnpayedPrintBilling(count);
         }
 
         public void GetUnpayedPrintFactor()
@@ -106,6 +168,22 @@ namespace Karenbic.Hubs
             Clients.Caller.getUnpayedPrintFactor(count);
         }
 
+        public void GetUnpayedPrintFinancialConflict()
+        {
+            int count = 0;
+
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
+                DomainClasses.Customer customer = context.Customers.Find(1);
+
+                count = context.FinancialConflicts
+                    .Count(x => x.Portal == DomainClasses.Portal.Print && x.IsPaid == false && x.Customer.Id == customer.Id);
+            }
+
+            Clients.Caller.getUnpayedPrintFinancialConflict(count);
+        }
+
         public void GetUnreviewedDesign()
         {
             int count = 0;
@@ -115,11 +193,32 @@ namespace Karenbic.Hubs
                 //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
                 DomainClasses.Customer customer = context.Customers.Find(1);
 
-                count = context.DesignOrder_Designs
-                    .Count(x => x.Order.Customer.Id == customer.Id && x.IsReview == false);
+                count = context.DesignOrders
+                    .Count(x => x.Customer.Id == customer.Id && x.CustomerMustSeeIt == true);
             }
 
             Clients.Caller.getUnreviewedDesign(count);
+        }
+
+        public void GetUnReadMessage()
+        {
+            int count = 0;
+
+            using (DataAccess.Context context = new DataAccess.Context())
+            {
+                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
+                DomainClasses.Customer customer = context.Customers.Find(1);
+
+                int count1 = context.CustomerMessages
+                    .Count(x => x.Sender.Id == customer.Id && x.IsShowCustomer == true && x.IsReadCustomer == false);
+
+                int count2 = context.AdminMessages_Customer
+                    .Count(x => x.Customer.Id == customer.Id && x.IsRead == false);
+
+                count = count1 + count2;
+            }
+
+            Clients.Caller.getUnReadMessage(count);
         }
 
         public void GetUnReadReplyMessage()
@@ -152,27 +251,6 @@ namespace Karenbic.Hubs
             }
 
             Clients.Caller.getUnReadAdminMessage(count);
-        }
-
-        public void GetUnReadMessage()
-        {
-            int count = 0;
-
-            using (DataAccess.Context context = new DataAccess.Context())
-            {
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-                DomainClasses.Customer customer = context.Customers.Find(1);
-
-                int count1 = context.CustomerMessages
-                    .Count(x => x.Sender.Id == customer.Id && x.IsShowCustomer == true && x.IsReadCustomer == false);
-
-                int count2 = context.AdminMessages_Customer
-                    .Count(x => x.Customer.Id == customer.Id && x.IsRead == false);
-
-                count = count1 + count2;
-            }
-
-            Clients.Caller.getUnReadMessage(count);
         }
     }
 }

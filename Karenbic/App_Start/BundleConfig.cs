@@ -55,6 +55,7 @@ namespace Karenbic
                 //Directives
                 "~/Scripts/directives/anchor.js",
                 "~/Scripts/directives/animate-enabled.js",
+                "~/Scripts/directives/bootstrap-table-responsive.js",
                 "~/Scripts/directives/chosen-select.js",
                 "~/Scripts/directives/classy-loader.js",
                 "~/Scripts/directives/clear-storage.js",

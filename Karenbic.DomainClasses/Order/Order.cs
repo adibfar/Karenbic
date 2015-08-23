@@ -13,6 +13,8 @@ namespace Karenbic.DomainClasses
             IsCanceled = false;
             IsConfirm = false;
             RegisterDate = DateTime.Now;
+            CustomerMustSeeIt = false;
+            AdminMustSeeIt = false;
         }
 
         [Key]
@@ -58,6 +60,12 @@ namespace Karenbic.DomainClasses
                     return string.Empty;
             }
         }
+
+        [Required]
+        public bool CustomerMustSeeIt { get; set; }
+
+        [Required]
+        public bool AdminMustSeeIt { get; set; }
 
         /*=-=-=-=-=-= Canceled Data =-=-=-=-=-=*/
 

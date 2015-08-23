@@ -475,7 +475,8 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
-            var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+            var customerNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+            var adminNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
 
             DomainClasses.PrintOrder order = _context.PrintOrders
                 .Include(x => x.Factor)
@@ -504,10 +505,17 @@ namespace Karenbic.Areas.Admin.Controllers
                     //send notification
                     if (Hubs.CustomerNotification.Users.Any(x => x.Key == order.Customer.Username))
                     {
-                        notificationHub.Clients
+                        customerNotification.Clients
+                            .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == order.Customer.Username)
+                            .Value.ConnectionIds.ToArray<string>()).newUnpayedPrintBilling();
+
+                        customerNotification.Clients
                             .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == order.Customer.Username)
                             .Value.ConnectionIds.ToArray<string>()).newUnpayedPrintFactor();
                     }
+
+                    adminNotification.Clients.All.minusUnCheckedPrintOrders();
+                    adminNotification.Clients.All.minusNewPrintOrders();
                 }
 
                 _context.SaveChanges();
@@ -522,26 +530,52 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
+            var adminNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
+
             DomainClasses.PrintOrder order = _context.PrintOrders.Find(orderId);
 
             switch (state)
             {
                 case 2:
+                    if (order.OrderState != DomainClasses.PrintOrderState.Paid)
+                    {
+                        adminNotification.Clients.All.newUnCheckedPrintOrders();
+                        adminNotification.Clients.All.newNewPaidPrintOrders();
+                    }
+
                     order.OrderState = DomainClasses.PrintOrderState.Paid;
                     result = true;
                     break;
 
                 case 3:
+                    if (order.OrderState == DomainClasses.PrintOrderState.Paid)
+                    {
+                        adminNotification.Clients.All.minusUnCheckedPrintOrders();
+                        adminNotification.Clients.All.minusNewPaidPrintOrders();
+                    }
+
                     order.OrderState = DomainClasses.PrintOrderState.Print;
                     result = true;
                     break;
 
                 case 4:
+                    if (order.OrderState == DomainClasses.PrintOrderState.Paid)
+                    {
+                        adminNotification.Clients.All.minusUnCheckedPrintOrders();
+                        adminNotification.Clients.All.minusNewPaidPrintOrders();
+                    }
+
                     order.OrderState = DomainClasses.PrintOrderState.FinishServes;
                     result = true;
                     break;
 
                 case 5:
+                    if (order.OrderState == DomainClasses.PrintOrderState.Paid)
+                    {
+                        adminNotification.Clients.All.minusUnCheckedPrintOrders();
+                        adminNotification.Clients.All.minusNewPaidPrintOrders();
+                    }
+
                     order.OrderState = DomainClasses.PrintOrderState.Finish;
                     result = true;
                     break;

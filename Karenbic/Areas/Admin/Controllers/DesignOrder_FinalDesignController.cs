@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
@@ -33,7 +34,11 @@ namespace Karenbic.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Save(DomainClasses.DesignOrder_FinalDesign[] designs, int orderId)
         {
-            DomainClasses.DesignOrder order = _context.DesignOrders.Find(orderId);
+            DomainClasses.DesignOrder order = _context.DesignOrders
+                .Include(x => x.Customer)
+                .Single(x => x.Id == orderId);
+            order.AdminMustSeeIt = false;
+            order.CustomerMustSeeIt = true;
 
             bool mustSendNotification = false;
 
@@ -64,10 +69,17 @@ namespace Karenbic.Areas.Admin.Controllers
             //send notification
             if (mustSendNotification)
             {
-                var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
+                var adminNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
+                adminNotification.Clients.All.minusUnCheckedDesignOrders();
+                adminNotification.Clients.All.minusUnSendedFinalDesignOfDesignOrders();
 
-                notificationHub.Clients.All.minusUnCheckedDesignOrders();
-                notificationHub.Clients.All.minusUnSendedFinalDesignOfDesignOrders();
+                var customerNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+                if (Hubs.CustomerNotification.Users.Any(x => x.Key == order.Customer.Username))
+                {
+                    customerNotification.Clients
+                        .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == order.Customer.Username)
+                        .Value.ConnectionIds.ToArray<string>()).newUnreviewedDesign();
+                }
             }
 
             return Json(designs.Select(x => new

@@ -24,9 +24,9 @@ App
                 text: "صورت حساب",
                 sref: "#",
                 icon: "billing",
-                notification_get_fn: 'getUnpayedDesignFactor',
-                notification_new_fn: 'newUnpayedDesignFactor',
-                notification_minus_fn: 'minusUnpayedDesignFactor',
+                notification_get_fn: 'getUnpayedDesignBilling',
+                notification_new_fn: 'newUnpayedDesignBilling',
+                notification_minus_fn: 'minusUnpayedDesignBilling',
                 submenu: [
                     {
                         text: "صورت حساب خدمات طراحی",
@@ -41,7 +41,10 @@ App
                     },
                     {
                         text: "مغایرت های مالی",
-                        sref: "app.design.financial-conflict-list"
+                        sref: "app.design.financial-conflict-list",
+                        notification_get_fn: 'getUnpayedDesignFinancialConflict',
+                        notification_new_fn: 'newUnpayedDesignFinancialConflict',
+                        notification_minus_fn: 'minusUnpayedDesignFinancialConflict'
                     }
                 ],
                 activedmenu: [
@@ -139,9 +142,9 @@ App
                 text: "صورت حساب",
                 sref: "#",
                 icon: "billing",
-                notification_get_fn: 'getUnpayedPrintFactor',
-                notification_new_fn: 'newUnpayedPrintFactor',
-                notification_minus_fn: 'minusUnpayedPrintFactor',
+                notification_get_fn: 'getUnpayedPrintBilling',
+                notification_new_fn: 'newUnpayedPrintBilling',
+                notification_minus_fn: 'minusUnpayedPrintBilling',
                 submenu: [
                     {
                         text: "صورت حساب خدمات چاپ",
@@ -153,6 +156,13 @@ App
                     {
                         text: "فاکتور های پرداخت شده",
                         sref: "app.print.payment-list"
+                    },
+                    {
+                        text: "مغایرت های مالی",
+                        sref: "app.print.financial-conflict-list",
+                        notification_get_fn: 'getUnpayedPrintFinancialConflict',
+                        notification_new_fn: 'newUnpayedPrintFinancialConflict',
+                        notification_minus_fn: 'minusUnpayedPrintFinancialConflict'
                     }
                 ],
                 activedmenu: [

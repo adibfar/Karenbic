@@ -198,6 +198,18 @@ App
                     controller: 'PrintPaymentListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
                 })
+                .state('app.print.financial-conflict-list', {
+                    url: '/financial-conflict-list',
+                    templateUrl: helper.basepath('FinancialConflict/List'),
+                    controller: 'FinancialConflictListController',
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker', 'ngDialog')
+                })
+                .state('app.print.financial-conflict-payment-preview', {
+                    url: '/financial-conflict-payment-preview/:id',
+                    templateUrl: helper.basepath('FinancialConflict/PaymentPreview'),
+                    controller: 'FinancialConflictPaymentPreviewController',
+                    resolve: helper.resolveFor('ngDialog')
+                })
                 .state('app.print.order-list', {
                     url: '/order-list',
                     templateUrl: helper.basepath('PrintOrder/List'),

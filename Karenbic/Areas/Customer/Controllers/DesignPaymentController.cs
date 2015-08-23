@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Microsoft.AspNet.SignalR;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
@@ -586,6 +587,7 @@ namespace Karenbic.Areas.Customer.Controllers
 
                             DomainClasses.DesignOrder order = _context.DesignOrders.Find(factor.Order.Id);
                             order.IsPaidPrepayment = true;
+                            order.AdminMustSeeIt = true;
                         }
                         foreach (DomainClasses.FinalDesignPaymentItem item in bankPayment.FinalItems)
                         {
@@ -599,6 +601,7 @@ namespace Karenbic.Areas.Customer.Controllers
 
                             DomainClasses.DesignOrder order = _context.DesignOrders.Find(factor.Order.Id);
                             order.IsPaidFinal = true;
+                            order.AdminMustSeeIt = true;
                         }
                         _context.SaveChanges();
 
@@ -608,6 +611,10 @@ namespace Karenbic.Areas.Customer.Controllers
                                     (long)paymentId,
                                     (long)saleOrderId,
                                     (long)SaleReferenceId);
+
+                        //send notification to the admin 
+                        //var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
+                        //notificationHub.Clients.All.newUnCheckedOngoingDesignOrders();
                     }
                     else
                     {
@@ -678,6 +685,7 @@ namespace Karenbic.Areas.Customer.Controllers
 
                         DomainClasses.DesignOrder order = _context.DesignOrders.Find(factor.Order.Id);
                         order.IsPaidPrepayment = true;
+                        order.AdminMustSeeIt = true;
                     }
                 }
                 if (finalFactors.Count > 0)
@@ -695,6 +703,7 @@ namespace Karenbic.Areas.Customer.Controllers
 
                         DomainClasses.DesignOrder order = _context.DesignOrders.Find(factor.Order.Id);
                         order.IsPaidFinal = true;
+                        order.AdminMustSeeIt = true;
                     }
                 }
                 _context.DesignPayments.Add(payment);
@@ -703,6 +712,10 @@ namespace Karenbic.Areas.Customer.Controllers
                 //Get Customer Data
                 DomainClasses.Customer customer = _context.Customers.Find(1);
                 //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+
+                //send notification to the admin 
+                var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
+                notificationHub.Clients.All.newUnCheckedOngoingDesignOrders();
             }
 
 

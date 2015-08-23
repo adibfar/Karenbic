@@ -22,6 +22,23 @@ namespace Karenbic.Areas.Customer.Controllers
             DomainClasses.Customer customer = _context.Customers.Find(1);
             //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
+            DomainClasses.DesignOrder order = _context.DesignOrders.Find(orderId);
+            bool mustSendNotification = order.CustomerMustSeeIt;
+            order.CustomerMustSeeIt = false;
+            _context.SaveChanges();
+
+
+            //send notification
+            if (mustSendNotification)
+            {
+                var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+
+                notificationHub.Clients
+                    //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
+                    .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                    .Value.ConnectionIds.ToArray<string>()).minusUnreviewedDesign();
+            }
+
             List<DomainClasses.DesignOrder_FinalDesign> list = _context.DesignOrder_FinalDesigns
                 .Where(x => x.Order.Id == orderId && x.Order.Customer.Id == customer.Id).ToList();
 

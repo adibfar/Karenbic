@@ -546,6 +546,7 @@
     <Content Include="Scripts\customer\controllers\top-menu.js" />
     <Content Include="Scripts\directives\anchor.js" />
     <Content Include="Scripts\directives\animate-enabled.js" />
+    <Content Include="Scripts\directives\bootstrap-table-responsive.js" />
     <Content Include="Scripts\directives\chosen-select.js" />
     <Content Include="Scripts\directives\classy-loader.js" />
     <Content Include="Scripts\directives\clear-storage.js" />

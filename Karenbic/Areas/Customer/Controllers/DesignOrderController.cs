@@ -103,6 +103,7 @@ namespace Karenbic.Areas.Customer.Controllers
                     PersianRegisterDate = x.PersianRegisterDate,
                     IsAcceptDesign = x.IsAcceptDesign,
                     IsSendFinalDesign = x.IsSendFinalDesign,
+                    CustomerMustSeeIt = x.CustomerMustSeeIt,
                     //Confirm Order
                     IsConfirm = x.IsConfirm,
                     ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
@@ -348,8 +349,9 @@ namespace Karenbic.Areas.Customer.Controllers
             }
             else if (files.Any(x => x.State == DomainClasses.DesignOrder_Design_File_State.Accept))
             {
+                design.Order.CustomerMustSeeIt = false;
+                design.Order.AdminMustSeeIt = true;
                 design.IsReview = true;
-
                 order.IsAcceptDesign = true;
 
                 foreach (DomainClasses.DesignOrder_Design_File file in files)
@@ -358,9 +360,23 @@ namespace Karenbic.Areas.Customer.Controllers
                     item.State = file.State;
                     item.CustomerDescription = file.CustomerDescription;
                 }
+
+                //send notification
+                var customerNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+                var adminNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
+
+                customerNotification.Clients
+                    //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
+                    .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                    .Value.ConnectionIds.ToArray<string>()).minusUnreviewedDesign();
+
+                adminNotification.Clients.All.newUnCheckedDesignOrders();
+                adminNotification.Clients.All.newUnSendedFinalDesignOfDesignOrders();
             }
             else
             {
+                design.Order.CustomerMustSeeIt = false;
+                design.Order.AdminMustSeeIt = true;
                 design.IsReview = true;
 
                 foreach (DomainClasses.DesignOrder_Design_File file in files)
@@ -369,16 +385,20 @@ namespace Karenbic.Areas.Customer.Controllers
                     item.State = file.State;
                     item.CustomerDescription = file.CustomerDescription;
                 }
+
+                //send notification
+                var customerNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+                var adminNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
+
+                customerNotification.Clients
+                    //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
+                    .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                    .Value.ConnectionIds.ToArray<string>()).minusUnreviewedDesign();
+
+                adminNotification.Clients.All.newUnCheckedDesignOrders();
+                adminNotification.Clients.All.newUnCheckedOngoingDesignOrders();
             }
             _context.SaveChanges();
-
-            //send notification
-            var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
-
-            notificationHub.Clients
-                //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
-                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
-                .Value.ConnectionIds.ToArray<string>()).minusUnreviewedDesign();
 
             return Content("True");
         }

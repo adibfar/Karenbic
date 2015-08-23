@@ -20,11 +20,17 @@ App
                 submenu: [
                   {
                       text: "سفارشات جدید",
-                      sref: "app.design.new-order-list"
+                      sref: "app.design.new-order-list",
+                      notification_get_fn: 'getNewDesignOrders',
+                      notification_new_fn: 'newNewDesignOrders',
+                      notification_minus_fn: 'minusNewDesignOrders'
                   },
                   {
                       text: "سفارشات در دست اقدام",
-                      sref: "app.design.ongoing-order-list"
+                      sref: "app.design.ongoing-order-list",
+                      notification_get_fn: 'getUnCheckedOngoingDesignOrders',
+                      notification_new_fn: 'newUnCheckedOngoingDesignOrders',
+                      notification_minus_fn: 'minusUnCheckedOngoingDesignOrders'
                   },
                   {
                       text: "سفارشات انجام شده",
@@ -202,14 +208,23 @@ App
                 text: "سفارشات",
                 sref: "#",
                 icon: "show-order",
+                notification_get_fn: 'getUnCheckedPrintOrders',
+                notification_new_fn: 'newUnCheckedPrintOrders',
+                notification_minus_fn: 'minusUnCheckedPrintOrders',
                 submenu: [
                   {
                       text: "سفارشات جدید",
-                      sref: "app.print.new-order-list"
+                      sref: "app.print.new-order-list",
+                      notification_get_fn: 'getNewPrintOrders',
+                      notification_new_fn: 'newNewPrintOrders',
+                      notification_minus_fn: 'minusNewPrintOrders'
                   },
                   {
                       text: "ثبت وضعیت سفارشات",
-                      sref: "app.print.ongoing-order-list"
+                      sref: "app.print.ongoing-order-list",
+                      notification_get_fn: 'getNewPaidPrintOrders',
+                      notification_new_fn: 'newNewPaidPrintOrders',
+                      notification_minus_fn: 'minusNewPaidPrintOrders'
                   },
                   {
                       text: "سفارشات انجام شده",

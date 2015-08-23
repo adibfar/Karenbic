@@ -197,6 +197,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     RegisterDate = x.RegisterDate.ToShortDateString(),
                     PersianRegisterDate = x.PersianRegisterDate,
                     SpecialCreativity = x.SpecialCreativity,
+                    AdminMustSeeIt = x.AdminMustSeeIt,
                     //Confirm Data
                     IsConfirm = x.IsConfirm,
                     ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
@@ -350,6 +351,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     RegisterDate = x.RegisterDate.ToShortDateString(),
                     PersianRegisterDate = x.PersianRegisterDate,
                     SpecialCreativity = x.SpecialCreativity,
+                    IsSendFinalDesign = x.IsSendFinalDesign,
                     //Confirm Data
                     IsConfirm = x.IsConfirm,
                     ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
@@ -528,7 +530,8 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
-            var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+            var customerNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
+            var adminNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
 
             DomainClasses.DesignOrder order = _context.DesignOrders
                 .Include(x => x.Customer)
@@ -572,10 +575,17 @@ namespace Karenbic.Areas.Admin.Controllers
                     //send notification
                     if (Hubs.CustomerNotification.Users.Any(x => x.Key == order.Customer.Username))
                     {
-                        notificationHub.Clients
+                        customerNotification.Clients
+                            .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == order.Customer.Username)
+                            .Value.ConnectionIds.ToArray<string>()).newUnpayedDesignBilling();
+
+                        customerNotification.Clients
                             .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == order.Customer.Username)
                             .Value.ConnectionIds.ToArray<string>()).newUnpayedDesignFactor();
                     }
+
+                    adminNotification.Clients.All.minusUnCheckedDesignOrders();
+                    adminNotification.Clients.All.minusNewDesignOrders();
                 }
 
                 _context.SaveChanges();
@@ -601,7 +611,12 @@ namespace Karenbic.Areas.Admin.Controllers
                 DomainClasses.DesignOrder order = _context.DesignOrders
                     .Include(x => x.Customer)
                     .Single(x => x.Id == orderId);
+
+                bool sendAdminNotification = order.AdminMustSeeIt;
+
                 order.LastChange = DateTime.Now;
+                order.AdminMustSeeIt = false;
+                order.CustomerMustSeeIt = true;
 
                 design.Order = _context.DesignOrders.Find(orderId);
                 design.Description = description;
@@ -632,6 +647,13 @@ namespace Karenbic.Areas.Admin.Controllers
                     notificationHub.Clients
                         .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == order.Customer.Username)
                         .Value.ConnectionIds.ToArray<string>()).newUnreviewedDesign();
+                }
+
+                if (sendAdminNotification)
+                {
+                    var AdminNotificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
+                    AdminNotificationHub.Clients.All.minusUnCheckedDesignOrders();
+                    AdminNotificationHub.Clients.All.minusUnCheckedOngoingDesignOrders();
                 }
             }
 
@@ -795,7 +817,5 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             return View();
         }
-
-
     }
 }

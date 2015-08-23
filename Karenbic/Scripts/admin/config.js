@@ -67,7 +67,7 @@ App
                     url: '/preorder',
                     templateUrl: helper.basepath('DesignOrder/PreOrder'),
                     controller: 'PreDesignOrderController',
-                    resolve: helper.resolveFor('ngDialog', 'froala')
+                    resolve: helper.resolveFor('ngDialog', 'ngCkeditor')
                 })
                 .state('app.design.new-order-list', {
                     url: '/new-order-list',
@@ -170,7 +170,7 @@ App
                     url: '/preorder',
                     templateUrl: helper.basepath('PrintOrder/PreOrder'),
                     controller: 'PrePrintOrderController',
-                    resolve: helper.resolveFor('ngDialog', 'froala')
+                    resolve: helper.resolveFor('ngDialog', 'ngCkeditor')
                 })
                 .state('app.print.new-order-list', {
                     url: '/new-order-list',

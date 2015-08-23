@@ -132,7 +132,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in orders">
+                            <tr ng-repeat="item in orders"
+                                ng-class="{'unread': item.State.Value == 2}">
                                 <td>
                                     <div class="checkbox c-checkbox checkbox-inline"
                                          style="margin-top:2px;padding-right:5px;">

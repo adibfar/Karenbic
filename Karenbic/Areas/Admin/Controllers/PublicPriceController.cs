@@ -23,27 +23,18 @@ namespace Karenbic.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Add(string title, int priority, int categoryId, HttpPostedFileBase file)
+        [HttpGet]
+        public ActionResult Add()
         {
-            if (!ModelState.IsValid) throw new Exception();
+            return View();
+        }
 
-            DomainClasses.PublicPrice model = new DomainClasses.PublicPrice();
-            model.Title = title;
-            model.Priority = priority;
+        [HttpPost]
+        public ActionResult Add(DomainClasses.PublicPrice model, int categoryId)
+        {
             model.Category = _context.PublicPriceCategories.Find(categoryId);
 
-            if (file != null)
-            {
-                if (file.ContentType == "image/jpg" || file.ContentType == "image/jpeg" || file.ContentType == "image/png")
-                {
-                    if (file.ContentLength <= 250 * 1024)
-                    {
-                        model.PictureFile = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(file.FileName));
-                        file.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/PriceList"), model.PictureFile));
-                    }
-                }
-            }
+            if (!ModelState.IsValid) throw new Exception();
 
             _context.PublicPrices.Add(model);
             _context.SaveChanges();
@@ -53,8 +44,7 @@ namespace Karenbic.Areas.Admin.Controllers
                 Id = model.Id,
                 Title = model.Title,
                 Priority = model.Priority,
-                PictureFile = model.PictureFile,
-                PicturePath = model.PicturePath,
+                Description = model.Description,
                 Category = new
                 {
                     Id = model.Category.Id,
@@ -63,52 +53,55 @@ namespace Karenbic.Areas.Admin.Controllers
             });
         }
 
-        [HttpPost]
-        public ActionResult Edit(int id, string title, int priority, int categoryId, HttpPostedFileBase file)
+        [HttpGet]
+        public ActionResult Edit()
         {
-            DomainClasses.PublicPrice model = _context.PublicPrices.Find(id);
-            model.Title = title;
-            model.Priority = priority;
-            model.Category = _context.PublicPriceCategories.Find(categoryId);
+            return View();
+        }
 
-            if (file != null)
-            {
-                if (file.ContentType == "image/jpg" || file.ContentType == "image/jpeg" || file.ContentType == "image/png")
-                {
-                    if (file.ContentLength <= 250 * 1024)
-                    {
-                        string oldFile = model.PictureFile;
-
-                        //save new picture
-                        model.PictureFile = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(file.FileName));
-                        file.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/PriceList"), model.PictureFile));
-
-                        //delete old picture
-                        if (System.IO.File.Exists(string.Format("{0}/{1}",
-                            HostingEnvironment.MapPath("/Content/PriceList"), oldFile)))
-                        {
-                            System.IO.File.Delete(string.Format("{0}/{1}",
-                            HostingEnvironment.MapPath("/Content/PriceList"), oldFile));
-                        }
-                    }
-                }
-            }
+        [HttpPost]
+        public ActionResult Edit(DomainClasses.PublicPrice model, int categoryId)
+        {
+            DomainClasses.PublicPrice item = _context.PublicPrices.Find(model.Id);
+            item.Title = model.Title;
+            item.Priority = model.Priority;
+            item.Description = model.Description;
+            item.Category = _context.PublicPriceCategories.Find(categoryId);
 
             _context.SaveChanges();
 
             return Json(new
             {
+                Id = item.Id,
+                Title = item.Title,
+                Priority = item.Priority,
+                Description = item.Description,
+                Category = new
+                {
+                    Id = item.Category.Id,
+                    Title = item.Category.Title
+                }
+            });
+        }
+
+        [HttpGet]
+        public ActionResult Find(int id)
+        {
+            DomainClasses.PublicPrice model = _context.PublicPrices
+                .Include(x => x.Category)
+                .Single(x => x.Id == id);
+
+            return Json(new {
                 Id = model.Id,
                 Title = model.Title,
                 Priority = model.Priority,
-                PictureFile = model.PictureFile,
-                PicturePath = model.PicturePath,
+                Description = model.Description,
                 Category = new
                 {
                     Id = model.Category.Id,
                     Title = model.Category.Title
                 }
-            });
+            }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -127,8 +120,6 @@ namespace Karenbic.Areas.Admin.Controllers
                     Id = x.Id,
                     Title = x.Title,
                     Priority = x.Priority,
-                    PictureFile = x.PictureFile,
-                    PicturePath = x.PicturePath,
                     Category = new
                     {
                         Id = x.Category.Id,
@@ -145,13 +136,6 @@ namespace Karenbic.Areas.Admin.Controllers
             bool result = false;
 
             DomainClasses.PublicPrice item = _context.PublicPrices.Find(id);
-
-            if (System.IO.File.Exists(string.Format("{0}/{1}",
-                HostingEnvironment.MapPath("/Content/PriceList"), item.PictureFile)))
-            {
-                System.IO.File.Delete(string.Format("{0}/{1}",
-                HostingEnvironment.MapPath("/Content/PriceList"), item.PictureFile));
-            }
 
             _context.PublicPrices.Remove(item);
             _context.SaveChanges();

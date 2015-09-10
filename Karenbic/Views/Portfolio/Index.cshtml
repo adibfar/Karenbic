@@ -1,0 +1,159 @@
+﻿@{
+    Karenbic.DomainClasses.PortfolioType portfolioType = new Karenbic.DomainClasses.PortfolioType();
+    Karenbic.DomainClasses.PortfolioCategory portfolioCategory = new Karenbic.DomainClasses.PortfolioCategory();
+    List<Karenbic.DomainClasses.PortfolioCategory> portfolioCategories = new List<Karenbic.DomainClasses.PortfolioCategory>();
+    List<Karenbic.DomainClasses.Portfolio> portfolios = new List<Karenbic.DomainClasses.Portfolio>();
+    
+    portfolioType = ViewBag.PortfolioType;
+    portfolioCategories = portfolioType.Categories.OrderByDescending(x => x.Priority).ToList();
+    portfolios = ViewBag.Portfolios;
+
+       
+    if (ViewBag.PortfolioCategory != null) 
+    { 
+        portfolioCategory = ViewBag.PortfolioCategory;
+        
+        ViewBag.PageTitle = string.Format("{0} | {1}", portfolioType.Title, portfolioCategory.Title);
+    }
+    else
+    {
+        ViewBag.PageTitle = portfolioType.Title;
+    }
+}
+
+@section HeaderSection {
+    <link type="text/css" rel="stylesheet" href="/Styles/public/portfolio.css" />
+    <script src="/Vendors/jquery.isotope/jquery.isotope.js" type="text/javascript"></script>
+    <script src="/Vendors/infinite-scroll/jquery.infinitescroll.js" type="text/javascript"></script>
+    <link type="text/css" rel="stylesheet" href="/Vendors/jquery-colorbox/them/colorbox.css" />
+    <script src="/Vendors/jquery-colorbox/jquery.colorbox-min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                if ($("html").hasClass("lt-ie9")) {
+                    setInterval(function () {
+                        $('#masonry-elements').isotope('reLayout');
+                    }, 1000);
+                }
+
+                $('.feature a').colorbox();
+
+                $(window).load(function () {
+                    var $masonryElement = $('#masonry-elements');
+
+                    $masonryElement.isotope({
+                        transformsEnabled: false,
+                        masonry: {
+                            columnWidth: 270,
+                            gutterWidth: 15
+                        }
+                    });
+
+                    $masonryElement.infinitescroll({
+                        navSelector: '#masonry-elements-nav',
+                        nextSelector: '#masonry-elements-nav a:first',
+                        itemSelector: '.feature',
+                        loading: {
+                            finishedMsg: 'No more pages to load.',
+                            img: '/images/public/loading.gif',
+                            selector: '#loading',
+                            speed: 'normal'
+                        },
+                        maxPage: 3
+                    },
+                    // call Isotope as a callback
+                    function (newElements, opts) {
+                        var $newElements = $(newElements);
+                        $masonryElement.append($newElements);
+                        $masonryElement.isotope('appended', $newElements);
+                        $('#masonry-elements-nav a:first').attr('href', "@string.Format("/Portfolio/{0}/{1}?pageIndex=", portfolioType.Id, portfolioCategory.Id)" + opts.state.currPage);
+                    });
+
+                    $('#masonry-elements').isotope('reLayout');
+                });
+
+                $(window).resize(function () {
+                    $('#masonry-elements').isotope('reLayout');
+                    setTimeout(function () {
+                        $('#masonry-elements').isotope('reLayout');
+                    }, 500);
+                });
+            });
+</script>
+}
+
+@section TitleBar {
+    <div class="top-title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="page-info">
+                        <h1 class="page-title">@portfolioType.Title</h1>
+                        <ul class="portfolio-categories">
+                            <li>
+                                <a class="@(portfolioCategory.Id == 0 ? "active" : "")"
+                                   href="@Url.Action("Index", new { typeId = portfolioType.Id })">
+                                    همه
+                                </a>
+                            </li>
+                            @foreach (Karenbic.DomainClasses.PortfolioCategory item in portfolioCategories)
+                            {
+                                <li>
+                                    <a class="@(portfolioCategory.Id == item.Id ? "active" : "")"
+                                       href="@Url.Action("Index", new { typeId = portfolioType.Id, categoryId = item.Id })">
+                                        @item.Title
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (portfolios != null && portfolios.Count > 0)
+{
+    <div class="body-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12" id="masonry-elements">
+
+                    <!-- start masonry content -->
+                    @foreach (Karenbic.DomainClasses.Portfolio item in portfolios)
+                    {
+                        <div class="feature blog-masonry">
+                            <div class="feature-image img-overlay">
+                                <img src="@item.PicturePath" alt=" " />
+                                <div class="item-img-overlay">
+                                    <a class="portfolio-zoom fa fa-plus"
+                                       href="@item.PicturePath"
+                                       title="@item.Description"></a>
+                                </div>
+                            </div>
+                            <div class="feature-content">
+                                <h3 class="h3-body-title blog-title" style="font-family:yekan;font-size:14px;margin-bottom:5px;color:#BCBCBC;">
+                                    <a href="" style="color:#999999;">@item.Category.Title</a>
+                                </h3>
+                                <h3 class="h3-body-title blog-title" style="font-family:BNAZANB;font-size:20px;">
+                                    <a href="@Url.Action("Detail", "GraphicUnit", new { id = item.Id })">@item.Description</a>
+                                </h3>
+                                @if (string.IsNullOrEmpty(item.Description))
+                                {
+                                    <p>@item.Description</p>
+                                }
+                            </div>
+                        </div>
+                    }
+                    <!-- end masonry content -->
+                </div>
+                <div id="masonry-elements-nav">
+                    <a class="button" style="display: none"
+                       href="@string.Format("/Portfolio/{0}/{1}?pageIndex={2}", portfolioType.Id, portfolioCategory.Id, 2)">Load More</a>
+                </div>
+                <div id="loading"> </div>
+            </div>
+        </div>
+    </div>
+}

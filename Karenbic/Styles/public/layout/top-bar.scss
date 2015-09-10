@@ -1,0 +1,129 @@
+﻿/****************************
+********** Top Bar **********
+****************************/
+.top-bar {
+    height: 35px;
+    background-color: #FBFBFB;
+    line-height: 35px;
+    border-bottom: 1px solid #E9E9E9;
+
+    /******** Contact Us *********/
+    .top-bar-block {
+        color: #969696;
+        float: left;
+        margin-right: 10px;
+        padding-right: 10px;
+        i {
+            font-size: 22px;
+            line-height: 35px;
+            float: left;
+        }
+        span {
+            padding-left: 10px;
+            font-size: 11px;
+        }
+        &:last-child {
+            border-right: 0;
+        }
+    }
+
+    /******* Social Icons ********/
+   .social-icons {
+        overflow: hidden;
+        float: right;
+        width: auto;
+        & > ul {
+            background-color: transparent;
+            float: right;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            li {
+                float: right;
+            }
+        }
+        .social-media-icon {
+            background-color: transparent;
+            background-position: 0 -43px;
+            background-repeat: no-repeat;
+            border: none;
+            display: inline-block;
+            float: left;
+            height: 35px;
+            margin: 0;
+            text-indent: -9999px;
+            width: 40px;
+
+            -webkit-border-radius: 1px;
+            -moz-border-radius: 1px;
+            border-radius: 1px;
+    
+            -webkit-transition: all 0.2s ease 0s;
+            -moz-transition: all 0.2s ease 0s;
+            -o-transition: all 0.2s ease 0s;
+            transition: all 0.2s ease 0s;
+
+            &:hover {
+                border: none;
+                background-position: 0 -3px;
+            }
+        }
+    }
+
+    /******** Search Box ********/
+    .searchbox {
+        height: 35px;
+        float: right;
+        -webkit-transition: background-color 200ms;
+        -moz-transition: background-color 200ms;
+        -o-transition: background-color 200ms;
+        transition: background-color 200ms;
+        background-color: #fff;
+        border: 1px solid;
+        border-color: transparent #e8e8e8;
+        padding-top: 4px;
+        &.searchbox-open {
+            border-bottom: 1px solid #eee;
+        }
+        .searchbox-icon {
+            font-size: 16px;
+            color: #bdbdbd;
+            color: rgba(189, 189, 189, 0.48);
+            margin: 2px 0 0 4px;
+            float: left;
+            cursor: pointer;
+            background: none;
+            border: 0;
+            width: 28px;
+            text-align: center;
+            background: no-repeat -55px 0 url("/Images/Public/sprites.png");
+            width: 27px;
+            height: 17px;
+        }
+        .searchbox-inputtext {
+            float: right;
+            margin: 2px 0 0 2px;
+            width: 0px;
+            background: none;
+            border: 0;
+            outline: 0;
+            line-height: 20px;
+            color: #6c6c6c !important;
+            padding: 3px 0px 0 2px !important;
+            box-sizing: border-box;
+            font-family: BNazanin;
+            font-size: 13px;
+            -webkit-transition: width 400ms !important;
+            -moz-transition: width 400ms !important;
+            -o-transition: width 400ms !important;
+            transition: width 400ms !important;
+        }
+        .searchbox-inputtext:focus {
+            background-color: #fff;
+        }
+        .searchbox-submit {
+            display: none;
+        }
+    }
+}

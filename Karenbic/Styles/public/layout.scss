@@ -1,53 +1,13 @@
-﻿html, body {
-    height: 100%;
-	margin: 0;
-	padding: 0;
-}
+﻿@import "../Fonts/Yekan.scss";
+@import "../Fonts/BNazanin.scss";
+@import "../Fonts/BNazanin-Bold.scss";
+@import "../Fonts/IranianSerifWeb.scss";
+@import "../Fonts/NexaBold.scss";
 
-body {
-	background-color: #171516;
-	direction: rtl;
-}
-
-#contents {
-    background-color: #171516;
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto;
-	overflow-x: hidden;
-	position: relative;
-}
-
-#center-content {
-    margin: 0 auto;
-    min-height: 700px;
-    padding: 0;
-    position: relative;
-
-    /* Custom, iPhone Retina */
-	@media only screen and (min-width : 320px) {
-		padding: 60px 0 0 0;
-		width: 100%;
-	}
-	/* Extra Small Devices, Phones */
-	@media only screen and (min-width : 480px) {
-		padding: 60px 0 0 0;
-		width: 100%;
-	}
-	/* Small Devices, Tablets */
-	@media only screen and (min-width : 768px) {
-		padding: 0;
-		width: 100%;
-	}
-	/* Medium Devices, Desktops */
-	@media only screen and (min-width : 992px){
-		padding: 0;
-		width: 948px;
-	}
-	/* Large Devices, Wide Screens */
-	@media only screen and (min-width : 1200px){
-		padding: 0;
-		width: 948px;
-	}
-}
+@import "Layout/layout.scss";
+@import "Layout/top-bar.scss";
+@import "Layout/top-header.scss";
+@import "Layout/top-title.scss";
+@import "Layout/footer.scss";
+@import "social-icons.scss";
+@import "layout-skins/light-blue.css";

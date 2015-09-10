@@ -145,7 +145,11 @@ App
                         sref: "app.design.portfolios"
                     },
                     {
-                        text: "لیست قیمت",
+                        text: "لیست قیمت جدید",
+                        sref: "app.design.public-price-add"
+                    },
+                    {
+                        text: "لیست قیمت ها",
                         sref: "app.design.public-price"
                     },
                     {
@@ -326,7 +330,11 @@ App
                         sref: "app.print.portfolios"
                     },
                     {
-                        text: "لیست قیمت",
+                        text: "لیست قیمت جدید",
+                        sref: "app.print.public-price-add"
+                    },
+                    {
+                        text: "لیست قیمت ها",
                         sref: "app.print.public-price"
                     },
                     {

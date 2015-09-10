@@ -114,6 +114,13 @@ namespace Karenbic
                 "~/Scripts/admin/controllers/print-payment-list.js",
                 "~/Scripts/admin/controllers/print-factor-list.js",
                 "~/Scripts/admin/controllers/public-price.js",
+                "~/Scripts/admin/controllers/public-price-add.js",
+                "~/Scripts/admin/controllers/public-price-edit.js",
+                "~/Scripts/admin/controllers/public-product-categories.js",
+                "~/Scripts/admin/controllers/public-product-add.js",
+                "~/Scripts/admin/controllers/public-product-edit.js",
+                "~/Scripts/admin/controllers/public-products.js",
+                "~/Scripts/admin/controllers/public-home-slide-show.js",
                 "~/Scripts/admin/controllers/public-aboutus.js",
                 "~/Scripts/admin/controllers/public-contactus.js",
                 "~/Scripts/admin/controllers/public-help.js"

@@ -1,0 +1,235 @@
+﻿<style type="text/css">
+    .whirl.shadow::after {
+        z-index: 13;
+    }
+
+    .whirl.shadow::before {
+        z-index: 13;
+    }
+
+    .piccn {
+        background-color: #e6e6e6;
+        border: 2px solid #D6D6D6;
+        display: inline-block;
+        height: 240px;
+        margin: 23px auto 0 auto;
+        position: relative;
+        width: 240px;
+    }
+
+    ul.pictures {
+        margin: 0;
+        padding: 0;
+        text-align: right;
+    }
+
+        ul.pictures li {
+            background-color: #e6e6e6;
+            border: 2px solid #D6D6D6;
+            display: inline-block;
+            height: 240px;
+            list-style: none;
+            margin: 0 3px 5px 3px;
+            padding: 0;
+            width: 240px;
+        }
+
+            ul.pictures li .btn-remove {
+                background-color: transparent;
+                border: 1px solid #F47F7F;
+                cursor: pointer;
+                display: block;
+                height: 21px;
+                left: 5px;
+                padding: 2px;
+                position: absolute;
+                top: 5px;
+                width: 21px;
+                z-index: 2;
+                border-radius: 50%;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                transition: all 500ms ease-out;
+                -moz-transition: all 500ms ease-out;
+                -webkit-transition: all 500ms ease-out;
+                -o-transition: all 500ms ease-out;
+                -ms-transition: all 500ms ease-out;
+            }
+
+                ul.pictures li .btn-remove i {
+                    color: #F47F7F;
+                    display: block;
+                    font-size: 17px;
+                    left: 3px;
+                    position: absolute;
+                    top: 1px;
+                    transition: all 500ms ease-out;
+                    -moz-transition: all 500ms ease-out;
+                    -webkit-transition: all 500ms ease-out;
+                    -o-transition: all 500ms ease-out;
+                    -ms-transition: all 500ms ease-out;
+                }
+
+                ul.pictures li .btn-remove:hover {
+                    transform: scale(1.15);
+                    -webkit-transform: scale(1.1);
+                    -moz-transform: scale(1.1);
+                    -ms-transform: scale(1.1);
+                    -o-transform: scale(1.1);
+                    transition: all 500ms ease-in;
+                    -moz-transition: all 500ms ease-in;
+                    -webkit-transition: all 500ms ease-in;
+                    -o-transition: all 500ms ease-in;
+                    -ms-transition: all 500ms ease-in;
+                }
+
+                    ul.pictures li .btn-remove:hover i {
+                        transform: scale(1.5);
+                        -webkit-transform: scale(1.1);
+                        -moz-transform: scale(1.1);
+                        -o-transform: scale(1.1);
+                        -ms-transform: scale(1.1);
+                        transition: all 500ms ease-in;
+                        -moz-transition: all 500ms ease-in;
+                        -webkit-transition: all 500ms ease-in;
+                        -o-transition: all 500ms ease-in;
+                        -ms-transition: all 500ms ease-in;
+                    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-default"
+                 ng-class="{'whirl': editLoading || fetchLoading, 'shadow': addLoading || editLoading}">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i></i>
+                        ویرایش محصول
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group" style="position:relative;">
+                                    <label class="control-label">گروه:</label>
+                                    <select chosen="categories"
+                                            ng-options="item.Title for item in categories"
+                                            ng-model="product.Category"
+                                            width="100%"></select>
+                                    <div style="background-color:#f6f6f6;height:29px;position:absolute;top:23px;right:0;left:0;opacity:0.4;"
+                                         ng-if="fetchCategoriesLoading">
+                                        <img src="/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">عنوان: </label>
+                                    <input type="text" class="form-control"
+                                           ng-model="product.Title" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">اولویت:</label>
+                                    <br />
+                                    <input type="text"
+                                           style="width:60px;"
+                                           value="0"
+                                           min="0"
+                                           max="3000"
+                                           stepper=""
+                                           ng-model="product.Priority"
+                                           required="" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">قیمت: </label>
+                                    <input type="text" class="form-control ltr"
+                                           ng-model="product.Price" only-digits="" />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label">توضیحات: </label>
+                                    <textarea class="form-control" style="height:146px;resize:none;"
+                                              ng-model="product.Description"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">انتخاب تصویر اصلی:</label>
+                                    <input type="file"
+                                           nicefileinput=""
+                                           ng-file-select="onMainPictureSelect($files)" />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="piccn">
+                                    <img src="{{product.PicturePath}}" imagescale="" ng-if="newMainPicture == null" />
+                                    <img src="{{newMainRenderedPicture}}" imagescale="" ng-if="newMainPicture != null" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Start Line -->
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <hr class="hr1" style="margin:15px 0;" />
+                            </div>
+                        </div>
+                        <!-- End Line -->
+
+                        <!-- Start Pictures Of Picture Gallery -->
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <h4 style="font-family:yekan;font-size:20px;margin-top:0;">تصاویر</h4>
+                                <ul class="pictures">
+                                    <li ng-repeat="picture in product.Pictures">
+                                        <img src="{{picture.PicturePath}}" imagescale="" />
+                                        <div class="btn-remove" ng-click="removeOldPicture($index)">
+                                            <i class="fa fa-times"></i>
+                                        </div>
+                                    </li>
+
+                                    <li ng-repeat="picture in newPictures">
+                                        <img src="{{picture.renderedFile}}" imagescale="" />
+                                        <div class="btn-remove" ng-click="removeNewPicture($index)">
+                                            <i class="fa fa-times"></i>
+                                        </div>
+                                    </li>
+
+                                    <li style="background: #e6e6e6 url(/Images/UI/Image/0.png) no-repeat center center;">
+                                        <input style="display:block;cursor:pointer;position:absolute;top:0;bottom:0;opacity:0;"
+                                               type="file" ng-file-select="addNewPicture($files)" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Pictures Of Picture Gallery -->
+
+                        <div class="form-group"
+                             style="margin-bottom:1px;">
+                            <div class="clearfix">
+                                <div class="pull-left">
+                                    <button class="btn btn-labeled btn-warning" type="button"
+                                            ng-click="edit()"
+                                            ng-class="{'disabled': addFormIsValide() == false}"
+                                            ng-disabled="addFormIsValide() == false">
+                                        <span class="btn-label btn-label-right">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        ویرایش
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

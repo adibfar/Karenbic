@@ -1,44 +1,165 @@
-﻿@model Karenbic.DomainClasses.Setting
-
-@{
-    ViewBag.PageTitle = "درباره ما";
+﻿@{
+    ViewBag.PageTitle = "درباره با ما";
 }
 
 @section HeaderSection {
-    <style type="text/css">
-        /* Custom, iPhone Retina */
-        @@media only screen and (min-width : 320px) {
-            .page-content {
-                margin:0 22px;
-            }
-        }
-        /* Extra Small Devices, Phones */
-        @@media only screen and (min-width : 480px) {
-            .page-content {
-                margin:0 22px;
-            }
-        }
-        /* Small Devices, Tablets */
-        @@media only screen and (min-width : 768px) {
-            .page-content {
-                margin:0 88px;
-            }
-        }
-        /* Medium Devices, Desktops */
-        @@media only screen and (min-width : 992px) {
-            .page-content {
-                margin:0 88px;
-            }
-        }
-        /* Large Devices, Wide Screens */
-        @@media only screen and (min-width : 1200px) {
-            .page-content {
-                margin:0 88px;
-            }
-        }
-    </style>
+    <link type="text/css" rel="stylesheet" href="/Styles/Public/About.css" />
+    <script type="text/javascript" language="javascript" src="/Vendors/jquery.cycle/jquery.cycle.js"></script>
 }
 
-<div class="page-content">
-    @Html.Raw(Model.AboutUsText)
+@section TitleBar {
+    <div class="top-title-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="page-info">
+                        <h1 class="page-title">درباره ما</h1>
+                        <h2 class="page-desc">بهروری بیشتر، با استراتژی های خلاقانه</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="body-wrapper">
+    <div class="container">
+        <!-- Start Title -->
+        <div class="row section-title">
+            <div class="col-md-12 col-sm-12 animated" data-animtype="fadeInUp"
+                 data-animrepeat="0"
+                 data-speed="1s"
+                 data-delay="0.4s">
+                <h2 class="text-section-title">درباره ما</h2>
+                <div class="line-section-title">
+                    <i class="icon-feather"></i>
+                </div>
+            </div>
+        </div>
+        <!-- End Title -->
+
+        <div class="space-sep20"></div>
+
+        <div class="row section-about-us">
+            <div class="col-md-6 col-sm-6">
+                <div class="clearfix">
+                    <h3 class="title">چرا استودیو پارسیا؟!</h3>
+                    <div class="title-seperator"></div>
+                </div>
+                <div class="description">
+                    سازمان‌ها و شرکت‌ها در راستای تحقق اهداف و چشم‌انداز خود فعالیت‌های مختلف و پیچیده‌ای را انجام می‌دهند. اما سازمان‌های برتر و پیشرو فعالیت‌ها و فرایندهای کسب وکاری خود را هوشمندانه، به موقع، یکپارچه‌، باکیفیت و با صرف منابع و هزینه‌ی‌ موثر انجام می‌دهند. اجرای فعالیت‌ها به‌شیوه‌ای متفاوت، در‌واقع رمز برتری این شرکت‌ها یا سازمان‌ها در بازارهای به‌ شدت رقابتی امروزی است.
+                    <br />
+                    بازاریابی و تبلیغات شامل مجموعه‌ای از فعالیت‌ها و تلاش‌ها است که نقش کلیدی و موثری در رشد و توسعه‌ی سازمان‌ها و شرکت‌ها ایفا می‌کند.
+                    <br />
+                    استودیو پارسیا خود را یک شرکت تبلیغاتی یا هنری نمی‌داند. ماموریت اصلی و بنیادی ما ارائه‌ی راه‌حل‌های یک‌پارچه، مقرون به‌صرفه و بسیار موثر برای تحقق اهداف مشتریان در زمینه‌ ی برندینگ، بازاریابی داخلی و توسعه بازار است. واحدهای تحقیقاتی، هنری و اجرایی شرکت عواملی هستند که به‌طور هوشمندانه راه‌حل‌های ارتباطی و تبلیغاتی توسعه یافته برای هر مشتری را به واقعیت تبدیل می‌کنند.
+                    استودیو پارسیا مجموعه‌ای است که قادر است زنجیره کاملی از خدمات مدیریت بازاریابی را به شرکت‌ها و سازمان‌ها ارائه دهد.
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <div class="cycle-slideshow frame1"
+                     data-cycle-slides="> .slider-img"
+                     data-cycle-prev=".cycle-prev"
+                     data-cycle-next=".cycle-next"
+                     data-cycle-overlay-fx-out="slideUp"
+                     data-cycle-overlay-fx-in="slideDown"
+                     data-cycle-speed="500">
+                    <div class="fa fa-chevron-right cycle-next"></div>
+                    <div class="fa fa-chevron-left cycle-prev"></div>
+                    <div class="cycle-pager"></div>
+                    <!-- slider item -->
+                    <div class="slider-img">
+                        <img src="~/Images/Public/AboutUsSlider/1.gif" />
+                    </div>
+                    <!-- //slider item// -->
+                    <!-- slider item -->
+                    <div class="slider-img">
+                        <img src="~/Images/Public/AboutUsSlider/2.gif" />
+                    </div>
+                    <!-- //slider item// -->
+                </div>
+
+            </div>
+        </div>
+
+        <div class="space-sep40"></div>
+
+        <div class="row">
+            <!-- Start Business Solution -->
+            <div class="col-md-6 col-sm-6 section-business-solution">
+                <div class="clearfix">
+                    <h3 class="title">استراتژی های ما در فناوری اطلاعات</h3>
+                    <div class="title-seperator"></div>
+                </div>
+                <div class="description">
+                    استودیو پارسیا (شرکت هوش سازان پارسیا) از سال 1385 فعالیت خــــود را آغاز نمـــوده و "ارائه راهکارهای دیجیتالی جهت توسعه کسب و کارها" را محور اصلی فعالیت خود قرار داد.
+                    <br />
+                    از این رو واحد انفورماتیک این مجموعه تمام توان خود را بر استفاده از ابزارها و متدهای به روز فناوری اطلاعات به عنوان بستر رشد سازمان و کسب و کارهای کوچک و متوسط قرار داد و با بهره گیری از نیروهای متخصص و مجرب اقدام به ارائه خدماتی کاملا حرفه ای و تخصصی از قبیل موارد زیر در این حوزه  به مشتریان  نمود.
+                    <br />
+                    - طراحی پورتال ها و نرم افزارهای تحت وب
+                    <br />
+                    - طراحی وبسایت های شرکتی ، فروشگاهی و شخصی
+                    <br />
+                    - طراحی نرم افزارهای موبایل
+                    <br />
+                    - خدمات تبلیغات اینترنتی
+                    <br />
+                    و نیز بازاریابی اینترنتی
+                    </h3>
+                </div>
+            </div>
+            <!-- Start Business Solution -->
+
+            <!-- Start Our Skills -->
+            <div class="col-md-6 col-sm-6 section-our-skills">
+                <div class="title-block clearfix">
+                    <h3 class="title">مهارت های ما</h3>
+                    <div class="title-seperator"></div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar animated" role="progressbar" aria-valuenow="95%"
+                         aria-valuemin="0" aria-valuemax="100"
+                         data-animtype="animate-progress"
+                         data-animrepeat="0">
+                        <span class="sr-only">Graphic Design</span>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar animated" role="progressbar" aria-valuenow="85%"
+                         aria-valuemin="0" aria-valuemax="100"
+                         data-animtype="animate-progress"
+                         data-animrepeat="0">
+                        <span class="sr-only">Photography</span>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar animated" role="progressbar" aria-valuenow="90%"
+                         aria-valuemin="0" aria-valuemax="100"
+                         data-animtype="animate-progress"
+                         data-animrepeat="0">
+                        <span class="sr-only">Illustration</span>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar animated" role="progressbar" aria-valuenow="95%"
+                         aria-valuemin="0" aria-valuemax="100"
+                         data-animtype="animate-progress"
+                         data-animrepeat="0">
+                        <span class="sr-only">Web Development</span>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar animated" role="progressbar" aria-valuenow="80%"
+                         aria-valuemin="0" aria-valuemax="100"
+                         data-animtype="animate-progress"
+                         data-animrepeat="0">
+                        <span class="sr-only">Mobile Development</span>
+                    </div>
+                </div>
+            </div>
+            <!-- End Our Skills -->
+        </div>
+
+        <div class="space-sep40"></div>
+    </div>
 </div>

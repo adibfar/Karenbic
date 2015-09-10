@@ -1,0 +1,76 @@
+﻿/****************************
+******* Social Icons ********
+****************************/
+$socials : ('aim', 'social-media-aim.png', '#e95a00', '#b64600'),
+           ('behance', 'social-media-behance.png', '#18a3fe', '#0189e2'),
+           ('blogger', 'social-media-blogger.png', '#fb913f', '#fa740d'),
+           ('devianart', 'social-media-devianart.png', '#d0de21', '#a6b21a'),
+           ('digg', 'social-media-digg.png', '#2882c6', '#1f669c'),
+           ('ember', 'social-media-ember.png', '#fb9d00', '#c87d00'),
+           ('evernote', 'social-media-evernote.png', '#87c441', '#6da032'),
+           ('flickr', 'social-media-flickr.png', '#ff0084', '#cc006a'),
+           ('forrst', 'social-media-forrst.png', '#5b9a68', '#487a52'),
+           ('googleplus', 'social-media-googleplus.png', '#d94a39', '#bb3424'),
+           ('instagram', 'social-media-instagram.png', '#4e433c', '#312a26'),
+           ('lastfm', 'social-media-lastfm.png', '#d21309', '#a10f07'),
+           ('linkedin', 'social-media-linkedin.png', '#71b2d0', '#4b9dc3'),
+           ('paypal', 'social-media-paypal.png', '#32689a', '#264e73'),
+           ('reddit', 'social-media-reddit.png', '#cde2f9', '#9fc8f4'),
+           ('sharethis', 'social-media-sharethis.png', '#44832e', '#305d21'),
+           ('wordpress', 'social-media-wordpress.png', '#464646', '#2d2d2d'),
+           ('yahoo', 'social-media-yahoo.png', '#ab64bc', '#9348a5'),
+           ('twitter', 'social-media-twitter.png', '#00a0d1', '#00799e'),
+           ('facebook', 'social-media-facebook.png', '#3b5998', '#2d4373'),
+           ('youtube', 'social-media-youtube.png', '#c4302b', '#9a2622'),
+           ('rss', 'social-media-rss.png', '#fa9b39', '#f98207'),
+           ('vimeo', 'social-media-vimeo.png', '#44bbff', '#11a8ff'),
+           ('skype', 'social-media-skype.png', '#18b7f1', '#0c97ca'),
+           ('mail', 'social-media-media.png', '#666666', '#4d4d4d'),
+           ('apple', 'social-media-apple.png', '#666666', '#4d4d4d'),
+           ('pininterest', 'social-media-pininterest.png', '#910101', '#5e0101'),
+           ('tumblr', 'social-media-tumblr.png', '#34526f', '#24384c'),
+           ('soundcloud', 'social-media-soundcloud.png', '#db5708', '#aa4306'),
+           ('dropbox', 'social-media-dropbox.png', '#2d76be', '#235c95');
+
+.social-icons {
+    @media (max-width: 767px) {
+
+    }
+
+    @each $social, $img, $bg-color, $border-color in $socials {
+        .#{$social}-icon {
+            background-image: url('/Images/Public/social-media/#{$img}');
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            border: 1px solid #e8e8e8;
+            &:hover {
+                background-color: #{$bg-color};
+                border: 1px solid #{$border-color};
+            }
+        }
+    }
+}
+
+.social-media-icon {
+    width: 40px;
+    height: 40px;
+    text-indent: -9999px;
+    background-color: #fafafa;
+    border: 1px solid #f3f3f3;
+    display: inline-block;
+    margin: 0 0 5px 5px;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    float: left;
+    background-repeat: no-repeat;
+    background-position: 0 -40px;
+    -webkit-transition: all 0.2s ease 0s;
+    -moz-transition: all 0.2s ease 0s;
+    -o-transition: all 0.2s ease 0s;
+    transition: all 0.2s ease 0s;
+    &:hover {
+        background-position: 0 0;
+    }
+}

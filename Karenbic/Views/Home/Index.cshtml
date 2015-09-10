@@ -1,17 +1,659 @@
 ﻿@{
-    ViewBag.PageTitle = "Home";
+    ViewBag.PageTitle = null;
 }
 
 @section HeaderSection {
-    <style type="text/css">
-        #navbar-mobile #navbar-mobile-inner {
-            display: block;
-        }
-        #navbar-mobile #navbar-mobile-arrow {
-            display: none;
-        }
-    </style>
+    <script src="/Vendors/themepunch/jquery.themepunch.plugins.min.js" type="text/javascript"></script>
+    <script src="/Vendors/themepunch/jquery.themepunch.revolution.js" type="text/javascript"></script>
+    <link type="text/css" rel="stylesheet" href="/Vendors/themepunch/revolution_settings.css" />
+    <script src="/Vendors/jquery.isotope/jquery.isotope.js" type="text/javascript"></script>
+    <link type="text/css" rel="stylesheet" href="/Styles/Public/Home.css" />
+    <script>
+        $(document).ready(function () {
+            /* Revolution Slider */
+            //show until every thing loaded
+            $('.rev-slider-full').css('visibility', 'visible');
+
+            /* Full */
+            $('.rev-slider-banner-full').revolution({
+                delay: 5000,
+                startwidth: 1170,
+                startheight: 500,
+                onHoverStop: "off",
+                thumbWidth: 100,
+                thumbHeight: 50,
+                thumbAmount: 3,
+                hideThumbs: 0,
+                navigationType: "none",
+                navigationArrows: "solo",
+                navigationStyle: "bullets",
+                navigationHAlign: "center",
+                navigationVAlign: "bottom",
+                navigationHOffset: 30,
+                navigationVOffset: 30,
+                soloArrowLeftHalign: "left",
+                soloArrowLeftValign: "center",
+                soloArrowLeftHOffset: 20,
+                soloArrowLeftVOffset: 0,
+                soloArrowRightHalign: "right",
+                soloArrowRightValign: "center",
+                soloArrowRightHOffset: 20,
+                soloArrowRightVOffset: 0,
+                touchenabled: "on",
+                stopAtSlide: -1,
+                stopAfterLoops: -1,
+                hideCaptionAtLimit: 0,
+                hideAllCaptionAtLilmit: 0,
+                hideSliderAtLimit: 0,
+                fullWidth: "on",
+                fullScreen: "off",
+                //fullScreenOffsetContainer: "#topheader-to-offset",
+                shadow: 0
+
+            });
+
+            if ($("html").hasClass("lt-ie9")) {
+                setInterval(function () {
+                    $('#masonry-elements,.portfolio-items').isotope('reLayout');
+                }, 1000);
+            }
+
+            var $cont = $('.portfolio-items');
+
+            // IE 8
+            if ($("html").hasClass("lt-ie9")) {
+                $cont.isotope({
+                    itemSelector: '.portfolio-items .thumb-label-item',
+                    masonry: { columnWidth: $('.isotope-item:first').width(), gutterWidth: 6 },
+                    filter: '*',
+                    transformsEnabled: false,
+                    layoutMode: 'masonry',
+                    animationEngine: 'css'
+                });
+            }
+            else {
+                $cont.isotope({
+                    itemSelector: '.portfolio-items .thumb-label-item',
+                    masonry: { columnWidth: $('.isotope-item:first').width(), gutterWidth: 6 },
+                    filter: '*',
+                    transformsEnabled: false,
+                    layoutMode: 'masonry',
+                    //  animationEngine: 'css'
+                });
+            }
+
+            $(window).load(function () {
+                $('#masonry-elements,.portfolio-items').isotope('reLayout');
+            });
+
+            $(window).resize(function () {
+                $('.portfolio-items').isotope('reLayout');
+                setTimeout(function () {
+                    $('.portfolio-items').isotope('reLayout');
+                }, 500);
+            });
+        });
+    </script>
 }
 
-<img class="hidden-xs" src="~/Images/Public/public0001.jpg" 
-     style="display:block;margin:-30px auto 0 auto;width:687px;height:auto;" />
+<!-- Start Slideshow -->
+<div class="rev-slider-full" style="direction:ltr;text-align:left;">
+    <div class="rev-slider-banner-full  rev-slider-full">
+        <ul>
+            @if (ViewBag.Slides != null && ViewBag.Slides.Count > 0) 
+            { 
+                foreach (Karenbic.DomainClasses.HomeSlideShow slide in ViewBag.Slides)
+                {
+                    <li data-transition="fade" data-slotamount="7" data-masterspeed="300">
+                        <img src="@slide.PicturePath" alt="rev-full1" data-fullwidthcentering="on">
+                    </li>
+                }
+            }
+        </ul>
+        <div class="tp-bannertimer tp-bottom"></div>
+    </div>
+</div>
+<!-- End Slideshow -->
+
+<!-- Start Solang -->
+<div class="section-content top-body section-slogan">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+                <div data-animdelay="0.2s"
+                     data-animspeed="1s"
+                     data-animrepeat="0"
+                     data-animtype="fadeIn"
+                     class="content-box content-style4 medium animated fadeIn animatedVisi"
+                     style="animation-delay: 0.2s; animation-duration: 1s;">
+                    <h4 class="h4-body-title title-section-slogan">
+                        <i class="icon-settings-streamline"></i>
+                        تخصص
+                    </h4>
+                    <div class="content-box-text">
+                        حرفه ای ها در کنار شما هستند.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <div data-animdelay="0.2s"
+                     data-animspeed="1s"
+                     data-animrepeat="0"
+                     data-animtype="fadeIn"
+                     class="content-box content-style4 medium animated fadeIn animatedVisi"
+                     style="animation-delay: 0.2s; animation-duration: 1s;">
+                    <h4 class="h4-body-title title-section-slogan">
+                        <i class="icon-camera-streamline-video"></i>
+                        خلاقیت
+                    </h4>
+                    <div class="content-box-text">
+                        تفاوت یعنی توجه
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <div data-animdelay="0.2s"
+                     data-animspeed="1s"
+                     data-animrepeat="0"
+                     data-animtype="fadeIn"
+                     class="content-box content-style4 medium animated fadeIn animatedVisi"
+                     style="animation-delay: 0.2s; animation-duration: 1s;">
+                    <h4 class="h4-body-title title-section-slogan">
+                        <i class="icon-computer-imac"></i>
+                        کیفیت
+                    </h4>
+                    <div class="content-box-text">
+                        ببینید و انتخاب کنید
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <div data-animdelay="0.2s"
+                     data-animspeed="1s"
+                     data-animrepeat="0"
+                     data-animtype="fadeIn"
+                     class="content-box content-style4 medium animated fadeIn animatedVisi"
+                     style="animation-delay: 0.2s; animation-duration: 1s;">
+                    <h4 class="h4-body-title title-section-slogan">
+                        <i class="icon-paint-bucket-streamline"></i>
+                        ضمانت
+                    </h4>
+                    <div class="content-box-text">
+                        همراه شوید و قضاوت کنید
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Solang -->
+
+<!-- Start Slide#1 -->
+<div class="section-content no-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 animated" data-animtype="fadeInLeft"
+                 data-animrepeat="0"
+                 data-speed="1s"
+                 data-delay="0.4s">
+                <h2 class="h2-section-title" style="color:#5c3d66;font-size:30px;text-align:justify;">کــارن</h2>
+                <h3 class="h3-section-info" style="color:#333333;font-size:14px;text-align:justify;margin-bottom:50px;">
+                    <span style="color:#e4517e;font-size:18px;">نخستین استودیو تخصصی طراحی و چاپ آنلاین</span>
+                    <br />
+                    آژانس تبلیغاتی کارن با کادری کاملا حرفه ای در زمینه های طراحی گرافیک، عکاسی صنعتی و تبلیغاتی ، ساخت تیزر های تبلیغاتی، چند رسانه ای و کلیه خدمات چاپ، در آستانه یک دهه فعالیت درخشان خود اقدام به
+                    ارائه کلیه خدمات در حوزه تبلیغات از جمله مشاوره، طراحی و چاپ بصورت آنلاین،
+                    به شیوه کاملا مکانیزه و امن و در عین حال کاربر پسند نموده است. که در ادامه بصورت اجمالی به معرفی آن خواهیم پرداخت.
+                </h3>
+            </div>
+
+
+            <div class="col-md-6 col-sm-6 animated" data-animtype="fadeInRight"
+                 data-animrepeat="0"
+                 data-speed="1s"
+                 data-delay="0.4s">
+                <div class="right-image-container center-text">
+                    <img src="/Images/Public/HomeSlider_2/logo.gif" style="margin-top:40px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Slide#1 -->
+
+<!-- Start Slide#2 -->
+<div class="section-content no-padding section-color-gray">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 col-sm-6 animated" data-animtype="fadeInLeft"
+                 data-animrepeat="0"
+                 data-speed="1s"
+                 data-delay="0.4s">
+                <div class="left-image-container center-text">
+                    <img src="/Images/Public/HomeSlider_2/logo_2.png" style="margin-top:10px;" />
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 animated" data-animtype="fadeInRight"
+                 data-animrepeat="0"
+                 data-speed="1s"
+                 data-delay="0.4s">
+                <h2 class="h2-section-title" style="font-size:30px;text-align:justify;color:#6c277c;">آتلیه طراحی و عکاسی صنعتی</h2>
+                <h3 class="h3-section-info" style="font-size:14px;text-align:justify;margin-bottom:50px;">
+                    استودیو کارن با رویکردی خلاقانه، اقدام ارائه کلیه خدمات طراحی گرافیک ( از جمله طراحی لوگو، شخصیت ، پوستر، اوراق اداری، کاتالوگ، بورشور، طراحی بسته بندی  و ...) و عکاسی صنعتی و تبلیغاتی بصورت آنلاین به همکاران و فعالان حوزه تبلیغات نموده است. حتما تا به حال با مشکل پیدا کردن یک گرافیست که تمام نیاز های شما را با دستمزد معقول بر طرف کند مواجه شده اید، مجموعه کارن برای رفع این مشکل که دامن گیر اکثر همکاران محترم بوده راه حلی جامع تدوین نموده است.
+                    <br />
+                    آتلیه آنلاین کارن به شما این امکان را می دهد که تمامی سفارشات طراحی خود را بدون واهمه از کیفیت خروجی نهایی و همچنین سوء استفاده از اطلاعات مشتریانتان در این سیستم ثبت نمایید و تیم طراحان کارن در محیطی تخصصی سفارشات شما را متناسب با نیازهایتان طراحی و در زمان مقرر با هزینه ای منطقی به شما ارائه خواهد داد.
+                    <br />
+                    نکته بارز این روش ارائه دو طرح اولیه برای هر سفارش و امکان اصلاح طرح ها بصورت آنلاین می باشد.
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Slide#2 -->
+
+<!-- Start Slide#3 -->
+<div class="section-content no-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 animated" data-animtype="fadeInLeft"
+                 data-animrepeat="0"
+                 data-speed="1s"
+                 data-delay="0.4s">
+                <h2 class="h2-section-title" style="color:#5c3d66;font-size:30px;text-align:justify;">واحد خدمات چاپ</h2>
+                <h3 class="h3-section-info" style="color:#333333;font-size:14px;text-align:justify;margin-bottom:50px;">
+                    در این واحد تمام تلاش بر آن است که برترین کیفیت و خدمات در کمترین زمان و هزینه ارائه گردد.
+                    <br />
+                    در همین راستا مجموعه کارن مفتخر است با تکیه بر خلاقیت و تخصص علاوه بر ارائه محصولات استاندارد، محصولاتی خلاق، متفاوت و با کیفیتی بالا، همچنین هزینه ای مناسب به عنوان یک مزیت رقابتی به شما ارائه نماید.
+                    <br />
+                    برآنیم تا محصولات خود را در بسته بندی هایی درخور و ضمانتی 100% واقعی به شما عزیزان ارائه دهیم.
+
+                </h3>
+            </div>
+
+
+            <div class="col-md-6 col-sm-6 animated" data-animtype="fadeInRight"
+                 data-animrepeat="0"
+                 data-speed="1s"
+                 data-delay="0.4s">
+                <div class="right-image-container center-text">
+                    <img src="/Images/Public/HomeSlider_2/logo.gif" style="margin-top:40px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Slide#3 -->
+
+<div class="body-wrapper">
+    <!-- Start Services -->
+    <div class="container section-serives">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 animated" data-animtype="fadeInUp"
+                 data-animrepeat="0"
+                 data-speed="1s"
+                 data-delay="0.4s">
+                <h2 class="title-section-serives">
+                    برخی از خدمات
+                </h2>
+                <div class="line-section-serives">
+                    <i class="icon-drive"></i>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 left-text">
+                <ul>
+                    <li>
+                        <div class="content-box  style5  animated"
+                             data-animtype="fadeIn"
+                             data-animrepeat="0"
+                             data-animspeed="1s"
+                             data-animdelay="0.2s">
+                            <h4 class="content-box-title">
+                                طراحی گرافیک
+                                <i class="icon-eye"></i>
+                            </h4>
+                            <div class="content-box-text">
+                                واحد گرافیک استودیو کارن با درک اهمیت فوق العاده ارتباط تصویری در بازاریابی و تبلیغات، اقدام به ایجاد آتلیه ای تخصصی در زمینه طراحی گرافیک نموده است. در این آتلیه گروهی از با تجربه ترین طراحان گرافیک با  ایده های خلاق و توانمندی های هنری و فنی بارز، نقش موثری را در تثبیت هویت بصری برند های مشتریان داشته اند.
+                                &shy;
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="content-box  style5  animated "
+                             data-animtype="fadeIn"
+                             data-animrepeat="0"
+                             data-animspeed="1s"
+                             data-animdelay="0.2s">
+                            <h4 class="content-box-title">
+                                برند سازی
+                                <i class="icon-world"></i>
+                            </h4>
+                            <div class="content-box-text">
+                                برندسازی مجموعه‌ای از راهکارهاست که به نام تجاری شما هویت مشخصی داده و جایگاه آن را در بازار نسبت به رقبا مشخص و متمایز می‌کند.
+                                <br />
+                                کارن از ابتدا تا به هدف رساندن یک برند تجاری  همراه شما خواهد بود. تیم متخصص کارن با ارائه تحلیل ها و مشاوره های برنامه ریزی شده ی تبلیغاتی و نیز ارائه راهکار های هوشمندانه ،فرایند مناسبی را جهت بهینه سازی و بهره وری کسب و کار به شما ارائه خواهد داد.
+                                &shy;
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="content-box  style5  animated "
+                             data-animtype="fadeIn"
+                             data-animrepeat="0"
+                             data-animspeed="1s"
+                             data-animdelay="0.2s">
+                            <h4 class="content-box-title">
+                                ساخت تیزر تبلیغاتی
+                                <i class="icon-ipad"></i>
+                            </h4>
+                            <div class="content-box-text">
+                                استودیو کارن به پشتوانه کادر هنری خود و با کمک امکانات و تجهیزات فنی پیشرفته، امکان ارائه انواع محصولات تصویری با بهره گیری از تکنیک های برتر ویدیویی ( از جمه ویدیو اکشن، موشن گرافیک، استاپ موشن) با کیفیتی مناسب و قابل رقابت را دارد.
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="content-box  style5  animated "
+                             data-animtype="fadeIn"
+                             data-animrepeat="0"
+                             data-animspeed="1s"
+                             data-animdelay="0.2s">
+                            <h4 class="content-box-title">
+                                مشاوره تبلیغات
+                                <i class="icon-cloud"></i>
+                            </h4>
+                            <div class="content-box-text">
+                                استودیو کارن با ارائه مشاوره های آنلاین و حضوری، شما را در مدیریت سرمایه و انتخاب بهترین روش های مدیریت برند و تبلیغات یاری خواهد داد.
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-sm-6 right-text">
+                <ul>
+                    <li>
+                        <div class="content-box  style5  animated "
+                             data-animtype="fadeIn"
+                             data-animrepeat="0"
+                             data-animspeed="1s"
+                             data-animdelay="0.2s">
+                            <h4 class="content-box-title">
+                                عکاسی صنعتی و تبلیغاتی
+                                <i class="icon-ipad"></i>
+                            </h4>
+                            <div class="content-box-text">
+                                عکاسی یکی از تاثیر گذار ترین عوامل در ایجاد جذابیت و یکی از عناصر بصری کلیدی برای تولید محتوای تبلیغاتی اثر بخش است. آتلیه عکاسی کارن با بهره گیری از نیروی حرفه ای و با تجربه و همچنین پیشرفته ترین تجهیزات عکاسی،  جذاب ترین و با کیفیت ترین آثار را ارائه می دهد.
+                                &shy;
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="content-box  style5  animated "
+                             data-animtype="fadeIn"
+                             data-animrepeat="0"
+                             data-animspeed="1s"
+                             data-animdelay="0.2s">
+                            <h4 class="content-box-title">
+                                تصویر سازی
+                                <i class="icon-settings"></i>
+                            </h4>
+                            <div class="content-box-text">
+                                فرایند تصویر سازی به نوعی اثری خلاقانه‌ و تصویری است که القاکننده‌ی تجسمی یک مفهوم یا روایت با فرم بصری است.
+                                <br />
+                                طراحی شخصیت و ایجاد هویت بصری یکی از تخصص های بارز طراحان کارن است . شخصیت ها یا اصطلاحا کارکتر های با دارا بودن فرم های انسانگونه و بعضا جان بخشی به اشیا، نقش بسیار موثری در ثبت یک برند تجاری در ذهن مخاطب خواهند داشت .
+                                &shy;
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="content-box  style5  animated "
+                             data-animtype="fadeIn"
+                             data-animrepeat="0"
+                             data-animspeed="1s"
+                             data-animdelay="0.2s">
+                            <h4 class="content-box-title">
+                                چند رسانه ای
+                                <i class="icon-painting-roll-streamline"></i>
+                            </h4>
+                            <div class="content-box-text">
+                                آتلیه موشن گرافیک کارن در زمینه ساخت سی دی های چند رسانه ای و تولیدات آموزشی، اطلاع رسانی و تبلیغاتی به روش اینتر اکتیو گامی موثر در تکمیل  فرایند یک کانون حرفه ای تبلیغاتی برداشته است.
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="content-box  style5  animated "
+                             data-animtype="fadeIn"
+                             data-animrepeat="0"
+                             data-animspeed="1s"
+                             data-animdelay="0.2s">
+                            <h4 class="content-box-title">
+                                محصولات
+                                <i class="icon-file-settings"></i>
+                            </h4>
+                            <div class="content-box-text">
+                                در نهایت استودیو کارن با ارئه محصولاتی متفاوت و با کیفیت شما را هر لحظه همراه خود خواهد داشت.
+                                <br />
+                                ما را تجربه کنید.
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!-- End Services -->
+
+    <div class="space-sep40"></div>
+
+    <!-- Start Strategy -->
+    <div class="section-content top-body section-strategy">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 animated" data-animtype="fadeInUp"
+                     data-animrepeat="0"
+                     data-speed="1s"
+                     data-delay="0.4s">
+                    <h2 class="title-section-strategy">
+                        استراتژی ما در طراحی سایت
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div data-animdelay="0.2s"
+                         data-animspeed="1s"
+                         data-animrepeat="0"
+                         data-animtype="fadeIn"
+                         class="content-box style5 small  animated fadeIn animatedVisi"
+                         style="animation-delay: 0.2s; animation-duration: 1s;">
+                        <h4 class="h4-body-title">
+                            <i class="icon-phone-3"></i>
+                            طراحی واکنش گرا
+                        </h4>
+                        <div>
+                            امروزه کاربران از بیشمار نمایشگر در ابعاد بزرگ و کوچک برای دستیابی به صفحات اینترنت استفاده میکنند. طراحی وب سایت واکنش گرا رویکرد مناسبی است که طراحان وب را قادر می سازد تا با پیاده سازی وب سایت انعطاف پذیر، نسبت به تغییر دستگاه کاربران واکنش دهد.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div data-animdelay="0.2s" data-animspeed="1s" data-animrepeat="0" data-animtype="fadeIn" class="content-box style5 small  animated fadeIn animatedVisi" style="animation-delay: 0.2s; animation-duration: 1s;">
+                        <h4 class="h4-body-title">
+                            <i class="icon-lock"></i>
+                            فرایند پیاده سازی امن
+                        </h4>
+                        <div>
+                            ما از یک فرایند تست شده برای ایجاد وب سایت های حرفه ای، مدرن، دارای امنیت بالا و قابل اعتماد برای مشتریان مان پیروی می کنیم.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div data-animdelay="0.2s" data-animspeed="1s" data-animrepeat="0" data-animtype="fadeIn" class="content-box style5 small  animated fadeIn animatedVisi" style="animation-delay: 0.2s; animation-duration: 1s;">
+                        <h4 class="h4-body-title">
+                            <i class="icon-computer-network-streamline"></i>
+                            خدمات و پشتیبانی مستمر
+                        </h4>
+                        <div>
+                            استودیو پارسیا بر اهمیت زمان در پروژه های شما واقف است و با تیم متخصص و دائمی خود همواره سعی در ارایه خدمات در کوتاه ترین زمان ممکن به کاربران خود می باشد.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div data-animdelay="0.2s" data-animspeed="1s" data-animrepeat="0" data-animtype="fadeIn" class="content-box style5 small  animated fadeIn animatedVisi" style="animation-delay: 0.2s; animation-duration: 1s;">
+                        <h4 class="h4-body-title">
+                            <i class="icon-search"></i>
+                            بهینه سازی سایت (SEO)
+                        </h4>
+                        <div>
+                            علم بهینه سازی عناصر سایت برای کسب بهترین رتبه ممکن در موتور جستجوگر است. اگر سایتی نتواند در رتبه های بالای موتورهای جستجو قرار بگیرد، مشتریان بسیاری را از دست خواهد داد؛ به همین دلیل معتقدیم: بهینه سازی سایت بهترین تبلیغ برای یک وب سایت می باشد.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Strategy -->
+
+    <div class="space-sep40"></div>
+
+    <!-- Start Graphic Projects -->
+    @*@if (ViewBag.GraphicProjects != null)
+    {
+        List<HSPC.DomainClasses.GraphicProject> list = (List<HSPC.DomainClasses.GraphicProject>)ViewBag.GraphicProjects;
+        if (list.Count > 0)
+        {
+            <div class="container section-products">
+                <div class="row">
+                    <div data-delay="0.4s"
+                         data-speed="1s"
+                         data-animrepeat="0"
+                         data-animtype="fadeInUp"
+                         class="col-md-12 col-sm-12 animated fadeInUp animatedVisi">
+                        <h2 class="title-section-products">پروژه های طراحی گرافیک</h2>
+                        <div class="line-section-products">
+                            <i class="icon-file"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-sep20"></div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="portfolio-items">
+
+                            @foreach (HSPC.DomainClasses.GraphicProject item in list)
+                            {
+                                <div class="thumb-label-item animated branding"
+                                     data-animtype="fadeInUp"
+                                     data-animrepeat="0"
+                                     data-speed="1s"
+                                     data-delay="0.6s">
+                                    <div class="img-overlay thumb-label-item-img">
+                                        <img src="@item.PicturePath" />
+
+                                        <div class="item-img-overlay">
+                                            <a class="portfolio-zoom fa fa-plus"
+                                               href="@Url.Action("Detail", "GraphicUnit", new { id = item.Id })"></a>
+
+                                            <div class="item_img_overlay_content">
+                                                <h3 class="thumb-label-item-title" style="font-family:yekan;font-size:17px;">
+                                                    <a href="">@item.Title</a>
+                                                </h3>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }*@
+    <!-- End Graphic Projects -->
+
+    <div class="space-sep40"></div>
+
+    <!-- Start Products -->
+    @*@if (ViewBag.Products != null)
+    {
+        List<HSPC.DomainClasses.Product> list = (List<HSPC.DomainClasses.Product>)ViewBag.Products;
+        if (list.Count > 0)
+        {
+            <div class="container section-products">
+                <div class="row">
+                    <div data-delay="0.4s"
+                         data-speed="1s"
+                         data-animrepeat="0"
+                         data-animtype="fadeInUp"
+                         class="col-md-12 col-sm-12 animated fadeInUp animatedVisi">
+                        <h2 class="title-section-products">محصولات ما</h2>
+                        <div class="line-section-products">
+                            <i class="icon-rocket"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-sep20"></div>
+
+                <div class="row">
+                    @foreach (HSPC.DomainClasses.Product item in list)
+                    {
+                        <div class="col-md-3 col-sm-3">
+                            <div class="feature animated" data-animtype="fadeInLeft"
+                                 data-animrepeat="0"
+                                 data-speed="1s"
+                                 data-delay="0s">
+                                <div class="feature-image img-overlay">
+                                    <img alt="" src="@item.PicturePath">
+                                </div>
+                                <div class="feature-content product-content">
+                                    <h3 class="h3-body-title"><a href="#">@item.Title</a></h3>
+                                    <p>@item.ShortDescription</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }*@
+    <!-- End Products -->
+</div>
+
+<!-- Start Customer -->
+@*@if (ViewBag.Customers != null)
+{
+    List<HSPC.DomainClasses.Customer> list = (List<HSPC.DomainClasses.Customer>)ViewBag.Customers;
+    if (list.Count > 0)
+    {
+        <div class="section-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <ul class="section-bottom-customers">
+                            @foreach (HSPC.DomainClasses.Customer item in list)
+                            {
+                                <li class="animated"
+                                    data-animtype="bounceIn"
+                                    data-animrepeat="0"
+                                    data-animdelay="0.2s">
+                                    <img src="@item.PicturePath"
+                                         alt="@item.Name"
+                                         class="img-responsive client-image" />
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}*@
+<!-- End Customer -->

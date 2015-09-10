@@ -1,0 +1,75 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default"
+             ng-class="{'whirl': addLoading, 'shadow': addLoading}">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i></i>
+                    لیست قیمت جدید
+                </div>
+            </div>
+            <div class="panel-body">
+                <form name="addPriceForm">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group" style="position:relative;">
+                                <label class="control-label">گروه بندی:</label>
+                                <select chosen="categories"
+                                        ng-options="item.Title for item in categories"
+                                        ng-model="newPrice.Category"
+                                        width="100%"></select>
+                                <div style="background-color:#f6f6f6;height:29px;position:absolute;top:23px;right:0;left:0;opacity:0.4;"
+                                     ng-if="fetchCustomerGroupsLoading">
+                                    <img src="/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">عنوان:</label>
+                                <input type="text" class="form-control" ng-model="newPrice.Title"
+                                       required="" />
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label">اولویت:</label>
+                                <br />
+                                <input type="text"
+                                       style="width:60px;"
+                                       value="0"
+                                       min="0"
+                                       max="3000"
+                                       stepper=""
+                                       ng-model="newPrice.Priority"
+                                       required="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">متن:</label>
+                        <textarea ckeditor="editorOptions" ng-model="newPrice.Description" required=""></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-footer"
+                 style="border-top:1px solid #b5b5b5;">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <button class="btn btn-labeled btn-success" type="button"
+                                ng-click="add()" ng-disabled="addPriceForm.$invalid"
+                                ng-class="{'disabled': addPriceForm.$invalid}">
+                            <span class="btn-label btn-label-right">
+                                <i class="fa fa-check"></i>
+                            </span>
+                            ثبت
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

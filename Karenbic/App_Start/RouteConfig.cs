@@ -14,23 +14,23 @@ namespace Karenbic
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-               name: "PortfolioType",
-               url: "Portfolio",
-               defaults: new { controller = "Portfolio", action = "ShowTypes" },
+               name: "Products",
+               url: "Products/{categoryId}",
+               defaults: new { controller = "Product", action = "Index", categoryId = UrlParameter.Optional },
                namespaces: new string[] { "Karenbic.Controllers" }
            );
 
             routes.MapRoute(
-               name: "PortfolioCategory",
-               url: "Portfolio/{typeId}",
-               defaults: new { controller = "Portfolio", action = "ShowCategories" },
+               name: "Product",
+               url: "Product/{id}",
+               defaults: new { controller = "Product", action = "Detail" },
                namespaces: new string[] { "Karenbic.Controllers" }
            );
 
             routes.MapRoute(
                name: "Portfolio",
                url: "Portfolio/{typeId}/{categoryId}",
-               defaults: new { controller = "Portfolio", action = "ShowPortfolios" },
+               defaults: new { controller = "Portfolio", action = "Index", categoryId = UrlParameter.Optional },
                namespaces: new string[] { "Karenbic.Controllers" }
            );
 

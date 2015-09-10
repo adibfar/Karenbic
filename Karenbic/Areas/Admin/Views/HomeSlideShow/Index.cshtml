@@ -1,0 +1,170 @@
+﻿<style type="text/css">
+    .piccn {
+        background-color: #e6e6e6;
+        border:2px solid #D6D6D6;
+        margin-bottom: 10px;
+        padding: 10px;
+        position: relative;
+    }
+        .piccn img {
+            display: block;
+            height: auto;
+            width: 100%;
+        }
+        .piccn .btn-remove {
+            background-color: transparent;
+            border: 1px solid #F47F7F;
+            cursor: pointer;
+            display: block;
+            height: 21px;
+            left: 5px;
+            padding: 2px;
+            position: absolute;
+            top: 5px;
+            width: 21px;
+            z-index: 2;
+
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+
+            transition: all 500ms ease-out;
+		    -moz-transition: all 500ms ease-out;
+		    -webkit-transition: all 500ms ease-out;
+		    -o-transition: all 500ms ease-out;
+		    -ms-transition: all 500ms ease-out;
+        }
+            .piccn .btn-remove i {
+                color: #F47F7F;
+                display: block;
+                font-size: 17px;
+                left: 3px;
+                position: absolute;
+                top: 1px;
+
+                transition: all 500ms ease-out;
+		        -moz-transition: all 500ms ease-out;
+		        -webkit-transition: all 500ms ease-out;
+		        -o-transition: all 500ms ease-out;
+		        -ms-transition: all 500ms ease-out;
+            }
+        .piccn .btn-remove:hover {
+            transform: scale(1.15);
+			-webkit-transform: scale(1.1);
+			-moz-transform: scale(1.1);
+			-ms-transform: scale(1.1);
+			-o-transform: scale(1.1);
+
+            transition: all 500ms ease-in;
+		    -moz-transition: all 500ms ease-in;
+		    -webkit-transition: all 500ms ease-in;
+		    -o-transition: all 500ms ease-in;
+		    -ms-transition: all 500ms ease-in;
+        }
+            .piccn .btn-remove:hover i {
+                transform: scale(1.5);
+                -webkit-transform: scale(1.1);
+				-moz-transform: scale(1.1);
+				-o-transform: scale(1.1);
+				-ms-transform: scale(1.1);
+
+                transition: all 500ms ease-in;
+		        -moz-transition: all 500ms ease-in;
+		        -webkit-transition: all 500ms ease-in;
+		        -o-transition: all 500ms ease-in;
+		        -ms-transition: all 500ms ease-in;
+            }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+            <div class="panel panel-default"
+                 ng-class="{'whirl': addLoading, 'shadow': addLoading}">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i></i>
+                        ثبت اسلاید جدید
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form name="addSlideForm">
+                        <div class="form-group">
+                            <label class="control-label">اولویت:</label>
+                            <br />
+                            <input type="text"
+                                   style="width:60px;"
+                                   value="0"
+                                   min="0"
+                                   max="3000"
+                                   stepper=""
+                                   ng-model="newSlide.Priority"
+                                   required="" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">انتخاب فایل:</label>
+                            <input type="file"
+                                   nicefileinput=""
+                                   ng-file-select="onFileSelect($files)" />
+                        </div>
+                        <div class="form-group">
+                            <img id="pricePic" style="width:100%;height:auto;border:2px solid #D6D6D6;"
+                                 ng-show="newSlide.PictureFile != null" />
+                        </div>
+                        <div class="form-group"
+                             style="margin-bottom:1px;">
+                            <div class="clearfix">
+                                <div class="pull-left">
+                                    <button class="btn btn-labeled btn-success" type="button"
+                                            ng-click="add()"
+                                            ng-class="{'disabled': addSlideForm.$invalid || newSlide.PictureFile == null}"
+                                            ng-disabled="addSlide.$invalid || newSlide.PictureFile == null">
+                                        <span class="btn-label btn-label-right">
+                                            <i class="fa fa-check"></i>
+                                        </span>
+                                        ثبت
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+            <div class="panel panel-default"
+                 ng-class="{'whirl': fetchLoading, 'shadow': fetchLoading}">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i></i>
+                       اسلایدهای ثبت شده
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="piccn" ng-repeat="slide in slides">
+                        <div class="btn-remove" ng-click="remove($index)">
+                            <i class="fa fa-times"></i>
+                        </div>
+                        <img src="{{slide.PicturePath}}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Start Remove Modal -->
+<script type="text/ng-template" id="removeDialog.html">
+    <div style="font-family:yekan;font-size:14px;">
+        <p>آیا از حذف اطلاعات اطمینان دارید?</p>
+        <div>
+            <button class="btn btn-default" ng-click="close()" type="button">خیر</button>
+            <button class="btn btn-primary" ng-click="confirm()" type="button">بلی</button>
+        </div>
+    </div>
+</script>
+<!-- End Remove Modal -->
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

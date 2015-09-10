@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,16 +18,8 @@ namespace Karenbic.DomainClasses
         [Required]
         public int Priority { get; set; }
 
-        public string PictureFile { get; set; }
-
-        [NotMapped]
-        public string PicturePath
-        {
-            get
-            {
-                return string.Format("/Content/PriceList/{0}", PictureFile);
-            }
-        }
+        [Required]
+        public string Description { get; set; }
 
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 

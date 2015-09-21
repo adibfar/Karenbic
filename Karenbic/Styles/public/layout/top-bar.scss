@@ -126,4 +126,40 @@
             display: none;
         }
     }
+
+	.btn-signin {
+		background: transparent url(/Images/Public/btn_signin.png) no-repeat 0 0;
+		cursor: pointer;
+		display: block;
+		float: right;
+		height: 22px;
+		margin: 6px 3px 0 0;
+		width: 87px;
+
+		&:hover {
+			background-position: 0 -23px;
+		}
+
+		&:active {
+			background-position: 0 -46px;
+		}
+	}
+
+	.btn-signup {
+		background: transparent url(/Images/Public/btn_signup.png) no-repeat 0 0;
+		cursor: pointer;
+		display: block;
+		float: right;
+		height: 22px;
+		margin: 6px 3px 0 0;
+		width: 61px;
+
+		&:hover {
+			background-position: 0 -23px;
+		}
+
+		&:active {
+			background-position: 0 -46px;
+		}
+	}
 }

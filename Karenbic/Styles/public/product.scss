@@ -2,7 +2,7 @@
 ********* Top Title *********
 ****************************/
 .top-title {
-	background-color: #513764;
+	background-color: #e05481;
 	width: 100%;
 	overflow: hidden;
 
@@ -36,7 +36,7 @@
 		}
 
 		line-height: 20px;
-		color: #aa9cb5;
+		color: #eee;
 		border-right: 1px solid;
 		padding-right: 10px;
 		float: right;
@@ -45,7 +45,7 @@
 		top: -5px;
 
 		small {
-			color: #826d8e;
+			color: #eee;
 		}
 	}
 
@@ -75,7 +75,7 @@
 			text-decoration: none;
 
 			&:hover, &.active {
-				background-color: #f74366
+				background-color: #5b3e6c;
 			}
 		}
 	}

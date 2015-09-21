@@ -409,7 +409,6 @@
     <Content Include="Images\Public\HomeSlider_2\1.png" />
     <Content Include="Images\Public\HomeSlider_2\2.jpg" />
     <Content Include="Images\Public\HomeSlider_2\3.jpg" />
-    <Content Include="Images\Public\Login\1.png" />
     <Content Include="Images\Public\Login\10.png" />
     <Content Include="Images\Public\Login\2.png" />
     <Content Include="Images\Public\Login\3.png" />
@@ -417,7 +416,6 @@
     <Content Include="Images\Public\Login\5.png" />
     <Content Include="Images\Public\Login\6.png" />
     <Content Include="Images\Public\Login\7.png" />
-    <Content Include="Images\Public\Login\8.png" />
     <Content Include="Images\Public\Login\9.png" />
     <Content Include="Images\Public\main_logo.png" />
     <Content Include="Images\Public\AboutUsSlider\1.gif" />
@@ -441,8 +439,6 @@
     <Content Include="Images\Public\Register\1.png" />
     <Content Include="Images\Public\Register\2.png" />
     <Content Include="Images\Public\Register\3.png" />
-    <Content Include="Images\Public\Register\4.png" />
-    <Content Include="Images\Public\Register\5.png" />
     <Content Include="Images\Public\right_arrow.png" />
     <Content Include="Images\Public\save.png" />
     <Content Include="Images\Public\Search.png" />

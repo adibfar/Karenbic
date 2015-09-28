@@ -32,6 +32,7 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.FormField_Numeric> FormFileds_Numeric { get; set; }
         public DbSet<DomainClasses.FormField_ColorPicker> FormFields_ColorPicker { get; set; }
         public DbSet<DomainClasses.FormField_FileUploader> FormFields_FileUploader { get; set; }
+        public DbSet<DomainClasses.FormField_FileUploader2> FormFields_FileUploader2 { get; set; }
         public DbSet<DomainClasses.FormField_DropDown> FormFields_DropDown { get; set; }
         public DbSet<DomainClasses.FormField_DropDown_Item> FormField_DropDown_Items { get; set; }
         public DbSet<DomainClasses.FormField_RadioButtonGroup> FormFields_RadioButtonGroup { get; set; }
@@ -116,6 +117,7 @@ namespace Karenbic.DataAccess
             modelBuilder.Configurations.Add(new FormConfiguration());
             modelBuilder.Configurations.Add(new FormFieldConfiguration());
             modelBuilder.Configurations.Add(new FormField_FileUploaderConfiguration());
+            modelBuilder.Configurations.Add(new FormField_FileUploader2Configuration());
             modelBuilder.Configurations.Add(new FileFormatConfiguration());
             modelBuilder.Configurations.Add(new FormField_DropDownConfiguration());
             modelBuilder.Configurations.Add(new FormField_DropDown_ItemConfiguration());

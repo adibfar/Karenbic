@@ -199,6 +199,84 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
         };
         /*=-=-=-=-= End On File Select =-=-=-=-=*/
 
+        /*=-=-=-=-= Start Extended File Uploader =-=-=-=-=*/
+        $scope.selectedExtendedFileUploader_item = null;
+        $scope.selectedExtendedFileUploader_element = null;
+        $scope.extendedFileUploaderPopup = null;
+
+        $scope.onExtendedFileUploaderClick = function ($event, item) {
+            $scope.selectedExtendedFileUploader_item = item;
+            $scope.selectedExtendedFileUploader_element = $event.currentTarget;
+            $scope.extendedFileUploaderPopup = $('#extended-file-uploader-popup').bPopup();
+        };
+
+        $scope.extendedFileUploader_selectFormLocalFile = function () {
+            $scope.extendedFileUploaderPopup.close();
+            $($scope.selectedExtendedFileUploader_element).closest('.extended-file-uploader').find("input[type=file]").click();
+        };
+
+        $scope.extendedFileUploader_selectFormLocalFile_onFileSelect = function (item, $files) {
+            var $file = $files[0];
+            var extension = $file.name.substr($file.name.lastIndexOf('.') + 1).toLowerCase();
+
+            if (_.find(item.data.fileTypes, function (type) {
+                return type.Extention.toLowerCase() == extension;
+            }) == undefined) {
+                error_msg = "فرمت فایل می تواند";
+                for (i = 0; i < item.data.fileTypes.length; i++) {
+                    error_msg += item.data.fileTypes[i].Extention.toUpperCase();
+                    if (i != item.data.fileTypes.length - 1) {
+                        error_msg += " یا ";
+                    }
+                }
+                error_msg += " باشد.";
+                toaster.pop('error', error_msg);
+                return;
+            }
+
+            if (item.data.sizeLimits == true) {
+                if ($file.size < item.data.minSize * 1024) {
+                    error_msg = "حداقل حجم فایل ";
+                    error_msg += item.data.minSize;
+                    error_msg += "کیلو بایت می باشد ";
+                    toaster.pop('error', error_msg);
+                    return;
+                }
+                else if ($file.size > item.data.maxSize * 1024) {
+                    error_msg = "حداکثر حجم فایل ";
+                    error_msg += item.data.maxSize;
+                    error_msg += "کیلو بایت می باشد ";
+                    toaster.pop('error', error_msg);
+                    return;
+                }
+            }
+
+            $scope.uploadingFile++;
+            item.uploading = true;
+            $upload.upload({
+                url: baseUri + 'Order/Add_UploadFile2',
+                file: $file,
+                data: {
+                    fieldId: item.data.id
+                }
+            }).success(function (data, status, headers, config) {
+                item.value = data;
+                item.valueType = 1;
+                $scope.uploadingFile--;
+                item.uploading = false;
+            }).error(function (data, status, headers, config) {
+                if (status == 403) {
+                    window.location = "/Account/Login";
+                }
+                else {
+                    toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
+                }
+                $scope.uploadingFile--;
+                item.uploading = false;
+            });
+        };
+        /*=-=-=-=-= End Extended File Uploader =-=-=-=-=*/
+
         /*=-=-=-=-= Start Validate Field =-=-=-=-=*/
 
         $scope.validateForm = function () {

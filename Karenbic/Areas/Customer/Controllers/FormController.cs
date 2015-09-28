@@ -704,6 +704,69 @@ namespace Karenbic.Areas.Customer.Controllers
                 });
             }
 
+            //Extended File Uploader
+            List<DomainClasses.FormField_FileUploader2> extendedFileUploaders = await _context.FormFields_FileUploader2
+                .AsQueryable()
+                .Where(x => x.Form.Id == id && x.Form.IsShow &&
+                    x.ShowAdmin && x.ShowCustomer)
+                .ToListAsync();
+
+            foreach (DomainClasses.FormField_FileUploader2 item in extendedFileUploaders)
+            {
+                fields.Add(new
+                {
+                    type = 11,
+                    data = new
+                    {
+                        id = item.Id,
+                        title = item.Title,
+                        description = item.Description,
+                        pictureHelpFile = item.PictureHelpFile,
+                        pictureHelpPath = item.PictureHelpPath,
+                        hasPictureHelpFile = item.HasPictureHelpFile,
+                        priority = item.Priority,
+                        isRequired = item.IsRequired,
+                        sizeLimits = item.SizeLimits,
+                        minSize = item.MinSize,
+                        maxSize = item.MaxSize,
+                        fileTypes = item.Formats.Select(c => new
+                        {
+                            Id = c.Id,
+                            Title = c.Title,
+                            Extention = c.Extention
+                        })
+                    },
+                    desktop_position = new
+                    {
+                        sizeX = item.DesktopPosition.SizeX,
+                        sizeY = item.DesktopPosition.SizeY,
+                        row = item.DesktopPosition.Row,
+                        col = item.DesktopPosition.Column
+                    },
+                    tablet_position = new
+                    {
+                        sizeX = item.TabletPosition.SizeX,
+                        sizeY = item.TabletPosition.SizeY,
+                        row = item.TabletPosition.Row,
+                        col = item.TabletPosition.Column
+                    },
+                    mobile_position = new
+                    {
+                        sizeX = 1,
+                        sizeY = item.MobilePosition.SizeY,
+                        row = item.MobilePosition.Row,
+                        col = 0
+                    },
+                    factor_position = new
+                    {
+                        sizeX = 1,
+                        sizeY = 1,
+                        row = 0,
+                        col = 0
+                    }
+                });
+            }
+
             result.Data = new
             {
                 id = form.Id,

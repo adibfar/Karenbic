@@ -209,6 +209,51 @@
 
                 border-radius: 50%;
             }
+
+    .extended-file-uploader {
+        border: 1px solid #989898;
+        height: 31px;
+        position: relative;
+        overflow: hidden !important;
+	    width: 100%;
+    }
+        .extended-file-uploader .btn-select {
+            background: transparent url(/Images/UI/Button/btn-file-uploader-1.png) no-repeat 0 0;
+            border: none;
+            bottom: 0;
+            cursor: pointer;
+            display: block;
+            left: 0;
+            height: 31px;
+            position: absolute;
+            width: 23px;
+        }
+        .extended-file-uploader .btn-select:hover {
+            background-position: 0 -31px;
+        }
+    #extended-file-uploader-popup {
+        background-color: #fff;
+        border-radius: 8px;
+        display: none;
+        height: 120px;
+        padding: 15px;
+        width: 227px;
+    }
+        #extended-file-uploader-popup .btn-select-design {
+            border: 1px solid #000;
+            cursor: pointer;
+            display: inline-block;
+            height: 90px;
+            margin-left: 15px;
+            width: 90px;
+        }
+        #extended-file-uploader-popup .btn-select-local-file {
+            border: 1px solid #000;
+            cursor: pointer;
+            display: inline-block;
+            height: 90px;
+            width: 90px;
+        }
 </style>
 
 <div class="container-fluid">
@@ -351,6 +396,7 @@
                                 @Html.Partial("../Form/FormField_NumericStepper")
                                 @Html.Partial("../Form/FormField_ColorPicker")
                                 @Html.Partial("../Form/FormField_FileUploader")
+                                @Html.Partial("../Form/FormField_FileUploader2")
                                 @Html.Partial("../Form/FormField_Checkbox")
                                 @Html.Partial("../Form/FormField_WebUrl")
                                 @Html.Partial("../Form/FormField_DatePicker")
@@ -374,6 +420,7 @@
                                 @Html.Partial("../Form/FormField_NumericStepper")
                                 @Html.Partial("../Form/FormField_ColorPicker")
                                 @Html.Partial("../Form/FormField_FileUploader")
+                                @Html.Partial("../Form/FormField_FileUploader2")
                                 @Html.Partial("../Form/FormField_Checkbox")
                                 @Html.Partial("../Form/FormField_WebUrl")
                                 @Html.Partial("../Form/FormField_DatePicker")
@@ -398,6 +445,7 @@
                                 @Html.Partial("../Form/FormField_NumericStepper")
                                 @Html.Partial("../Form/FormField_ColorPicker")
                                 @Html.Partial("../Form/FormField_FileUploader")
+                                @Html.Partial("../Form/FormField_FileUploader2")
                                 @Html.Partial("../Form/FormField_Checkbox")
                                 @Html.Partial("../Form/FormField_WebUrl")
                                 @Html.Partial("../Form/FormField_DatePicker")
@@ -436,6 +484,11 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="extended-file-uploader-popup">
+    <div class="btn-select-design">design</div>
+    <div class="btn-select-local-file" ng-click="extendedFileUploader_selectFormLocalFile()">local file</div>
 </div>
 
 <toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

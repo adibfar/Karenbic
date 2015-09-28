@@ -21,5 +21,7 @@ namespace Karenbic.DomainClasses
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 
         public virtual ICollection<DomainClasses.FormField_FileUploader> FileUploaders { get; set; }
+
+        public virtual ICollection<DomainClasses.FormField_FileUploader2> FileUploader2s { get; set; }
     }
 }

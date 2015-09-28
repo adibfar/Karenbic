@@ -22,6 +22,9 @@ App.directive('ddlist', function () {
                 var i = _.indexOf(scope.list, scope.ngModel);
                 if (i != -1 && scope.ngModel.value != $(element).data('ddlist').selectedValue) {
                     $(element).ddslick('select', { index: i });
+
+                    //console.log($(element).data('ddlist').selectedValue);
+                    //console.log(scope.ngModel);
                 }
             }, true);
 

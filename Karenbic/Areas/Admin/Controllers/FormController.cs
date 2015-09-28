@@ -37,7 +37,8 @@ namespace Karenbic.Areas.Admin.Controllers
             DomainClasses.FormField_DatePicker[] datePickers,
             DomainClasses.FormField_DropDown[] dropDowns,
             DomainClasses.FormField_RadioButtonGroup[] radioButtonGroups,
-            DomainClasses.FormField_CheckBoxGroup[] checkBoxGroups)
+            DomainClasses.FormField_CheckBoxGroup[] checkBoxGroups,
+            DomainClasses.FormField_FileUploader2[] extendedFileUploaders)
         {
             form.Group = _context.FormGroups.Find(groupId);
 
@@ -51,7 +52,8 @@ namespace Karenbic.Areas.Admin.Controllers
                 (datePickers != null && datePickers.Length > 0) ||
                 (dropDowns != null && dropDowns.Length > 0) ||
                 (radioButtonGroups != null && radioButtonGroups.Length > 0) ||
-                (checkBoxGroups != null && checkBoxGroups.Length > 0))
+                (checkBoxGroups != null && checkBoxGroups.Length > 0) ||
+                (extendedFileUploaders != null && extendedFileUploaders.Length > 0))
             {
                 form.Fields = new List<DomainClasses.FormField>();
             }
@@ -381,6 +383,61 @@ namespace Karenbic.Areas.Admin.Controllers
                 }
             }
 
+            //Extend File Uploader
+            if (extendedFileUploaders != null && extendedFileUploaders.Length > 0)
+            {
+                foreach (DomainClasses.FormField_FileUploader2 field in extendedFileUploaders)
+                {
+                    DomainClasses.FormField_FileUploader2 newField = new DomainClasses.FormField_FileUploader2()
+                    {
+                        Title = field.Title,
+                        ShowAdmin = true,
+                        ShowCustomer = true,
+                        Description = field.Description,
+                        PictureHelpFile = field.PictureHelpFile,
+                        IsRequired = field.IsRequired,
+                        SizeLimits = field.SizeLimits,
+                        MinSize = field.MinSize,
+                        MaxSize = field.MaxSize,
+                        DesktopPosition = field.DesktopPosition,
+                        TabletPosition = field.TabletPosition,
+                        MobilePosition = field.MobilePosition
+                    };
+
+                    if (field.Formats != null && field.Formats.Count > 0)
+                    {
+                        newField.Formats = new List<DomainClasses.FileFormat>();
+                        foreach (DomainClasses.FileFormat format in field.Formats)
+                        {
+                            if (_context.FileFormats.Any(x => x.Id == format.Id))
+                            {
+                                newField.Formats.Add(_context.FileFormats.Find(format.Id));
+                            }
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    form.Fields.Add(newField);
+                }
+            }
+
             _context.Forms.Add(form);
             _context.SaveChanges();
 
@@ -425,6 +482,8 @@ namespace Karenbic.Areas.Admin.Controllers
             DomainClasses.FormField_RadioButtonGroup[] radioButtonGroups_new,
             DomainClasses.FormField_CheckBoxGroup[] checkBoxGroups,
             DomainClasses.FormField_CheckBoxGroup[] checkBoxGroups_new,
+            DomainClasses.FormField_FileUploader2[] extendedFileUploaders,
+            DomainClasses.FormField_FileUploader2[] extendedFileUploaders_new,
             int[] removedFields)
         {
             //Change Form data
@@ -1641,6 +1700,138 @@ namespace Karenbic.Areas.Admin.Controllers
                 }
             }
 
+            //New Extended File Uploader
+            if (extendedFileUploaders_new != null && extendedFileUploaders_new.Length > 0)
+            {
+                foreach (DomainClasses.FormField_FileUploader2 field in extendedFileUploaders_new)
+                {
+                    DomainClasses.FormField_FileUploader2 newField = new DomainClasses.FormField_FileUploader2()
+                    {
+                        Title = field.Title,
+                        ShowAdmin = true,
+                        ShowCustomer = true,
+                        Description = field.Description,
+                        PictureHelpFile = field.PictureHelpFile,
+                        IsRequired = field.IsRequired,
+                        SizeLimits = field.SizeLimits,
+                        MinSize = field.MinSize,
+                        MaxSize = field.MaxSize,
+                        DesktopPosition = field.DesktopPosition,
+                        TabletPosition = field.TabletPosition,
+                        MobilePosition = field.MobilePosition
+                    };
+
+                    if (field.Formats != null && field.Formats.Count > 0)
+                    {
+                        newField.Formats = new List<DomainClasses.FileFormat>();
+
+                        foreach (DomainClasses.FileFormat format in field.Formats)
+                        {
+                            if (_context.FileFormats.Any(x => x.Id == format.Id))
+                            {
+                                newField.Formats.Add(_context.FileFormats.Find(format.Id));
+                            }
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    newField.Form = formItem;
+                    _context.FormFields_FileUploader2.Add(newField);
+                }
+            }
+
+            //Edit Extended File Uploader
+            if (extendedFileUploaders != null && extendedFileUploaders.Length > 0)
+            {
+                foreach (DomainClasses.FormField_FileUploader2 field in extendedFileUploaders)
+                {
+                    DomainClasses.FormField_FileUploader2 item = _context.FormFields_FileUploader2
+                        .Include(x => x.Formats)
+                        .Include(x => x.DesktopPosition)
+                        .Include(x => x.TabletPosition)
+                        .Include(x => x.MobilePosition)
+                        .Single(x => x.Id == field.Id);
+
+                    item.Title = field.Title;
+                    item.Description = field.Description;
+                    item.ShowCustomer = field.ShowCustomer;
+                    item.Priority = field.Priority;
+                    item.IsRequired = field.IsRequired;
+                    item.SizeLimits = field.SizeLimits;
+                    item.MinSize = field.MinSize;
+                    item.MaxSize = field.MaxSize;
+
+                    item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
+                    item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
+                    item.DesktopPosition.Row = field.DesktopPosition.Row;
+                    item.DesktopPosition.Column = field.DesktopPosition.Column;
+
+                    item.TabletPosition.SizeX = field.TabletPosition.SizeX;
+                    item.TabletPosition.SizeY = field.TabletPosition.SizeY;
+                    item.TabletPosition.Row = field.TabletPosition.Row;
+                    item.TabletPosition.Column = field.TabletPosition.Column;
+
+                    item.MobilePosition.SizeY = field.MobilePosition.SizeY;
+                    item.MobilePosition.Row = field.MobilePosition.Row;
+
+                    item.Formats.Clear();
+                    if (field.Formats != null && field.Formats.Count > 0)
+                    {
+                        foreach (DomainClasses.FileFormat format in field.Formats)
+                        {
+                            if (_context.FileFormats.Any(x => x.Id == format.Id))
+                            {
+                                item.Formats.Add(_context.FileFormats.Find(format.Id));
+                            }
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+
+                            item.PictureHelpFile = field.PictureHelpFile;
+                        }
+                    }
+                    else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                        {
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                            item.PictureHelpFile = string.Empty;
+                        }
+                    }
+                }
+            }
+
             //Remove Fields
             if (removedFields != null && removedFields.Length > 0)
             {
@@ -2322,6 +2513,67 @@ namespace Karenbic.Areas.Admin.Controllers
                                 sizeX = 1,
                                 sizeY = 1,
                                 row = item.FactorOrder,
+                                col = 0
+                            }
+                        });
+                    }
+
+                    //Extended File Uploader
+                    else if (field is DomainClasses.FormField_FileUploader2)
+                    {
+                        DomainClasses.FormField_FileUploader2 item = (DomainClasses.FormField_FileUploader2)field;
+
+                        fields.Add(new
+                        {
+                            type = 11,
+                            data = new
+                            {
+                                id = item.Id,
+                                title = item.Title,
+                                showCustomer = item.ShowCustomer,
+                                description = item.Description,
+                                pictureHelpFile = item.PictureHelpFile,
+                                pictureHelpPath = item.PictureHelpPath,
+                                hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
+                                canDelete = item.CanDelete,
+                                isRequired = item.IsRequired,
+                                sizeLimits = item.SizeLimits,
+                                minSize = item.MinSize,
+                                maxSize = item.MaxSize,
+                                fileTypes = item.Formats.Select(c => new
+                                {
+                                    Id = c.Id,
+                                    Title = c.Title,
+                                    Extention = c.Extention
+                                })
+                            },
+                            desktop_position = new
+                            {
+                                sizeX = item.DesktopPosition.SizeX,
+                                sizeY = item.DesktopPosition.SizeY,
+                                row = item.DesktopPosition.Row,
+                                col = item.DesktopPosition.Column
+                            },
+                            tablet_position = new
+                            {
+                                sizeX = item.TabletPosition.SizeX,
+                                sizeY = item.TabletPosition.SizeY,
+                                row = item.TabletPosition.Row,
+                                col = item.TabletPosition.Column
+                            },
+                            mobile_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = item.MobilePosition.SizeY,
+                                row = item.MobilePosition.Row,
+                                col = 0
+                            },
+                            factor_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = 1,
+                                row = 0,
                                 col = 0
                             }
                         });

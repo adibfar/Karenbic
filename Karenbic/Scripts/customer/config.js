@@ -47,7 +47,7 @@ App
                     templateUrl: helper.basepath('Order/Add'),
                     controller: 'AddOrderController',
                     resolve: helper.resolveFor('chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster',
-                        'colorpicker', 'jquery-ui', 'jquery-ui-datepicker', 'persian-date', 'ngDialog')
+                        'colorpicker', 'jquery-ui', 'jquery-ui-datepicker', 'persian-date', 'ngDialog', 'bpopup')
                 })
                 .state('app.design.factor-list', {
                     url: '/factor-list',
@@ -168,7 +168,7 @@ App
                     templateUrl: helper.basepath('Order/Add'),
                     controller: 'AddOrderController',
                     resolve: helper.resolveFor('chosen', 'stepper', 'nicefileinput', 'jquery-resize', 'gridster',
-                        'colorpicker', 'jquery-ui', 'jquery-ui-datepicker', 'persian-date', 'ngDialog')
+                        'colorpicker', 'jquery-ui', 'jquery-ui-datepicker', 'persian-date', 'ngDialog', 'bpopup')
                 })
                 .state('app.print.factor-list', {
                     url: '/factor-list',

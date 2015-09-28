@@ -579,6 +579,45 @@ namespace Karenbic.Areas.Customer.Controllers
             return Content(fileName);
         }
 
+        [HttpPost]
+        public ActionResult Add_UploadFile2(HttpPostedFileBase file, int fieldId)
+        {
+            string fileName = "";
+            string fileExtension = "";
+            int fileSize = 0;
+
+            if (file != null)
+            {
+                fileExtension = System.IO.Path.GetExtension(file.FileName).Substring(1);
+                fileSize = file.ContentLength;
+
+                DomainClasses.FormField_FileUploader2 field = _context.FormFields_FileUploader2
+                    .Include(x => x.Formats)
+                    .Single(x => x.Id == fieldId);
+
+                if (!field.Formats.Any(x => x.Extention.ToLower() == fileExtension.ToLower()))
+                {
+                    throw new Exception();
+                }
+                else if (field.SizeLimits == true &&
+                    (fileSize < field.MinSize * 1024 || fileSize > field.MaxSize * 1024))
+                {
+                    throw new Exception();
+                }
+                else
+                {
+                    fileName = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(file.FileName));
+                    file.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), fileName));
+                }
+            }
+            else
+            {
+                throw new Exception();
+            }
+
+            return Content(fileName);
+        }
+
         [NonAction]
         private bool Add_TextBoxValidation(DomainClasses.FormField_TextBox field, OrderValue_TextBox value)
         {

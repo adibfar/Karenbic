@@ -65,6 +65,12 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 text: "Checkbox Group",
                 value: 10,
                 imageSrc: "/Images/FormField/multiple-choice.png"
+            },
+            {
+                text: "Extended File Uploader",
+                value: 11,
+                description: "",
+                imageSrc: "/Images/FormField/file-uploader.png"
             }
         ];
 
@@ -143,6 +149,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             $scope.newField_DropDown_Reset();
             $scope.newField_MultipleChoice_Reset();
             $scope.newField_MultipleChoice_Reset();
+            $scope.newField_FileUploader2_Reset();
         });
 
         /*=-=-=-=-= Start Fetch Data Form =-=-=-=-=*/
@@ -714,6 +721,55 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             };
         };
         /*=-=-=-=-= End New Checkbox Group =-=-=-=-=*/
+
+        /*=-=-=-=-= Start New File Uploader 2 =-=-=-=-=*/
+        $scope.newField_FileUploader2 = {
+            title: '',
+            fileTypes: [],
+            isRequired: true,
+            sizeLimits: false,
+            minSize: 0,
+            maxSize: 0,
+            description: '',
+            showCustomer: true,
+            pictureHelpFile: '',
+            pictureHelpPath: '',
+            hasPictureHelpFile: false,
+            priority: 0
+        };
+
+        $scope.$watch(function () {
+            return $scope.newField_FileUploader2.minSize;
+        }, function (newValue, oldValue) {
+            if (newValue > $scope.newField_FileUploader2.maxSize) {
+                $scope.newField_FileUploader2.maxSize = newValue;
+            }
+        });
+
+        $scope.$watch(function () {
+            return $scope.newField_FileUploader2.maxSize;
+        }, function (newValue, oldValue) {
+            if (newValue < $scope.newField_FileUploader2.minSize) {
+                $scope.newField_FileUploader2.minSize = newValue;
+            }
+        });
+
+        $scope.newField_FileUploader2_Reset = function () {
+            $scope.newField_FileUploader2 = {
+                title: '',
+                fileTypes: [],
+                isRequired: true,
+                sizeLimits: false,
+                minSize: 0,
+                maxSize: 0,
+                description: '',
+                pictureHelpFile: '',
+                pictureHelpPath: '',
+                hasPictureHelpFile: false,
+                priority: 0
+            };
+        };
+        /*=-=-=-=-= End New File Uploader 2 =-=-=-=-=*/
 
         /*=-=-=-=-= Start Manage Fields =-=-=-=-=*/
         $scope.removedFields = [];
@@ -1374,6 +1430,62 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                     $scope.newField_CheckboxGroup_Reset();
 
                     break;
+
+                case 11:
+                    if (pictureHelpFile != '') {
+                        $scope.newField_FileUploader2.pictureHelpFile = pictureHelpFile;
+                        $scope.newField_FileUploader2.pictureHelpPath = '/Content/Upload/' + pictureHelpFile;
+                        $scope.newField_FileUploader2.hasPictureHelpFile = true;
+                    }
+
+                    var obj = {
+                        isNew: true,
+                        type: 11,
+                        data: _.clone($scope.newField_FileUploader2),
+                        desktop_position: {
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 3
+                        },
+                        tablet_position: {
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 2
+                        },
+                        mobile_position: {
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
+                        },
+                        factor_position: {
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
+                        }
+                    };
+
+                    if (obj.data.description == null || obj.data.description == '') {
+                        obj.desktop_position.sizeY = 7;
+                        obj.tablet_position.sizeY = 7;
+                        obj.mobile_position.sizeY = 7;
+                    }
+                    else {
+                        obj.desktop_position.sizeY = 9;
+                        obj.tablet_position.sizeY = 9;
+                        obj.mobile_position.sizeY = 9;
+                    }
+
+                    obj.data.showCustomer = true;
+
+                    $scope.form.fields.push(obj);
+
+                    $scope.newField_FileUploader2_Reset();
+
+                    break;
             }
         };
 
@@ -1662,6 +1774,8 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 radioButtonGroups_new: $scope.getFields(9, true),
                 checkBoxGroups: $scope.getFields(10, false),
                 checkBoxGroups_new: $scope.getFields(10, true),
+                extendedFileUploaders: $scope.getFields(11, false),
+                extendedFileUploaders_new: $scope.getFields(11, true),
                 removedFields: $scope.removedFields
             }).
             success(function (data, status, headers, config) {
@@ -1897,6 +2011,21 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                                 Order: order++
                             };
                         })
+                        break;
+
+                    //Extended File Uploader
+                    case 11:
+                        obj.IsRequired = item.data.isRequired;
+                        obj.SizeLimits = item.data.sizeLimits;
+                        obj.MinSize = item.data.minSize;
+                        obj.MaxSize = item.data.maxSize;
+                        obj.Formats = item.data.fileTypes;
+                        if (item.data.showInFactor != true) {
+                            obj.FactorOrder = -1;
+                        }
+                        else {
+                            obj.FactorOrder = item.factor_position.row;
+                        }
                         break;
                 }
 

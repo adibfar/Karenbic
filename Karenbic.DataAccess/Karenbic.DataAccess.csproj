@@ -59,6 +59,7 @@
     <Compile Include="FinancialConflictConfiguration.cs" />
     <Compile Include="FinancialConflictItemConfiguration.cs" />
     <Compile Include="FinancialConflictPaymentConfiguration.cs" />
+    <Compile Include="Form\FormField_FileUploader2Configuration.cs" />
     <Compile Include="Form\FormGroupConfiguration.cs" />
     <Compile Include="Message\AdminMessage_AdminConfiguration.cs" />
     <Compile Include="Message\AdminMessage_CustomerConfiguration.cs" />

@@ -90,7 +90,7 @@ App.controller('TopMenuController', ['$rootScope', '$scope', '$state', '$locatio
         $.connection.hub.logging = true;
 
         var connection = $.hubConnection();
-        connection.url = 'http://localhost:22182//signalr';
+        connection.url = 'http://s1.studioparsia.com/signalr';
         var proxy = connection.createHubProxy('customerNotification');
 
         _.each($scope.menuItems, function (menuItem) {

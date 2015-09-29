@@ -2,18 +2,20 @@
     .whirl.shadow::after {
         z-index: 13;
     }
+
     .whirl.shadow::before {
         z-index: 13;
     }
 
     ul.pictures {
-            margin: 0;
-            padding: 0;
-            text-align: right
-        }
+        margin: 0;
+        padding: 0;
+        text-align: right;
+    }
+
         ul.pictures li {
             background-color: #e6e6e6;
-            border:2px solid #D6D6D6;
+            border: 2px solid #D6D6D6;
             display: inline-block;
             height: 240px;
             list-style: none;
@@ -21,6 +23,7 @@
             padding: 0;
             width: 240px;
         }
+
             ul.pictures li .btn-remove {
                 background-color: transparent;
                 border: 1px solid #F47F7F;
@@ -33,17 +36,16 @@
                 top: 5px;
                 width: 21px;
                 z-index: 2;
-
                 border-radius: 50%;
                 -moz-border-radius: 50%;
                 -webkit-border-radius: 50%;
-
                 transition: all 500ms ease-out;
-		        -moz-transition: all 500ms ease-out;
-		        -webkit-transition: all 500ms ease-out;
-		        -o-transition: all 500ms ease-out;
-		        -ms-transition: all 500ms ease-out;
+                -moz-transition: all 500ms ease-out;
+                -webkit-transition: all 500ms ease-out;
+                -o-transition: all 500ms ease-out;
+                -ms-transition: all 500ms ease-out;
             }
+
                 ul.pictures li .btn-remove i {
                     color: #F47F7F;
                     display: block;
@@ -51,50 +53,49 @@
                     left: 3px;
                     position: absolute;
                     top: 1px;
-
                     transition: all 500ms ease-out;
-		            -moz-transition: all 500ms ease-out;
-		            -webkit-transition: all 500ms ease-out;
-		            -o-transition: all 500ms ease-out;
-		            -ms-transition: all 500ms ease-out;
+                    -moz-transition: all 500ms ease-out;
+                    -webkit-transition: all 500ms ease-out;
+                    -o-transition: all 500ms ease-out;
+                    -ms-transition: all 500ms ease-out;
                 }
-            ul.pictures li .btn-remove:hover {
-                transform: scale(1.15);
-			    -webkit-transform: scale(1.1);
-			    -moz-transform: scale(1.1);
-			    -ms-transform: scale(1.1);
-			    -o-transform: scale(1.1);
 
-                transition: all 500ms ease-in;
-		        -moz-transition: all 500ms ease-in;
-		        -webkit-transition: all 500ms ease-in;
-		        -o-transition: all 500ms ease-in;
-		        -ms-transition: all 500ms ease-in;
-            }
-                ul.pictures li .btn-remove:hover i {
-                    transform: scale(1.5);
+                ul.pictures li .btn-remove:hover {
+                    transform: scale(1.15);
                     -webkit-transform: scale(1.1);
-				    -moz-transform: scale(1.1);
-				    -o-transform: scale(1.1);
-				    -ms-transform: scale(1.1);
-
+                    -moz-transform: scale(1.1);
+                    -ms-transform: scale(1.1);
+                    -o-transform: scale(1.1);
                     transition: all 500ms ease-in;
-		            -moz-transition: all 500ms ease-in;
-		            -webkit-transition: all 500ms ease-in;
-		            -o-transition: all 500ms ease-in;
-		            -ms-transition: all 500ms ease-in;
+                    -moz-transition: all 500ms ease-in;
+                    -webkit-transition: all 500ms ease-in;
+                    -o-transition: all 500ms ease-in;
+                    -ms-transition: all 500ms ease-in;
                 }
+
+                    ul.pictures li .btn-remove:hover i {
+                        transform: scale(1.5);
+                        -webkit-transform: scale(1.1);
+                        -moz-transform: scale(1.1);
+                        -o-transform: scale(1.1);
+                        -ms-transform: scale(1.1);
+                        transition: all 500ms ease-in;
+                        -moz-transition: all 500ms ease-in;
+                        -webkit-transition: all 500ms ease-in;
+                        -o-transition: all 500ms ease-in;
+                        -ms-transition: all 500ms ease-in;
+                    }
 </style>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="panel panel-default"
-                 ng-class="{'whirl': addLoading, 'shadow': addLoading}">
+                 ng-class="{'whirl': editLoading || fetchLoading, 'shadow': editLoading || fetchLoading}">
                 <div class="panel-heading">
                     <div class="panel-title">
                         <i></i>
-                        ثبت نمونه کار
+                        ویرایش نمونه کار
                     </div>
                 </div>
                 <div class="panel-body">
@@ -105,7 +106,7 @@
                                     <label class="control-label">نوع: </label>
                                     <select chosen="types"
                                             ng-options="item.Title for item in types"
-                                            ng-model="newPortfolio.Type"
+                                            ng-model="portfolio.Type"
                                             width="100%"></select>
                                     <div style="background-color:#f6f6f6;height:29px;position:absolute;top:23px;right:0;left:0;opacity:0.4;"
                                          ng-if="fetchTypesLoading">
@@ -117,7 +118,7 @@
                                     <label class="control-label">گروه:</label>
                                     <select chosen="categories"
                                             ng-options="item.Title for item in categories"
-                                            ng-model="newPortfolio.Category"
+                                            ng-model="portfolio.Category"
                                             width="100%"></select>
                                     <div style="background-color:#f6f6f6;height:29px;position:absolute;top:23px;right:0;left:0;opacity:0.4;"
                                          ng-if="fetchCategoriesLoading">
@@ -128,7 +129,7 @@
                                 <div class="form-group">
                                     <label class="control-label">عنوان: </label>
                                     <input type="text" class="form-control"
-                                           ng-model="newPortfolio.Title" />
+                                           ng-model="portfolio.Title" />
                                 </div>
 
                                 <div class="form-group">
@@ -140,7 +141,7 @@
                                            min="0"
                                            max="3000"
                                            stepper=""
-                                           ng-model="newPortfolio.Priority"
+                                           ng-model="portfolio.Priority"
                                            required="" />
                                 </div>
                             </div>
@@ -149,7 +150,7 @@
                                 <div class="form-group">
                                     <label class="control-label">توضیحات: </label>
                                     <textarea class="form-control" style="height:146px;resize:none;"
-                                              ng-model="newPortfolio.description"></textarea>
+                                              ng-model="portfolio.description"></textarea>
                                 </div>
 
                                 <div class="form-group">
@@ -162,8 +163,8 @@
 
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div style="width:244px;height:244px;border:2px solid #D6D6D6;background-color:#e6e6e6;margin: 0 auto;">
-                                    <img id="pic" src="{{newPortfolio.ReadedPictureFile}}"
-                                         ng-if="newPortfolio.PictureFile != null" imagescale="" />
+                                    <img src="{{portfolio.PicturePath}}" imagescale="" ng-if="newMainPicture == null" />
+                                    <img src="{{newMainRenderedPicture}}" imagescale="" ng-if="newMainPicture != null" />
                                 </div>
                             </div>
                         </div>
@@ -181,15 +182,21 @@
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h4 style="font-family:yekan;font-size:20px;margin-top:0;">تصاویر</h4>
                                 <ul class="pictures">
-                                    <li ng-repeat="picture in pictures">
+                                    <li ng-repeat="picture in portfolio.Pictures">
+                                        <img src="{{picture.PicturePath}}" imagescale="" />
+                                        <div class="btn-remove" ng-click="removeOldPicture($index)">
+                                            <i class="fa fa-times"></i>
+                                        </div>
+                                    </li>
+                                    <li ng-repeat="picture in newPictures">
                                         <img src="{{picture.renderedFile}}" imagescale="" />
-                                        <div class="btn-remove" ng-click="removePicture($index)">
+                                        <div class="btn-remove" ng-click="removeNewPicture($index)">
                                             <i class="fa fa-times"></i>
                                         </div>
                                     </li>
                                     <li style="background: #e6e6e6 url(/Images/UI/Image/0.png) no-repeat center center;">
                                         <input style="display:block;cursor:pointer;position:absolute;top:0;bottom:0;opacity:0;"
-                                               type="file" ng-file-select="onPictureSelect($files)" />
+                                               type="file" ng-file-select="addNewPicture($files)" />
                                     </li>
                                 </ul>
                             </div>
@@ -200,14 +207,12 @@
                              style="margin-bottom:1px;">
                             <div class="clearfix">
                                 <div class="pull-left">
-                                    <button class="btn btn-labeled btn-success" type="button"
-                                            ng-click="add()"
-                                            ng-class="{'disabled': addFormIsValide() == false}"
-                                            ng-disabled="addFormIsValide() == false">
+                                    <button class="btn btn-labeled btn-warning" type="button"
+                                            ng-click="edit()">
                                         <span class="btn-label btn-label-right">
-                                            <i class="fa fa-check"></i>
+                                            <i class="fa fa-pencil"></i>
                                         </span>
-                                        ثبت
+                                        ویرایش
                                     </button>
                                 </div>
                             </div>

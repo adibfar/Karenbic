@@ -31,8 +31,8 @@ namespace Karenbic.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(int categoryId, int priority, string description, 
-            HttpPostedFileBase tumbPicture, HttpPostedFileBase picture)
+        public ActionResult Add(string title, int categoryId, int priority, string description, 
+            HttpPostedFileBase mainFile, HttpPostedFileBase[] pictures)
         {
             if (!ModelState.IsValid) throw new Exception();
 
@@ -41,24 +41,31 @@ namespace Karenbic.Areas.Admin.Controllers
                 .Single(x => x.Id == categoryId);
 
             DomainClasses.Portfolio model = new DomainClasses.Portfolio();
+            model.Title = title;
             model.Category = category;
             model.Priority = priority;
             model.Description = description;
 
-            if (tumbPicture != null &&
-                (tumbPicture.ContentType == "image/jpg" || tumbPicture.ContentType == "image/jpeg" || tumbPicture.ContentType == "image/png") &&
-                tumbPicture.ContentLength <= 250 * 1024)
+            if (mainFile != null &&
+                (mainFile.ContentType == "image/jpg" || mainFile.ContentType == "image/jpeg" || mainFile.ContentType == "image/png") &&
+                mainFile.ContentLength <= 250 * 1024)
             {
-                model.TumbPictureFile = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(tumbPicture.FileName));
-                tumbPicture.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Portfolio"), model.TumbPictureFile));
+                model.PictureFile = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(mainFile.FileName));
+                mainFile.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Portfolio"), model.PictureFile));
             }
 
-            if (picture != null &&
-                (picture.ContentType == "image/jpg" || picture.ContentType == "image/jpeg" || picture.ContentType == "image/png") &&
-                picture.ContentLength <= 250 * 1024)
+            foreach (HttpPostedFileBase picture in pictures)
             {
-                model.PictureFile = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(picture.FileName));
-                picture.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Portfolio"), model.PictureFile));
+                if (picture != null &&
+                    (picture.ContentType == "image/jpg" || picture.ContentType == "image/jpeg" || picture.ContentType == "image/png") &&
+                    picture.ContentLength <= 150 * 1024)
+                {
+                    DomainClasses.PortfolioPicture pic = new DomainClasses.PortfolioPicture();
+                    pic.PictureFile = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(picture.FileName));
+                    picture.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Portfolio"), pic.PictureFile));
+                    pic.Portfolio = model;
+                    _context.PortfolioPictures.Add(pic);
+                }
             }
 
             _context.Portfolios.Add(model);
@@ -67,9 +74,8 @@ namespace Karenbic.Areas.Admin.Controllers
             return Json(new
             {
                 Id = model.Id,
+                Title = model.Title,
                 Priority = model.Priority,
-                TumbPictureFile = model.TumbPictureFile,
-                TumbPicturePath = model.TumbPicturePath,
                 PictureFile = model.PictureFile,
                 PicturePath = model.PicturePath,
                 Category = new
@@ -85,9 +91,15 @@ namespace Karenbic.Areas.Admin.Controllers
             });
         }
 
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public ActionResult Edit(int id, int categoryId, int priority, string description,
-            HttpPostedFileBase tumbPicture, HttpPostedFileBase picture)
+        public ActionResult Edit(int id, string title, int categoryId, int priority, string description,
+            HttpPostedFileBase mainFile, HttpPostedFileBase[] newPictures, string removedPictures)
         {
             //if (!ModelState.IsValid) throw new Exception();
 
@@ -96,19 +108,20 @@ namespace Karenbic.Areas.Admin.Controllers
                 .Single(x => x.Id == categoryId);
 
             DomainClasses.Portfolio model = _context.Portfolios.Find(id);
+            model.Title = title;
             model.Category = category;
             model.Priority = priority;
             model.Description = description;
 
-            if (tumbPicture != null &&
-                (tumbPicture.ContentType == "image/jpg" || tumbPicture.ContentType == "image/jpeg" || tumbPicture.ContentType == "image/png") &&
-                tumbPicture.ContentLength <= 250 * 1024)
+            if (mainFile != null &&
+                (mainFile.ContentType == "image/jpg" || mainFile.ContentType == "image/jpeg" || mainFile.ContentType == "image/png") &&
+                mainFile.ContentLength <= 250 * 1024)
             {
-                string oldFile = model.TumbPictureFile;
+                string oldFile = model.PictureFile;
 
                 //save new file
-                model.TumbPictureFile = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(tumbPicture.FileName));
-                tumbPicture.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Portfolio"), model.TumbPictureFile));
+                model.PictureFile = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(mainFile.FileName));
+                mainFile.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Portfolio"), model.PictureFile));
 
                 //delete old picture
                 if (System.IO.File.Exists(string.Format("{0}/{1}",
@@ -119,22 +132,37 @@ namespace Karenbic.Areas.Admin.Controllers
                 }
             }
 
-            if (picture != null &&
-                (picture.ContentType == "image/jpg" || picture.ContentType == "image/jpeg" || picture.ContentType == "image/png") &&
-                picture.ContentLength <= 250 * 1024)
+            if (!string.IsNullOrEmpty(removedPictures))
             {
-                string oldFile = model.PictureFile;
-
-                //save new file
-                model.PictureFile = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(picture.FileName));
-                picture.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Portfolio"), model.PictureFile));
-
-                //delete old picture
-                if (System.IO.File.Exists(string.Format("{0}/{1}",
-                    HostingEnvironment.MapPath("/Content/Portfolio"), oldFile)))
+                string[] strRemovedPictures = removedPictures.Split(',');
+                foreach (string pictureId in strRemovedPictures)
                 {
-                    System.IO.File.Delete(string.Format("{0}/{1}",
-                    HostingEnvironment.MapPath("/Content/Portfolio"), oldFile));
+                    DomainClasses.PortfolioPicture picture = _context.PortfolioPictures.Find(Convert.ToInt32(pictureId));
+                    //remove picture
+                    if (System.IO.File.Exists(string.Format("{0}/{1}",
+                        HostingEnvironment.MapPath("/Content/Portfolio"), picture.PictureFile)))
+                    {
+                        System.IO.File.Delete(string.Format("{0}/{1}",
+                        HostingEnvironment.MapPath("/Content/Portfolio"), picture.PictureFile));
+                    }
+                    _context.PortfolioPictures.Remove(picture);
+                }
+            }
+
+            if (newPictures != null && newPictures.Count() > 0)
+            {
+                foreach (HttpPostedFileBase picture in newPictures)
+                {
+                    if (picture != null &&
+                        (picture.ContentType == "image/jpg" || picture.ContentType == "image/jpeg" || picture.ContentType == "image/png") &&
+                        picture.ContentLength <= 150 * 1024)
+                    {
+                        DomainClasses.PortfolioPicture pic = new DomainClasses.PortfolioPicture();
+                        pic.PictureFile = string.Format("{0}{1}", Guid.NewGuid(), System.IO.Path.GetExtension(picture.FileName));
+                        picture.SaveAs(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Portfolio"), pic.PictureFile));
+                        pic.Portfolio = model;
+                        _context.PortfolioPictures.Add(pic);
+                    }
                 }
             }
 
@@ -144,8 +172,6 @@ namespace Karenbic.Areas.Admin.Controllers
             {
                 Id = model.Id,
                 Priority = model.Priority,
-                TumbPictureFile = model.TumbPictureFile,
-                TumbPicturePath = model.TumbPicturePath,
                 PictureFile = model.PictureFile,
                 PicturePath = model.PicturePath,
                 Category = new
@@ -159,6 +185,43 @@ namespace Karenbic.Areas.Admin.Controllers
                     }
                 }
             });
+        }
+
+        [HttpGet]
+        public ActionResult Find(int id)
+        {
+
+            DomainClasses.Portfolio product = _context.Portfolios
+                .Include(x => x.Category)
+                .Include(x => x.Category.Type)
+                .Include(x => x.Pictures)
+                .Single(x => x.Id == id);
+
+            return Json(new
+            {
+                Id = product.Id,
+                Title = product.Title,
+                Priority = product.Priority,
+                Description = product.Description,
+                PictureFile = product.PictureFile,
+                PicturePath = product.PicturePath,
+                Type = new
+                {
+                    Id = product.Category.Type.Id,
+                    Title = product.Category.Type.Title
+                },
+                Category = new
+                {
+                    Id = product.Category.Id,
+                    Title = product.Category.Title
+                },
+                Pictures = product.Pictures.Select(x => new
+                {
+                    Id = x.Id,
+                    PictureFile = x.PictureFile,
+                    PicturePath = x.PicturePath
+                })
+            }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -197,9 +260,8 @@ namespace Karenbic.Areas.Admin.Controllers
                 List = list.Select(x => new
                 {
                     Id = x.Id,
+                    Title = x.Title,
                     Priority = x.Priority,
-                    TumbPictureFile = x.TumbPictureFile,
-                    TumbPicturePath = x.TumbPicturePath,
                     PictureFile = x.PictureFile,
                     PicturePath = x.PicturePath,
                     Description = x.Description,
@@ -224,7 +286,20 @@ namespace Karenbic.Areas.Admin.Controllers
         {
             bool result = false;
 
-            DomainClasses.Portfolio item = _context.Portfolios.Find(id);
+            DomainClasses.Portfolio item = _context.Portfolios
+                .Single(x => x.Id == id);
+
+            foreach (DomainClasses.PortfolioPicture picture in item.Pictures.ToList())
+            {
+                if (System.IO.File.Exists(string.Format("{0}/{1}",
+                    HostingEnvironment.MapPath("~/Content/Portfolio"), picture.PictureFile)))
+                {
+                    System.IO.File.Delete(string.Format("{0}/{1}",
+                        HostingEnvironment.MapPath("~/Content/Portfolio"), picture.PictureFile));
+                }
+
+                _context.PortfolioPictures.Remove(picture);
+            }
 
             if (System.IO.File.Exists(string.Format("{0}/{1}",
                 HostingEnvironment.MapPath("/Content/Portfolio"), item.PictureFile)))

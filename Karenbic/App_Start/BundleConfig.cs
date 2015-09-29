@@ -89,6 +89,7 @@ namespace Karenbic
                 "~/Scripts/admin/controllers/customer.js",
                 "~/Scripts/admin/controllers/portfolio-categories.js",
                 "~/Scripts/admin/controllers/portfolio-add.js",
+                "~/Scripts/admin/controllers/portfolio-edit.js",
                 "~/Scripts/admin/controllers/portfolios.js",
                 "~/Scripts/admin/controllers/price-list.js",
                 "~/Scripts/admin/controllers/send-message-new.js",

@@ -356,6 +356,18 @@ App
                     controller: 'PortfoliosController',
                     resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
                 })
+                .state('app.design.portfolio-edit', {
+                    url: '/portfolio-edit/:id',
+                    templateUrl: helper.basepath('Portfolio/Edit'),
+                    controller: 'EditPortfolioController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
+                })
+                .state('app.print.portfolio-edit', {
+                    url: '/portfolio-edit/:id',
+                    templateUrl: helper.basepath('Portfolio/Edit'),
+                    controller: 'EditPortfolioController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
+                })
                 .state('app.print.public-price', {
                     url: '/public-price',
                     templateUrl: helper.basepath('PublicPrice/Index'),

@@ -25,8 +25,6 @@
     <link type="text/css" rel="stylesheet" href="/Styles/public/portfolio.css" />
     <script src="/Vendors/jquery.isotope/jquery.isotope.js" type="text/javascript"></script>
     <script src="/Vendors/infinite-scroll/jquery.infinitescroll.js" type="text/javascript"></script>
-    <link type="text/css" rel="stylesheet" href="/Vendors/jquery-colorbox/them/colorbox.css" />
-    <script src="/Vendors/jquery-colorbox/jquery.colorbox-min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
             $(document).ready(function () {
@@ -35,8 +33,6 @@
                         $('#masonry-elements').isotope('reLayout');
                     }, 1000);
                 }
-
-                $('.feature a').colorbox();
 
                 $(window).load(function () {
                     var $masonryElement = $('#masonry-elements');
@@ -129,7 +125,7 @@
                                 <div class="item-img-overlay">
                                     <a class="portfolio-zoom fa fa-plus"
                                        href="@item.PicturePath"
-                                       title="@item.Description"></a>
+                                       title="@Url.Action("Detail", "Portfolio", new { id = item.Id })"></a>
                                 </div>
                             </div>
                             <div class="feature-content">
@@ -137,7 +133,7 @@
                                     <a href="" style="color:#999999;">@item.Category.Title</a>
                                 </h3>
                                 <h3 class="h3-body-title blog-title" style="font-family:BNAZANB;font-size:20px;">
-                                    <a href="@Url.Action("Detail", "GraphicUnit", new { id = item.Id })">@item.Description</a>
+                                    <a href="@Url.Action("Detail", "Portfolio", new { id = item.Id })">@item.Title</a>
                                 </h3>
                                 @if (string.IsNullOrEmpty(item.Description))
                                 {

@@ -96,6 +96,7 @@
     <Compile Include="Factor\PrintFactorConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Customer\ProvinceConfiguration.cs" />
+    <Compile Include="Public\PortfolioPictureConfiguration.cs" />
     <Compile Include="Public\ProductPictureConfiguration.cs" />
     <Compile Include="Public\ProductCategoryConfiguration.cs" />
     <Compile Include="Public\ProductConfiguration.cs" />

@@ -28,6 +28,13 @@ namespace Karenbic
            );
 
             routes.MapRoute(
+               name: "PortfolioDetail",
+               url: "Portfolio/Detail/{id}",
+               defaults: new { controller = "Portfolio", action = "Detail" },
+               namespaces: new string[] { "Karenbic.Controllers" }
+           );
+
+            routes.MapRoute(
                name: "Portfolio",
                url: "Portfolio/{typeId}/{categoryId}",
                defaults: new { controller = "Portfolio", action = "Index", categoryId = UrlParameter.Optional },

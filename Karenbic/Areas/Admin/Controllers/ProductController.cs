@@ -271,6 +271,13 @@ namespace Karenbic.Areas.Admin.Controllers
                 _context.ProductPictures.Remove(picture);
             }
 
+            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                HostingEnvironment.MapPath("/Content/Product"), product.PictureFile)))
+            {
+                System.IO.File.Delete(string.Format("{0}/{1}",
+                HostingEnvironment.MapPath("/Content/Product"), product.PictureFile));
+            }
+
             _context.Products.Remove(product);
             _context.SaveChanges();
 

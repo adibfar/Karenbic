@@ -101,6 +101,7 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.PortfolioType> PortfolioTypes { get; set; }
         public DbSet<DomainClasses.PortfolioCategory> PortfolioCategories { get; set; }
         public DbSet<DomainClasses.Portfolio> Portfolios { get; set; }
+        public DbSet<DomainClasses.PortfolioPicture> PortfolioPictures { get; set; }
         public DbSet<DomainClasses.PublicPriceCategory> PublicPriceCategories { get; set; }
         public DbSet<DomainClasses.PublicPrice> PublicPrices { get; set; }
         public DbSet<DomainClasses.ProductCategory> ProductCategories { get; set; }

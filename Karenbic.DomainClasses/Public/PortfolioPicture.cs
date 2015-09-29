@@ -1,25 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Karenbic.DomainClasses
 {
-    [Table("tbl_Portfolio")]
-    public class Portfolio
+    [Table("tbl_PortfolioPicture")]
+    public class PortfolioPicture
     {
         [Key]
         [Required]
         public int Id { get; set; }
-
-        [Required]
-        public string Title { get; set; }
-
-        [Required]
-        [Range(0, Int32.MaxValue)]
-        public int Priority { get; set; }
-
-        public string Description { get; set; }
 
         [Required]
         public string PictureFile { get; set; }
@@ -35,8 +25,6 @@ namespace Karenbic.DomainClasses
 
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 
-        public virtual PortfolioCategory Category { get; set; }
-
-        public virtual ICollection<PortfolioPicture> Pictures { get; set; }
+        public virtual Portfolio Portfolio { get; set; }
     }
 }

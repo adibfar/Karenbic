@@ -45,5 +45,22 @@ namespace Karenbic.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public ActionResult Detail(int id)
+        {
+            DomainClasses.Portfolio item = _context.Portfolios
+                .Include(x => x.Category)
+                .Include(x => x.Category.Type)
+                .Include(x => x.Pictures)
+                .Single(x => x.Id == id);
+
+            //Fetch Portfolio Type
+            ViewBag.PortfolioType = _context.PortfolioTypes
+                .Include(x => x.Categories)
+                .Single(x => x.Id == item.Category.Type.Id);
+
+            return View(item);
+        }
     }
 }

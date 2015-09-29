@@ -581,6 +581,7 @@
     <Content Include="Scripts\admin\controllers\form-edit.js" />
     <Content Include="Scripts\admin\controllers\form-group.js" />
     <Content Include="Scripts\admin\controllers\form-list.js" />
+    <Content Include="Scripts\admin\controllers\portfolio-edit.js" />
     <Content Include="Scripts\admin\controllers\public-home-slide-show.js" />
     <Content Include="Scripts\admin\controllers\main.js" />
     <Content Include="Scripts\admin\controllers\mobile-menu.js" />
@@ -675,6 +676,7 @@
     <Content Include="Areas\Admin\Views\Product\List.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\HomeSlideShow\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Portfolio\Edit.cshtml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
@@ -2568,6 +2570,7 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Styles\public\product.scss" />
     <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Portfolio\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

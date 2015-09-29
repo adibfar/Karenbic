@@ -9,6 +9,10 @@ namespace Karenbic.DataAccess
             HasRequired(x => x.Category)
                 .WithMany(x => x.Portfolios)
                 .WillCascadeOnDelete(false);
+
+            HasMany(x => x.Pictures)
+                .WithRequired(x => x.Portfolio)
+                .WillCascadeOnDelete(false);
         }
     }
 }

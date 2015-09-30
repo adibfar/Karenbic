@@ -13,22 +13,13 @@ namespace Karenbic.DomainClasses
         public int Id { get; set; }
 
         [Required]
+        public string Title { get; set; }
+
+        [Required]
         [Range(0, Int32.MaxValue)]
         public int Priority { get; set; }
 
         public string Description { get; set; }
-
-        [Required]
-        public string TumbPictureFile { get; set; }
-
-        [NotMapped]
-        public string TumbPicturePath
-        {
-            get
-            {
-                return string.Format("/Content/Portfolio/{0}", TumbPictureFile);
-            }
-        }
 
         [Required]
         public string PictureFile { get; set; }
@@ -45,5 +36,7 @@ namespace Karenbic.DomainClasses
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 
         public virtual PortfolioCategory Category { get; set; }
+
+        public virtual ICollection<PortfolioPicture> Pictures { get; set; }
     }
 }

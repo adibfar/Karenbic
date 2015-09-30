@@ -1,0 +1,42 @@
+﻿.top-title-wrapper {
+	background-color: #e05481;
+	width: 100%;
+	overflow: hidden;
+
+	.page-info {
+		padding: 30px 0 20px 0;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.page-title {
+		font: {
+			family: yekan;
+			size: 26px;
+			weight: 100;
+		}
+
+		direction: rtl;
+		margin: 0 0 10px 0;
+		line-height: 20px;
+		float: right;
+		color: #fff;
+		margin-left: 10px;
+		text-align: right;
+	}
+
+	.page-desc {
+		font: {
+			family: yekan;
+			size: 19px;
+			weight: 100;
+		}
+
+		line-height: 20px;
+		color: #EEEEEE;
+		border-right: 1px solid;
+		padding-right: 10px;
+		float: right;
+		margin-bottom: 10px;
+	}
+}

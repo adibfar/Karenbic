@@ -1,14 +1,28 @@
 ﻿@model Karenbic.Models.LoginViewModel
 
 @{
-    ViewBag.PageTitle = "Login";
+    Layout = null;
 }
 
-@section HeaderSection {
+<!DOCTYPE html>
+<html>
+<head>
+    <title>شرکت نوآوران کارن | ورود به سایت</title>
+    <script type="text/javascript" language="javascript" src="/Vendors/jquery-1.11.2/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/Vendors/jquery-1.11.2/jquery-migrate-1.2.1.min.js"></script>
+
+    <script type="text/javascript" language="javascript" src="/Vendors/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Vendors/bootstrap-3.3.4/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/Vendors/bootstrap-rtl/bootstrap-rtl.min.css" />
+
     <link rel="stylesheet" type="text/css" href="/Vendors/ezmark/css/ezmark.css" />
     <script type="text/javascript" src="/Vendors/ezmark/js/jquery.ezmark.min.js"></script>
 
     <style>
+        body{
+            background-color:#5e5e5e;
+        }
+
         #login-panel {
             background-color: #fff;
             direction: rtl;
@@ -17,7 +31,6 @@
             padding: 35px 20px 0px 20px;
             position: relative;
             width: 300px;
-
             -webkit-border-radius: 15px;
             -moz-border-radius: 15px;
             border-radius: 15px;
@@ -31,7 +44,8 @@
                 position: relative;
                 width: 100%;
             }
-                #login-panel .username .icon { 
+
+                #login-panel .username .icon {
                     background: url(/Images/Public/Login/2.png) no-repeat 0 0;
                     height: 25px;
                     position: absolute;
@@ -39,6 +53,7 @@
                     top: 3px;
                     width: 20px;
                 }
+
                 #login-panel .username input {
                     border: none;
                     direction: ltr;
@@ -46,6 +61,7 @@
                     text-align: left;
                     width: 100%;
                 }
+
                     #login-panel .username input:focus {
                         outline: none;
                         border: none;
@@ -59,6 +75,7 @@
                 position: relative;
                 width: 100%;
             }
+
                 #login-panel .password .icon {
                     background: url(/Images/Public/Login/3.png) no-repeat 0 0;
                     height: 25px;
@@ -67,12 +84,14 @@
                     top: 3px;
                     width: 20px;
                 }
+
                 #login-panel .password input {
                     width: 100%;
                     border: none;
                     direction: ltr;
-                    text-align: left; 
+                    text-align: left;
                 }
+
                     #login-panel .password input:focus {
                         border: none;
                         outline: none;
@@ -92,6 +111,7 @@
             top: 8px;
             width: 11px;
         }
+
         .ez-checked {
             background-position: 0 -14px;
         }
@@ -110,7 +130,7 @@
             left: 0;
             position: absolute;
             top: 11px;
-            width: 300px; 
+            width: 300px;
         }
 
         #login-panel .bottom {
@@ -121,6 +141,7 @@
             position: absolute;
             width: 300px;
         }
+
         #login-panel .btn-login {
             background: url(/Images/Public/Login/9.png) no-repeat 0 0;
             border: none;
@@ -132,6 +153,7 @@
             top: -10px;
             width: 63px;
         }
+
             #login-panel .btn-login:hover {
                 background-position: 0 -25px;
             }
@@ -140,34 +162,52 @@
     <script>
         $(document).ready(function () {
             $('input[type="checkbox"]').ezMark();
+
+            if ($(window).height() > 301) {
+                $('#login-panel').css('margin-top', ($(window).height() - 301) / 2);
+            }
+            else {
+                $('#login-panel').css('margin-top', 5);
+            }
+
+            $(window).resize(function () {
+                if ($(window).height() > 301) {
+                    $('#login-panel').css('margin-top', ($(window).height() - 301) / 2);
+                }
+                else {
+                    $('#login-panel').css('margin-top', 5);
+                }
+            });
         });
     </script>
-}
-
-<div id="login-panel">
-    <form method="post">
-        @Html.AntiForgeryToken()
-        <input name="returnUrl" type="hidden" value="@ViewBag.ReturnUrl" />
-        <div class="username">
-            <input type="text" name="model.UserName" value="@Model.UserName" />
-            <div class="icon"></div>
-        </div>
-        <div class="password">
-            <input type="password" name="model.Password" value="@Model.Password" />
-            <div class="icon"></div>
-        </div>
-        <label id="remeber" style="cursor:pointer;">
-            <input type="checkbox" name="model.RememberMe" value="true" @(Model.RememberMe ? "checked=\"checked\"" : "") />
-            <input type="hidden" name="model.RememberMe" value="false" />
-            <img src="/Images/Public/Login/5.png" alt="مرا بخاطر بسپار" />
-        </label>
-        <a id="recovery-pass" href=""></a>
-        @if (ViewBag.NotAuth == true)
-        {
-            <div id="not-auth"></div>
-        }
-        <div class="bottom">
-            <input type="submit" class="btn-login" value="" />
-        </div>
-    </form>
-</div>
+</head>
+<body>
+    <div id="login-panel">
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <input name="returnUrl" type="hidden" value="@ViewBag.ReturnUrl" />
+            <div class="username">
+                <input type="text" name="model.UserName" value="@Model.UserName" />
+                <div class="icon"></div>
+            </div>
+            <div class="password">
+                <input type="password" name="model.Password" value="@Model.Password" />
+                <div class="icon"></div>
+            </div>
+            <label id="remeber" style="cursor:pointer;">
+                <input type="checkbox" name="model.RememberMe" value="true" @(Model.RememberMe ? "checked=\"checked\"" : "") />
+                <input type="hidden" name="model.RememberMe" value="false" />
+                <img src="/Images/Public/Login/5.png" alt="مرا بخاطر بسپار" />
+            </label>
+            <a id="recovery-pass" href=""></a>
+            @if (ViewBag.NotAuth == true)
+            {
+                <div id="not-auth"></div>
+            }
+            <div class="bottom">
+                <input type="submit" class="btn-login" value="" />
+            </div>
+        </form>
+    </div>
+</body>
+</html>

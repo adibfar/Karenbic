@@ -123,6 +123,11 @@
     <Compile Include="PriceList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Customer\Province.cs" />
+    <Compile Include="Public\HomeSlideShow.cs" />
+    <Compile Include="Public\PortfolioPicture.cs" />
+    <Compile Include="Public\Product.cs" />
+    <Compile Include="Public\ProductCategory.cs" />
+    <Compile Include="Public\ProductPicture.cs" />
     <Compile Include="Public\PublicPrice.cs" />
     <Compile Include="Public\PublicPriceCategory.cs" />
     <Compile Include="Public\Portfolio.cs" />

@@ -1,225 +1,58 @@
-﻿@{
-    ViewBag.PageTitle = "آرشیو نمونه ها";
+﻿@model Karenbic.DomainClasses.PublicPriceCategory
+
+@{
+    ViewBag.PageTitle = string.Format("{0} | {1}", "لیست قیمت", Model.Title);
+    List<Karenbic.DomainClasses.PublicPrice> prices = Model.Prices.OrderByDescending(x => x.Priority).ToList();
 }
 
 @section HeaderSection {
-    <style type="text/css">
-        .page-content {
-            margin-top: 20px;
-            padding-right: 164px;
-            position: relative;
-            width: 100%;
-        }
+    <link type="text/css" rel="stylesheet" href="/Styles/public/price-list.css" />
+    <script>
+        $(document).ready(function () {
+            $('.accordion-row .title, .accordion-row .open-icon, .accordion-row .close-icon').click(function () {
+                var $this = $(this);
 
-        .price-menu {
-            background: transparent url(/Images/PublicMobile/price-menu-bar.jpg) no-repeat 0 0;
-            height: 360px;
-            margin: 0 auto;
-            padding: 1px;
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 154px;
-        }
-        .price-menu-title {
-            background: transparent url(/Images/PublicMobile/portfolio-menu-title.jpg) no-repeat 0 0;
-            height: 62px;
-            padding: 1px;
-            width: 154px;
-        }
-            .price-menu-title .price-menu-title-inner {
-                background: transparent url(/Images/PublicMobile/MenuItem/item1_text.png) no-repeat 33px 14px;
-                cursor: pointer;
-                display: block;
-                height: 55px;
-                margin: 2px 11px 1px 1px;
-            }
-
-        .price-menu-bar {
-            background: transparent url(/Images/PublicMobile/portfolio-menu-bar.jpg) no-repeat 0 0;
-            height: 298px;
-            padding: 1px;
-            width: 154px;
-        }
-            .price-menu-bar ul {
-                margin: 30px 30px 0 23px;
-                padding: 0;
-                list-style: none;
-                text-align: center;
-            }
-                .price-menu-bar ul li {
-                    display: block;
-                    list-style: none;
-                    height: 49px;
-                    margin: 0;
-                    padding: 0;
-                    position: relative;
-                    width: 100%;
+                if ($($this).closest('.accordion-row').hasClass('expand')) {
+                    $($this).closest('.accordion-row').find('.desc').stop(true, true).slideUp(300);
+                    $($this).closest('.accordion-row').find('.close-icon').removeClass('close-icon').addClass('open-icon');
+                    $($this).closest('.accordion-row').removeClass('expand');
                 }
-                    .price-menu-bar ul li a {
-                        cursor: pointer;
-                        display: block;
-                        height: 68px;
-                        position: relative;
-                        width: 100%;
-                    }
-                        .price-menu-bar ul li a:hover {
-                            text-decoration: none;
-                        }
-                            .price-menu-bar ul li a:hover + .item-hover-bg {
-                                opacity: 1;
-                                transition: opacity 300ms ease-in;
-                            }
-                    .price-menu-bar ul li .item-sep {
-                        background: transparent url(/Images/PublicMobile/portfolio-menu-sep.png) no-repeat center center;
-                        bottom: -7px;
-                        height: 14px;
-                        position: absolute;
-                        right: 0;
-                        top: auto;
-                        width: 97px;
-                        z-index: 8;
-                    }
-
-                    .price-menu-bar ul li.item1 {
-                        height: 49px;
-                    }
-                        .price-menu-bar ul li.item1 a {
-                            background: transparent url(/Images/PublicMobile/SubMenuItem/1.png) no-repeat center right;
-                            height: 49px;
-                            top: -3px;
-                        }
-
-                    .price-menu-bar ul li.item2 {
-                        height: 44px;
-                    }
-                        .price-menu-bar ul li.item2 a {
-                            background: transparent url(/Images/PublicMobile/SubMenuItem/2.png) no-repeat center right;
-                            height: 44px;
-                            right: 5px;
-                            top: -5px;
-                        }
-
-                    .price-menu-bar ul li.item3 {
-                        height: 40px;
-                    }
-                        .price-menu-bar ul li.item3 a {
-                            background: transparent url(/Images/PublicMobile/SubMenuItem/3.png) no-repeat center right;
-                            height: 33px;
-                            top: 0;
-                        }
-
-                    .price-menu-bar ul li.item4 {
-                        height: 39px;
-                    }
-                        .price-menu-bar ul li.item4 a {
-                            background: transparent url(/Images/PublicMobile/SubMenuItem/4.png) no-repeat center right;
-                            height: 17px;
-                            right: 12px;
-                            top: 14px;
-                        }
-
-                    .price-menu-bar ul li.item5 {
-                        height: 43px;
-                    }
-                        .price-menu-bar ul li.item5 a {
-                            background: transparent url(/Images/PublicMobile/SubMenuItem/5.png) no-repeat center right;
-                            height: 31px;
-                            right: 6px;
-                            top: 5px;
-                        }
-
-        /* Custom, iPhone Retina */
-        @@media only screen and (min-width : 320px) {
-            .page-content {
-                padding-right: 0;
-            }
-
-            .price-menu {
-                right: auto;
-                position: relative;
-                top: auto;
-            }
-        }
-        /* Extra Small Devices, Phones */
-        @@media only screen and (min-width : 480px) {
-            .page-content {
-                padding-right: 0;
-            }
-
-            .price-menu {
-                right: auto;
-                position: relative;
-                top: auto;
-            }
-        }
-        /* Small Devices, Tablets */
-        @@media only screen and (min-width : 768px) {
-            .page-content {
-                padding-right: 164px;
-            }
-
-            .price-menu {
-                right: 0;
-                position: absolute;
-                top: 0;
-            }
-        }
-        /* Medium Devices, Desktops */
-        @@media only screen and (min-width : 992px) {
-            .page-content {
-                padding-right: 164px;
-            }
-
-            .price-menu {
-                right: 0;
-                position: absolute;
-                top: 0;
-            }
-        }
-        /* Large Devices, Wide Screens */
-        @@media only screen and (min-width : 1200px) {
-            .page-content {
-                padding-right: 164px;
-            }
-
-            .price-menu {
-                right: 0;
-                position: absolute;
-                top: 0;
-            }
-        }
-    </style>
+                else {
+                    $('.expand').closest('.accordion-row').find('.desc').stop(true, true).slideUp(300).removeClass('expand');
+                    $($this).closest('.accordion-row').find('.desc').slideDown(300);
+                    $($this).closest('.accordion-row').find('.open-icon').removeClass('open-icon').addClass('close-icon');
+                    $($this).closest('.accordion-row').addClass('expand');
+                }
+            });
+        });
+    </script>
 }
 
-<div class="page-content">
-    <div class="price-menu">
-        <div class="price-menu-title">
-            <a class="price-menu-title-inner"></a>
-        </div>
-
-        <div class="price-menu-bar">
-            <ul>
-                <li class="item1">
-                    <a href="/PriceList/1"></a>
-                    <div class="item-sep"></div>
-                </li>
-                <li class="item5">
-                    <a href="/PriceList/5"></a>
-                    <div class="item-sep"></div>
-                </li>
-                <li class="item2">
-                    <a href="/PriceList/2"></a>
-                    <div class="item-sep"></div>
-                </li>
-                <li class="item3">
-                    <a href="/PriceList/3"></a>
-                    <div class="item-sep"></div>
-                </li>
-                <li class="item4">
-                    <a href="/PriceList/4"></a>
-                </li>
-            </ul>
+@section TitleBar {
+    <div class="top-title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="page-info">
+                        <h1 class="page-title">لیست قیمت</h1>
+                        <h3 class="page-desc">@Model.Title</h3>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+}
+
+@if (prices != null && prices.Count > 0)
+{
+    <div class="price-accordion">
+        @foreach (Karenbic.DomainClasses.PublicPrice item in prices)
+        {
+            <div class="accordion-row">
+                <h4 class="title">@item.Title</h4>
+                <div class="open-icon"></div>
+                <div class="desc">@Html.Raw(item.Description)</div>
+            </div>
+        }
+    </div>
+}

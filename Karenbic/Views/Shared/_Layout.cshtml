@@ -1,178 +1,314 @@
 ﻿<!DOCTYPE html>
 
 <!--[if lt IE 7]>
-    <html class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="KarenbicApp">
+    <html class="no-js lt-ie9 lt-ie8 lt-ie7">
 <![endif]-->
 <!--[if IE 7]>
-    <html class="no-js lt-ie9 lt-ie8" ng-app="KarenbicApp">
+    <html class="no-js lt-ie9 lt-ie8">
 <![endif]-->
 <!--[if IE 8]>
-    <html class="no-js lt-ie9" ng-app="KarenbicApp">
+    <html class="no-js lt-ie9">
 <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js" ng-app="KarenbicApp">
+    <html class="no-js">
 <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--[if IE]>
         <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
     <![endif]-->
-    <title>@string.Format("{0} | {1}", "Karen Studio", ViewBag.PageTitle)</title>
-    <script type="text/javascript" src="/Scripts/public/base"></script>
-    <link rel="stylesheet" type="text/css" href="/Styles/publicStyle" />
-    <link rel="stylesheet" type="text/css" href="/Styles/public.css" />
-    <script>
-        $(document).ready(function () {
-            $('#navbar ul.menu > li > a').click(function (e) {
-                if ($(this).closest('li').find('.submenu').length > 0) {
-                    $('#navbar ul.menu > li > a').not(this).removeClass('active');
-                    $('#navbar .submenu').not($(this).closest('li').find('.submenu')).hide();
 
-                    $(this).toggleClass('active');
-                    $(this).closest('li').find('.submenu').slideToggle(300);
-                }
-                e.stopPropagation();
-            });
+    <title>@(ViewBag.PageTitle != null ? string.Format("{0} | {1}", "Karen Studio", ViewBag.PageTitle) : "Karen Studio")</title>
 
-            $('html').not('#navbar ul.menu > li > a').click(function () {
-                $('#navbar ul.menu > li > a').removeClass('active');
-                $('#navbar .submenu').slideUp(200);
-            });
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/Vendors/Animation.css/animate.css">
+    <link rel="stylesheet" type="text/css" href="/Vendors/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/Vendors/axfont/css/axfont.css">
+    
+    <script type="text/javascript" language="javascript" src="/Vendors/jquery-1.11.2/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/Vendors/jquery-1.11.2/jquery-migrate-1.2.1.min.js"></script>
+    
+    <script type="text/javascript" language="javascript" src="/Vendors/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Vendors/bootstrap-3.3.4/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/Vendors/bootstrap-rtl/bootstrap-rtl.min.css" />
 
-            $('#navbar-mobile #navbar-mobile-arrow').click(function () {
-                $('#navbar-mobile-inner').slideToggle(200);
-            });
-        });
-    </script>
+    <script type="text/javascript" language="javascript" src="/Vendors/jquery-placeholder/jquery.placeholder.min.js"></script>
+
+    <script type="text/javascript" language="javascript" src="/Vendors/retina-1.3.0/retina.min.js"></script>
+
+    <!--[if lt IE 9]>
+        <script type="text/javascript" language="javascript" src="/Vendors/Respondjs/respond.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script type="text/javascript" src="/Vendors/ie-fixes/ie-fixes.js"></script>
+        <link rel="stylesheet" href="/Vendors/ie-fixes/ie-fixes.css">
+    <![endif]-->
+
+    <script type="text/javascript" language="javascript" src="/Scripts/animationEnigne.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/Vendors/style.css" />
+    <link rel="stylesheet" type="text/css" href="/Vendors/responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/Styles/public/layout.css" />
+    
+    <script type="text/javascript" language="javascript" src="/Scripts/Public.js"></script>
+
     @RenderSection("HeaderSection", false)
 </head>
 <body>
-    <div id="contents">
-        <div id="center-content">
-            <div class="hidden-xs" id="header">
-                <a class="logo" href="/"></a>
-                <div class="btn-login"><a class="btn-login-inner" href="/Account/Login"></a></div>
-                <div class="btn-register"><a class="btn-register-inner" href="/Account/Register"></a></div>
-            </div>
+    <div id="wrapper">
+        <div class="top_wrapper">
+            <!-- Start Top Bar -->
+            <div class="top-bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                            <!-- Start Search Box -->
+                            <div class="searchbox">
+                                <form action="#" method="get">
+                                    <input type="text"
+                                           class="searchbox-inputtext"
+                                           id="searchbox-inputtext"
+                                           name="s"
+                                           placeholder="جستجو ..." />
+                                    <label class="searchbox-icon"
+                                           for="searchbox-inputtext"></label>
+                                    <input type="submit"
+                                           class="searchbox-submit"
+                                           value="Search" />
+                                </form>
+                            </div>
+                            <!-- End Search Box -->
 
-            <div class="hidden-xs" id="navbar">
-                <img class="bg" src="/Images/Public/navbar-bg.jpg" />
-                <div id="inner-navbar">
-                    <ul class="menu">
-                        <li class="item1">
-                            <a></a>
-                            <div class="item-hover-bg"></div>
-                            <div class="item-sep"></div>
-                            <div class="submenu">
+                            <!-- Start Social Icons -->
+                            <div class="social-icons">
                                 <ul>
-                                    <li class="item1">
-                                        <a href="/Portfolio/1"></a>
-                                        <div class="item-hover-bg"></div>
-                                        <div class="item-sep"></div>
+                                    <li>
+                                        <a href="#"
+                                           target="_blank"
+                                           class="social-media-icon facebook-icon"
+                                           data-original-title="facebook">facebook</a>
                                     </li>
-                                    <li class="item2">
-                                        <a href="/Portfolio/2"></a>
-                                        <div class="item-hover-bg"></div>
-                                        <div class="item-sep"></div>
-                                    </li>
-                                    <li class="item3">
-                                        <a href="/Portfolio/3"></a>
-                                        <div class="item-hover-bg"></div>
-                                        <div class="item-sep"></div>
-                                    </li>
-                                    <li class="item4">
-                                        <a href="/Portfolio/4"></a>
-                                        <div class="item-hover-bg"></div>
+                                    <li>
+                                        <a href="#"
+                                           target="_blank"
+                                           class="social-media-icon instagram-icon"
+                                           data-original-title="googleplus">Instagram</a>
                                     </li>
                                 </ul>
                             </div>
-                        </li>
-                        <li class="item2">
-                            <a></a>
-                            <div class="item-hover-bg"></div>
-                            <div class="item-sep"></div>
-                            <div class="submenu">
-                                <ul>
-                                    <li class="item1">
-                                        <a href="/PriceList/1"></a>
-                                        <div class="item-hover-bg"></div>
-                                        <div class="item-sep"></div>
+                            <!-- End Social Icons -->
+
+                            <a class="btn-signin" href="/Account/Login"></a>
+                            <a class="btn-signup" href="/Account/Register"></a>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <!-- Start Contact Us -->
+                            <div class="call-us top-bar-block">
+                                <i class="icon-phone"></i>
+                                <span>
+                                    Call us at 071 - 3234 0374
+                                </span>
+                            </div>
+                            <div class="mail-us top-bar-block">
+                                <i class="icon-email"></i>
+                                <span>
+                                    E-mail: info@studioparsia.com
+                                </span>
+                            </div>
+                            <!-- End Contact Us -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Top Bar -->
+
+            <!-- Start Header -->
+            <header id="header">
+                <div class="container">
+                    <div class="row header">
+                        <!-- Start Navigation -->
+                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-6">
+                            <!-- Mobile Button Menu -->
+                            <div class="mobile-menu-button visible-sm visible-xs">
+                                <i class="fa fa-list-ul"></i>
+                            </div>
+                            <!-- Mobile Button Menu -->
+                            <nav>
+                                <ul class="navigation">
+                                    <li>
+                                        <a href="@Url.Action("Index", "Home")">
+                                            <span class="label-nav">
+                                                صفحه اصلی
+                                            </span>
+                                            <span class="label-nav-sub" data-hover="Main Page">
+                                                Main Page
+                                            </span>
+                                        </a>
                                     </li>
-                                    <li class="item5">
-                                        <a href="/PriceList/5"></a>
-                                        <div class="item-hover-bg"></div>
-                                        <div class="item-sep"></div>
+                                    <li>
+                                        <a href="@Url.Action("Index", "Product", new { categoryId = "" })">
+                                            <span class="label-nav">
+                                                محصولات
+                                            </span>
+                                            <span class="label-nav-sub" data-hover="Products">
+                                                Products
+                                            </span>
+                                        </a>
                                     </li>
-                                    <li class="item2">
-                                        <a href="/PriceList/2"></a>
-                                        <div class="item-hover-bg"></div>
-                                        <div class="item-sep"></div>
+                                    <li>
+                                        <a>
+                                            <span class="label-nav">
+                                                آرشیو نمونه ها
+                                            </span>
+                                            <span class="label-nav-sub" data-hover="Our Works">
+                                                Our Works
+                                            </span>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a href="@Url.Action("Index", "Portfolio", new { typeId = 1 })">گرافیک</a>
+                                                <a href="@Url.Action("Index", "Portfolio", new { typeId = 2 })">عکاسی صنعتی</a>
+                                                <a href="@Url.Action("Index", "Portfolio", new { typeId = 3 })">مولتی مدیا</a>
+                                                <a href="@Url.Action("Index", "Portfolio", new { typeId = 4 })">وب</a>
+                                            </li>
+                                        </ul>
                                     </li>
-                                    <li class="item3">
-                                        <a href="/PriceList/3"></a>
-                                        <div class="item-hover-bg"></div>
-                                        <div class="item-sep"></div>
+                                    <li>
+                                        <a>
+                                            <span class="label-nav">
+                                               لیست قیمت
+                                            </span>
+                                            <span class="label-nav-sub" data-hover="Price List">
+                                                Price List
+                                            </span>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a href="@Url.Action("Index", "PriceList", new { id = 1 })">گرافیک</a>
+                                                <a href="@Url.Action("Index", "PriceList", new { id = 2 })">عکاسی صنعتی</a>
+                                                <a href="@Url.Action("Index", "PriceList", new { id = 3 })">مولتی مدیا</a>
+                                                <a href="@Url.Action("Index", "PriceList", new { id = 4 })">خدمات چاپ</a>
+                                            </li>
+                                        </ul>
                                     </li>
-                                    <li class="item4">
-                                        <a href="/PriceList/4"></a>
-                                        <div class="item-hover-bg"></div>
+                                    <li>
+                                        <a href="@Url.Action("AboutUs", "Home")">
+                                            <span class="label-nav">
+                                                درباره کارن
+                                            </span>
+                                            <span class="label-nav-sub" data-hover="About Karen">
+                                                About Karen
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("ContactUs", "Home")">
+                                            <span class="label-nav">
+                                                ارتباط با استودیو
+                                            </span>
+                                            <span class="label-nav-sub" data-hover="Contact To Studio">
+                                                Contact To Studio
+                                            </span>
+                                        </a>
                                     </li>
                                 </ul>
-                            </div>
-                        </li>
-                        <li class="item4">
-                            <a href="/AboutUs"></a>
-                            <div class="item-hover-bg"></div>
-                            <div class="item-sep"></div>
-                        </li>
-                        <li class="item3">
-                            <a href="/ContactUs"></a>
-                            <div class="item-hover-bg"></div>
-                            <div class="item-sep"></div>
-                        </li>
-                        <li class="item5">
-                            <a href="/Help"></a>
-                            <div class="item-hover-bg"></div>
-                        </li>
-                    </ul>
+                            </nav>
+                        </div>
+                        <!-- End Navigation -->
+
+                        <!-- Start Logo -->
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 logo">
+                            <a href="/">
+                                <img src="/Images/Public/main_logo.png" />
+                            </a>
+                        </div>
+                        <!-- End Logo -->
+
+                        <!-- Start Mobile Nav. Container -->
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs">
+                            <ul class="mobile-nav">
+                                <li class="responsive-searchbox">
+                                    <form action="#" method="get">
+                                        <input type="text"
+                                               class="searchbox-inputtext"
+                                               id="searchbox-inputtext-mobile"
+                                               name="s" />
+                                        <button class="icon-search"></button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- End Mobile Nav. Container -->
+                    </div>
+
                 </div>
-            </div>
+            </header>
+            <!-- End Header -->
 
-            <div class="visible-xs" id="navbar-mobile">
-                <div id="navbar-mobile-inner">
-                    <a class="logo" href="/"></a>
+            @RenderSection("TitleBar", false)
+        </div>
 
-                    <div class="btn-container">
-                        <div class="btn-login"><a class="btn-login-inner" href="/Account/Login"></a></div>
-                        <div class="btn-register"><a class="btn-register-inner" href="/Account/Register"></a></div>
-                    </div>
-
-                    <div class="menu-item menu-item0">
-                        <a class="menu-item-inner" href="/Portfolio"></a>
-                    </div>
-
-                    <div class="menu-item menu-item1">
-                        <a class="menu-item-inner" href="/PriceList"></a>
-                    </div>
-
-                    <div class="menu-item menu-item2">
-                        <a class="menu-item-inner" href="/ContactUs"></a>
-                    </div>
-
-                    <div class="menu-item menu-item3">
-                        <a class="menu-item-inner" href="/AboutUs"></a>
-                    </div>
-
-                    <div class="menu-item menu-item4">
-                        <a class="menu-item-inner" href="/Help"></a>
-                    </div>
+        @*<div class="loading-container">
+                <div class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
                 </div>
-                <div id="navbar-mobile-arrow"></div>
-            </div>
+            </div>*@
 
+        <div class="content-wrapper hide-until-loading">
             @RenderBody()
         </div>
     </div>
+    
+    <footer>
+        <div class="footer">
+            <div class="container">
+                <div class="footer-wrapper">
+                    <div class="row">
+                        <!-- Footer Col. -->
+                        <div class="col-md-3 col-sm-3 footer-col">
+                            <div class="footer-content">
+                                <div class="footer-title">
+                                    ارتباط با ما
+                                </div>
+                                <div class="footer-content-text">
+                                    شیـــــــــراز، خیــــــابان اردیــبهشت
+                                    <br />
+                                    بـــــــــــرج آی تــی شیـــــــــــــــراز
+                                    <br />
+                                    طبقـــــــــــــه دوم، واحــــــــــــد 29
+                                    <br />
+                                    تلفن دفتر مرکز:   374 0 234 - 0711
+                                    <br />
+                                    تماس مستقیم: 2997 - 657 - 0917
+                                    <br />
+                                    پست الکترو نیک: info@hspc.ir
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //Footer Col.// -->
+                        <!-- Footer Col. -->
+                        <div class="col-md-6 col-sm-6 footer-col">
+                            <div class="footer-title">&nbsp;</div>
+                            <div class="footer-content">
+                            </div>
+                        </div>
+                        <!-- //Footer Col.// -->
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="copyright-text"> <a href="http://www.hspc.ir" target="_blank">Studio Parsia</a> &copy; 2015, All rights reserved</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

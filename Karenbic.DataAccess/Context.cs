@@ -103,8 +103,13 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.PortfolioType> PortfolioTypes { get; set; }
         public DbSet<DomainClasses.PortfolioCategory> PortfolioCategories { get; set; }
         public DbSet<DomainClasses.Portfolio> Portfolios { get; set; }
+        public DbSet<DomainClasses.PortfolioPicture> PortfolioPictures { get; set; }
         public DbSet<DomainClasses.PublicPriceCategory> PublicPriceCategories { get; set; }
         public DbSet<DomainClasses.PublicPrice> PublicPrices { get; set; }
+        public DbSet<DomainClasses.ProductCategory> ProductCategories { get; set; }
+        public DbSet<DomainClasses.Product> Products { get; set; }
+        public DbSet<DomainClasses.ProductPicture> ProductPictures { get; set; }
+        public DbSet<DomainClasses.HomeSlideShow> HomeSlideShows { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -169,6 +174,9 @@ namespace Karenbic.DataAccess
             modelBuilder.Configurations.Add(new PortfolioConfiguration());
             modelBuilder.Configurations.Add(new PublicPriceCategoryConfiguration());
             modelBuilder.Configurations.Add(new PublicPriceConfiguration());
+            modelBuilder.Configurations.Add(new ProductCategoryConfiguration());
+            modelBuilder.Configurations.Add(new ProductConfiguration());
+            modelBuilder.Configurations.Add(new ProductPictureConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

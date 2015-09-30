@@ -1,11 +1,22 @@
 ﻿@model Karenbic.DomainClasses.Customer
 
 @{
-    ViewBag.PageTitle = "Register";
+    Layout = null;
     List<string> errors = (List<string>)ViewBag.Errors;
 }
 
-@section HeaderSection {
+<!DOCTYPE html>
+<html>
+<head>
+    <title>شرکت نوآوران کارن | ثبت نام</title>
+
+    <script type="text/javascript" language="javascript" src="/Vendors/jquery-1.11.2/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/Vendors/jquery-1.11.2/jquery-migrate-1.2.1.min.js"></script>
+
+    <script type="text/javascript" language="javascript" src="/Vendors/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Vendors/bootstrap-3.3.4/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/Vendors/bootstrap-rtl/bootstrap-rtl.min.css" />
+
     <link type="text/css" rel="Stylesheet" href="/Vendors/ezmark/css/ezmark.css" />
     <script type="text/javascript" language="javascript" src="/Vendors/ezmark/js/jquery.ezmark.min.js"></script>
 
@@ -14,8 +25,10 @@
 
     <script type="text/javascript" language="javascript" src="/Vendors/jquery-validation-1.13.1/jquery.validate.min.js"></script>
     <script type="text/javascript" language="javascript" src="/Vendors/jquery-validation-1.13.1/localization/messages_fa.js"></script>
-    
+
     <style type="text/css">
+         body{background-color:#5e5e5e;}
+
         table.frm1{border-collapse:collapse;direction:rtl;}
         table.frm1 td{height:30px;vertical-align:middle;}
         table.frm1 td.clmn1{text-align:left;}
@@ -60,7 +73,7 @@
         @@media only screen and (min-width : 480px) {
             #success-message{width:280px;}
         }
-         /* Small Devices, Tablets */
+            /* Small Devices, Tablets */
         @@media only screen and (min-width : 768px) {
             #success-message{width:720px;}
         }
@@ -75,334 +88,338 @@
     </style>
 
     <script type="text/javascript">
-    $(document).ready(function () {
+$(document).ready(function () {
 
-        $("#registerForm").validate({
-            rules: {
-                'model.Name': "required",
-                'model.Surname': "required",
-                'model.Phone': {
-                    required: false,
-                    digits: true,
-                    minlength: 7
-                },
-                'model.Mobile': {
-                    required: true,
-                    digits: true,
-                    minlength: 11,
-                    maxlength: 11
-                },
-                'model.Email': {
-                    required: true,
-                    email: true,
-                    remote: {
-                        url: "/Account/Register_CheckEmail",
-                        type: "post",
-                        data: {
-                            email: function () {
-                                return $("#email").val();
-                            }
+    $("#registerForm").validate({
+        rules: {
+            'model.Name': "required",
+            'model.Surname': "required",
+            'model.Phone': {
+                required: false,
+                digits: true,
+                minlength: 7
+            },
+            'model.Mobile': {
+                required: true,
+                digits: true,
+                minlength: 11,
+                maxlength: 11
+            },
+            'model.Email': {
+                required: true,
+                email: true,
+                remote: {
+                    url: "/Account/Register_CheckEmail",
+                    type: "post",
+                    data: {
+                        email: function () {
+                            return $("#email").val();
                         }
                     }
-                },
-                'model.Username': {
-                    required: true,
-                    minlength: 4,
-                    remote: {
-                        url: "/Account/Register_CheckUsername",
-                        type: "post",
-                        data: {
-                            username: function () {
-                                return $("#username").val();
-                            }
-                        }
-                    }
-                },
-                password: {
-                    required: true,
-                    minlength: 6
-                },
-                rePassword: {
-                    required: true,
-                    minlength: 6,
-                    equalTo: "#password"
                 }
             },
-            errorPlacement: function (error, element) { }
-        });
-
-        $("#registerForm2").validate({
-            rules: {
-                'model.Name': "required",
-                'model.Surname': "required",
-                'model.Phone': {
-                    required: false,
-                    digits: true,
-                    minlength: 7
-                },
-                'model.Mobile': {
-                    required: true,
-                    digits: true,
-                    minlength: 11,
-                    maxlength: 11
-                },
-                'model.Email': {
-                    required: true,
-                    email: true,
-                    remote: {
-                        url: "/Account/Register_CheckEmail",
-                        type: "post",
-                        data: {
-                            email: function () {
-                                return $("#email-mobile").val();
-                            }
+            'model.Username': {
+                required: true,
+                minlength: 4,
+                remote: {
+                    url: "/Account/Register_CheckUsername",
+                    type: "post",
+                    data: {
+                        username: function () {
+                            return $("#username").val();
                         }
                     }
-                },
-                'model.Username': {
-                    required: true,
-                    minlength: 4,
-                    remote: {
-                        url: "/Account/Register_CheckUsername",
-                        type: "post",
-                        data: {
-                            username: function () {
-                                return $("#username-mobile").val();
-                            }
-                        }
-                    }
-                },
-                password: {
-                    required: true,
-                    minlength: 6
-                },
-                rePassword: {
-                    required: true,
-                    minlength: 6,
-                    equalTo: "#password-mobile"
                 }
             },
-            errorPlacement: function (error, element) { }
+            password: {
+                required: true,
+                minlength: 6
+            },
+            rePassword: {
+                required: true,
+                minlength: 6,
+                equalTo: "#password"
+            }
+        },
+        errorPlacement: function (error, element) { }
+    });
+
+    $("#registerForm2").validate({
+        rules: {
+            'model.Name': "required",
+            'model.Surname': "required",
+            'model.Phone': {
+                required: false,
+                digits: true,
+                minlength: 7
+            },
+            'model.Mobile': {
+                required: true,
+                digits: true,
+                minlength: 11,
+                maxlength: 11
+            },
+            'model.Email': {
+                required: true,
+                email: true,
+                remote: {
+                    url: "/Account/Register_CheckEmail",
+                    type: "post",
+                    data: {
+                        email: function () {
+                            return $("#email-mobile").val();
+                        }
+                    }
+                }
+            },
+            'model.Username': {
+                required: true,
+                minlength: 4,
+                remote: {
+                    url: "/Account/Register_CheckUsername",
+                    type: "post",
+                    data: {
+                        username: function () {
+                            return $("#username-mobile").val();
+                        }
+                    }
+                }
+            },
+            password: {
+                required: true,
+                minlength: 6
+            },
+            rePassword: {
+                required: true,
+                minlength: 6,
+                equalTo: "#password-mobile"
+            }
+        },
+        errorPlacement: function (error, element) { }
+    });
+
+    $('input[type="radio"]').ezMark();
+
+    $('select').chosen({
+        placeholder_text_single: 'انتخاب کنید',
+        placeholder_text_multiple: 'انتخاب کنید'
+    });
+
+    $('#Province').change(function () {
+        $.ajax({
+            url: '@Url.Action("GetOption", "City")',
+                type: 'GET',
+                success: function (m) {
+                    $select = $('<select>').attr({ 'id': 'City', 'name': 'CityID' }).css('width', '201px');
+                    $($select).html(m);
+                    $('#City').closest('td').html($select);
+                    $($select).chosen({
+                        placeholder_text_single: 'انتخاب کنید',
+                        placeholder_text_multiple: 'انتخاب کنید'
+                    });
+                },
+                data: 'ProvinceID=' + $('#Province').val()
+            });
         });
 
-        $('input[type="radio"]').ezMark();
-
-        $('select').chosen({
-            placeholder_text_single: 'انتخاب کنید',
-            placeholder_text_multiple: 'انتخاب کنید'
-        });
-
-        $('#Province').change(function () {
+        $('#province-mobile').change(function () {
             $.ajax({
                 url: '@Url.Action("GetOption", "City")',
-                    type: 'GET',
-                    success: function (m) {
-                        $select = $('<select>').attr({ 'id': 'City', 'name': 'CityID' }).css('width', '201px');
-                        $($select).html(m);
-                        $('#City').closest('td').html($select);
-                        $($select).chosen({
-                            placeholder_text_single: 'انتخاب کنید',
-                            placeholder_text_multiple: 'انتخاب کنید'
-                        });
-                    },
-                    data: 'ProvinceID=' + $('#Province').val()
-                });
-            });
-
-            $('#province-mobile').change(function () {
-                $.ajax({
-                    url: '@Url.Action("GetOption", "City")',
-                    type: 'GET',
-                    success: function (m) {
-                        $select = $('<select>').attr({ 'id': 'City', 'name': 'CityID' }).css('width', '100%');
-                        $($select).html(m);
-                        $('#city-mobile').closest('td').html($select);
-                        $($select).chosen({
-                            placeholder_text_single: 'انتخاب کنید',
-                            placeholder_text_multiple: 'انتخاب کنید'
-                        });
-                    },
-                    data: 'ProvinceID=' + $('#province-mobile').val()
-                });
+                type: 'GET',
+                success: function (m) {
+                    $select = $('<select>').attr({ 'id': 'City', 'name': 'CityID' }).css('width', '100%');
+                    $($select).html(m);
+                    $('#city-mobile').closest('td').html($select);
+                    $($select).chosen({
+                        placeholder_text_single: 'انتخاب کنید',
+                        placeholder_text_multiple: 'انتخاب کنید'
+                    });
+                },
+                data: 'ProvinceID=' + $('#province-mobile').val()
             });
         });
+    });
     </script>
-}
+</head>
+<body>
 
-@if (ViewBag.RegisterSuccessed != null && ViewBag.RegisterSuccessed == true) 
-{ 
-    <div id="success-message">ثبت نام با موفقیت انجام گردید</div>
-}
+    @if (ViewBag.RegisterSuccessed != null && ViewBag.RegisterSuccessed == true)
+    {
+        <div id="success-message">ثبت نام با موفقیت انجام گردید</div>
+    }
 
-<div class="hidden-xs" id="register-panel">
-    <form id="registerForm" action="@Url.Action("Register")" method="post">
-        <div class="title"></div>
-        <table class="frm1">
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">نام:</span></td>
-                <td class="clmn2"><input type="text" name="model.Name" class="txt-fa" style="width:201px;" tabindex="2" /></td>
-                <td rowspan="9" width="30px;" style="border-left:1px solid #bebebe;">&nbsp;</td>
-                <td rowspan="9" style="padding-right:25px;">
-                    <table class="frm1">
-                        <tr>
-                            <td class="clmn1"><span class="lbl1-fa">نام کاربری:</span></td>
-                            <td class="clmn2">
-                                <input id="username" type="text" name="model.Username"
-                                       class="txt-en" style="width:201px;" tabindex="12" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="clmn1"><span class="lbl1-fa">رمز عبور:</span></td>
-                            <td class="clmn2"><input type="password" id="password" name="password" class="txt-en" style="width:201px;" tabindex="13" /></td>
-                        </tr>
-                        <tr>
-                            <td class="clmn1"><span class="lbl1-fa">تکرار رمز عبور:</span></td>
-                            <td class="clmn2"><input type="password" name="rePassword" class="txt-en" style="width:201px;" tabindex="14" /></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">نام خانوادگی:</span></td>
-                <td class="clmn2"><input type="text" name="model.Surname" class="txt-fa" style="width:201px;" tabindex="2" /></td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">جنسیت:</span></td>
-                <td class="clmn2">
-                    <label class="lbl1-fa"><input type="radio" name="model.Gendar" value="1" tabindex="3" checked="checked" /> مرد</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <label class="lbl1-fa"><input type="radio" name="Model.Gendar" value="2" tabindex="4" /> زن</label>
-                </td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">شماره تلفن:</span></td>
-                <td class="clmn2"><input type="text" name="model.Phone" class="txt-en" style="width:201px;" tabindex="5" /></td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">شماره تلفن همراه:</span></td>
-                <td class="clmn2"><input type="text" name="model.Mobile" class="txt-en" style="width:201px;" tabindex="6" /></td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">ایمیل:</span></td>
-                <td class="clmn2"><input id="email" type="text" name="model.Email" class="txt-en" style="width:201px;" tabindex="8" /></td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">استان:</span></td>
-                <td class="clmn2">
-                    <select id="Province" name="provinceId" style="width:201px;" tabindex="9">
-                        @Html.Action("GetOption", "Province")
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">شهر:</span></td>
-                <td class="clmn2">
-                    <select id="City" name="cityId" style="width:201px;" tabindex="10"></select>
-                </td>
-            </tr>
-            <tr>
-                <td class="clmn1" style="vertical-align:top;padding-top:2px;"><span class="lbl1-fa">آدرس:</span></td>
-                <td class="clmn2"><textarea class="txtarea-fa" style="width:201px;height:80px;" name="model.Address" tabindex="11"></textarea></td>
-            </tr>
-        </table>
-        <div class="bottom">
-            <input type="submit" class="btn-register" value="" />
-        </div>
-    </form>
-</div>
+    <div class="hidden-xs" id="register-panel">
+        <form id="registerForm" action="@Url.Action("Register")" method="post">
+            <div class="title"></div>
+            <table class="frm1">
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">نام:</span></td>
+                    <td class="clmn2"><input type="text" name="model.Name" class="txt-fa" style="width:201px;" tabindex="2" /></td>
+                    <td rowspan="9" width="30px;" style="border-left:1px solid #bebebe;">&nbsp;</td>
+                    <td rowspan="9" style="padding-right:25px;">
+                        <table class="frm1">
+                            <tr>
+                                <td class="clmn1"><span class="lbl1-fa">نام کاربری:</span></td>
+                                <td class="clmn2">
+                                    <input id="username" type="text" name="model.Username"
+                                           class="txt-en" style="width:201px;" tabindex="12" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="clmn1"><span class="lbl1-fa">رمز عبور:</span></td>
+                                <td class="clmn2"><input type="password" id="password" name="password" class="txt-en" style="width:201px;" tabindex="13" /></td>
+                            </tr>
+                            <tr>
+                                <td class="clmn1"><span class="lbl1-fa">تکرار رمز عبور:</span></td>
+                                <td class="clmn2"><input type="password" name="rePassword" class="txt-en" style="width:201px;" tabindex="14" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">نام خانوادگی:</span></td>
+                    <td class="clmn2"><input type="text" name="model.Surname" class="txt-fa" style="width:201px;" tabindex="2" /></td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">جنسیت:</span></td>
+                    <td class="clmn2">
+                        <label class="lbl1-fa"><input type="radio" name="model.Gendar" value="1" tabindex="3" checked="checked" /> مرد</label>
+                        &nbsp;&nbsp;&nbsp;
+                        <label class="lbl1-fa"><input type="radio" name="Model.Gendar" value="2" tabindex="4" /> زن</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">شماره تلفن:</span></td>
+                    <td class="clmn2"><input type="text" name="model.Phone" class="txt-en" style="width:201px;" tabindex="5" /></td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">شماره تلفن همراه:</span></td>
+                    <td class="clmn2"><input type="text" name="model.Mobile" class="txt-en" style="width:201px;" tabindex="6" /></td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">ایمیل:</span></td>
+                    <td class="clmn2"><input id="email" type="text" name="model.Email" class="txt-en" style="width:201px;" tabindex="8" /></td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">استان:</span></td>
+                    <td class="clmn2">
+                        <select id="Province" name="provinceId" style="width:201px;" tabindex="9">
+                            @Html.Action("GetOption", "Province")
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">شهر:</span></td>
+                    <td class="clmn2">
+                        <select id="City" name="cityId" style="width:201px;" tabindex="10"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="clmn1" style="vertical-align:top;padding-top:2px;"><span class="lbl1-fa">آدرس:</span></td>
+                    <td class="clmn2"><textarea class="txtarea-fa" style="width:201px;height:80px;" name="model.Address" tabindex="11"></textarea></td>
+                </tr>
+            </table>
+            <div class="bottom">
+                <input type="submit" class="btn-register" value="" />
+            </div>
+        </form>
+    </div>
 
-<div class="visible-xs" id="register-panel-mobile">
-    <form id="registerForm2" action="@Url.Action("Register")" method="post">
-        <div class="title"></div>
-        <table class="frm1">
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">نام:</span></td>
-            </tr>
-            <tr>
-                <td class="clmn2"><input type="text" name="model.Name" class="txt-fa" style="width:100%;" tabindex="2" /></td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">نام خانوادگی:</span></td>
-            </tr>
-            <tr>
-                <td class="clmn2"><input type="text" name="model.Surname" class="txt-fa" style="width:100%;" tabindex="2" /></td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">جنسیت:</span></td>
-            </tr>
-            <tr>
-                <td class="clmn2">
-                    <label class="lbl1-fa"><input type="radio" name="model.Gendar" value="1" tabindex="3" checked="checked" /> مرد</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <label class="lbl1-fa"><input type="radio" name="Model.Gendar" value="2" tabindex="4" /> زن</label>
-                </td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">شماره تلفن:</span></td>
-            </tr>
-            <tr>
-                <td class="clmn2"><input type="text" name="model.Phone" class="txt-en" style="width:100%;" tabindex="5" /></td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">شماره تلفن همراه:</span></td>
-            </tr>
-            <tr>
-                <td class="clmn2"><input type="text" name="model.Mobile" class="txt-en" style="width:100%;" tabindex="6" /></td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">ایمیل:</span></td>
-            </tr>
-            <tr>
-                <td class="clmn2"><input id="email-mobile" type="text" name="model.Email" class="txt-en" style="width:100%;" tabindex="8" /></td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">استان:</span></td>
-            </tr>
-            <tr>
-                <td class="clmn2">
-                    <select id="province-mobile" name="provinceId" style="width:100%;" tabindex="9">
-                        @Html.Action("GetOption", "Province")
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">شهر:</span></td>
-            </tr>
-            <tr>
-                <td class="clmn2">
-                    <select id="city-mobile" name="cityId" style="width:100%;" tabindex="10"></select>
-                </td>
-            </tr>
-            <tr>
-                <td class="clmn1" style="vertical-align:top;padding-top:2px;"><span class="lbl1-fa">آدرس:</span></td>
-            </tr>
-            <tr>
-                <td class="clmn2"><textarea class="txtarea-fa" style="width:100%;height:80px;" name="model.Address" tabindex="11"></textarea></td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">نام کاربری:</span></td>
-            </tr>
-            <tr>
-                <td class="clmn2">
-                    <input id="username-mobile" type="text" name="model.Username"
-                           class="txt-en" style="width:100%;" tabindex="12" />
-                </td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">رمز عبور:</span></td>
-            </tr>
-            <tr>
-                <td class="clmn2"><input type="password" id="password-mobile" name="password" class="txt-en" style="width:100%;" tabindex="13" /></td>
-            </tr>
-            <tr>
-                <td class="clmn1"><span class="lbl1-fa">تکرار رمز عبور:</span></td>
-            </tr>
-            <tr>
-                <td class="clmn2"><input type="password" name="rePassword" class="txt-en" style="width:100%;" tabindex="14" /></td>
-            </tr>
-        </table>
-        <div class="bottom">
-            <input type="submit" class="btn-register" value="" />
-        </div>
-    </form>
-</div>
+    <div class="visible-xs" id="register-panel-mobile">
+        <form id="registerForm2" action="@Url.Action("Register")" method="post">
+            <div class="title"></div>
+            <table class="frm1">
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">نام:</span></td>
+                </tr>
+                <tr>
+                    <td class="clmn2"><input type="text" name="model.Name" class="txt-fa" style="width:100%;" tabindex="2" /></td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">نام خانوادگی:</span></td>
+                </tr>
+                <tr>
+                    <td class="clmn2"><input type="text" name="model.Surname" class="txt-fa" style="width:100%;" tabindex="2" /></td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">جنسیت:</span></td>
+                </tr>
+                <tr>
+                    <td class="clmn2">
+                        <label class="lbl1-fa"><input type="radio" name="model.Gendar" value="1" tabindex="3" checked="checked" /> مرد</label>
+                        &nbsp;&nbsp;&nbsp;
+                        <label class="lbl1-fa"><input type="radio" name="Model.Gendar" value="2" tabindex="4" /> زن</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">شماره تلفن:</span></td>
+                </tr>
+                <tr>
+                    <td class="clmn2"><input type="text" name="model.Phone" class="txt-en" style="width:100%;" tabindex="5" /></td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">شماره تلفن همراه:</span></td>
+                </tr>
+                <tr>
+                    <td class="clmn2"><input type="text" name="model.Mobile" class="txt-en" style="width:100%;" tabindex="6" /></td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">ایمیل:</span></td>
+                </tr>
+                <tr>
+                    <td class="clmn2"><input id="email-mobile" type="text" name="model.Email" class="txt-en" style="width:100%;" tabindex="8" /></td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">استان:</span></td>
+                </tr>
+                <tr>
+                    <td class="clmn2">
+                        <select id="province-mobile" name="provinceId" style="width:100%;" tabindex="9">
+                            @Html.Action("GetOption", "Province")
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">شهر:</span></td>
+                </tr>
+                <tr>
+                    <td class="clmn2">
+                        <select id="city-mobile" name="cityId" style="width:100%;" tabindex="10"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="clmn1" style="vertical-align:top;padding-top:2px;"><span class="lbl1-fa">آدرس:</span></td>
+                </tr>
+                <tr>
+                    <td class="clmn2"><textarea class="txtarea-fa" style="width:100%;height:80px;" name="model.Address" tabindex="11"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">نام کاربری:</span></td>
+                </tr>
+                <tr>
+                    <td class="clmn2">
+                        <input id="username-mobile" type="text" name="model.Username"
+                               class="txt-en" style="width:100%;" tabindex="12" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">رمز عبور:</span></td>
+                </tr>
+                <tr>
+                    <td class="clmn2"><input type="password" id="password-mobile" name="password" class="txt-en" style="width:100%;" tabindex="13" /></td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">تکرار رمز عبور:</span></td>
+                </tr>
+                <tr>
+                    <td class="clmn2"><input type="password" name="rePassword" class="txt-en" style="width:100%;" tabindex="14" /></td>
+                </tr>
+            </table>
+            <div class="bottom">
+                <input type="submit" class="btn-register" value="" />
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

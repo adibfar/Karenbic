@@ -17,33 +17,50 @@ namespace Karenbic.Controllers
         }
 
         [HttpGet]
-        public ActionResult ShowTypes()
+        public ActionResult Index(int typeId, int? categoryId, int pageIndex = 1)
         {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult ShowCategories(int typeId)
-        {
-            DomainClasses.PortfolioType model = _context.PortfolioTypes
-                .Include(x => x.Categories)
-                .Single(x => x.Id == typeId);
-
-            return View(model);
-        }
-
-        [HttpGet]
-        public ActionResult ShowPortfolios(int typeId, int categoryId)
-        {
+            //Fetch Portfolio Type
             ViewBag.PortfolioType =  _context.PortfolioTypes
                 .Include(x => x.Categories)
                 .Single(x => x.Id == typeId);
 
-            ViewBag.PortfolioCategory = _context.PortfolioCategories
-                .Include(x => x.Portfolios)
-                .Single(x => x.Id == categoryId);
+            //Fetch Portfolio Category
+            if (categoryId != null)
+            {
+                ViewBag.PortfolioCategory = _context.PortfolioCategories.Find(categoryId);
+            }
+
+            //Fetch Portfolios
+            IQueryable<DomainClasses.Portfolio> query = _context.Portfolios
+                .Where(x => x.Category.Type.Id == typeId).AsQueryable();
+
+            if (categoryId != null)
+            {
+                query = query.Where(x => x.Category.Id == categoryId);
+            }
+
+            ViewBag.Portfolios = query.OrderByDescending(x => x.Priority)
+                .Include(x => x.Category)
+                .Skip((pageIndex - 1) * 15).Take(15).ToList();
 
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Detail(int id)
+        {
+            DomainClasses.Portfolio item = _context.Portfolios
+                .Include(x => x.Category)
+                .Include(x => x.Category.Type)
+                .Include(x => x.Pictures)
+                .Single(x => x.Id == id);
+
+            //Fetch Portfolio Type
+            ViewBag.PortfolioType = _context.PortfolioTypes
+                .Include(x => x.Categories)
+                .Single(x => x.Id == item.Category.Type.Id);
+
+            return View(item);
         }
     }
 }

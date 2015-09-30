@@ -17,13 +17,7 @@ namespace Karenbic.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Show(int id)
+        public ActionResult Index(int id)
         {
             DomainClasses.PublicPriceCategory model = _context.PublicPriceCategories
                 .Include(x => x.Prices)

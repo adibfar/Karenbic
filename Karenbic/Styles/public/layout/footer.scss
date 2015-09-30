@@ -1,0 +1,112 @@
+﻿.footer {
+    background-color: #383838;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+}
+
+    .footer:after {
+        _content: "";
+        position: absolute;
+        left: 0;
+        top: 0px;
+        height: 1px;
+        width: 100%;
+        background-color: #a2aab3;
+    }
+
+    .footer:before {
+        _content: "";
+        position: absolute;
+        left: 0;
+        top: 1px;
+        height: 4px;
+        width: 100%;
+        background-color: #bbbbbb;
+    }
+
+    .footer .footer-col .footer-title {
+        color: #f2f2f2;
+        font-family: yekan;
+        font-size: 16px;
+        margin: 0 0 20px 0;
+        padding: 0 0 8px 0;
+        text-transform: uppercase;
+    }
+
+    .footer .footer-col .footer-content {
+        color: #d4d4d4;
+        font-family: Tahoma;
+        font-size: 13px;
+        line-height: 20px;
+        padding-bottom: 0px;
+    }
+
+        .footer .footer-col .footer-content .footer-content-text {
+            line-height: 20px;
+            color: #c9c9c9;
+        }
+
+        .footer .footer-col .footer-content .footer-content-logo {
+            float: left;
+            clear: both;
+            margin: 0 0 20px 0;
+            width: 100%;
+        }
+
+.footer-wrapper {
+    min-height: 300px;
+    position: relative;
+    padding-top: 25px;
+    padding-bottom: 35px;
+}
+
+    .footer-wrapper:after {
+        content: "";
+        position: absolute;
+        left: -50%;
+        top: -8px;
+        width: 2000px;
+        height: 359px;
+        margin-left: 0;
+        z-index: -1;
+    }
+
+/****************************
+********* Copy Right ********
+****************************/
+
+.footer .copyright {
+    height: 40px;
+    width: 100%;
+    font-size: 11px;
+    font-family: "Open Sans", sans-serif;
+    background-color: #303030;
+    color: #666666;
+    text-align: center;
+}
+
+    .footer .copyright .copyright-text {
+        line-height: 40px;
+    }
+
+    .footer .copyright a {
+        color: #a3a3a3;
+        text-decoration: none;
+    }
+
+        .footer .copyright a:hover {
+            color: #e8e8e8;
+        }
+
+    .footer .copyright:before {
+        position: absolute;
+        display: block;
+        content: '';
+        height: 1px;
+        width: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }

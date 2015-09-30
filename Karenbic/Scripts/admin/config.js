@@ -356,6 +356,18 @@ App
                     controller: 'PortfoliosController',
                     resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
                 })
+                .state('app.design.portfolio-edit', {
+                    url: '/portfolio-edit/:id',
+                    templateUrl: helper.basepath('Portfolio/Edit'),
+                    controller: 'EditPortfolioController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
+                })
+                .state('app.print.portfolio-edit', {
+                    url: '/portfolio-edit/:id',
+                    templateUrl: helper.basepath('Portfolio/Edit'),
+                    controller: 'EditPortfolioController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
+                })
                 .state('app.print.public-price', {
                     url: '/public-price',
                     templateUrl: helper.basepath('PublicPrice/Index'),
@@ -367,6 +379,90 @@ App
                     templateUrl: helper.basepath('PublicPrice/Index'),
                     controller: 'PublicPriceController',
                     resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper', 'chosen')
+                })
+                .state('app.print.public-price-add', {
+                    url: '/public-price-add',
+                    templateUrl: helper.basepath('PublicPrice/Add'),
+                    controller: 'AddPublicPriceController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'ngCkeditor', 'stepper')
+                })
+                .state('app.design.public-price-add', {
+                    url: '/public-price-add',
+                    templateUrl: helper.basepath('PublicPrice/Add'),
+                    controller: 'AddPublicPriceController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'ngCkeditor', 'stepper')
+                })
+                .state('app.print.public-price-edit', {
+                    url: '/public-price-edit/:id',
+                    templateUrl: helper.basepath('PublicPrice/Edit'),
+                    controller: 'EditPublicPriceController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'ngCkeditor', 'stepper')
+                })
+                .state('app.design.public-price-edit', {
+                    url: '/public-price-edit/:id',
+                    templateUrl: helper.basepath('PublicPrice/Edit'),
+                    controller: 'EditPublicPriceController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'ngCkeditor', 'stepper')
+                })
+                .state('app.print.product-categories', {
+                    url: '/product-categories',
+                    templateUrl: helper.basepath('ProductCategory/Index'),
+                    controller: 'ProductCategoriesController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper')
+                })
+                .state('app.design.product-categories', {
+                    url: '/product-categories',
+                    templateUrl: helper.basepath('ProductCategory/Index'),
+                    controller: 'ProductCategoriesController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper')
+                })
+                .state('app.print.product-add', {
+                    url: '/product-add',
+                    templateUrl: helper.basepath('Product/Add'),
+                    controller: 'AddProductController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
+                })
+                .state('app.design.product-add', {
+                    url: '/product-add',
+                    templateUrl: helper.basepath('Product/Add'),
+                    controller: 'AddProductController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
+                })
+                .state('app.print.products', {
+                    url: '/products',
+                    templateUrl: helper.basepath('Product/List'),
+                    controller: 'ProductsController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog')
+                })
+                .state('app.design.products', {
+                    url: '/products',
+                    templateUrl: helper.basepath('Product/List'),
+                    controller: 'ProductsController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog')
+                })
+                .state('app.design.product-edit', {
+                    url: '/product-edit/:id',
+                    templateUrl: helper.basepath('Product/Edit'),
+                    controller: 'EditProductController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
+                })
+                .state('app.print.product-edit', {
+                    url: '/product-edit/:id',
+                    templateUrl: helper.basepath('Product/Edit'),
+                    controller: 'EditProductController',
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'nicefileinput', 'stepper', 'image-scale')
+                })
+                .state('app.print.public-home-slide-show', {
+                    url: '/public-home-slide-show',
+                    templateUrl: helper.basepath('HomeSlideShow/Index'),
+                    controller: 'HomeSlideShowController',
+                    resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper')
+                })
+                .state('app.design.public-home-slide-show', {
+                    url: '/public-home-slide-show',
+                    templateUrl: helper.basepath('HomeSlideShow/Index'),
+                    controller: 'HomeSlideShowController',
+                    resolve: helper.resolveFor('ngDialog', 'nicefileinput', 'stepper')
                 })
                 .state('app.print.aboutus', {
                     url: '/aboutus',

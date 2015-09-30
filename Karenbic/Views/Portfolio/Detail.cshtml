@@ -1,0 +1,80 @@
+﻿@model Karenbic.DomainClasses.Portfolio
+
+@{
+    Karenbic.DomainClasses.PortfolioType portfolioType = new Karenbic.DomainClasses.PortfolioType();
+    Karenbic.DomainClasses.PortfolioCategory portfolioCategory = new Karenbic.DomainClasses.PortfolioCategory();
+    List<Karenbic.DomainClasses.PortfolioCategory> portfolioCategories = new List<Karenbic.DomainClasses.PortfolioCategory>();
+
+    portfolioType = ViewBag.PortfolioType;
+    portfolioCategories = portfolioType.Categories.OrderByDescending(x => x.Priority).ToList();
+    portfolioCategory = Model.Category;
+
+    ViewBag.PageTitle = string.Format("{0} | {1} | {2}", portfolioType.Title, portfolioCategory.Title, Model.Title);
+}
+
+@section HeaderSection {
+    <link rel="stylesheet" type="text/css" href="/Styles/public/portfolio.css" />
+}
+
+@section TitleBar {
+    <div class="top-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="page-info">
+                    <h1 class="page-title">@portfolioType.Title</h1>
+                    <ul class="portfolio-categories">
+                        <li>
+                            <a class="@(portfolioCategory.Id == 0 ? "active" : "")"
+                               href="@Url.Action("Index", new { typeId = portfolioType.Id })">
+                                همه
+                            </a>
+                        </li>
+                        @foreach (Karenbic.DomainClasses.PortfolioCategory item in portfolioCategories)
+                        {
+                            <li>
+                                <a class="@(portfolioCategory.Id == item.Id ? "active" : "")"
+                                   href="@Url.Action("Index", new { typeId = portfolioType.Id, categoryId = item.Id })">
+                                    @item.Title
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+
+<div class="body-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                <div style="font-family:yekan;font-size:15px;margin-top:10px;padding:3px 5px 4px 5px;">
+                    <span style="color:#A3A3A3;">نام محصول:</span>
+                    <br />
+                    <span style="display:inline-block;font-size:17px;margin:3px 12px 0 0;">@Model.Title</span>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Description))
+                {
+                    <div style="font-family:yekan;font-size:15px;margin-top:10px;padding:3px 5px 4px 5px;">
+                        <span style="color:#A3A3A3;">معرفی محصول:</span>
+                        &nbsp;&nbsp;
+                        <pre style="border:none;background-color:transparent;">@Model.Description</pre>
+                    </div>
+                }
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                @foreach (Karenbic.DomainClasses.PortfolioPicture picture in Model.Pictures.ToList())
+                {
+                    <img src="@picture.PicturePath" alt="@Model.Title"
+                         style="display:block;width:100%;height:auto;" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

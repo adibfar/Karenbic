@@ -1,0 +1,177 @@
+﻿<style type="text/css">
+    .dgvcn {
+        background-color: #f9f9f9;
+        border: 1px solid #6c6c6c;
+        margin-top: 20px;
+        min-height: 400px !important;
+    }
+
+        .dgvcn .btn-img-delete-1 {
+            position: relative;
+            top: -2px;
+        }
+
+        .dgvcn .btn-img-edit-1 {
+            margin-right: 3px;
+            position: relative;
+            top: -2px;
+        }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+            <div class="panel panel-default"
+                 ng-class="{'whirl': addLoading, 'shadow': addLoading}">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i></i>
+                        تعریف گروه جدید
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form name="addCategoryForm">
+                        <div class="form-group">
+                            <label class="control-label">عنوان:</label>
+                            <input type="text" class="form-control" ng-model="newCategory.Title" required="" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">اولویت:</label>
+                            <br />
+                            <input type="text"
+                                   style="width:60px;"
+                                   value="0"
+                                   min="0"
+                                   max="3000"
+                                   stepper=""
+                                   ng-model="newCategory.Priority"
+                                   required="" />
+                        </div>
+                        <div class="form-group"
+                             style="margin-bottom:1px;">
+                            <div class="clearfix">
+                                <div class="pull-left">
+                                    <button class="btn btn-labeled btn-success" type="button"
+                                            ng-click="add()"
+                                            ng-class="{'disabled': addCategoryForm.$invalid}"
+                                            ng-disabled="addCategoryForm.$invalid">
+                                        <span class="btn-label btn-label-right">
+                                            <i class="fa fa-check"></i>
+                                        </span>
+                                        ثبت
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
+            <div class="panel panel-default"
+                 ng-class="{'whirl': fetchLoading, 'shadow': fetchLoading}">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i></i>
+                        گروه های تعریف شده
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive dgvcn">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="min-width:40px;width:40px;">&nbsp;</th>
+                                    <th style="min-width:250px;width:250px;">عنوان</th>
+                                    <th style="min-width:60px;width:60px;">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in categories">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{item.Title}}</td>
+                                    <td style="text-align:left;">
+                                        <button class="btn-img-delete-1" type="button"
+                                                ng-click="remove($index)"
+                                                tooltipster="" title="حذف"></button>
+                                        <button class="btn-img-edit-1" type="button"
+                                                ng-click="showEditModal($index)"
+                                                tooltipster="" title="ویرایش"></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Start Remove Modal -->
+<script type="text/ng-template" id="removeDialog.html">
+    <div style="font-family:yekan;font-size:14px;">
+        <p>آیا از حذف اطلاعات اطمینان دارید?</p>
+        <div>
+            <button class="btn btn-default" ng-click="close()" type="button">خیر</button>
+            <button class="btn btn-primary" ng-click="confirm()" type="button">بلی</button>
+        </div>
+    </div>
+</script>
+<!-- End Remove Modal -->
+
+<!-- Start Edit Modal -->
+<script type="text/ng-template" id="/EditModalContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            ویرایش گروه
+        </div>
+    </div>
+    <div class="modal-body" ng-class="{'whirl': editLoading, 'shadow': editLoading}">
+        <form name="editPriceListForm">
+            <div class="form-group">
+                <label class="control-label">عنوان:</label>
+                <input type="text" class="form-control" ng-model="category.Title" required="" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">اولویت:</label>
+                <br />
+                <input type="text"
+                       style="width:60px;"
+                       value="0"
+                       min="0"
+                       max="3000"
+                       stepper=""
+                       ng-model="category.Priority"
+                       required="" />
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+                <button class="btn btn-labeled btn-warning" type="button"
+                        ng-click="edit()"
+                        ng-class="{'disabled': editPriceListForm.$invalid}"
+                        ng-disabled="editPriceListForm.$invalid">
+                    <span class="btn-label btn-label-right">
+                        <i class="fa fa-pencil"></i>
+                    </span>
+                    ویرایش
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End Edit Modal -->
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

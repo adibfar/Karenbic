@@ -5,6 +5,85 @@
     .whirl.shadow::before {
         z-index: 13;
     }
+
+    ul.pictures {
+            margin: 0;
+            padding: 0;
+            text-align: right
+        }
+        ul.pictures li {
+            background-color: #e6e6e6;
+            border:2px solid #D6D6D6;
+            display: inline-block;
+            height: 240px;
+            list-style: none;
+            margin: 0 3px 5px 3px;
+            padding: 0;
+            width: 240px;
+        }
+            ul.pictures li .btn-remove {
+                background-color: transparent;
+                border: 1px solid #F47F7F;
+                cursor: pointer;
+                display: block;
+                height: 21px;
+                left: 5px;
+                padding: 2px;
+                position: absolute;
+                top: 5px;
+                width: 21px;
+                z-index: 2;
+
+                border-radius: 50%;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+
+                transition: all 500ms ease-out;
+		        -moz-transition: all 500ms ease-out;
+		        -webkit-transition: all 500ms ease-out;
+		        -o-transition: all 500ms ease-out;
+		        -ms-transition: all 500ms ease-out;
+            }
+                ul.pictures li .btn-remove i {
+                    color: #F47F7F;
+                    display: block;
+                    font-size: 17px;
+                    left: 3px;
+                    position: absolute;
+                    top: 1px;
+
+                    transition: all 500ms ease-out;
+		            -moz-transition: all 500ms ease-out;
+		            -webkit-transition: all 500ms ease-out;
+		            -o-transition: all 500ms ease-out;
+		            -ms-transition: all 500ms ease-out;
+                }
+            ul.pictures li .btn-remove:hover {
+                transform: scale(1.15);
+			    -webkit-transform: scale(1.1);
+			    -moz-transform: scale(1.1);
+			    -ms-transform: scale(1.1);
+			    -o-transform: scale(1.1);
+
+                transition: all 500ms ease-in;
+		        -moz-transition: all 500ms ease-in;
+		        -webkit-transition: all 500ms ease-in;
+		        -o-transition: all 500ms ease-in;
+		        -ms-transition: all 500ms ease-in;
+            }
+                ul.pictures li .btn-remove:hover i {
+                    transform: scale(1.5);
+                    -webkit-transform: scale(1.1);
+				    -moz-transform: scale(1.1);
+				    -o-transform: scale(1.1);
+				    -ms-transform: scale(1.1);
+
+                    transition: all 500ms ease-in;
+		            -moz-transition: all 500ms ease-in;
+		            -webkit-transition: all 500ms ease-in;
+		            -o-transition: all 500ms ease-in;
+		            -ms-transition: all 500ms ease-in;
+                }
 </style>
 
 <div class="container-fluid">
@@ -33,6 +112,7 @@
                                         <img src="/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
                                     </div>
                                 </div>
+
                                 <div class="form-group" style="position:relative;">
                                     <label class="control-label">گروه:</label>
                                     <select chosen="categories"
@@ -44,24 +124,13 @@
                                         <img src="/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div class="form-group">
-                                    <label class="control-label">انتخاب تصویر کوچک:</label>
-                                    <input type="file"
-                                           nicefileinput=""
-                                           ng-file-select="onTumbPictureSelect($files)" />
+                                    <label class="control-label">عنوان: </label>
+                                    <input type="text" class="form-control"
+                                           ng-model="newPortfolio.Title" />
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label">انتخاب تصویر اصلی:</label>
-                                    <input type="file"
-                                           nicefileinput=""
-                                           ng-file-select="onPictureSelect($files)" />
-                                </div>
-                            </div>
 
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div class="form-group">
                                     <label class="control-label">اولویت:</label>
                                     <br />
@@ -75,37 +144,57 @@
                                            required="" />
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div class="form-group">
                                     <label class="control-label">توضیحات: </label>
-                                    <input type="text" class="form-control" 
-                                           ng-model="newPortfolio.Description" />
+                                    <textarea class="form-control" style="height:146px;resize:none;"
+                                              ng-model="newPortfolio.description"></textarea>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                 <div class="form-group">
-                                    <div style="width:100%;height:330px;border:2px solid #D6D6D6;background-color:#e6e6e6;margin:0 auto;position:relative;">
-                                        <img id="pic" src="{{newPortfolio.ReadedPictureFile}}"
-                                             ng-if="newPortfolio.PictureFile != null" imagescale="" />
-                                    </div>
+                                    <label class="control-label">انتخاب تصویر:</label>
+                                    <input type="file"
+                                           nicefileinput=""
+                                           ng-file-select="onMainPictureSelect($files)" />
                                 </div>
                             </div>
 
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                <div class="form-group">
-                                    <div style="width:244px;height:244px;border:2px solid #D6D6D6;background-color:#e6e6e6;margin: 0 auto;">
-                                        <img id="tumbPic" style="width:240px;height:240px;display:block;"
-                                             ng-show="newPortfolio.TumbPictureFile != null" />
-                                    </div>
+                                <div style="width:244px;height:244px;border:2px solid #D6D6D6;background-color:#e6e6e6;margin: 0 auto;">
+                                    <img id="pic" src="{{newPortfolio.ReadedPictureFile}}"
+                                         ng-if="newPortfolio.PictureFile != null" imagescale="" />
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Start Line -->
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <hr class="hr1" style="margin:15px 0;" />
+                            </div>
+                        </div>
+                        <!-- End Line -->
+
+                        <!-- Start Pictures Of Picture Gallery -->
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <h4 style="font-family:yekan;font-size:20px;margin-top:0;">تصاویر</h4>
+                                <ul class="pictures">
+                                    <li ng-repeat="picture in pictures">
+                                        <img src="{{picture.renderedFile}}" imagescale="" />
+                                        <div class="btn-remove" ng-click="removePicture($index)">
+                                            <i class="fa fa-times"></i>
+                                        </div>
+                                    </li>
+                                    <li style="background: #e6e6e6 url(/Images/UI/Image/0.png) no-repeat center center;">
+                                        <input style="display:block;cursor:pointer;position:absolute;top:0;bottom:0;opacity:0;"
+                                               type="file" ng-file-select="onPictureSelect($files)" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Pictures Of Picture Gallery -->
 
                         <div class="form-group"
                              style="margin-bottom:1px;">

@@ -145,8 +145,24 @@ App
                         sref: "app.design.portfolios"
                     },
                     {
-                        text: "لیست قیمت",
+                        text: "لیست قیمت جدید",
+                        sref: "app.design.public-price-add"
+                    },
+                    {
+                        text: "لیست قیمت ها",
                         sref: "app.design.public-price"
+                    },
+                    {
+                        text: "گروه بندی محصولات",
+                        sref: "app.design.product-categories"
+                    },
+                    {
+                        text: "ثبت محصول جدید",
+                        sref: "app.design.product-add"
+                    },
+                    {
+                        text: "محصولات ثبت شده",
+                        sref: "app.design.products"
                     },
                     {
                         text: "متن درباره ما",
@@ -326,8 +342,24 @@ App
                         sref: "app.print.portfolios"
                     },
                     {
-                        text: "لیست قیمت",
+                        text: "لیست قیمت جدید",
+                        sref: "app.print.public-price-add"
+                    },
+                    {
+                        text: "لیست قیمت ها",
                         sref: "app.print.public-price"
+                    },
+                    {
+                        text: "گروه بندی محصولات",
+                        sref: "app.design.product-categories"
+                    },
+                    {
+                        text: "ثبت محصول جدید",
+                        sref: "app.design.product-add"
+                    },
+                    {
+                        text: "محصولات ثبت شده",
+                        sref: "app.design.products"
                     },
                     {
                         text: "متن درباره ما",

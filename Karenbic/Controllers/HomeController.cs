@@ -18,6 +18,9 @@ namespace Karenbic.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            ViewBag.Slides = _context.HomeSlideShows
+                .OrderByDescending(x => x.Priority).ToList();
+
             return View();
         }
 

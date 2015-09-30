@@ -2,6 +2,7 @@
     function ($scope, $http, ngDialog, baseUri, toaster, $modal, $upload) {
         $scope.types = [];
         $scope.categories = [];
+        $scope.pictures = [];
 
         $scope.fetchTypes = function () {
             $scope.fetchTypesLoading = true;
@@ -55,16 +56,16 @@
 
         /*=-=-=-=-=-=-=-= Start Add =-=-=-=-=-=-=-=*/
         $scope.newPortfolio = {
+            Title: '',
             Type: null,
             Category: null,
             Priority: 0,
             Description: '',
-            TumbPictureFile: null,
             PictureFile: null,
             ReadedPictureFile: null
         };
 
-        $scope.onPictureSelect = function ($files) {
+        $scope.onMainPictureSelect = function ($files) {
             var $file = $files[0];
 
             if ($file.type != 'image/jpeg' && $file.type != 'image/jpg' && $file.type != 'image/png') {
@@ -87,33 +88,48 @@
             reader.readAsDataURL($file);
         };
 
-        $scope.onTumbPictureSelect = function ($files) {
+        $scope.onPictureSelect = function ($files) {
             var $file = $files[0];
 
             if ($file.type != 'image/jpeg' && $file.type != 'image/jpg' && $file.type != 'image/png') {
-                toaster.pop('error', "فرمت فایل تصویر باید jpg یا png باشد");
+                if ($("#portal").val() == 1) {
+                    toaster.pop('error', "File needs to have an extension type of .png or .jpg");
+                }
+                else {
+                    toaster.pop('error', "فرمت فایل تصویر باید jpg یا png باشد");
+                }
                 return;
             }
 
-            if ($file.size > 500 * 1024) {
-                toaster.pop('error', "حداکثر حجم فایل 250 کیلو بایت می باشد");
+            if ($file.size > 150 * 1024) {
+                if ($("#portal").val() == 1) {
+                    toaster.pop('error', "The file you are trying to send exceeds the 150KB attachment limit");
+                }
+                else {
+                    toaster.pop('error', "حداکثر حجم فایل 150 کیلو بایت می باشد");
+                }
                 return;
             }
-
-            $scope.newPortfolio.TumbPictureFile = $file;
 
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#tumbPic').attr('src', e.target.result);
+                $scope.pictures.push({
+                    file: $file,
+                    renderedFile: e.target.result
+                });
+                $scope.$apply();
             }
             reader.readAsDataURL($file);
+        };
+
+        $scope.removePicture = function (index) {
+            $scope.pictures.splice(index, 1);
         };
 
         $scope.addFormIsValide = function () {
             if ($scope.newPortfolio.Type == null ||
                 $scope.newPortfolio.Category == null ||
                 isNaN($scope.newPortfolio.Priority) ||
-                $scope.newPortfolio.TumbPictureFile == null ||
                 $scope.newPortfolio.PictureFile == null)
                 return false;
             return true;
@@ -124,28 +140,43 @@
 
             $scope.addLoading = true;
 
+            var files = [];
+            files.push($scope.newPortfolio.PictureFile);
+            _.each($scope.pictures, function (item) {
+                files.push(item.file);
+            });
+
+            var filesIndex = -1;
+            var filesName = [];
+            filesName.push("mainFile");
+            _.each($scope.pictures, function (item) {
+                filesIndex++;
+                filesName.push('pictures[' + filesIndex + ']');
+            });
+
             $upload.upload({
                 url: baseUri + 'Portfolio/Add',
-                file: [$scope.newPortfolio.TumbPictureFile, $scope.newPortfolio.PictureFile],
-                fileFormDataName: ["tumbPicture", "picture"],
+                file: files,
+                fileFormDataName: filesName,
                 data: {
+                    title: $scope.newPortfolio.Title,
                     categoryId: $scope.newPortfolio.Category.Id,
                     priority: $scope.newPortfolio.Priority,
                     description: $scope.newPortfolio.Description
                 }
             }).success(function (data, status, headers, config) {
                 $scope.newPortfolio = {
+                    Title: '',
                     Type: null,
                     Category: null,
                     Priority: 0,
                     Description: '',
-                    TumbPictureFile: null,
                     PictureFile: null,
                     ReadedPictureFile: null
                 };
                 $('.NFI-wrapper').find('input[type=file]').val('');
                 $('.NFI-wrapper').find('input[type=text]').val('');
-                
+                $scope.pictures = [];
                 toaster.pop('success', "اطلاعات با موفقیت ثبت گردید");
 
                 $scope.addLoading = false;

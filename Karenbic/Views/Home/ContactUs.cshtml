@@ -1,44 +1,173 @@
-﻿@model Karenbic.DomainClasses.Setting
-
-@{
-    ViewBag.PageTitle = "تماس با ما";
+﻿@{
+    ViewBag.PageTitle = "ارتباط با ما";
 }
 
 @section HeaderSection {
-    <style type="text/css">
-        /* Custom, iPhone Retina */
-        @@media only screen and (min-width : 320px) {
-            .page-content {
-                margin: 0 22px;
-            }
+    <link type="text/css" rel="stylesheet" href="/Styles/Public/Contact.css" />
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoPEfIc_UwTF6OeOAAWSxqEcEfARupK54"></script>
+    <script type="text/javascript" src="/Vendors/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+    <script>
+        var map;
+        function contactusMap() {
+
+            var myLatlng, mapOptions, marker;
+            var myLatlng = new google.maps.LatLng(29.625822, 52.526859);
+
+            mapOptions = {
+                zoom: 16,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                scrollwheel: false,
+                disableDefaultUI: true,
+                panControl: false,
+                zoomControl: false,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                overviewMapControl: false,
+            };
+
+            map = new google.maps.Map(document.getElementById('contact_map'), mapOptions);
+
+            marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'Parsia Studio'
+            });
         }
-        /* Extra Small Devices, Phones */
-        @@media only screen and (min-width : 480px) {
-            .page-content {
-                margin: 0 22px;
-            }
-        }
-        /* Small Devices, Tablets */
-        @@media only screen and (min-width : 768px) {
-            .page-content {
-                margin: 0 88px;
-            }
-        }
-        /* Medium Devices, Desktops */
-        @@media only screen and (min-width : 992px) {
-            .page-content {
-                margin: 0 88px;
-            }
-        }
-        /* Large Devices, Wide Screens */
-        @@media only screen and (min-width : 1200px) {
-            .page-content {
-                margin: 0 88px;
-            }
-        }
-    </style>
+
+        google.maps.event.addDomListener(window, 'load', contactusMap);
+
+        $(document).ready(function () {
+            $('#form_message').validate({
+                rules: {
+                    Name: "required",
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    Text: "required"
+                },
+                errorPlacement: function (error, element) { }
+            });
+        });
+
+    </script>
 }
 
-<div class="page-content">
-    @Html.Raw(Model.ContactUsText)
+<!-- Contact Map -->
+<div class="contact-map" id="contact_map"></div>
+
+<div class="body-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+                <div class="contact-body">
+                    <h3 class="body-title">
+                        ارسال پیغام
+                    </h3>
+                    <form class="form-wrapper" id="form_message" method="post" action="@Url.Action("Message", "Contact")">
+                        @if (ViewBag.IsSendMessage != null && ViewBag.IsSendMessage == true)
+                        {
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-7 col-md-7 col-sm-9 col-xs-12">
+                                        <div class="alert alert-success">
+                                            پیام شما با موفقیت ارسال گردید !
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-7 col-md-7 col-sm-9 col-xs-12">
+                                    <label for="name">
+                                        نام *
+                                    </label>
+                                    <input type="text" name="Name" class="form-control" placeholder="نام شما" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-7 col-md-7 col-sm-9 col-xs-12">
+                                    <label for="email">
+                                        ایمیل *
+                                    </label>
+                                    <input type="text" name="Email" class="form-control" placeholder="ایمیل شما" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-7 col-md-7 col-sm-9 col-xs-12">
+                                    <label for="subject">
+                                        عنوان پیام
+                                    </label>
+                                    <input type="text" name="Subject" class="form-control" placeholder="عنوان پیام شما" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-11 col-xs-12">
+                                    <label for=message">
+                                        متن پیام *
+                                    </label>
+                                    <textarea name="Text" class="form-control" data-errmsg="متن پیام شما"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2">
+                                <input type="submit" value="ارسال پیام" class="btn btn-lg" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1v hidden-sm hidden-xs">
+                <div class="sidebar">
+                    <div class="sidebar-block">
+                        <h3 class="sidebar-title">
+                            ارتباط با ما
+                        </h3>
+                        <div class="sidebar-icon-item" style="font-size:13px;">
+                            <i class="icon-phone"></i> 071 - 3234 0374
+                        </div>
+                        <div class="sidebar-icon-item" style="font-size:13px;">
+                            <i class="icon-phone"></i> 0917 657 2997
+                        </div>
+                        <div class="sidebar-icon-item" style="font-size:13px;">
+                            <i class="icon-email"></i> info@studioparsia.com
+                        </div>
+                        <div class="sidebar-icon-item" style="font-family:'yekan';font-size:14px;">
+                            <i class="icon-home"></i>
+                            شیـــراز، خیابـــان اردیبـــهشت
+                            <br />
+                            برج آی تی، طبقه دوم، واحد
+                            <span style="font-family:'B Yekan';">29</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-block">
+                        <h3 class="sidebar-title">
+                            شبکه های اجتماعی
+                        </h3>
+                        <div class="social-icons">
+                            <ul>
+                                <li>
+                                    <a href="#" title="facebook" target="_blank" class="social-media-icon facebook-icon">facebook</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="instagram" target="_blank" class="social-media-icon instagram-icon">instagram</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

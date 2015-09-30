@@ -1,0 +1,82 @@
+﻿.contact-map {
+    height: 400px;
+}
+.sidebar {
+    .sidebar-block {
+        position: relative;
+        margin: 0 0 30px 0;
+        overflow: hidden;
+        width: 100%;
+        z-index: 1;
+    }
+    .sidebar-title {
+        font: {
+            family: yekan;
+            size: 19px;
+        }
+    }
+    .sidebar-icon-item {
+        padding: 0 0 15px 0;
+        clear: both;
+        font-family: "Open Sans", sans-serif;
+        font-size: 12px;
+        color: #666666;
+        direction: ltr;
+        text-align: right;
+        &:last-child {
+            padding: 0;
+        }
+        i {
+            font-size: 18px;
+            padding: 0 0 0 10px;
+            float: right;
+            margin: 0;
+        }
+    }
+    .social-icons { 
+        & > ul {
+            list-style: none;
+            direction: ltr;
+            li {
+                float: right;
+            }
+        }
+    }
+}
+.contact-body {
+    direction: rtl;
+    text-align: right;
+    .body-title {
+        font: {
+            family: yekan;
+            size: 19px;
+        }
+    }
+    .alert-success {
+        font: {
+            family: yekan;
+            size: 15px;
+        }
+    }
+    label {
+        font: {
+            family: yekan;
+            size: 14px;
+        }
+    }
+    input, textarea  {
+        font: {
+            family: yekan;
+            size: 14px;
+        }
+        &.error {
+            background-color: #f9f2f4;
+            color: #c7254e;
+            &:hover, &:focus {
+                background-color: #f9f2f4;
+                border: 1px solid #ebccd1;
+                color: #c7254e;
+            }
+        }
+    }
+}

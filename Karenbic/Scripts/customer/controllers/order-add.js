@@ -3,8 +3,8 @@
  * Send New Order
  =========================================================*/
 
-App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$upload', 'toaster', 'ngDialog', '$state',
-    function ($scope, $http, baseUri, $upload, toaster, ngDialog, $state) {
+App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$upload', 'toaster', 'ngDialog', '$state', '$modal',
+    function ($scope, $http, baseUri, $upload, toaster, ngDialog, $state, $modal) {
 
         /*=-=-=-=-= Start Fetch Forms =-=-=-=-=*/
         $scope.formGroups = [];
@@ -262,6 +262,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
             }).success(function (data, status, headers, config) {
                 item.value = data;
                 item.valueType = 1;
+                item.valueText = $file.name;
                 $scope.uploadingFile--;
                 item.uploading = false;
             }).error(function (data, status, headers, config) {
@@ -275,6 +276,104 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                 item.uploading = false;
             });
         };
+
+        $scope.extendedFileUploader_selectFromDesign = function () {
+            $scope.extendedFileUploaderPopup.close();
+            
+            var modalInstance = $modal.open({
+                templateUrl: '/SelectDesignContent.html',
+                controller: extendedFileUploader_selectFromDesign_ModalCtrl,
+                size: 'lg'
+            });
+
+            modalInstance.result.then(function (result) {
+                $scope.selectedExtendedFileUploader_item.value = result.Id;
+                $scope.selectedExtendedFileUploader_item.valueType = 2;
+                $scope.selectedExtendedFileUploader_item.valueText = result.Form.Title;
+            }, function () {
+            });
+        };
+
+        var extendedFileUploader_selectFromDesign_ModalCtrl = ['$scope', '$http', '$modalInstance', function ($scope, $http, $modalInstance) {
+
+            $scope.searchFields = {
+                orderId: '',
+                startDate: '',
+                endDate: ''
+            };
+            $scope.orders = [];
+            $scope.pages = [];
+            $scope.pageCount = 0;
+            $scope.pageIndex = 1;
+
+            $scope.fetchOrders = function (pageIndex) {
+                $scope.fetchLoading = true;
+
+                $http.get(baseUri + 'Order/Add_GetDesignOrder', {
+                    params: {
+                        orderId: $scope.searchFields.orderId,
+                        startDate: $scope.searchFields.startDate,
+                        endDate: $scope.searchFields.endDate,
+                        pageIndex: pageIndex
+                    }
+                })
+                .success(function (data, status, headers, config) {
+                    $scope.orders = data.Data.List;
+                    $scope.pageCount = data.Data.PageCount;
+                    $scope.pageIndex = data.Data.PageIndex;
+                    $scope.resultCount = data.Data.ResultCount;
+                    $scope.generatePagation();
+                    $scope.fetchLoading = false;
+                }).error(function (data, status, headers, config) {
+                    if (status == 403) {
+                        window.location = "/Account/Login";
+                    }
+                    else {
+                        toaster.pop('error', "خطایی رخ داده صفحه را مجدداً بارگزاری کنید");
+                    }
+                    $scope.fetchLoading = false;
+                });
+            };
+
+            $scope.search = function () {
+                $scope.pageIndex = 1;
+                $scope.fetchOrders(1);
+            }
+
+            $scope.generatePagation = function () {
+                $scope.pages = [];
+                if ($scope.pageIndex - 2 > 0) $scope.pages.push($scope.pageIndex - 2);
+                if ($scope.pageIndex - 1 > 0) $scope.pages.push($scope.pageIndex - 1);
+                $scope.pages.push($scope.pageIndex);
+                if ($scope.pageIndex + 1 <= $scope.pageCount) $scope.pages.push($scope.pageIndex + 1);
+                if ($scope.pageIndex + 2 <= $scope.pageCount) $scope.pages.push($scope.pageIndex + 2);
+            };
+
+            $scope.changePage = function (index) {
+                $scope.fetchOrders($scope.pages[index]);
+            };
+
+            $scope.nextPage = function () {
+                if ($scope.pageIndex < $scope.pageCount && $scope.fetchLoading == false) {
+                    $scope.fetchOrders($scope.pageIndex + 1);
+                }
+            }
+
+            $scope.prevPage = function () {
+                if ($scope.pageIndex > 1 && $scope.fetchLoading == false) {
+                    $scope.fetchOrders($scope.pageIndex - 1);
+                }
+            };
+
+            $scope.select = function (index) {
+                $modalInstance.close($scope.orders[index]);
+            };
+
+            $scope.close = function () {
+                $modalInstance.dismiss('cancel');
+            };
+
+        }];
         /*=-=-=-=-= End Extended File Uploader =-=-=-=-=*/
 
         /*=-=-=-=-= Start Validate Field =-=-=-=-=*/
@@ -677,6 +776,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                 dropDowns: $scope.getFieldsValue(8),
                 radioButtonGroups: $scope.getFieldsValue(9),
                 checkBoxGroups: $scope.getFieldsValue(10),
+                extendedFileUploaders: $scope.getFieldsValue(11),
                 specialCreativity: $scope.specialCreativity
             }).
             success(function (data, status, headers, config) {
@@ -734,6 +834,13 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                             Values: _.map(filters, function (val) { return val.id; })
                         };
                         break;
+                    case 11:
+                        return {
+                            FieldId: item.data.id,
+                            Value: item.value,
+                            Type: item.valueType
+                        };
+                        break;
                 }
             });
 
@@ -777,6 +884,11 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                         _.each(item.data.items, function (val) {
                             val.value = false;
                         });
+                        break;
+                    case 11:
+                        item.value = '';
+                        item.valueText = '';
+                        item.valueType = 0;
                         break;
                 }
             });

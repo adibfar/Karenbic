@@ -110,6 +110,7 @@
     <Compile Include="Order\Order_Value_DatePicker.cs" />
     <Compile Include="Order\Order_Value_DropDown.cs" />
     <Compile Include="Order\Order_Value_FileUploader.cs" />
+    <Compile Include="Order\Order_Value_FileUploader2.cs" />
     <Compile Include="Order\Order_Value_Numeric.cs" />
     <Compile Include="Order\Order_Value_RadioButtonGroup.cs" />
     <Compile Include="Order\Order_Value_TextArea.cs" />

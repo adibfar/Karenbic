@@ -8,6 +8,7 @@ using Karenbic.Areas.Customer.Models;
 using System.Web.Hosting;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using System.Data.Objects.SqlClient;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
@@ -39,6 +40,7 @@ namespace Karenbic.Areas.Customer.Controllers
             OrderValue_DropDown[] dropDowns,
             OrderValue_RadioButtonGroup[] radioButtonGroups,
             OrderValue_CheckboxGroup[] checkBoxGroups,
+            OrderValue_FileUploader2[] extendedFileUploaders,
             bool specialCreativity = false)
         {
             bool isDesignOrder = false;
@@ -476,6 +478,61 @@ namespace Karenbic.Areas.Customer.Controllers
                 }
             }
 
+            //Extended File Uploader
+            if (extendedFileUploaders != null && extendedFileUploaders.Length > 0)
+            {
+                foreach (OrderValue_FileUploader2 fileUploader in extendedFileUploaders)
+                {
+                    DomainClasses.FormField_FileUploader2 field =
+                        _context.FormFields_FileUploader2.Find(fileUploader.FieldId);
+                    field.CanDelete = false;
+
+                    if (Add_FileUploaderValidation2(field, fileUploader))
+                    {
+                        DomainClasses.Order_Value_FileUploader2 item = new DomainClasses.Order_Value_FileUploader2();
+                        if (form.Portal == DomainClasses.Portal.Design)
+                        {
+                            item.Order = designOrder;
+                        }
+                        else
+                        {
+                            item.Order = printOrder;
+                        }
+                        item.Field = field;
+                        item.Type = fileUploader.Type;
+
+                        if (fileUploader.Type == 1)
+                        {
+                            //Change File Directory
+                            if (!string.IsNullOrEmpty(fileUploader.Value))
+                            {
+                                if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/Upload"), fileUploader.Value)))
+                                {
+                                    System.IO.File.Move(
+                                        string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), fileUploader.Value),
+                                        string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Order"), fileUploader.Value));
+
+                                    System.IO.File.Delete(string.Format("{0}/{1}",
+                                        HostingEnvironment.MapPath("/Content/Upload"), fileUploader.Value));
+                                }
+                            }
+
+                            item.FileName = fileUploader.Value;
+                        }
+                        else if (fileUploader.Type == 2)
+                        {
+                            item.DesignOrderId = Convert.ToInt32(fileUploader.Value);
+                        }
+                        _context.Order_Values_FileUploader2.Add(item);
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+            }
+
             //Add Order
             if (form.Portal == DomainClasses.Portal.Design)
             {
@@ -699,6 +756,26 @@ namespace Karenbic.Areas.Customer.Controllers
         }
 
         [NonAction]
+        public bool Add_FileUploaderValidation2(DomainClasses.FormField_FileUploader2 field, OrderValue_FileUploader2 value)
+        {
+            bool result = true;
+
+            if (field.IsRequired && value.Type == 1 &&
+                (string.IsNullOrEmpty(value.Value) ||
+                !System.IO.File.Exists(string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), value.Value))))
+            {
+                result = false;
+            }
+
+            if (field.IsRequired && value.Type == 2 && string.IsNullOrEmpty(value.Value))
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        [NonAction]
         private bool Add_WebUrlValidation(DomainClasses.FormField_WebUrl field, OrderValue_WebUrl value)
         {
             bool result = true;
@@ -854,6 +931,150 @@ namespace Karenbic.Areas.Customer.Controllers
             }
 
             return findIndex;
+        }
+
+        [HttpGet]
+        public ActionResult Add_GetDesignOrder(int? orderId, string startDate, string endDate, int pageIndex = 1)
+        {
+            if (pageIndex <= 0) pageIndex = 1;
+            int pageSize = 10;
+            JsonResult result = new JsonResult();
+
+            IQueryable<DomainClasses.DesignOrder> query = _context.DesignOrders
+                .Where(x => x.IsCanceled == false && x.IsPaidPrepayment && x.IsConfirm && x.IsAcceptDesign && x.IsSendFinalDesign)
+                .AsQueryable();
+
+            DomainClasses.Customer customer = _context.Customers.Find(1);
+            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            query = query.Where(x => x.Customer.Id == customer.Id);
+
+            if (orderId != null)
+            {
+                string tempOrderId = Convert.ToString(orderId);
+                query = query.Where(x => SqlFunctions.StringConvert((double)x.Id + 1024).Contains(tempOrderId));
+            }
+
+            if (!string.IsNullOrEmpty(startDate))
+            {
+                DateTime julianStartDate = Api.ConvertDate.PersianTOJulian(startDate);
+                query = query.Where(x => x.RegisterDate >= julianStartDate);
+            }
+
+            if (!string.IsNullOrEmpty(endDate))
+            {
+                DateTime tempJulianEndDate = Api.ConvertDate.PersianTOJulian(endDate);
+                DateTime julianEndDate = new DateTime(tempJulianEndDate.Year, tempJulianEndDate.Month, tempJulianEndDate.Day, 23, 59, 59, 50);
+                query = query.Where(x => x.RegisterDate <= julianEndDate);
+            }
+
+            int resultCount = query.Count();
+            int pageCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(resultCount) / Convert.ToDouble(pageSize)));
+
+
+            List<DomainClasses.DesignOrder> list = query
+                .Include(x => x.Form)
+                .Include(x => x.PrepaymentFactor)
+                .Include(x => x.PrepaymentFactor.Payment)
+                .Include(x => x.FinalFactor)
+                .Include(x => x.FinalFactor.Payment)
+                .OrderByDescending(x => x.RegisterDate)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            result.Data = new
+            {
+                ResultCount = resultCount,
+                PageCount = pageCount,
+                PageIndex = pageIndex,
+                List = list.Select(x => new
+                {
+                    //Order
+                    Id = x.Id,
+                    Code = x.Code,
+                    Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
+                    PersianRegisterDate = x.PersianRegisterDate,
+                    IsAcceptDesign = x.IsAcceptDesign,
+                    IsSendFinalDesign = x.IsSendFinalDesign,
+                    CustomerMustSeeIt = x.CustomerMustSeeIt,
+                    //Confirm Order
+                    IsConfirm = x.IsConfirm,
+                    ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
+                    Price = x.Price,
+                    IsPaidPrepayment = x.IsPaidPrepayment,
+                    IsPaidFinal = x.IsPaidFinal,
+                    //Form
+                    Form = new
+                    {
+                        Id = x.Form.Id,
+                        Title = x.Form.Title
+                    },
+                    //Prepayment Factor
+                    PrepaymentFactor = new
+                    {
+                        Id = x.PrepaymentFactor.Id,
+                        Time = string.Format("{0:D2}:{1:D2}", x.PrepaymentFactor.RegisterDate.Hour, x.PrepaymentFactor.RegisterDate.Minute),
+                        PersianRegisterDate = x.PrepaymentFactor.PersianRegisterDate,
+                        Price = x.PrepaymentFactor.Price,
+                        IsPaid = x.PrepaymentFactor.IsPaid
+                    },
+                    //Prepayment Payment
+                    PrepaymentPayment = x.PrepaymentFactor.Payment != null ? new
+                    {
+                        Id = x.PrepaymentFactor.Payment.Id,
+                        Code = x.PrepaymentFactor.Payment.Code,
+                        Money = x.PrepaymentFactor.Payment.Money,
+                        PersianRegisterDate = x.PrepaymentFactor.Payment.PersianRegisterDate,
+                        Time = string.Format("{0:D2}:{1:D2}", x.PrepaymentFactor.Payment.RegisterDate.Hour, x.PrepaymentFactor.Payment.RegisterDate.Minute),
+                        IsPaid = x.PrepaymentFactor.Payment.IsPaid,
+                        //Bank Data
+                        RefId = x.PrepaymentFactor.Payment.RefId
+                    } : new
+                    {
+                        Id = 0,
+                        Code = 0,
+                        Money = (decimal)0,
+                        PersianRegisterDate = "",
+                        Time = "",
+                        IsPaid = false,
+                        //Bank Data
+                        RefId = ""
+                    },
+                    //Final Factor
+                    FinalFactor = new
+                    {
+                        Id = x.FinalFactor.Id,
+                        Time = string.Format("{0:D2}:{1:D2}", x.FinalFactor.RegisterDate.Hour, x.FinalFactor.RegisterDate.Minute),
+                        PersianRegisterDate = x.FinalFactor.PersianRegisterDate,
+                        Price = x.FinalFactor.Price,
+                        IsPaid = x.FinalFactor.IsPaid
+                    },
+                    //Final Payment
+                    FinalPayment = x.FinalFactor.Payment != null ? new
+                    {
+                        Id = x.FinalFactor.Payment.Id,
+                        Code = x.FinalFactor.Payment.Code,
+                        Money = x.FinalFactor.Payment.Money,
+                        PersianRegisterDate = x.FinalFactor.Payment.PersianRegisterDate,
+                        Time = string.Format("{0:D2}:{1:D2}", x.FinalFactor.Payment.RegisterDate.Hour, x.FinalFactor.Payment.RegisterDate.Minute),
+                        IsPaid = x.FinalFactor.Payment.IsPaid,
+                        //Bank Data
+                        RefId = x.FinalFactor.Payment.RefId
+                    } : new
+                    {
+                        Id = 0,
+                        Code = 0,
+                        Money = (decimal)0,
+                        PersianRegisterDate = "",
+                        Time = "",
+                        IsPaid = false,
+                        //Bank Data
+                        RefId = ""
+                    }
+                }).ToArray()
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

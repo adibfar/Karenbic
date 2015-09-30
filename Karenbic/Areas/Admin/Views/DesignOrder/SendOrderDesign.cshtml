@@ -507,6 +507,13 @@
                                 <td ng-if="item.Type == 10">
                                     <div ng-repeat="value in item.Values">{{($index + 1) + '- ' + value}}</div>
                                 </td>
+                                <td style="min-width:300px;" ng-if="item.Type == 11 && item.ValueType == 1">
+                                    <a href="{{item.FilePath}}" target="_blank">{{item.Name}}</a>
+                                </td>
+                                <td style="min-width:300px;" ng-if="item.Type == 11 && item.ValueType == 2">
+                                    <a ng-repeat="value in item.Values" style="display:block;"
+                                       href="{{value.Link}}" target="_blank">{{value.Title}}</a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

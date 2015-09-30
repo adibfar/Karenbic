@@ -288,6 +288,7 @@
     <Compile Include="Areas\Customer\Models\OrderValue_DatePicker.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue_DropDown.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue_FileUploader.cs" />
+    <Compile Include="Areas\Customer\Models\OrderValue_FileUploader2.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue_Numeric.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue_RadioButtonGroup.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue_TextArea.cs" />

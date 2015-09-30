@@ -21,6 +21,7 @@
                             ng-click="onExtendedFileUploaderClick($event, item)"></button>
                     <input type="file" style="display:none;"
                            ng-file-select="extendedFileUploader_selectFormLocalFile_onFileSelect(item, $files)" />
+                    <div style="direction:ltr;text-align:left;padding:5px 2px 0px 28px;">{{item.valueText}}</div>
                 </div>
             </div>
         </div>

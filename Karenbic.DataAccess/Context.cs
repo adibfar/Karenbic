@@ -67,6 +67,7 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.Order_Value_Numeric> Order_Values_Numeric { get; set; }
         public DbSet<DomainClasses.Order_Value_ColorPicker> Order_Values_ColorPicker { get; set; }
         public DbSet<DomainClasses.Order_Value_FileUploader> Order_Values_FileUploader { get; set; }
+        public DbSet<DomainClasses.Order_Value_FileUploader2> Order_Values_FileUploader2 { get; set; }
         public DbSet<DomainClasses.Order_Value_Checkbox> Order_Values_Checkbox { get; set; }
         public DbSet<DomainClasses.Order_Value_WebUrl> Order_Values_WebUrl { get; set; }
         public DbSet<DomainClasses.Order_Value_DatePicker> Order_Values_DatePicker { get; set; }

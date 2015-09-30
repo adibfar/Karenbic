@@ -25,11 +25,11 @@
             transition: background-color 300ms ease-in;
         }
 
-    .btn-labeled.btn-default {
+    .btn-labeled.btn-default.btn-special-creativity {
         background-color: #ffed00;
         border: 1px solid #E2E0E0;
     }
-    .btn-labeled.btn-default:hover {
+    .btn-labeled.btn-default.btn-special-creativity:hover {
         background-color: #F9E500;
         border: 1px solid #E2E0E0;
     }
@@ -47,10 +47,10 @@
     }
 
     .whirl.shadow::after {
-        z-index: 13;
+        z-index: 130000;
     }
     .whirl.shadow::before {
-        z-index: 13;
+        z-index: 130000;
     }
 
     .min-height {
@@ -254,6 +254,16 @@
             height: 90px;
             width: 90px;
         }
+
+    .dgvcn {
+        background-color: #f9f9f9;
+        border: 1px solid #6c6c6c;
+        margin-top: 20px;
+        min-height: 400px !important;
+    }
+        .dgvcn .table td {
+            vertical-align: middle;
+        }
 </style>
 
 <div class="container-fluid">
@@ -365,10 +375,10 @@
 
                     <div class="row" ng-if="isDesignPortal() == true && form.specialCreativity == true">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="btn btn-lg btn-block btn-labeled"
-                                    type="button" style="display:inline-block;font-size:15px;margin-bottom:10px;min-height:30px;padding:6px 37px 8px 10px;position:relative;text-align:right;width:auto;white-space:normal;"
-                                    ng-class="{'btn-default': specialCreativity == false, 'btn-info': specialCreativity == true}"
-                                    ng-click="selectSpecialCreativity()">
+                            <div class="btn btn-lg btn-block btn-labeled btn-special-creativity"
+                                 type="button" style="display:inline-block;font-size:15px;margin-bottom:10px;min-height:30px;padding:6px 37px 8px 10px;position:relative;text-align:right;width:auto;white-space:normal;"
+                                 ng-class="{'btn-default': specialCreativity == false, 'btn-info': specialCreativity == true}"
+                                 ng-click="selectSpecialCreativity()">
                                 <span class="btn-label btn-label-right"
                                       style="position:absolute;top:0;right:0;bottom:0;left:auto;background: #E2E0E0 none repeat scroll 0 0;">
                                     <i class="fa"
@@ -487,8 +497,131 @@
 </div>
 
 <div id="extended-file-uploader-popup">
-    <div class="btn-select-design">design</div>
+    <div class="btn-select-design" ng-click="extendedFileUploader_selectFromDesign()">design</div>
     <div class="btn-select-local-file" ng-click="extendedFileUploader_selectFormLocalFile()">local file</div>
 </div>
+
+<script type="text/ng-template" id="/SelectDesignContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            انتخاب فایل طراحی
+        </div>
+    </div>
+
+    <div class="modal-body" ng-class="{'whirl': fetchLoading , 'shadow': fetchLoading }">
+        <form>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label">شماره سفارش:</label>
+                        <input type="text" class="form-control" ng-model="searchFields.orderId" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label">تاریخ سفارش:</label>
+                        <div class="row">
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                <div class="input-group">
+                                    <input type="text" class="form-control ltr" style="z-index:100000;"
+                                           ng-model="searchFields.startDate" jquery-datepicker="" />
+                                    <span class="input-group-addon icon-calendar"><i></i></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"
+                                 style="padding-left:0;padding-right:0;text-align:center;">
+                                <label class="control-label" style="text-align:center;">الی</label>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                <div class="input-group">
+                                    <input type="text" class="form-control ltr" style="z-index:100000;"
+                                           ng-model="searchFields.endDate" jquery-datepicker="" />
+                                    <span class="input-group-addon icon-calendar"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        <div class="hidden-xs" style="height:18px;margin-bottom:5px;"></div>
+                        <button class="btn-img-search-2" ng-click="search()"></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <hr class="hr1" />
+
+        <div class="table-responsive dgvcn">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="min-width:40px;width:40px;">&nbsp;</th>
+                        <th style="min-width:60px;width:60px;">شماره</th>
+                        <th style="min-width:80px;width:80px;">تاریخ</th>
+                        <th style="min-width:200px;">شرح سفارش</th>
+                        <th style="min-width:80px;width:80px;">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in orders"
+                        ng-class="{'unread': item.CustomerMustSeeIt == true}">
+                        <td><span style="margin-right:4px;">{{((pageIndex - 1) * 20) + $index + 1}}</span></td>
+                        <td>{{item.Code}}</td>
+                        <td style="direction:ltr;text-align:right;">{{item.PersianRegisterDate}}</td>
+                        <td>{{item.Form.Title}}</td>
+                        <td style="text-align:left;">
+                            <button class="btn btn-sm btn-info"
+                                    style="padding:0 10px;"
+                                    ng-click="select($index)">
+                                انتخاب
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+                <ul class="pagination pagination-sm" ng-show=" pageCount > 1">
+                    <li ng-class="{'disabled': pageIndex == 1}">
+                        <span ng-click="prevPage()">
+                            <img src="/Images/UI/Pagination/btn-next-1.png" />
+                        </span>
+                    </li>
+                    <li ng-repeat="page in pages" ng-class="{'active': page == pageIndex}">
+                        <a ng-click="changePage($index)">{{page}}</a>
+                    </li>
+                    <li ng-class="{'disabled': pageIndex >= pageCount}">
+                        <span ng-click="nextPage()">
+                            <img src="/Images/UI/Pagination/btn-back-1.png" />
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"></div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
 
 <toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

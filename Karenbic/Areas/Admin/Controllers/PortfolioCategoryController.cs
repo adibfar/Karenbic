@@ -8,6 +8,7 @@ using System.Data.Entity;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Admin")]
     public class PortfolioCategoryController : Controller
     {
         private DataAccess.Context _context;

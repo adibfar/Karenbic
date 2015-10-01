@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Admin")]
     public class FroalaController : Controller
     {
         [HttpPost]

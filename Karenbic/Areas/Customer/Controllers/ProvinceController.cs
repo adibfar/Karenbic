@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class ProvinceController : Controller
     {
         private DataAccess.Context _context;

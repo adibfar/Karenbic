@@ -8,6 +8,7 @@ using Microsoft.AspNet.SignalR;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Admin")]
     public class ReceiveMessageController : Controller
     {
         private DataAccess.Context _context;

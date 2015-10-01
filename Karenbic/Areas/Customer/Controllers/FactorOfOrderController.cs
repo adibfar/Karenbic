@@ -7,6 +7,7 @@ using System.Data.Entity;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class FactorOfOrderController : Controller
     {
         private DataAccess.Context _context;
@@ -21,8 +22,7 @@ namespace Karenbic.Areas.Customer.Controllers
         {
             List<object> values = new List<object>();
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             if (_context.Orders.Any(x => x.Id == orderId && x.Customer.Id == customer.Id))
             {

@@ -7,6 +7,7 @@ using System.Data.Entity;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class FactorOfDesignOrderController : Controller
     {
         private DataAccess.Context _context;
@@ -33,8 +34,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 .Where(x => x.IsCanceled == false && x.IsConfirm)
                 .AsQueryable();
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
             query = query.Where(x => x.Customer.Id == customer.Id);
 
             if (isPaid == true && isNotPaid == false)

@@ -9,6 +9,7 @@ using System.Data.Entity;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Admin")]
     public class PrintOrderPriceController : Controller
     {
         private DataAccess.Context _context;

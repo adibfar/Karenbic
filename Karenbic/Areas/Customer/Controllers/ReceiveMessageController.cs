@@ -8,6 +8,7 @@ using Microsoft.AspNet.SignalR;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class ReceiveMessageController : Controller
     {
         private DataAccess.Context _context;
@@ -32,8 +33,7 @@ namespace Karenbic.Areas.Customer.Controllers
 
             IQueryable<DomainClasses.AdminMessage_Customer> query = _context.AdminMessages_Customer.AsQueryable();
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
             query = query.Where(x => x.Customer.Id == customer.Id);
 
             int pageCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(query.Count()) / Convert.ToDouble(pageSize)));
@@ -79,13 +79,11 @@ namespace Karenbic.Areas.Customer.Controllers
             var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
 
             notificationHub.Clients
-                //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
-                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
                 .Value.ConnectionIds.ToArray<string>()).minusUnReadMessage();
 
             notificationHub.Clients
-                //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
-                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
                 .Value.ConnectionIds.ToArray<string>()).minusUnReadAdminMessage();
 
             return Content(result.ToString());

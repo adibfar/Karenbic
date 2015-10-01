@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Admin")]
     public class FormController : Controller
     {
         private DataAccess.Context _context;

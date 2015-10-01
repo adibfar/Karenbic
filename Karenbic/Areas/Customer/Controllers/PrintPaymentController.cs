@@ -7,6 +7,7 @@ using System.Data.Entity;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class PrintPaymentController : Controller
     {
         private DataAccess.Context _context;
@@ -32,8 +33,7 @@ namespace Karenbic.Areas.Customer.Controllers
             IQueryable<DomainClasses.PrintPayment> query = _context.PrintPayments.AsQueryable();
             query = query.Where(x => x.IsComplete && x.IsPaid);
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
             query = query.Where(x => x.Factors.FirstOrDefault().Order.Customer.Id == customer.Id);
 
             if (!string.IsNullOrEmpty(startDate))
@@ -322,8 +322,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 _context.SaveChanges();
 
                 //Get Customer Data
-                DomainClasses.Customer customer = _context.Customers.Find(1);
-                //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+                DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
                 BPService.PaymentGatewayClient bpService = new BPService.PaymentGatewayClient();
                 result = bpService.bpPayRequest(1,
@@ -467,8 +466,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 _context.SaveChanges();
 
                 //Get Customer Data
-                DomainClasses.Customer customer = _context.Customers.Find(1);
-                //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+                DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
             }
 
 

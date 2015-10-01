@@ -15,6 +15,7 @@ using Karenbic.UserInfrastructure;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Admin")]
     public class ProfileController : Controller
     {
         private IAuthenticationManager AuthManager

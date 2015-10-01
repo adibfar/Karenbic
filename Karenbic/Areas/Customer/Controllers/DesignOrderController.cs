@@ -9,6 +9,7 @@ using Microsoft.AspNet.SignalR;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class DesignOrderController : Controller
     {
         private DataAccess.Context _context;
@@ -51,8 +52,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 .Where(x => x.IsCanceled == false && x.IsPaidPrepayment)
                 .AsQueryable();
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
             query = query.Where(x => x.Customer.Id == customer.Id);
 
             if (orderId != null)
@@ -195,8 +195,7 @@ namespace Karenbic.Areas.Customer.Controllers
         {
             DomainClasses.DesignOrder order = new DomainClasses.DesignOrder();
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             order = _context.DesignOrders
                 .Where(x => x.Customer.Id == customer.Id)
@@ -298,8 +297,7 @@ namespace Karenbic.Areas.Customer.Controllers
         {
             JsonResult result = new JsonResult();
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             List<DomainClasses.DesignOrder_Design> list = _context.DesignOrder_Designs
                 .Where(x => x.Order.Id == id && x.Order.Customer.Id == customer.Id)
@@ -366,8 +364,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 var adminNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
 
                 customerNotification.Clients
-                    //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
-                    .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                    .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
                     .Value.ConnectionIds.ToArray<string>()).minusUnreviewedDesign();
 
                 adminNotification.Clients.All.newUnCheckedDesignOrders();
@@ -391,8 +388,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 var adminNotification = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
 
                 customerNotification.Clients
-                    //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
-                    .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                    .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
                     .Value.ConnectionIds.ToArray<string>()).minusUnreviewedDesign();
 
                 adminNotification.Clients.All.newUnCheckedDesignOrders();

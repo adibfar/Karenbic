@@ -8,6 +8,7 @@ using System.Data.Entity;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Admin")]
     public class FactorOfDesignOrderController : Controller
     {
         private DataAccess.Context _context;
@@ -15,6 +16,33 @@ namespace Karenbic.Areas.Admin.Controllers
         public FactorOfDesignOrderController(DataAccess.Context context)
         {
             _context = context;
+        }
+
+        [HttpGet]
+        public ActionResult FactorText()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetFactorText()
+        {
+            string text = string.Empty;
+
+            text = _context.Setting.Find(1).DesignFactorText;
+
+            return Json(text, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SetFactorText(string text)
+        {
+            DomainClasses.Setting setting = _context.Setting.Find(1);
+            setting.DesignFactorText = text;
+            _context.SaveChanges();
+
+            return Json(text, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

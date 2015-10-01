@@ -8,6 +8,7 @@ using Microsoft.AspNet.SignalR;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class DesignPaymentController : Controller
     {
         private DataAccess.Context _context;
@@ -33,8 +34,7 @@ namespace Karenbic.Areas.Customer.Controllers
             IQueryable<DomainClasses.DesignPayment> query = _context.DesignPayments.AsQueryable();
             query = query.Where(x => x.IsComplete && x.IsPaid);
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
             query = query.Where(x => x.PrepaymentFactors.FirstOrDefault().Order.Customer.Id == customer.Id ||
                 x.FinalFactors.FirstOrDefault().Order.Customer.Id == customer.Id);
 
@@ -504,8 +504,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 _context.SaveChanges();
 
                 //Get Customer Data
-                DomainClasses.Customer customer = _context.Customers.Find(1);
-                //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+                DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
                 BPService.PaymentGatewayClient bpService = new BPService.PaymentGatewayClient();
                 result = bpService.bpPayRequest(1,
@@ -710,8 +709,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 _context.SaveChanges();
 
                 //Get Customer Data
-                DomainClasses.Customer customer = _context.Customers.Find(1);
-                //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+                DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
                 //send notification to the admin 
                 var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();

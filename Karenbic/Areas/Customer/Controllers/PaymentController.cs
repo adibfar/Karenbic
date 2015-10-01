@@ -7,6 +7,7 @@ using System.Data.Entity;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class PaymentController : Controller
     {
         [HttpGet]

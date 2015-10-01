@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class PrintPortalController : Controller
     {
         [HttpGet]

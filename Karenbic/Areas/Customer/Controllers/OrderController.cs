@@ -12,6 +12,7 @@ using System.Data.Objects.SqlClient;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class OrderController : Controller
     {
         private DataAccess.Context _context;
@@ -61,8 +62,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 designOrder.Form = form;
                 designOrder.SpecialCreativity = specialCreativity;
                 designOrder.RegisterDate = DateTime.Now;
-                designOrder.Customer = _context.Customers.Find(1);
-                //designOrder.Customer = _context.Customers.Single(x => x.Username == User.Identity.Name); 
+                designOrder.Customer = _context.Customers.Single(x => x.Username == User.Identity.Name); 
 
                 //Check Price
                 if (priceId != -1)
@@ -89,8 +89,7 @@ namespace Karenbic.Areas.Customer.Controllers
             {
                 printOrder.Form = form;
                 printOrder.RegisterDate = DateTime.Now;
-                printOrder.Customer = _context.Customers.Find(1);
-                //printOrder.Customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+                printOrder.Customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
                 //Check Price
                 if (priceId != -1)
@@ -944,8 +943,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 .Where(x => x.IsCanceled == false && x.IsPaidPrepayment && x.IsConfirm && x.IsAcceptDesign && x.IsSendFinalDesign)
                 .AsQueryable();
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
             query = query.Where(x => x.Customer.Id == customer.Id);
 
             if (orderId != null)
@@ -1082,8 +1080,7 @@ namespace Karenbic.Areas.Customer.Controllers
         {
             List<object> values = new List<object>();
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             List<DomainClasses.Order_Value> list = _context.Order_Values
                 .Include(x => x.Field)

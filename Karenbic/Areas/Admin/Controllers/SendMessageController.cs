@@ -10,6 +10,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Admin")]
     public class SendMessageController : Controller
     {
         private DataAccess.Context _context;

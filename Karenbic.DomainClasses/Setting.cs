@@ -15,6 +15,10 @@ namespace Karenbic.DomainClasses
 
         public string PrePrintOrderText { get; set; }
 
+        public string PrintFactorText { get; set; }
+
+        public string DesignFactorText { get; set; }
+
         public string AboutUsText { get; set; }
 
         public string ContactUsText { get; set; }

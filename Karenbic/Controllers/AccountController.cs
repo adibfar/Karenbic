@@ -68,7 +68,16 @@ namespace Karenbic.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = string.IsNullOrEmpty(returnUrl) ? "/Admin/Home" : returnUrl;
+            //RoleManager.Create(new ApplicationRole("Admin"));
+            //RoleManager.Create(new ApplicationRole("Customer"));
+            //UserManager.Create(new ApplicationUser() 
+            //{ 
+            //    UserName = "Admin",
+            //    Email = "ali.andalibi@outllok.com"
+            //}, "123456");
+            //UserManager.AddToRole(UserManager.FindByName("Admin").Id, "Admin");
+
+            ViewBag.ReturnUrl = string.IsNullOrEmpty(returnUrl) ? "" : returnUrl;
             return View(new Models.LoginViewModel());
         }
 
@@ -89,7 +98,25 @@ namespace Karenbic.Controllers
 
             if (result == SignInStatus.Success)
             {
-                return RedirectToLocal(returnUrl);
+                ApplicationUser user = UserManager.FindByName(model.UserName);
+
+                if (Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+                else if (UserManager.IsInRole(user.Id, "Admin"))
+                {
+                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+                }
+                else if (UserManager.IsInRole(user.Id, "Customer"))
+                {
+                    return RedirectToAction("Index", "Home", new { area = "Customer" });
+                }
+                else
+                {
+                    ViewBag.NotAuth = true;
+                    return View(model);
+                }
             }
             else
             {
@@ -112,7 +139,7 @@ namespace Karenbic.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(DomainClasses.Customer model, int cityId, string password, string rePassword)
+        public async Task<ActionResult> Register(DomainClasses.Customer model, int cityId, string password, string rePassword)
         {
             bool isValid = true;
             List<string> errors = new List<string>();
@@ -152,10 +179,23 @@ namespace Karenbic.Controllers
                 UserName = model.Username,
                 Email = model.Email
             }, password);
+            UserManager.AddToRole(UserManager.FindByName(model.Username).Id, "Customer");
 
-            ViewBag.RegisterSuccessed = true;
+            var result = await SignInManager.PasswordSignInAsync(model.Username,
+                password,
+                true,
+                shouldLockout: false);
 
-            return View(new DomainClasses.Customer());
+            if (result == SignInStatus.Success)
+            {
+                return RedirectToAction("Index", "Home", new { area = "Customer" });
+            }
+            else
+            {
+                ViewBag.RegisterSuccessed = true;
+
+                return View(new DomainClasses.Customer());
+            }
         }
 
         [HttpPost]

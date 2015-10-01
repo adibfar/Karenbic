@@ -7,6 +7,7 @@ using System.Data.Entity;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class DesignFinalPaymentController : Controller
     {
         private DataAccess.Context _context;
@@ -313,8 +314,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 _context.SaveChanges();
 
                 //Get Customer Data
-                DomainClasses.Customer customer = _context.Customers.Find(1);
-                //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+                DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
                 BPService.PaymentGatewayClient bpService = new BPService.PaymentGatewayClient();
                 result = bpService.bpPayRequest(1,
@@ -587,8 +587,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 _context.SaveChanges();
 
                 //Get Customer Data
-                DomainClasses.Customer customer = _context.Customers.Find(1);
-                //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+                DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
             }
 
 

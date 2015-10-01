@@ -8,6 +8,7 @@ using Microsoft.AspNet.SignalR;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class SendMessageController : Controller
     {
         private DataAccess.Context _context;
@@ -27,8 +28,7 @@ namespace Karenbic.Areas.Customer.Controllers
         [ValidateInput(false)]
         public ActionResult New(DomainClasses.CustomerMessage message)
         {
-            message.Sender = _context.Customers.Find(1);
-            //message.Sender = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            message.Sender = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             _context.CustomerMessages.Add(message);
             _context.SaveChanges();
@@ -60,8 +60,7 @@ namespace Karenbic.Areas.Customer.Controllers
 
             IQueryable<DomainClasses.CustomerMessage> query = _context.CustomerMessages.AsQueryable();
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             query = query.Where(x => x.Sender.Id == customer.Id && x.IsShowCustomer);
 
@@ -101,8 +100,7 @@ namespace Karenbic.Areas.Customer.Controllers
         {
             bool result = false;
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             DomainClasses.CustomerMessage message = _context.CustomerMessages
                     .Include(x => x.Sender)
@@ -116,13 +114,11 @@ namespace Karenbic.Areas.Customer.Controllers
             var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
 
             notificationHub.Clients
-                //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
-                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
                 .Value.ConnectionIds.ToArray<string>()).minusUnReadMessage();
 
             notificationHub.Clients
-                //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
-                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
                 .Value.ConnectionIds.ToArray<string>()).minusUnReadReplyMessage();
 
             return Content(result.ToString());
@@ -133,8 +129,7 @@ namespace Karenbic.Areas.Customer.Controllers
         {
             bool result = false;
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             DomainClasses.CustomerMessage message = _context.CustomerMessages
                     .Include(x => x.Sender)

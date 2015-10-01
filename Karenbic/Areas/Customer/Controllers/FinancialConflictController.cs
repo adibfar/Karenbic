@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class FinancialConflictController : Controller
     {
         private DataAccess.Context _context;
@@ -20,8 +21,7 @@ namespace Karenbic.Areas.Customer.Controllers
         [HttpGet]
         public ActionResult Find(int id)
         {
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             DomainClasses.FinancialConflict model = _context.FinancialConflicts
                 .Include(x => x.Customer)
@@ -66,8 +66,7 @@ namespace Karenbic.Areas.Customer.Controllers
             IQueryable<DomainClasses.FinancialConflict> query = _context.FinancialConflicts.AsQueryable();
             query = query.Where(x => x.Portal == portal);
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
             query = query.Where(x => x.Customer.Id == customer.Id);
 
             if (!string.IsNullOrEmpty(startDate))
@@ -136,8 +135,7 @@ namespace Karenbic.Areas.Customer.Controllers
         [HttpGet]
         public ActionResult PaymentPreview_Data(int id)
         {
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             DomainClasses.FinancialConflict factor = _context.FinancialConflicts
                 .Include(x => x.Items)
@@ -176,8 +174,7 @@ namespace Karenbic.Areas.Customer.Controllers
             string result = string.Empty;
 
             //Get Customer Data
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             //Get Financial Conflict Data
             DomainClasses.FinancialConflict model = _context.FinancialConflicts.Find(id);
@@ -284,8 +281,7 @@ namespace Karenbic.Areas.Customer.Controllers
             string result = string.Empty;
 
             //Get Customer Data
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             //Get Financial Conflict Data
             DomainClasses.FinancialConflict model = _context.FinancialConflicts.Find(id);

@@ -15,6 +15,7 @@ using Karenbic.UserInfrastructure;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Admin")]
     public class CustomerController : Controller
     {
         private DataAccess.Context _context;

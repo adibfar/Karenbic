@@ -15,6 +15,7 @@ using Karenbic.UserInfrastructure;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class ProfileController : Controller
     {
         private DataAccess.Context _context;
@@ -71,8 +72,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 .Include(x => x.City)
                 .Include(x => x.City.Province)
                 .Include(x => x.Group)
-                //.Single(x => x.Username == User.Identity.Name);
-                .Single(x => x.Id == 1);
+                .Single(x => x.Username == User.Identity.Name);
 
             return Json(new 
             {
@@ -107,8 +107,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 .Include(x => x.Group)
                 .Include(x => x.City)
                 .Include(x => x.City.Province)
-                //.Single(x => x.Username == User.Identity.Name);
-                .Single(x => x.Id == 1);
+                .Single(x => x.Username == User.Identity.Name);
 
             item.Name = customer.Name;
             item.Surname = customer.Surname;

@@ -117,6 +117,12 @@ App
                     controller: 'FactorOfDesignOrderListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
                 })
+                .state('app.design.factor-text', {
+                    url: '/factor-text',
+                    templateUrl: helper.basepath('FactorOfDesignOrder/FactorText'),
+                    controller: 'DesignFactorTextController',
+                    resolve: helper.resolveFor('ngDialog', 'ngCkeditor')
+                })
                 .state('app.design.add-financial-conflict', {
                     url: '/add-financial-conflict',
                     templateUrl: helper.basepath('FinancialConflict/Add'),
@@ -207,6 +213,12 @@ App
                     templateUrl: helper.basepath('FactorOfPrintOrder/List'),
                     controller: 'FactorOfPrintOrderListController',
                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
+                })
+                .state('app.print.factor-text', {
+                    url: '/factor-text',
+                    templateUrl: helper.basepath('FactorOfPrintOrder/FactorText'),
+                    controller: 'PrintFactorTextController',
+                    resolve: helper.resolveFor('ngDialog', 'ngCkeditor')
                 })
                 .state('app.print.add-financial-conflict', {
                     url: '/add-financial-conflict',

@@ -25,7 +25,7 @@ namespace Karenbic.Hubs
 
         private void connect()
         {
-            var userName = "user"; // Context.User.Identity.Name;
+            var userName = Context.User.Identity.Name;
             var connectionId = Context.ConnectionId;
 
             var user = Users.GetOrAdd(userName,
@@ -48,7 +48,7 @@ namespace Karenbic.Hubs
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            var userName = "user"; // Context.User.Identity.Name;
+            var userName = Context.User.Identity.Name;
             var connectionId = Context.ConnectionId;
 
             User user;
@@ -80,8 +80,7 @@ namespace Karenbic.Hubs
 
             using (DataAccess.Context context = new DataAccess.Context())
             {
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-                DomainClasses.Customer customer = context.Customers.Find(1);
+                DomainClasses.Customer customer = context.Customers.Single(x => x.Username == Context.User.Identity.Name);
 
                 int count1 = context.DesignOrders
                     .Count(x => x.IsCanceled == false &&
@@ -103,8 +102,7 @@ namespace Karenbic.Hubs
 
             using (DataAccess.Context context = new DataAccess.Context())
             {
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-                DomainClasses.Customer customer = context.Customers.Find(1);
+                DomainClasses.Customer customer = context.Customers.Single(x => x.Username == Context.User.Identity.Name);
 
                 count = context.DesignOrders
                     .Count(x => x.IsCanceled == false && 
@@ -121,8 +119,7 @@ namespace Karenbic.Hubs
 
             using (DataAccess.Context context = new DataAccess.Context())
             {
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-                DomainClasses.Customer customer = context.Customers.Find(1);
+                DomainClasses.Customer customer = context.Customers.Single(x => x.Username == Context.User.Identity.Name);
 
                 count = context.FinancialConflicts
                     .Count(x => x.Portal == DomainClasses.Portal.Design && x.IsPaid == false && x.Customer.Id == customer.Id);
@@ -137,8 +134,7 @@ namespace Karenbic.Hubs
 
             using (DataAccess.Context context = new DataAccess.Context())
             {
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-                DomainClasses.Customer customer = context.Customers.Find(1);
+                DomainClasses.Customer customer = context.Customers.Single(x => x.Username == Context.User.Identity.Name);
 
                 int count1 = context.PrintFactors
                     .Count(x => x.IsPaid == false && x.Order.IsCanceled == false);
@@ -158,8 +154,7 @@ namespace Karenbic.Hubs
 
             using (DataAccess.Context context = new DataAccess.Context())
             {
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-                DomainClasses.Customer customer = context.Customers.Find(1);
+                DomainClasses.Customer customer = context.Customers.Single(x => x.Username == Context.User.Identity.Name);
 
                 count = context.PrintFactors
                     .Count(x => x.IsPaid == false && x.Order.IsCanceled == false);
@@ -174,8 +169,7 @@ namespace Karenbic.Hubs
 
             using (DataAccess.Context context = new DataAccess.Context())
             {
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-                DomainClasses.Customer customer = context.Customers.Find(1);
+                DomainClasses.Customer customer = context.Customers.Single(x => x.Username == Context.User.Identity.Name);
 
                 count = context.FinancialConflicts
                     .Count(x => x.Portal == DomainClasses.Portal.Print && x.IsPaid == false && x.Customer.Id == customer.Id);
@@ -190,8 +184,7 @@ namespace Karenbic.Hubs
 
             using (DataAccess.Context context = new DataAccess.Context())
             {
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-                DomainClasses.Customer customer = context.Customers.Find(1);
+                DomainClasses.Customer customer = context.Customers.Single(x => x.Username == Context.User.Identity.Name);
 
                 count = context.DesignOrders
                     .Count(x => x.Customer.Id == customer.Id && x.CustomerMustSeeIt == true);
@@ -206,8 +199,7 @@ namespace Karenbic.Hubs
 
             using (DataAccess.Context context = new DataAccess.Context())
             {
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-                DomainClasses.Customer customer = context.Customers.Find(1);
+                DomainClasses.Customer customer = context.Customers.Single(x => x.Username == Context.User.Identity.Name);
 
                 int count1 = context.CustomerMessages
                     .Count(x => x.Sender.Id == customer.Id && x.IsShowCustomer == true && x.IsReadCustomer == false);
@@ -227,8 +219,7 @@ namespace Karenbic.Hubs
 
             using (DataAccess.Context context = new DataAccess.Context())
             {
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-                DomainClasses.Customer customer = context.Customers.Find(1);
+                DomainClasses.Customer customer = context.Customers.Single(x => x.Username == Context.User.Identity.Name);
 
                 count = context.CustomerMessages
                     .Count(x => x.Sender.Id == customer.Id && x.IsShowCustomer == true && x.IsReadCustomer == false);
@@ -243,8 +234,7 @@ namespace Karenbic.Hubs
 
             using (DataAccess.Context context = new DataAccess.Context())
             {
-                //DomainClasses.Customer customer = context.Customers.Single(x => x.Username == User.Identity.Name);
-                DomainClasses.Customer customer = context.Customers.Find(1);
+                DomainClasses.Customer customer = context.Customers.Single(x => x.Username == Context.User.Identity.Name);
 
                 count = context.AdminMessages_Customer
                     .Count(x => x.Customer.Id == customer.Id && x.IsRead == false);

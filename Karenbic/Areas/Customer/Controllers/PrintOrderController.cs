@@ -8,6 +8,7 @@ using System.Data.Entity;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class PrintOrderController : Controller
     {
         private DataAccess.Context _context;
@@ -49,8 +50,7 @@ namespace Karenbic.Areas.Customer.Controllers
 
             IQueryable<DomainClasses.PrintOrder> query = _context.PrintOrders.AsQueryable();
 
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
             query = query.Where(x => x.Customer.Id == customer.Id);
 
             if (orderId != null)

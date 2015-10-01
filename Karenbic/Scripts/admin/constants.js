@@ -163,18 +163,6 @@ App
                     {
                         text: "محصولات ثبت شده",
                         sref: "app.design.products"
-                    },
-                    {
-                        text: "متن درباره ما",
-                        sref: "app.design.aboutus"
-                    },
-                    {
-                        text: "متن تماس با ما",
-                        sref: "app.design.contactus"
-                    },
-                    {
-                        text: "متن راهنما",
-                        sref: "app.design.public-help"
                     }
                 ]
             },
@@ -211,6 +199,26 @@ App
                     {
                         text: "متن پیش از سفارش",
                         sref: "app.design.preorder"
+                    },
+                    {
+                        text: "اطلاعات فاکتور",
+                        sref: "app.design.factor-text"
+                    },
+                    {
+                        text: "سلایدشو صفحه نخست",
+                        sref: "app.design.public-home-slide-show"
+                    },
+                    {
+                        text: "متن درباره ما",
+                        sref: "app.design.aboutus"
+                    },
+                    {
+                        text: "متن تماس با ما",
+                        sref: "app.design.contactus"
+                    },
+                    {
+                        text: "متن راهنما",
+                        sref: "app.design.public-help"
                     },
                     {
                         text: "تغییر رمز عبور",
@@ -360,18 +368,6 @@ App
                     {
                         text: "محصولات ثبت شده",
                         sref: "app.design.products"
-                    },
-                    {
-                        text: "متن درباره ما",
-                        sref: "app.print.aboutus"
-                    },
-                    {
-                        text: "متن تماس با ما",
-                        sref: "app.print.contactus"
-                    },
-                    {
-                        text: "متن راهنما",
-                        sref: "app.print.public-help"
                     }
                 ]
             },
@@ -408,6 +404,26 @@ App
                     {
                         text: "متن پیش از سفارش",
                         sref: "app.print.preorder"
+                    },
+                    {
+                        text: "اطلاعات فاکتور",
+                        sref: "app.print.factor-text"
+                    },
+                    {
+                        text: "سلایدشو صفحه نخست",
+                        sref: "app.print.public-home-slide-show"
+                    },
+                    {
+                        text: "متن درباره ما",
+                        sref: "app.print.aboutus"
+                    },
+                    {
+                        text: "متن تماس با ما",
+                        sref: "app.print.contactus"
+                    },
+                    {
+                        text: "متن راهنما",
+                        sref: "app.print.public-help"
                     },
                     {
                         text: "تغییر رمز عبور",

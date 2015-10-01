@@ -462,9 +462,7 @@
     <Content Include="Images\Simbol\error-icon.gif" />
     <Content Include="Images\SketchSheets\iPad.png" />
     <Content Include="Images\SketchSheets\iPhone.png" />
-<<<<<<< HEAD
     <Content Include="Images\UI\Button\btn-file-uploader-1.png" />
-=======
     <Content Include="Images\Public\social-media\share-facebook%402x.png" />
     <Content Include="Images\Public\social-media\share-facebook.png" />
     <Content Include="Images\Public\social-media\share-googlePlus%402x.png" />
@@ -539,7 +537,6 @@
     <Content Include="Images\Public\social-media\social-media-youtube.png" />
     <Content Include="Images\Public\social-media\social-media-zerply%402x.png" />
     <Content Include="Images\Public\social-media\social-media-zerply.png" />
->>>>>>> newPublic
     <Content Include="Images\UI\Button\btn-add-1.png" />
     <Content Include="Images\UI\Button\btn-cancel-1.png" />
     <Content Include="Images\UI\Button\btn-changepass-1.png" />
@@ -573,6 +570,7 @@
     <Content Include="Scripts\admin\controllers\customer.js" />
     <Content Include="Scripts\admin\controllers\design-canceled-order-list.js" />
     <Content Include="Scripts\admin\controllers\design-factor-list.js" />
+    <Content Include="Scripts\admin\controllers\design-factor-text.js" />
     <Content Include="Scripts\admin\controllers\design-finished-order-list.js" />
     <Content Include="Scripts\admin\controllers\design-new-order-list.js" />
     <Content Include="Scripts\admin\controllers\design-ongoing-order-list.js" />
@@ -587,6 +585,7 @@
     <Content Include="Scripts\admin\controllers\form-group.js" />
     <Content Include="Scripts\admin\controllers\form-list.js" />
     <Content Include="Scripts\admin\controllers\portfolio-edit.js" />
+    <Content Include="Scripts\admin\controllers\print-factor-text.js" />
     <Content Include="Scripts\admin\controllers\public-home-slide-show.js" />
     <Content Include="Scripts\admin\controllers\main.js" />
     <Content Include="Scripts\admin\controllers\mobile-menu.js" />
@@ -674,12 +673,10 @@
       </SubType>
     </Content>
     <Content Include="Areas\Customer\Views\FinancialConflict\PaymentPreview.cshtml" />
-<<<<<<< HEAD
     <Content Include="Areas\Admin\Views\Form\NewField_FileUploader2.cshtml" />
     <Content Include="Areas\Admin\Views\Form\EditField_FileUploader2.cshtml" />
     <Content Include="Areas\Admin\Views\Form\FormField_FileUploader2.cshtml" />
     <Content Include="Areas\Customer\Views\Form\FormField_FileUploader2.cshtml" />
-=======
     <Content Include="Areas\Admin\Views\PublicPrice\Add.cshtml" />
     <Content Include="Areas\Admin\Views\PublicPrice\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Add.cshtml" />
@@ -688,7 +685,8 @@
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\HomeSlideShow\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Portfolio\Edit.cshtml" />
->>>>>>> newPublic
+    <Content Include="Areas\Admin\Views\FactorOfDesignOrder\FactorText.cshtml" />
+    <Content Include="Areas\Admin\Views\FactorOfPrintOrder\FactorText.cshtml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
@@ -1597,11 +1595,8 @@
     <Content Include="Vendors\jquery-validation-1.13.1\localization\methods_nl.min.js" />
     <Content Include="Vendors\jquery-validation-1.13.1\localization\methods_pt.js" />
     <Content Include="Vendors\jquery-validation-1.13.1\localization\methods_pt.min.js" />
-<<<<<<< HEAD
     <Content Include="Vendors\jquery.bpopup\jquery.bpopup.min.js" />
-=======
     <Content Include="Vendors\jquery.isotope\jquery.isotope.js" />
->>>>>>> newPublic
     <Content Include="Vendors\persian-date\persian-date-0.1.8.js" />
     <Content Include="Vendors\persian-date\persian-date-0.1.8.min.js" />
     <Content Include="Vendors\angular-1.3.15\angular-animate.js" />

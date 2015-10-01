@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class DesignOrder_FinalDesignController : Controller
     {
         private DataAccess.Context _context;
@@ -19,8 +20,7 @@ namespace Karenbic.Areas.Customer.Controllers
         [HttpGet]
         public ActionResult Get(int orderId)
         {
-            DomainClasses.Customer customer = _context.Customers.Find(1);
-            //DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             DomainClasses.DesignOrder order = _context.DesignOrders.Find(orderId);
             bool mustSendNotification = order.CustomerMustSeeIt;
@@ -34,8 +34,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 var notificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.CustomerNotification>();
 
                 notificationHub.Clients
-                    //.Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
-                    .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == "user")
+                    .Clients(Hubs.CustomerNotification.Users.Single(x => x.Key == User.Identity.Name)
                     .Value.ConnectionIds.ToArray<string>()).minusUnreviewedDesign();
             }
 

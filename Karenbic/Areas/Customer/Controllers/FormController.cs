@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Karenbic.Areas.Customer.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Customer")]
     public class FormController : Controller
     {
         private DataAccess.Context _context;

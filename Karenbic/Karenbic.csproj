@@ -2693,6 +2693,10 @@
       <Project>{061bf5c1-9130-4070-a996-616b2e740073}</Project>
       <Name>Karenbic.DomainClasses</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Karenbic.SMSService\Karenbic.SMSService.csproj">
+      <Project>{5ae67a92-94a6-4c60-b5d3-20c531bb33ef}</Project>
+      <Name>Karenbic.SMSService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

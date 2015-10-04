@@ -9,3 +9,4 @@
 7- Fill "tbl_Setting" Table
 
 8- Fill "tbl_PortFiloType" Table
+9- Fill "tbl_PublicPriceCategory" Table

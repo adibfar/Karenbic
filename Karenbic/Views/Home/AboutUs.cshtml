@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Karenbic.DomainClasses.Setting
+
+@{
     ViewBag.PageTitle = "درباره با ما";
 }
 
@@ -42,18 +44,7 @@
 
         <div class="row section-about-us">
             <div class="col-md-6 col-sm-6">
-                <div class="clearfix">
-                    <h3 class="title">چرا استودیو پارسیا؟!</h3>
-                    <div class="title-seperator"></div>
-                </div>
-                <div class="description">
-                    سازمان‌ها و شرکت‌ها در راستای تحقق اهداف و چشم‌انداز خود فعالیت‌های مختلف و پیچیده‌ای را انجام می‌دهند. اما سازمان‌های برتر و پیشرو فعالیت‌ها و فرایندهای کسب وکاری خود را هوشمندانه، به موقع، یکپارچه‌، باکیفیت و با صرف منابع و هزینه‌ی‌ موثر انجام می‌دهند. اجرای فعالیت‌ها به‌شیوه‌ای متفاوت، در‌واقع رمز برتری این شرکت‌ها یا سازمان‌ها در بازارهای به‌ شدت رقابتی امروزی است.
-                    <br />
-                    بازاریابی و تبلیغات شامل مجموعه‌ای از فعالیت‌ها و تلاش‌ها است که نقش کلیدی و موثری در رشد و توسعه‌ی سازمان‌ها و شرکت‌ها ایفا می‌کند.
-                    <br />
-                    استودیو پارسیا خود را یک شرکت تبلیغاتی یا هنری نمی‌داند. ماموریت اصلی و بنیادی ما ارائه‌ی راه‌حل‌های یک‌پارچه، مقرون به‌صرفه و بسیار موثر برای تحقق اهداف مشتریان در زمینه‌ ی برندینگ، بازاریابی داخلی و توسعه بازار است. واحدهای تحقیقاتی، هنری و اجرایی شرکت عواملی هستند که به‌طور هوشمندانه راه‌حل‌های ارتباطی و تبلیغاتی توسعه یافته برای هر مشتری را به واقعیت تبدیل می‌کنند.
-                    استودیو پارسیا مجموعه‌ای است که قادر است زنجیره کاملی از خدمات مدیریت بازاریابی را به شرکت‌ها و سازمان‌ها ارائه دهد.
-                </div>
+                @Model.AboutUsText
             </div>
 
             <div class="col-md-6 col-sm-6">
@@ -80,84 +71,6 @@
                 </div>
 
             </div>
-        </div>
-
-        <div class="space-sep40"></div>
-
-        <div class="row">
-            <!-- Start Business Solution -->
-            <div class="col-md-6 col-sm-6 section-business-solution">
-                <div class="clearfix">
-                    <h3 class="title">استراتژی های ما در فناوری اطلاعات</h3>
-                    <div class="title-seperator"></div>
-                </div>
-                <div class="description">
-                    استودیو پارسیا (شرکت هوش سازان پارسیا) از سال 1385 فعالیت خــــود را آغاز نمـــوده و "ارائه راهکارهای دیجیتالی جهت توسعه کسب و کارها" را محور اصلی فعالیت خود قرار داد.
-                    <br />
-                    از این رو واحد انفورماتیک این مجموعه تمام توان خود را بر استفاده از ابزارها و متدهای به روز فناوری اطلاعات به عنوان بستر رشد سازمان و کسب و کارهای کوچک و متوسط قرار داد و با بهره گیری از نیروهای متخصص و مجرب اقدام به ارائه خدماتی کاملا حرفه ای و تخصصی از قبیل موارد زیر در این حوزه  به مشتریان  نمود.
-                    <br />
-                    - طراحی پورتال ها و نرم افزارهای تحت وب
-                    <br />
-                    - طراحی وبسایت های شرکتی ، فروشگاهی و شخصی
-                    <br />
-                    - طراحی نرم افزارهای موبایل
-                    <br />
-                    - خدمات تبلیغات اینترنتی
-                    <br />
-                    و نیز بازاریابی اینترنتی
-                    </h3>
-                </div>
-            </div>
-            <!-- Start Business Solution -->
-
-            <!-- Start Our Skills -->
-            <div class="col-md-6 col-sm-6 section-our-skills">
-                <div class="title-block clearfix">
-                    <h3 class="title">مهارت های ما</h3>
-                    <div class="title-seperator"></div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar animated" role="progressbar" aria-valuenow="95%"
-                         aria-valuemin="0" aria-valuemax="100"
-                         data-animtype="animate-progress"
-                         data-animrepeat="0">
-                        <span class="sr-only">Graphic Design</span>
-                    </div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar animated" role="progressbar" aria-valuenow="85%"
-                         aria-valuemin="0" aria-valuemax="100"
-                         data-animtype="animate-progress"
-                         data-animrepeat="0">
-                        <span class="sr-only">Photography</span>
-                    </div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar animated" role="progressbar" aria-valuenow="90%"
-                         aria-valuemin="0" aria-valuemax="100"
-                         data-animtype="animate-progress"
-                         data-animrepeat="0">
-                        <span class="sr-only">Illustration</span>
-                    </div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar animated" role="progressbar" aria-valuenow="95%"
-                         aria-valuemin="0" aria-valuemax="100"
-                         data-animtype="animate-progress"
-                         data-animrepeat="0">
-                        <span class="sr-only">Web Development</span>
-                    </div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar animated" role="progressbar" aria-valuenow="80%"
-                         aria-valuemin="0" aria-valuemax="100"
-                         data-animtype="animate-progress"
-                         data-animrepeat="0">
-                        <span class="sr-only">Mobile Development</span>
-                    </div>
-                </div>
-            </div>
-            <!-- End Our Skills -->
         </div>
 
         <div class="space-sep40"></div>

@@ -13,10 +13,12 @@ namespace Karenbic.Areas.Admin.Controllers
     public class PrintOrderController : Controller
     {
         private DataAccess.Context _context;
+        private SMSService.ISMSService _SMSService;
 
-        public PrintOrderController(DataAccess.Context context)
+        public PrintOrderController(DataAccess.Context context, SMSService.ISMSService SMSService)
         {
             _context = context;
+            _SMSService = SMSService;
         }
 
         [HttpGet]
@@ -481,6 +483,7 @@ namespace Karenbic.Areas.Admin.Controllers
 
             DomainClasses.PrintOrder order = _context.PrintOrders
                 .Include(x => x.Factor)
+                .Include(x => x.Customer)
                 .Single(x => x.Id == orderId);
 
             if (order.IsCanceled == false && printPrice > 0 && packingPrice >= 0)
@@ -517,6 +520,11 @@ namespace Karenbic.Areas.Admin.Controllers
 
                     adminNotification.Clients.All.minusUnCheckedPrintOrders();
                     adminNotification.Clients.All.minusNewPrintOrders();
+
+                    //Send SMS
+                    _SMSService.Send(new string[1] { order.Customer.Mobile }, 
+                        "", 
+                        false);
                 }
 
                 _context.SaveChanges();

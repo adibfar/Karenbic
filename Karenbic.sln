@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karenbic.DataAccess", "Kare
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karenbic.Api", "Karenbic.Api\Karenbic.Api.csproj", "{98958D15-D31C-4E38-9383-345A3BFEF0BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karenbic.SMSService", "Karenbic.SMSService\Karenbic.SMSService.csproj", "{5AE67A92-94A6-4C60-B5D3-20C531BB33EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{98958D15-D31C-4E38-9383-345A3BFEF0BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98958D15-D31C-4E38-9383-345A3BFEF0BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98958D15-D31C-4E38-9383-345A3BFEF0BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AE67A92-94A6-4C60-B5D3-20C531BB33EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AE67A92-94A6-4C60-B5D3-20C531BB33EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AE67A92-94A6-4C60-B5D3-20C531BB33EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AE67A92-94A6-4C60-B5D3-20C531BB33EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

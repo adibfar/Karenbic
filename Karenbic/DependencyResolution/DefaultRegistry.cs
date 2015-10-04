@@ -31,6 +31,8 @@ namespace Karenbic.DependencyResolution {
                 });
 
             For<DataAccess.Context>().Transient().Use<DataAccess.Context>();
+
+            For<SMSService.ISMSService>().Use<SMSService.ParsGreenService>();
         }
 
         #endregion

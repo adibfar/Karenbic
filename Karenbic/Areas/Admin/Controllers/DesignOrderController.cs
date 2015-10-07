@@ -14,10 +14,12 @@ namespace Karenbic.Areas.Admin.Controllers
     public class DesignOrderController : Controller
     {
         private DataAccess.Context _context;
+        private SMSService.ISMSService _SMSService;
 
-        public DesignOrderController(DataAccess.Context context)
+        public DesignOrderController(DataAccess.Context context, SMSService.ISMSService SMSService)
         {
             _context = context;
+            _SMSService = SMSService;
         }
 
         [HttpGet]
@@ -611,6 +613,7 @@ namespace Karenbic.Areas.Admin.Controllers
             {
                 DomainClasses.DesignOrder order = _context.DesignOrders
                     .Include(x => x.Customer)
+                    .Include(x => x.Designs)
                     .Single(x => x.Id == orderId);
 
                 bool sendAdminNotification = order.AdminMustSeeIt;
@@ -655,6 +658,28 @@ namespace Karenbic.Areas.Admin.Controllers
                     var AdminNotificationHub = GlobalHost.ConnectionManager.GetHubContext<Hubs.AdminNotification>();
                     AdminNotificationHub.Clients.All.minusUnCheckedDesignOrders();
                     AdminNotificationHub.Clients.All.minusUnCheckedOngoingDesignOrders();
+                }
+
+                //Send SMS
+                if (order.Designs.Count > 1)
+                {
+                    _SMSService.Send(new string[1] { order.Customer.Mobile },
+                string.Format(@"استودیو کارن
+{0} عزیز
+تغییرات سفارش طراحی شماره {1} اعمال گردید. جهت بررسی به بخش نمایش سفارشات مراجعه فرمائید.",
+                                order.Customer.Name,
+                                order.Code),
+                false);
+                }
+                else
+                {
+                    _SMSService.Send(new string[1] { order.Customer.Mobile },
+                string.Format(@"استودیو کارن
+{0} عزیز
+سفارش طراحی شماره {1} انجام گردید. جهت بررسی به بخش نمایش سفارشات مراجعه فرمائید.",
+                                order.Customer.Name,
+                                order.Code),
+                false);
                 }
             }
 

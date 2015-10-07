@@ -18,6 +18,9 @@
     <link rel="stylesheet" type="text/css" href="/Vendors/ezmark/css/ezmark.css" />
     <script type="text/javascript" src="/Vendors/ezmark/js/jquery.ezmark.min.js"></script>
 
+    <script type="text/javascript" language="javascript" src="/Vendors/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/Vendors/jquery-validation-1.13.1/localization/messages_fa.js"></script>
+
     <style>
         body{
             background-color:#5e5e5e;
@@ -26,7 +29,7 @@
         #login-panel {
             background-color: #fff;
             direction: rtl;
-            height: 190px;
+            height: 290px;
             margin: 50px auto;
             padding: 35px 20px 0px 20px;
             position: relative;
@@ -35,7 +38,6 @@
             -moz-border-radius: 15px;
             border-radius: 15px;
         }
-
             #login-panel .username {
                 border: 1px solid #cccccc;
                 height: 33px;
@@ -44,7 +46,6 @@
                 position: relative;
                 width: 100%;
             }
-
                 #login-panel .username .icon {
                     background: url(/Images/Public/Login/2.png) no-repeat 0 0;
                     height: 25px;
@@ -53,7 +54,6 @@
                     top: 3px;
                     width: 20px;
                 }
-
                 #login-panel .username input {
                     border: none;
                     direction: ltr;
@@ -61,12 +61,10 @@
                     text-align: left;
                     width: 100%;
                 }
-
                     #login-panel .username input:focus {
                         outline: none;
                         border: none;
                     }
-
             #login-panel .password {
                 border: 1px solid #cccccc;
                 height: 33px;
@@ -75,7 +73,6 @@
                 position: relative;
                 width: 100%;
             }
-
                 #login-panel .password .icon {
                     background: url(/Images/Public/Login/3.png) no-repeat 0 0;
                     height: 25px;
@@ -84,20 +81,45 @@
                     top: 3px;
                     width: 20px;
                 }
-
                 #login-panel .password input {
                     width: 100%;
                     border: none;
                     direction: ltr;
                     text-align: left;
                 }
-
                     #login-panel .password input:focus {
                         border: none;
                         outline: none;
                     }
-
-            #login-panel img {
+            #login-panel .captcha {
+                background-color: #dadada;
+                height: 93px;
+                margin-top: 3px;
+                padding: 5px;
+                position: relative;
+                width: 260px;
+            }
+                #login-panel .captcha img {
+                    border: 1px solid #bebebe;
+                    height: auto;
+                    width: 215px;
+                }
+                #login-panel .captcha input[type=text] {
+                    margin-top: 5px;
+                    width: 215px;
+                }
+                #login-panel .captcha .btn-refresh-1 {
+                    border: none;
+                    background: transparent url(/Images/UI/Button/btn-refresh-1.png) no-repeat 0 0;
+                    display: block;
+                    height: 29px;
+                    left: 5px;
+                    position: absolute;
+                    top: 9px;
+                    width: 29px;
+                }
+                    
+        #login-panel img {
                 display: inline-block;
                 position: relative;
                 top: 1px;
@@ -147,15 +169,15 @@
             border: none;
             cursor: pointer;
             display: block;
-            height: 23px;
-            left: 118px;
+            height: 31px;
+            left: 99px;
             position: absolute;
             top: -10px;
-            width: 63px;
+            width: 105px;
         }
 
             #login-panel .btn-login:hover {
-                background-position: 0 -25px;
+                background-position: 0 -31px;
             }
     </style>
 
@@ -178,6 +200,23 @@
                     $('#login-panel').css('margin-top', 5);
                 }
             });
+
+            $('#login-panel .captcha .btn-refresh-1').click(function () {
+                var d = new Date();
+                $("#login-panel .captcha img").attr("src", "/Captcha/CaptchaImage?prefix=_Login&" + d.getTime());
+            });
+
+            $("form").validate({
+                rules: {
+                    'model.UserName': "required",
+                    'model.Password': {
+                        required: true,
+                        minlength: 6
+                    },
+                    'captcha': "required"
+                },
+                errorPlacement: function (error, element) { }
+            });
         });
     </script>
 </head>
@@ -194,12 +233,17 @@
                 <input type="password" name="model.Password" value="@Model.Password" />
                 <div class="icon"></div>
             </div>
+            <div class="captcha">
+                <img alt="Captcha" id="imgcpatcha" src="@Url.Action("CaptchaImage", "Captcha", new { prefix = "_Login", d = DateTime.Now.ToLongTimeString() })" />
+                <input class="btn btn-refresh-1" type="button" value="" />
+                <input class="txt txt-en" name="captcha" type="text" />
+            </div>
             <label id="remeber" style="cursor:pointer;">
                 <input type="checkbox" name="model.RememberMe" value="true" @(Model.RememberMe ? "checked=\"checked\"" : "") />
                 <input type="hidden" name="model.RememberMe" value="false" />
                 <img src="/Images/Public/Login/5.png" alt="مرا بخاطر بسپار" />
             </label>
-            <a id="recovery-pass" href=""></a>
+            <a id="recovery-pass" href="@Url.Action("RecoveryPassword")"></a>
             @if (ViewBag.NotAuth == true)
             {
                 <div id="not-auth"></div>

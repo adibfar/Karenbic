@@ -9,6 +9,8 @@ namespace Karenbic
     {
         public void Configuration(IAppBuilder app)
         {
+            ConfigureAuth(app);
+
             //var config = new HubConfiguration();
             //config.EnableJSONP = true;
             //app.MapSignalR(config);
@@ -24,8 +26,6 @@ namespace Karenbic
                 };
                 map.RunSignalR(hubConfiguration);
             }); 
-
-            ConfigureAuth(app);
         }
     }
 }

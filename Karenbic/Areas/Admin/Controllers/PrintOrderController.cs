@@ -523,7 +523,13 @@ namespace Karenbic.Areas.Admin.Controllers
 
                     //Send SMS
                     _SMSService.Send(new string[1] { order.Customer.Mobile }, 
-                        "", 
+                        string.Format(@"استودیو کارن
+{0} عزیز
+صورت حساب شماره {1} به مبلغ {2} صادر گردید.
+جهت پرداخت به بخش صورت حساب مراجعه فرمائید", 
+                                        order.Customer.Name,
+                                        order.Code,
+                                        order.Factor.Price), 
                         false);
                 }
 
@@ -587,6 +593,17 @@ namespace Karenbic.Areas.Admin.Controllers
 
                     order.OrderState = DomainClasses.PrintOrderState.Finish;
                     result = true;
+
+                    //Send SMS
+                    _SMSService.Send(new string[1] { order.Customer.Mobile },
+                        string.Format(@"استودیو کارن
+{0} عزیز
+سفارش شما آماده تحویل می باشد.
+شماره سفارش {1}",
+                                        order.Customer.Name,
+                                        order.Code),
+                        false);
+
                     break;
             }
 
@@ -621,6 +638,16 @@ namespace Karenbic.Areas.Admin.Controllers
 
                     case 5:
                         order.OrderState = DomainClasses.PrintOrderState.Finish;
+
+                        //Send SMS
+                        _SMSService.Send(new string[1] { order.Customer.Mobile },
+                            string.Format(@"استودیو کارن
+{0} عزیز
+سفارش شما آماده تحویل می باشد.
+شماره سفارش {1}",
+                                            order.Customer.Name,
+                                            order.Code),
+                            false);
                         break;
                 }
             }

@@ -12,10 +12,12 @@ namespace Karenbic.Areas.Admin.Controllers
     public class DesignOrder_FinalDesignController : Controller
     {
         private DataAccess.Context _context;
+        private SMSService.ISMSService _SMSService;
 
-        public DesignOrder_FinalDesignController(DataAccess.Context context)
+        public DesignOrder_FinalDesignController(DataAccess.Context context, SMSService.ISMSService SMSService)
         {
             _context = context;
+            _SMSService = SMSService;
         }
 
         [HttpGet]
@@ -82,6 +84,15 @@ namespace Karenbic.Areas.Admin.Controllers
                         .Value.ConnectionIds.ToArray<string>()).newUnreviewedDesign();
                 }
             }
+
+            //Send SMS
+            _SMSService.Send(new string[1] { order.Customer.Mobile },
+                string.Format(@"استودیو کارن
+{0} عزیز
+فایل نهایی سفارش طراحی شماره {1} برای شما ارسال شد. جهت دریافت به بخش نمایش سفارشات مراجعه فرمائید.",
+                                order.Customer.Name,
+                                order.Code),
+                false);
 
             return Json(designs.Select(x => new
             {

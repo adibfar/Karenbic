@@ -48,9 +48,13 @@
         #register-panel .bottom{background:url(/Images/Public/Register/1.png) no-repeat center center;bottom:-25px;height:26px;position:absolute;width:720px;}
         #register-panel .btn-register{background:url(/Images/Public/Register/3.png) no-repeat 0 0;border:none;cursor:pointer;display:block;height:31px;left:290px;position:absolute;top:-14px;width:143px;}
         #register-panel .btn-register:hover{background-position:0 -31px;}
+        #register-panel .captcha{background-color:#dadada;height:81px;margin-top:10px;padding:5px;position:relative;width:202px;}
+        #register-panel .captcha img{border:1px solid #bebebe;height:auto;width:160px;}
+        #register-panel .captcha input[type=text]{margin-top:5px;width:160px;}
+        #register-panel .captcha .btn-refresh-1{border:none;background:transparent url(/Images/UI/Button/btn-refresh-1.png) no-repeat 0 0;display:block;height:29px;left:5px;position:absolute;top:9px;width:29px;}
 
-        #register-panel-mobile{background-color:#fff;direction:rtl;height:880px;margin:10px auto 30px auto;padding:20px;position:relative;width:280px;-webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px;}
-        #register-panel-mobile .title{background:url(/Images/Public/Register/2.png) no-repeat 0 0;height:26px;margin:0 auto 30px auto;width:207px;}
+        #register-panel-mobile{background-color:#fff;direction:rtl;height:1000px;margin:10px auto 30px auto;padding:20px;position:relative;width:280px;-webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px;}
+        #register-panel-mobile .title{background:url(/Images/Public/Register/2.png) no-repeat 0 0;height:36px;margin:0 auto 15px auto;width:207px;}
         #register-panel-mobile .bottom{background:url(/Images/Public/Register/1.png) no-repeat center center;bottom:-25px;left:0;height:26px;position:absolute;width:280px;}
         #register-panel-mobile .btn-register{background:url(/Images/Public/Register/3.png) no-repeat 0 0;border:none;cursor:pointer;display:block;height:31px;left:69px;position:absolute;top:-14px;width:143px;}
         #register-panel-mobile .btn-register:hover{background-position:0 -31px;}
@@ -58,12 +62,18 @@
         #register-panel-mobile table.frm1 td{margin-bottom:20px;}
         #register-panel-mobile table.frm1 td.clmn1{text-align:right;}
         #register-panel-mobile table.frm1 td.clmn2{padding-right:0;}
+        #register-panel-mobile .captcha{background-color:#dadada;height:90px;margin-top:3px;padding:5px;position:relative;width:239px;}
+        #register-panel-mobile .captcha img{border:1px solid #bebebe;height:auto;width:196px;}
+        #register-panel-mobile .captcha input[type=text]{margin-top:5px;width:196px;}
+        #register-panel-mobile .captcha .btn-refresh-1{border:none;background:transparent url(/Images/UI/Button/btn-refresh-1.png) no-repeat 0 0;display:block;height:29px;left:5px;position:absolute;top:9px;width:29px;}
 
         #success-message{background-color:#fff;color:#b200ff;direction:rtl;font-family:yekan;font-size:18px;margin:10px auto 30px auto;padding:20px;position:relative;text-align:center;width:720px;-webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px;}
 
         .error-list{list-style: none;margin:30px 15px 0 0;padding:0;}
         .error-list li{color:#C42F2F;margin:0;padding:0;}
         .error-list li i{background-color:#6D0606;display:inline-block;height:7px;margin-left:3px;position:relative;top:1px;width:7px;border-radius:50%;}
+
+        
 
         /* Small Devices, Tablets */
         @@media only screen and (min-width : 320px) {
@@ -88,126 +98,128 @@
     </style>
 
     <script type="text/javascript">
-$(document).ready(function () {
+    $(document).ready(function () {
 
-    $("#registerForm").validate({
-        rules: {
-            'model.Name': "required",
-            'model.Surname': "required",
-            'model.Phone': {
-                required: false,
-                digits: true,
-                minlength: 7
-            },
-            'model.Mobile': {
-                required: true,
-                digits: true,
-                minlength: 11,
-                maxlength: 11
-            },
-            'model.Email': {
-                required: true,
-                email: true,
-                remote: {
-                    url: "/Account/Register_CheckEmail",
-                    type: "post",
-                    data: {
-                        email: function () {
-                            return $("#email").val();
+        $("#registerForm").validate({
+            rules: {
+                'model.Name': "required",
+                'model.Surname': "required",
+                'model.Phone': {
+                    required: false,
+                    digits: true,
+                    minlength: 7
+                },
+                'model.Mobile': {
+                    required: true,
+                    digits: true,
+                    minlength: 11,
+                    maxlength: 11
+                },
+                'model.Email': {
+                    required: true,
+                    email: true,
+                    remote: {
+                        url: "/Account/Register_CheckEmail",
+                        type: "post",
+                        data: {
+                            email: function () {
+                                return $("#email").val();
+                            }
                         }
                     }
-                }
-            },
-            'model.Username': {
-                required: true,
-                minlength: 4,
-                remote: {
-                    url: "/Account/Register_CheckUsername",
-                    type: "post",
-                    data: {
-                        username: function () {
-                            return $("#username").val();
+                },
+                'model.Username': {
+                    required: true,
+                    minlength: 4,
+                    remote: {
+                        url: "/Account/Register_CheckUsername",
+                        type: "post",
+                        data: {
+                            username: function () {
+                                return $("#username").val();
+                            }
                         }
                     }
-                }
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                rePassword: {
+                    required: true,
+                    minlength: 6,
+                    equalTo: "#password"
+                },
+                'captcha': "required"
             },
-            password: {
-                required: true,
-                minlength: 6
-            },
-            rePassword: {
-                required: true,
-                minlength: 6,
-                equalTo: "#password"
-            }
-        },
-        errorPlacement: function (error, element) { }
-    });
+            errorPlacement: function (error, element) { }
+        });
 
-    $("#registerForm2").validate({
-        rules: {
-            'model.Name': "required",
-            'model.Surname': "required",
-            'model.Phone': {
-                required: false,
-                digits: true,
-                minlength: 7
-            },
-            'model.Mobile': {
-                required: true,
-                digits: true,
-                minlength: 11,
-                maxlength: 11
-            },
-            'model.Email': {
-                required: true,
-                email: true,
-                remote: {
-                    url: "/Account/Register_CheckEmail",
-                    type: "post",
-                    data: {
-                        email: function () {
-                            return $("#email-mobile").val();
+        $("#registerForm2").validate({
+            rules: {
+                'model.Name': "required",
+                'model.Surname': "required",
+                'model.Phone': {
+                    required: false,
+                    digits: true,
+                    minlength: 7
+                },
+                'model.Mobile': {
+                    required: true,
+                    digits: true,
+                    minlength: 11,
+                    maxlength: 11
+                },
+                'model.Email': {
+                    required: true,
+                    email: true,
+                    remote: {
+                        url: "/Account/Register_CheckEmail",
+                        type: "post",
+                        data: {
+                            email: function () {
+                                return $("#email-mobile").val();
+                            }
                         }
                     }
-                }
-            },
-            'model.Username': {
-                required: true,
-                minlength: 4,
-                remote: {
-                    url: "/Account/Register_CheckUsername",
-                    type: "post",
-                    data: {
-                        username: function () {
-                            return $("#username-mobile").val();
+                },
+                'model.Username': {
+                    required: true,
+                    minlength: 4,
+                    remote: {
+                        url: "/Account/Register_CheckUsername",
+                        type: "post",
+                        data: {
+                            username: function () {
+                                return $("#username-mobile").val();
+                            }
                         }
                     }
-                }
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                rePassword: {
+                    required: true,
+                    minlength: 6,
+                    equalTo: "#password-mobile"
+                },
+                'captcha': "required"
             },
-            password: {
-                required: true,
-                minlength: 6
-            },
-            rePassword: {
-                required: true,
-                minlength: 6,
-                equalTo: "#password-mobile"
-            }
-        },
-        errorPlacement: function (error, element) { }
-    });
+            errorPlacement: function (error, element) { }
+        });
 
-    $('input[type="radio"]').ezMark();
+        $('input[type="radio"]').ezMark();
 
-    $('select').chosen({
-        placeholder_text_single: 'انتخاب کنید',
-        placeholder_text_multiple: 'انتخاب کنید'
-    });
+        $('select').chosen({
+            placeholder_text_single: 'انتخاب کنید',
+            placeholder_text_multiple: 'انتخاب کنید'
+        });
 
-    $('#Province').change(function () {
-        $.ajax({
-            url: '@Url.Action("GetOption", "City")',
+        $('#Province').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetOption", "City")',
                 type: 'GET',
                 success: function (m) {
                     $select = $('<select>').attr({ 'id': 'City', 'name': 'CityID' }).css('width', '201px');
@@ -238,6 +250,16 @@ $(document).ready(function () {
                 data: 'ProvinceID=' + $('#province-mobile').val()
             });
         });
+
+        $('#register-panel .captcha .btn-refresh-1').click(function () {
+            var d = new Date();
+            $("#register-panel .captcha img").attr("src", "/Captcha/CaptchaImage?prefix=_Register1&" + d.getTime());
+        });
+
+        $('#register-panel-mobile .captcha .btn-refresh-1').click(function () {
+            var d = new Date();
+            $("#register-panel-mobile .captcha img").attr("src", "/Captcha/CaptchaImage?prefix=_Register2&" + d.getTime());
+        });
     });
     </script>
 </head>
@@ -254,7 +276,7 @@ $(document).ready(function () {
             <table class="frm1">
                 <tr>
                     <td class="clmn1"><span class="lbl1-fa">نام:</span></td>
-                    <td class="clmn2"><input type="text" name="model.Name" class="txt-fa" style="width:201px;" tabindex="2" /></td>
+                    <td class="clmn2"><input type="text" name="model.Name" class="txt-fa" style="width:201px;" tabindex="2" value="@Model.Name" /></td>
                     <td rowspan="9" width="30px;" style="border-left:1px solid #bebebe;">&nbsp;</td>
                     <td rowspan="9" style="padding-right:25px;">
                         <table class="frm1">
@@ -262,7 +284,7 @@ $(document).ready(function () {
                                 <td class="clmn1"><span class="lbl1-fa">نام کاربری:</span></td>
                                 <td class="clmn2">
                                     <input id="username" type="text" name="model.Username"
-                                           class="txt-en" style="width:201px;" tabindex="12" />
+                                           class="txt-en" style="width:201px;" tabindex="12" value="@Model.Username" />
                                 </td>
                             </tr>
                             <tr>
@@ -273,12 +295,23 @@ $(document).ready(function () {
                                 <td class="clmn1"><span class="lbl1-fa">تکرار رمز عبور:</span></td>
                                 <td class="clmn2"><input type="password" name="rePassword" class="txt-en" style="width:201px;" tabindex="14" /></td>
                             </tr>
+                            <tr>
+                                <td class="clmn1" style="vertical-align:top;padding-top:9px;"><span class="lbl1-fa">حاصل جمع:</span></td>
+                                <td class="clmn2">
+                                    <div class="captcha">
+                                        <img alt="Captcha" id="imgcpatcha" src="@Url.Action("CaptchaImage", "Captcha", new { prefix = "_Register1", d = DateTime.Now.ToLongTimeString() })" />
+                                        <input class="btn btn-refresh-1" type="button" value="" />
+                                        <input class="txt txt-en" name="captcha" type="text" tabindex="15" />
+                                        <input type="hidden" name="captchaPerfix" value="Register1" />
+                                    </div>
+                                </td>
+                            </tr>
                         </table>
                     </td>
                 </tr>
                 <tr>
                     <td class="clmn1"><span class="lbl1-fa">نام خانوادگی:</span></td>
-                    <td class="clmn2"><input type="text" name="model.Surname" class="txt-fa" style="width:201px;" tabindex="2" /></td>
+                    <td class="clmn2"><input type="text" name="model.Surname" class="txt-fa" style="width:201px;" tabindex="2" value="@Model.Surname" /></td>
                 </tr>
                 <tr>
                     <td class="clmn1"><span class="lbl1-fa">جنسیت:</span></td>
@@ -290,15 +323,15 @@ $(document).ready(function () {
                 </tr>
                 <tr>
                     <td class="clmn1"><span class="lbl1-fa">شماره تلفن:</span></td>
-                    <td class="clmn2"><input type="text" name="model.Phone" class="txt-en" style="width:201px;" tabindex="5" /></td>
+                    <td class="clmn2"><input type="text" name="model.Phone" class="txt-en" style="width:201px;" tabindex="5" value="@Model.Phone" /></td>
                 </tr>
                 <tr>
                     <td class="clmn1"><span class="lbl1-fa">شماره تلفن همراه:</span></td>
-                    <td class="clmn2"><input type="text" name="model.Mobile" class="txt-en" style="width:201px;" tabindex="6" /></td>
+                    <td class="clmn2"><input type="text" name="model.Mobile" class="txt-en" style="width:201px;" tabindex="6" value="@Model.Mobile" /></td>
                 </tr>
                 <tr>
                     <td class="clmn1"><span class="lbl1-fa">ایمیل:</span></td>
-                    <td class="clmn2"><input id="email" type="text" name="model.Email" class="txt-en" style="width:201px;" tabindex="8" /></td>
+                    <td class="clmn2"><input id="email" type="text" name="model.Email" class="txt-en" style="width:201px;" tabindex="8" value="@Model.Email" /></td>
                 </tr>
                 <tr>
                     <td class="clmn1"><span class="lbl1-fa">استان:</span></td>
@@ -316,7 +349,7 @@ $(document).ready(function () {
                 </tr>
                 <tr>
                     <td class="clmn1" style="vertical-align:top;padding-top:2px;"><span class="lbl1-fa">آدرس:</span></td>
-                    <td class="clmn2"><textarea class="txtarea-fa" style="width:201px;height:80px;" name="model.Address" tabindex="11"></textarea></td>
+                    <td class="clmn2"><textarea class="txtarea-fa" style="width:201px;height:80px;" name="model.Address" tabindex="11">@Model.Address</textarea></td>
                 </tr>
             </table>
             <div class="bottom">
@@ -333,13 +366,13 @@ $(document).ready(function () {
                     <td class="clmn1"><span class="lbl1-fa">نام:</span></td>
                 </tr>
                 <tr>
-                    <td class="clmn2"><input type="text" name="model.Name" class="txt-fa" style="width:100%;" tabindex="2" /></td>
+                    <td class="clmn2"><input type="text" name="model.Name" class="txt-fa" style="width:100%;" tabindex="2" value="@Model.Name" /></td>
                 </tr>
                 <tr>
                     <td class="clmn1"><span class="lbl1-fa">نام خانوادگی:</span></td>
                 </tr>
                 <tr>
-                    <td class="clmn2"><input type="text" name="model.Surname" class="txt-fa" style="width:100%;" tabindex="2" /></td>
+                    <td class="clmn2"><input type="text" name="model.Surname" class="txt-fa" style="width:100%;" tabindex="2" value="@Model.Surname" /></td>
                 </tr>
                 <tr>
                     <td class="clmn1"><span class="lbl1-fa">جنسیت:</span></td>
@@ -355,19 +388,19 @@ $(document).ready(function () {
                     <td class="clmn1"><span class="lbl1-fa">شماره تلفن:</span></td>
                 </tr>
                 <tr>
-                    <td class="clmn2"><input type="text" name="model.Phone" class="txt-en" style="width:100%;" tabindex="5" /></td>
+                    <td class="clmn2"><input type="text" name="model.Phone" class="txt-en" style="width:100%;" tabindex="5" value="@Model.Phone" /></td>
                 </tr>
                 <tr>
                     <td class="clmn1"><span class="lbl1-fa">شماره تلفن همراه:</span></td>
                 </tr>
                 <tr>
-                    <td class="clmn2"><input type="text" name="model.Mobile" class="txt-en" style="width:100%;" tabindex="6" /></td>
+                    <td class="clmn2"><input type="text" name="model.Mobile" class="txt-en" style="width:100%;" tabindex="6" value="@Model.Mobile" /></td>
                 </tr>
                 <tr>
                     <td class="clmn1"><span class="lbl1-fa">ایمیل:</span></td>
                 </tr>
                 <tr>
-                    <td class="clmn2"><input id="email-mobile" type="text" name="model.Email" class="txt-en" style="width:100%;" tabindex="8" /></td>
+                    <td class="clmn2"><input id="email-mobile" type="text" name="model.Email" class="txt-en" style="width:100%;" tabindex="8" value="@Model.Email" /></td>
                 </tr>
                 <tr>
                     <td class="clmn1"><span class="lbl1-fa">استان:</span></td>
@@ -391,7 +424,7 @@ $(document).ready(function () {
                     <td class="clmn1" style="vertical-align:top;padding-top:2px;"><span class="lbl1-fa">آدرس:</span></td>
                 </tr>
                 <tr>
-                    <td class="clmn2"><textarea class="txtarea-fa" style="width:100%;height:80px;" name="model.Address" tabindex="11"></textarea></td>
+                    <td class="clmn2"><textarea class="txtarea-fa" style="width:100%;height:80px;" name="model.Address" tabindex="11">@Model.Address</textarea></td>
                 </tr>
                 <tr>
                     <td class="clmn1"><span class="lbl1-fa">نام کاربری:</span></td>
@@ -399,7 +432,7 @@ $(document).ready(function () {
                 <tr>
                     <td class="clmn2">
                         <input id="username-mobile" type="text" name="model.Username"
-                               class="txt-en" style="width:100%;" tabindex="12" />
+                               class="txt-en" style="width:100%;" tabindex="12" value="@Model.Username" />
                     </td>
                 </tr>
                 <tr>
@@ -413,6 +446,19 @@ $(document).ready(function () {
                 </tr>
                 <tr>
                     <td class="clmn2"><input type="password" name="rePassword" class="txt-en" style="width:100%;" tabindex="14" /></td>
+                </tr>
+                <tr>
+                    <td class="clmn1"><span class="lbl1-fa">حاصل جمع:</span></td>
+                </tr>
+                <tr>
+                    <td class="clmn2">
+                        <div class="captcha">
+                            <img alt="Captcha" id="imgcpatcha" src="@Url.Action("CaptchaImage", "Captcha", new { prefix = "_Register2", d = DateTime.Now.ToLongTimeString() })" />
+                            <input class="btn btn-refresh-1" type="button" value="" />
+                            <input class="txt txt-en" name="captcha" type="text" tabindex="15" />
+                            <input type="hidden" name="captchaPerfix" value="Register2" />
+                        </div>
+                    </td>
                 </tr>
             </table>
             <div class="bottom">

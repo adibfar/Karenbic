@@ -304,6 +304,7 @@
     <Compile Include="Areas\Customer\Models\OrderValue_TextBox.cs" />
     <Compile Include="Areas\Customer\Models\OrderValue_WebUrl.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CaptchaController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PortfolioController.cs" />
@@ -462,6 +463,7 @@
     <Content Include="Images\Simbol\error-icon.gif" />
     <Content Include="Images\SketchSheets\iPad.png" />
     <Content Include="Images\SketchSheets\iPhone.png" />
+    <Content Include="Images\UI\Button\btn-refresh-1.png" />
     <Content Include="Images\UI\Button\btn-file-uploader-1.png" />
     <Content Include="Images\Public\social-media\share-facebook%402x.png" />
     <Content Include="Images\Public\social-media\share-facebook.png" />
@@ -2582,6 +2584,7 @@
     <Content Include="Styles\public\product.scss" />
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Portfolio\Detail.cshtml" />
+    <Content Include="Views\Account\RecoveryPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

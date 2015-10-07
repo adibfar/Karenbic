@@ -90,7 +90,7 @@ App.controller('TopMenuController', ['$rootScope', '$scope', '$state', '$locatio
         $.connection.hub.logging = true;
 
         var connection = $.hubConnection();
-        connection.url = 'http://www.karenads.com/signalr';
+        connection.url = 'http://localhost:22182/signalr';
         var proxy = connection.createHubProxy('customerNotification');
 
         _.each($scope.menuItems, function (menuItem) {

@@ -30,7 +30,7 @@
         color: #f2f2f2;
         font-family: yekan;
         font-size: 16px;
-        margin: 0 0 20px 0;
+        margin: 0 0 10px 0;
         padding: 0 0 8px 0;
         text-transform: uppercase;
     }
@@ -55,11 +55,107 @@
             width: 100%;
         }
 
+		.footer .footer-col .footer-content .footer-category-list {
+            list-style: none;
+			margin: 0 8px 0 20px;
+			padding: 0;
+
+			li {
+				border-bottom: 1px solid #a2aab3;
+				padding: 5px 7px;
+
+				&:last-child {
+					border-bottom: none;
+				}
+			}
+
+			a {
+				color: #c9c9c9;
+				display: block;
+			}
+        }
+
+		.footer .footer-col .footer-content .footer-buttons {
+			direction: ltr;
+
+			.btn-login {
+				background: transparent url(/Images/Public/Footer/10.png) no-repeat 0 0;
+				display: block;
+				height: 44px;
+				margin: 0 0 10px 0;
+				width: 155px;
+
+				&:hover {
+					background-position: 0 -45px;
+				}
+			}
+
+			.btn-register {
+				background: transparent url(/Images/Public/Footer/9.png) no-repeat 0 0;
+				display: block;
+				height: 44px;
+				margin: 0 0 10px 0;
+				width: 155px;
+
+				&:hover {
+					background-position: 0 -45px;
+				}
+			}
+
+			.btn-google-plus {
+				background: transparent url(/Images/Public/Footer/8.png) no-repeat 0 0;
+				display: inline-block;
+				height: 34px;
+				margin: 0 3px 10px 0;
+				width: 34px;
+
+				&:hover {
+					background-position: 0 -35px;
+				}
+			}
+
+			.btn-facebook {
+				background: transparent url(/Images/Public/Footer/7.png) no-repeat 0 0;
+				display: inline-block;
+				height: 34px;
+				margin: 0 3px 10px 0;
+				width: 34px;
+
+				&:hover {
+					background-position: 0 -35px;
+				}
+			}
+
+			.btn-twitter {
+				background: transparent url(/Images/Public/Footer/6.png) no-repeat 0 0;
+				display: inline-block;
+				height: 34px;
+				margin: 0 3px 10px 0;
+				width: 34px;
+
+				&:hover {
+					background-position: 0 -35px;
+				}
+			}
+
+			.btn-instagram {
+				background: transparent url(/Images/Public/Footer/5.png) no-repeat 0 0;
+				display: inline-block;
+				height: 34px;
+				margin: 0 3px 10px 0;
+				width: 34px;
+
+				&:hover {
+					background-position: 0 -35px;
+				}
+			}
+		}
+
 .footer-wrapper {
-    min-height: 300px;
+    min-height: 200px;
     position: relative;
     padding-top: 25px;
-    padding-bottom: 35px;
+    padding-bottom: 5px;
 }
 
     .footer-wrapper:after {

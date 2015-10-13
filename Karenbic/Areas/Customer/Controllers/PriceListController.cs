@@ -23,25 +23,34 @@ namespace Karenbic.Areas.Customer.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get(DomainClasses.Portal portal)
+        public ActionResult GetCategory()
         {
-            JsonResult result = new JsonResult();
+            List<DomainClasses.PublicPriceCategory> list = _context.PublicPriceCategories
+                .OrderByDescending(x => x.Priority).ToList();
 
-            List<DomainClasses.PriceList> list = _context.PriceLists
-                .Where(x => x.Portal == portal)
-                .OrderBy(x => x.Order)
+            return Json(list.Select(c => new
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Priority = c.Priority
+            }).ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Get(int categoryId)
+        {
+            List<DomainClasses.PublicPrice> list = _context.PublicPrices
+                .Where(x => x.Category.Id == categoryId)
+                .OrderByDescending(x => x.Priority)
                 .ToList();
 
-            result.Data = list.Select(x => new
+            return Json(list.Select(x => new
             {
                 Id = x.Id,
                 Title = x.Title,
-                Order = x.Order,
-                PictureFile = x.PictureFile,
-                PicturePath = x.PicturePath
-            }).ToArray();
-
-            return Json(result, JsonRequestBehavior.AllowGet);
+                Priority = x.Priority,
+                Description = x.Description
+            }).ToArray(), JsonRequestBehavior.AllowGet);
         }
     }
 }

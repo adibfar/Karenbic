@@ -25,10 +25,18 @@ App.controller('AppController',
     // Loading bar transition
     var thBar;
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        if ($('#contents > #loading-bar').length) // check if bar container exists
-          thBar = $timeout(function() {
-            cfpLoadingBar.start();
-          }, 0); // sets a latency Threshold
+        if ($('#contents > #loading-bar').length) {// check if bar container exists
+            $('#contents > #loading-bar').css({
+                'left': ($(window).width() - 120) / 2,
+                'top': ($(window).height() - 40) / 2,
+            });
+
+            $scope.showLoadingOverlay = true;
+
+            thBar = $timeout(function () {
+                cfpLoadingBar.start();
+            }, 0); // sets a latency Threshold
+        }
 
         //Hidden Menu
         $('.mobile-menu').animate({ 'left': '-260px' }, 200);
@@ -40,6 +48,10 @@ App.controller('AppController',
         event.targetScope.$watch("$viewContentLoaded", function () {
           $timeout.cancel(thBar);
           cfpLoadingBar.complete();
+
+          $timeout(function () {
+              $scope.showLoadingOverlay = false;
+          }, 500);
         });
 
         // display new view from top

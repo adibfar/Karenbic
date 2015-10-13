@@ -18,6 +18,7 @@
         <a class="print-nav"
            ng-class="{'active': isPrintPortal()}"
            ui-sref="app.print.preorder"></a>
+        <div class="logo"></div>
         <div class="mobile-navbar icon-text156 visible-xs" ng-click="toggleMobileMenu()"></div>
     </div>
 </div>
@@ -27,6 +28,8 @@
 <div ui-view=""></div>
 <!-- End Page Content -->
 
+<div id="loading-overlay" ng-if="showLoadingOverlay"></div>
+
 <!-- Start Footer -->
 <div id="footer">
     <div class="privacy-text">
@@ -35,3 +38,57 @@
     <a class="creator-link" href="http://www.studioparsia.com">www.StudioParsia.com</a>
 </div>
 <!-- End Footer -->
+
+<!-- Start UnRead Message Modal -->
+<script type="text/ng-template" id="/UnReadMessageModalContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            پیام های خوانده نشده
+        </div>
+    </div>
+    <div class="modal-body" 
+         ng-repeat="message in messages"
+         style="border-bottom:1px solid #808080;">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>تاریخ ارسال :</span>
+                    &nbsp;
+                    <span class="text-muted"
+                          style="font-family:BNazanin;font-size:16px;">{{message.SendDate + ' - ' + message.Time}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>عنوان :</span>
+                    &nbsp;
+                    <span class="text-muted">{{message.Title}}</span>
+                </div>
+            </div>
+        </div>
+
+        <hr class="hr1" />
+
+        <div style="margin:15px 0;min-height:150px;">
+            <span>متن پیام: </span>
+            <div ng-bind-html="message.Text2"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End UnRead Message Modal -->

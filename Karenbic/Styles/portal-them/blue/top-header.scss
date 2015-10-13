@@ -1,18 +1,101 @@
 ﻿.top-header .menu {
+	.menu-item > a {
+		& > i > .menu-item-notification {
+			background-color: #db507a;
+		}
+		
+		i.billing {
+			background-position: center -46px;
+		}
+		i.customers {
+			background-position: center -46px;
+		}
+		i.financial-transaction {
+			background-position: center -47px;
+		}
+		i.form {
+			background-position: center -46px;
+		}
+		i.message {
+			background-position: center -46px;
+		}
+		i.order {
+			background-position: center -49px;
+		}
+		i.order-track {
+			background-position: center -47px;
+		}
+		i.pre-order {
+			background-position: center -46px;
+		}
+		i.public-contents {
+			background-position: center -45px;
+		}
+		i.price-list {
+			background-position: center -48px;
+		}
+		i.setting {
+			background-position: center -46px;
+		}
+		i.show-order {
+			background-position: center -46px;
+		}
+	}
+
 	.menu-item > a:hover,
 	.menu-item > a.active {
-		color: #78BBF1;
-		i {
-			background-position: center -45px;
+		color: #dd5981;
+		
+		i.billing {
+			background-position: center 0;
+		}
+		i.customers {
+			background-position: center 0;
+		}
+		i.financial-transaction {
+			background-position: center 0;
+		}
+		i.form {
+			background-position: center 0;
+		}
+		i.message {
+			background-position: center 0;
+		}
+		i.order {
+			background-position: center 0;
+		}
+		i.order-track {
+			background-position: center 0;
+		}
+		i.pre-order {
+			background-position: center 0;
+		}
+		i.public-contents {
+			background-position: center 0;
+		}
+		i.price-list {
+			background-position: center 0;
+		}
+		i.setting {
+			background-position: center 0;
+		}
+		i.show-order {
+			background-position: center 0;
+		}
+	}
+
+	.sub-menu-item > a {
+		& > i > .menu-item-notification {
+			background-color: #de577f;
 		}
 	}
 
 	.sub-menu-item > a:hover,
 	.sub-menu-item > a.active {
-		color: #3a719f;
+		color: #594367;
 	}
 
 	.sub-menu-hiegh-lighter {
-		background-color: #78BBF1;
+		background-color: #c5b9cb;
 	}
 }

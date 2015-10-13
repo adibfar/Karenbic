@@ -123,11 +123,6 @@ App
                 ]
             },
             {
-                text: "لیست قیمت طراحی",
-                sref: "app.design.price-list",
-                icon: "price-list"
-            },
-            {
                 text: "صفحات عمومی",
                 sref: "#",
                 icon: "public-contents",
@@ -326,11 +321,6 @@ App
                         sref: "app.print.customer"
                     }
                 ]
-            },
-            {
-                text: "لیست قیمت چاپ",
-                sref: "app.print.price-list",
-                icon: "price-list"
             },
             {
                 text: "صفحات عمومی",

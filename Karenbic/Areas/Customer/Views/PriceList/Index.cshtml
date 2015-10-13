@@ -6,49 +6,58 @@
         z-index: 13;
     }
 
-    .item {
-        background-color: #b5b5b5;
-        color: #fff;
-        cursor: pointer;
-        display: block;
-        margin: 0 -5px 10px -5px;
-        padding: 5px;
-        text-align: center;
-        text-decoration: none;
-        -moz-transition: background-color 300ms ease-out;
-        -webkit-transition: background-color 300ms ease-out;
-        -o-transition: background-color 300ms ease-out;
-        transition: background-color 300ms ease-out;
-    }
-        .item:hover,
-        .item:focus,
-        .item:active {
-            color: #fff;
-            text-decoration: none;
+        .price-accordion {
+            padding: 10px 0;
         }
-        .item.blue:hover {
-            background-color: #78BBF1;
-            -moz-transition: background-color 300ms ease-in;
-            -webkit-transition: background-color 300ms ease-in;
-            -o-transition: background-color 300ms ease-in;
-            transition: background-color 300ms ease-in;
-        }
-        .item.pink:hover {
-            background-color: #CEAEDA;
-            -moz-transition: background-color 300ms ease-in;
-            -webkit-transition: background-color 300ms ease-in;
-            -o-transition: background-color 300ms ease-in;
-            transition: background-color 300ms ease-in;
-        }
+            .price-accordion .accordion-row { 
+                background-color: #f5f5f5;
+		        border-radius: 5px;
+		        -moz-border-radius: 5px;
+		        -webkit-border-radius: 5px;
+		        margin-bottom: 15px;
+		        padding: 11px 15px 15px 15px;
+		        position: relative;
+            }
+                .price-accordion .accordion-row .title {
+			        color: #5b3e6c;
+			        cursor: pointer;
+			        font-family: yekan;
+                    font-size: 19px;
+			        margin: 0;
+			        padding: 0;
+			        position: relative;
+			        z-index: 1;
+		        }	
+                .price-accordion .accordion-row .open-icon {
+			        background: transparent url("/Images/Public/sprites.png") no-repeat scroll -26px -165px;
+			        cursor: pointer;
+			        height: 25px;
+			        left: 7px;
+			        position: absolute;
+			        top: 12px;
+			        width: 25px;
+			        z-index: 2;
+		        }
+                .price-accordion .accordion-row .close-icon {
+			        background: transparent url("/Images/Public/sprites.png") no-repeat scroll -26px -215px;
+			        cursor: pointer;
+			        height: 25px;
+			        left: 7px;
+			        position: absolute;
+			        top: 13px;
+			        width: 25px;
+			        z-index: 2;
+		        }
+                .price-accordion .accordion-row .desc {
+			        display: none;
+		        }
 
-        #cboxCurrent{
-            display: none !important;
-        }
 </style>
 
 <div class="container-fluid">
     <div class="row">
-        <div class="panel panel-default">
+        <div class="panel panel-default"
+             ng-class="{'whirl': fetchLoading, 'shadow': fetchLoading}">
             <div class="panel-heading">
                 <div class="panel-title">
                     <i></i>
@@ -57,13 +66,37 @@
             </div>
             <div class="panel-body" style="min-height:400px;">
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"
-                         ng-repeat="item in priceLists">
-                        <a href="{{item.PicturePath}}" title="{{item.Title}}" 
-                           class="item" jquery-colorbox="" rel="gal"
-                             ng-class="{'pink': isDesignPortal(), 'blue': isPrintPortal()}">{{item.Title}}</a>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group" style="position:relative;">
+                            <select chosen="categories"
+                                    ng-options="item.Title for item in categories"
+                                    ng-model="selectedCategory"
+                                    ng-change="fetchPriceLists()"
+                                    width="100%"></select>
+                            <div style="background-color:#f6f6f6;height:29px;position:absolute;top:3px;right:0;left:0;opacity:0.4;"
+                                 ng-if="fetchPriceCategoriesLoading">
+                                <img src="/Images/Loading/2.gif" style="display:block;margin:9px auto;" />
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <hr class="hr1" />
+                    </div>
+                </div>
+
+                <div class="price-accordion">
+                    <div class="accordion-row" ng-repeat="item in priceLists"
+                         ng-class="{'pink': isDesignPortal(), 'blue': isPrintPortal()}"
+                         ng-click="PriceListClicked($event, item)">
+                        <h3 class="title">{{item.Title}}</h3>
+                        <div class="desc" ng-bind-html="item.Description2"></div>
+                        <div class="open-icon"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

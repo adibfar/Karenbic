@@ -18,6 +18,7 @@
         <a class="print-nav"
            ng-class="{'active': isPrintPortal()}"
            ui-sref="app.print.dashboard"></a>
+        <div class="logo"></div>
         <div class="mobile-navbar icon-text156 visible-xs" ng-click="toggleMobileMenu()"></div>
     </div>
 </div>
@@ -26,6 +27,8 @@
 <!-- Start Page Content -->
 <div ui-view=""></div>
 <!-- End Page Content -->
+
+<div id="loading-overlay" ng-if="showLoadingOverlay"></div>
 
 <!-- Start Footer -->
 <div id="footer">

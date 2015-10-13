@@ -116,7 +116,7 @@ App
                     url: '/price-list',
                     templateUrl: helper.basepath('PriceList/Index'),
                     controller: 'PriceListController',
-                    resolve: helper.resolveFor('jquery-colorbox')
+                    resolve: helper.resolveFor('chosen')
                 })
                 .state('app.design.send-message-new', {
                     url: '/send-message-new',
@@ -220,7 +220,7 @@ App
                     url: '/price-list',
                     templateUrl: helper.basepath('PriceList/Index'),
                     controller: 'PriceListController',
-                    resolve: helper.resolveFor('jquery-colorbox')
+                    resolve: helper.resolveFor('chosen')
                 })
                 .state('app.print.send-message-new', {
                     url: '/send-message-new',

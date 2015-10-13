@@ -503,7 +503,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                     valide = false;
             }
             else {
-                if (item.value != '' && re.test(item.value) == false)
+                if (item.value != undefined && item.value != '' && re.test(item.value) == false)
                     valide = false;
             }
             return valide;
@@ -686,7 +686,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                     $scope.formErrors.unshift("فیلد " + item.data.title + " اجباری می باشد");
             }
             else {
-                if (item.value != '' && re.test(item.value) == false)
+                if (item.value != undefined && item.value != '' && re.test(item.value) == false)
                     $scope.formErrors.unshift("مقدار فیلد " + item.data.title + " صحیح می باشد");
             }
         };

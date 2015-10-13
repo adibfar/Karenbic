@@ -1,15 +1,33 @@
 ﻿.mobile-menu .menu {
+	.menu-item > a {
+		i,
+		i.billing,
+		i.customers,
+		i.financial-transaction,
+		i.form,
+		i.message,
+		i.order,
+		i.order-track,
+		i.pre-order,
+		i.public-contents, 
+		i.price-list, 
+		i.setting, 
+		i.show-order {
+			background-position: center -25px;
+		}
+	}
+	
 	.menu-item > a:hover,
 	.menu-item > a.active {
-		color: #3a719f;
+		color: #dd5981;
 		i {
-			background-position: center -24px;
+			background-position: center 0 ;
 		}
 	}
 
 	.sub-menu-item > a:hover,
 	.sub-menu-item > a.active {
-		color: #3a719f;
+		color: #dd5981;
 	}
 
 	.sub-menu-hiegh-lighter {

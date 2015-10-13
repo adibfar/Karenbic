@@ -4,8 +4,10 @@
  =========================================================*/
 
 App.controller('AppController',
-  ['$rootScope', '$scope', '$state', '$window', '$localStorage', '$timeout', 'colors', 'browser', 'cfpLoadingBar', '$http', 'APP_BASE_URI',
-  function ($rootScope, $scope, $state, $window, $localStorage, $timeout, colors, browser, cfpLoadingBar, $http, baseUri) {
+  ['$rootScope', '$scope', '$state', '$window', '$localStorage', '$timeout',
+      'colors', 'browser', 'cfpLoadingBar', '$http', 'APP_BASE_URI', '$sce', '$modal',
+  function ($rootScope, $scope, $state, $window, $localStorage, $timeout,
+            colors, browser, cfpLoadingBar, $http, baseUri, $sce, $modal) {
       "use strict";
 
     $scope.isDesignPortal = function () {
@@ -25,10 +27,18 @@ App.controller('AppController',
     // Loading bar transition
     var thBar;
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        if ($('#contents > #loading-bar').length) // check if bar container exists
-          thBar = $timeout(function() {
-            cfpLoadingBar.start();
-          }, 0); // sets a latency Threshold
+        if ($('#contents > #loading-bar').length) {// check if bar container exists
+            $('#contents > #loading-bar').css({
+                'left': ($(window).width() - 120) / 2,
+                'top': ($(window).height() - 40) / 2,
+            });
+
+            $scope.showLoadingOverlay = true;
+
+            thBar = $timeout(function () {
+                cfpLoadingBar.start();
+            }, 0); // sets a latency Threshold
+        }
 
         //Hidden Menu
         $('.mobile-menu').animate({ 'left': '-260px' }, 200);
@@ -40,6 +50,10 @@ App.controller('AppController',
         event.targetScope.$watch("$viewContentLoaded", function () {
           $timeout.cancel(thBar);
           cfpLoadingBar.complete();
+
+          $timeout(function () {
+              $scope.showLoadingOverlay = false;
+          }, 500);
         });
 
         // display new view from top
@@ -107,4 +121,59 @@ App.controller('AppController',
         });
     };
     $scope.getUserInfo();
+
+      //get show message
+    $scope.getUnReadMessages = function () {
+        $http.get(baseUri + 'ReceiveMessage/GetAllUnReadMessage')
+        .success(function (data, status, headers, config) {
+            $scope.messages = data.Data;
+            //Convert Text
+            _.each($scope.messages, function (item) {
+                item.Text2 = $sce.trustAsHtml(item.Text);
+            });
+            //Open Popup
+
+            if ($scope.messages.length > 0) {
+                var modalInstance = $modal.open({
+                    templateUrl: '/UnReadMessageModalContent.html',
+                    controller: UnReadMessagesCtrl,
+                    size: 'lg',
+                    resolve: {
+                        messages: function () {
+                            return _.clone($scope.messages);
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function (result) {
+                }, function () {
+                });
+            }
+        }).error(function (data, status, headers, config) {
+            if (status == 403) {
+                window.location = "/Account/Login";
+            }
+        });
+    };
+    var UnReadMessagesCtrl = ['$scope', '$http', '$modalInstance', 'messages', function ($scope, $http, $modalInstance, messages) {
+        $scope.messages = messages;
+
+        _.each($scope.messages, function (message) {
+            $http.post(baseUri + 'ReceiveMessage/MarkAsRead',
+            {
+                id: message.Id,
+            }).
+            success(function (data, status, headers, config) {
+            }).error(function (data, status, headers, config) {
+                if (status == 403) {
+                    window.location = "/Account/Login";
+                }
+            });
+        });
+
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    }];
+    $scope.getUnReadMessages();
 }]);

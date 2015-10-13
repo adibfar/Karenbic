@@ -18,7 +18,12 @@
                     $($this).closest('.accordion-row').removeClass('expand');
                 }
                 else {
-                    $('.expand').closest('.accordion-row').find('.desc').stop(true, true).slideUp(300).removeClass('expand');
+                    if ($('.expand').length > 0) {
+                        var $expandedItem = $('.expand').closest('.accordion-row');
+                        $($expandedItem).removeClass('expand');
+                        $($expandedItem).find('.desc').stop(true, true).slideUp(300);
+                        $($expandedItem).find('.close-icon').removeClass('close-icon').addClass('open-icon');
+                    }
                     $($this).closest('.accordion-row').find('.desc').slideDown(300);
                     $($this).closest('.accordion-row').find('.open-icon').removeClass('open-icon').addClass('close-icon');
                     $($this).closest('.accordion-row').addClass('expand');
@@ -46,13 +51,17 @@
 @if (prices != null && prices.Count > 0)
 {
     <div class="price-accordion">
-        @foreach (Karenbic.DomainClasses.PublicPrice item in prices)
-        {
-            <div class="accordion-row">
-                <h4 class="title">@item.Title</h4>
-                <div class="open-icon"></div>
-                <div class="desc">@Html.Raw(item.Description)</div>
-            </div>
-        }
+        <div class="row">
+            @foreach (Karenbic.DomainClasses.PublicPrice item in prices)
+            {
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="accordion-row">
+                        <h4 class="title">@item.Title</h4>
+                        <div class="open-icon"></div>
+                        <div class="desc">@Html.Raw(item.Description)</div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 }

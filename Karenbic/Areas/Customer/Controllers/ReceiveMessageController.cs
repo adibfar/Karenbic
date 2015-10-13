@@ -101,5 +101,33 @@ namespace Karenbic.Areas.Customer.Controllers
 
             return Content(result.ToString());
         }
+
+        [HttpGet]
+        public ActionResult GetAllUnReadMessage()
+        {
+            JsonResult result = new JsonResult();
+
+            IQueryable<DomainClasses.AdminMessage_Customer> query = _context.AdminMessages_Customer.AsQueryable();
+            query = query.Where(x => x.IsRead == false);
+
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+            query = query.Where(x => x.Customer.Id == customer.Id);
+
+            List<DomainClasses.AdminMessage_Customer> list = query
+                .OrderByDescending(x => x.SendDate)
+                .ToList();
+
+            result.Data = list.Select(x => new
+            {
+                Id = x.Id,
+                SendDate = Api.ConvertDate.JulainToPersian(x.SendDate),
+                Time = string.Format("{0:D2}:{1:D2}", x.SendDate.Hour, x.SendDate.Minute),
+                Title = x.Title,
+                Text = x.Text,
+                IsRead = x.IsRead
+            }).ToArray();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

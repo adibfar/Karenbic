@@ -95,6 +95,41 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
                 Id: 4,
                 Title: 'GIF',
                 Extention: 'gif'
+            },
+            {
+                Id: 5,
+                Title: 'TIFF',
+                Extention: 'tiff'
+            },
+            {
+                Id: 6,
+                Title: 'PDF',
+                Extention: 'pdf'
+            },
+            {
+                Id: 7,
+                Title: 'TXT',
+                Extention: 'txt'
+            },
+            {
+                Id: 8,
+                Title: 'DOC',
+                Extention: 'doc'
+            },
+            {
+                Id: 9,
+                Title: 'DOCX',
+                Extention: 'docx'
+            },
+            {
+                Id: 10,
+                Title: 'ZIP',
+                Extention: 'zip'
+            },
+            {
+                Id: 11,
+                Title: 'RAR',
+                Extention: 'rar'
             }
         ];
         /*=-=-=-=-= End Define Variable =-=-=-=-=*/
@@ -1529,7 +1564,7 @@ App.controller('EditFormController', ['$scope', '$http', 'ngDialog', '$modal', '
             };
             $scope.PictureHelpFile = null;
 
-            if (type == 4) {
+            if (type == 4 || type == 11) {
                 var fileTypes = _.clone($scope.field.fileTypes);
                 $scope.field.fileTypes = [];
                 

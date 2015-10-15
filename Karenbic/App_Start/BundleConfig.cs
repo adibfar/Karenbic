@@ -95,6 +95,7 @@ namespace Karenbic
                 "~/Scripts/admin/controllers/send-message-new.js",
                 "~/Scripts/admin/controllers/send-message-list.js",
                 "~/Scripts/admin/controllers/receive-message-list.js",
+                "~/Scripts/admin/controllers/change-mobile-number.js",
                 "~/Scripts/admin/controllers/change-password.js",
                 "~/Scripts/admin/controllers/design-order-price.js",
                 "~/Scripts/admin/controllers/design-preorder.js",

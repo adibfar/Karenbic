@@ -1,0 +1,43 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="panel panel-default"
+                 ng-class="{'whirl': sendLoading || fetchLoading, 'shadow': sendLoading || fetchLoading}">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i></i>
+                        تغییر شماره موبایل
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form name="editMobileNumberForm">
+                        <div class="form-group">
+                            <label class="control-label">شماره جدید:</label>
+                            <input type="text" class="form-control ltr" name="number" only-digits="" ng-pattern="/^\d{11}$/"
+                                   ng-model="number" ng-minlength="11" ng-maxlength="11" required="" />
+                        </div>
+                        <div class="form-group">
+                            <div class="clearfix">
+                                <div class="pull-left">
+                                    <button class="btn btn-labeled btn-warning" type="button"
+                                            ng-click="save()"
+                                            ng-class="{'disabled': editMobileNumberForm.$invalid}"
+                                            ng-disabled="editMobileNumberForm.$invalid">
+                                        <span class="btn-label btn-label-right">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        ویرایش
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+    </div>
+</div>
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left', 'close-button':true, 'timeout': 3000}"></toaster-container>

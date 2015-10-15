@@ -582,17 +582,6 @@ namespace Karenbic.Areas.Admin.Controllers
 
                     order.OrderState = DomainClasses.PrintOrderState.FinishServes;
                     result = true;
-                    break;
-
-                case 5:
-                    if (order.OrderState == DomainClasses.PrintOrderState.Paid)
-                    {
-                        adminNotification.Clients.All.minusUnCheckedPrintOrders();
-                        adminNotification.Clients.All.minusNewPaidPrintOrders();
-                    }
-
-                    order.OrderState = DomainClasses.PrintOrderState.Finish;
-                    result = true;
 
                     //Send SMS
                     _SMSService.Send(new string[1] { order.Customer.Mobile },
@@ -604,6 +593,17 @@ namespace Karenbic.Areas.Admin.Controllers
                                         order.Code),
                         false);
 
+                    break;
+
+                case 5:
+                    if (order.OrderState == DomainClasses.PrintOrderState.Paid)
+                    {
+                        adminNotification.Clients.All.minusUnCheckedPrintOrders();
+                        adminNotification.Clients.All.minusNewPaidPrintOrders();
+                    }
+
+                    order.OrderState = DomainClasses.PrintOrderState.Finish;
+                    result = true;
                     break;
             }
 

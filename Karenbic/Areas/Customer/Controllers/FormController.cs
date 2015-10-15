@@ -40,7 +40,6 @@ namespace Karenbic.Areas.Customer.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-
         [HttpGet]
         public async Task<ActionResult> GetFields(int id)
         {
@@ -547,7 +546,7 @@ namespace Karenbic.Areas.Customer.Controllers
                         {
                             id = c.Id,
                             title = c.Title
-                        })
+                        }).ToArray()
                     },
                     desktop_position = new
                     {
@@ -609,8 +608,11 @@ namespace Karenbic.Areas.Customer.Controllers
                         items = item.Items.Where(x => x.ShowAdmin && x.ShowCustomer).OrderBy(c => c.Order).Select(c => new
                         {
                             id = c.Id,
-                            title = c.Title
-                        })
+                            title = c.Title,
+                            pictureHelpFile = c.PictureHelpFile,
+                            pictureHelpPath = c.PictureHelpPath,
+                            hasPictureHelpFile = c.HasPictureHelpFile
+                        }).ToArray()
                     },
                     desktop_position = new
                     {
@@ -671,8 +673,11 @@ namespace Karenbic.Areas.Customer.Controllers
                         items = item.Items.Where(x => x.ShowAdmin && x.ShowCustomer).OrderBy(c => c.Order).Select(c => new
                         {
                             id = c.Id,
-                            title = c.Title
-                        })
+                            title = c.Title,
+                            pictureHelpFile = c.PictureHelpFile,
+                            pictureHelpPath = c.PictureHelpPath,
+                            hasPictureHelpFile = c.HasPictureHelpFile
+                        }).ToArray()
                     },
                     desktop_position = new
                     {
@@ -736,6 +741,64 @@ namespace Karenbic.Areas.Customer.Controllers
                             Title = c.Title,
                             Extention = c.Extention
                         })
+                    },
+                    desktop_position = new
+                    {
+                        sizeX = item.DesktopPosition.SizeX,
+                        sizeY = item.DesktopPosition.SizeY,
+                        row = item.DesktopPosition.Row,
+                        col = item.DesktopPosition.Column
+                    },
+                    tablet_position = new
+                    {
+                        sizeX = item.TabletPosition.SizeX,
+                        sizeY = item.TabletPosition.SizeY,
+                        row = item.TabletPosition.Row,
+                        col = item.TabletPosition.Column
+                    },
+                    mobile_position = new
+                    {
+                        sizeX = 1,
+                        sizeY = item.MobilePosition.SizeY,
+                        row = item.MobilePosition.Row,
+                        col = 0
+                    },
+                    factor_position = new
+                    {
+                        sizeX = 1,
+                        sizeY = 1,
+                        row = 0,
+                        col = 0
+                    }
+                });
+            }
+
+            //Label
+            List<DomainClasses.FormField_Label> labels = await _context.FormFields_Label
+                .AsQueryable()
+                .Where(x => x.Form.Id == id && x.Form.IsShow &&
+                    x.ShowAdmin && x.ShowCustomer)
+                .ToListAsync();
+
+            foreach (DomainClasses.FormField_Label item in labels)
+            {
+                fields.Add(new
+                {
+                    type = 12,
+                    data = new
+                    {
+                        id = item.Id,
+                        title = item.Title,
+                        description = item.Description,
+                        pictureHelpFile = item.PictureHelpFile,
+                        pictureHelpPath = item.PictureHelpPath,
+                        hasPictureHelpFile = item.HasPictureHelpFile,
+                        priority = item.Priority,
+                        font = item.FontFamily,
+                        size = item.FontSize,
+                        color = item.Color,
+                        underline = item.Underline,
+                        upline = item.Upline
                     },
                     desktop_position = new
                     {

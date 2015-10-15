@@ -61,6 +61,7 @@
     <Compile Include="FinancialConflictPayment.cs" />
     <Compile Include="Form\FormFieldType.cs" />
     <Compile Include="Form\FormField_FileUploader2.cs" />
+    <Compile Include="Form\FormField_Label.cs" />
     <Compile Include="Form\FormGroup.cs" />
     <Compile Include="Message\AdminMessage_Admin.cs" />
     <Compile Include="Message\AdminMessage_Customer.cs" />

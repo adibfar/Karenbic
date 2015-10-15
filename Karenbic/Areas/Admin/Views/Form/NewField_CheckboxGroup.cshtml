@@ -50,6 +50,14 @@
                                style="position:relative;top:4px;right:4px;"
                                ng-click="newField_CheckboxGroup_MoveDownItem($index)"></a>
                         </td>
+                        <td style="width:50px;">
+                            <button class="btn btn-xs" style="display:inline-block;margin:2px;"
+                                    ng-class="{'btn-defualt': item.hasPictureHelpFile == false, 'btn-info': item.hasPictureHelpFile == true}"
+                                    ng-click="newField_CheckboxGroup_PictureHelpFile(item, $event)">راهنما</button>
+
+                            <input type="file" class="itemFileSelector" style="display:none;"
+                                   ng-file-select="newField_CheckboxGroup_AddPictureHelpFile(item, $files)" />
+                        </td>
                         <td style="width:27px;">
                             <a class="btn-img-delete-2"
                                style="position:relative;top:4px;right:4px;"

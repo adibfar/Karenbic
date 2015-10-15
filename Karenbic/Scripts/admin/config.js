@@ -319,6 +319,16 @@ App
                     controller: 'ReceiveMessageListController',
                     resolve: helper.resolveFor('ngDialog', 'froala')
                 })
+                .state('app.print.change-mobile-number', {
+                    url: '/change-mobile-number',
+                    templateUrl: helper.basepath('Profile/ChangeMobileNumber'),
+                    controller: 'ChangeMobileNumberController'
+                })
+                .state('app.design.change-mobile-number', {
+                    url: '/change-mobile-number',
+                    templateUrl: helper.basepath('Profile/ChangeMobileNumber'),
+                    controller: 'ChangeMobileNumberController'
+                })
                 .state('app.print.change-password', {
                     url: '/change-password',
                     templateUrl: helper.basepath('Profile/ChangePassword'),

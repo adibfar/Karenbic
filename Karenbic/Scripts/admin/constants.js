@@ -216,6 +216,10 @@ App
                         sref: "app.design.public-help"
                     },
                     {
+                        text: "تغییر شماره موبایل",
+                        sref: "app.design.change-mobile-number"
+                    },
+                    {
                         text: "تغییر رمز عبور",
                         sref: "app.design.change-password"
                     }
@@ -414,6 +418,10 @@ App
                     {
                         text: "متن راهنما",
                         sref: "app.print.public-help"
+                    },
+                    {
+                        text: "تغییر شماره موبایل",
+                        sref: "app.print.change-mobile-number"
                     },
                     {
                         text: "تغییر رمز عبور",

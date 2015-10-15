@@ -16,7 +16,15 @@
                 <div class="checkbox c-checkbox"
                      style="margin-right:8px;"
                      ng-repeat="checkbox_item in item.data.items">
-                    <label>
+                    <label ng-if="checkbox_item.hasPictureHelpFile == true"
+                           style="cursor:pointer;"
+                           tooltipster="" tooltipster-title="<img src='{{checkbox_item.pictureHelpPath}}' />">
+                        <input type="checkbox"
+                               ng-value="true" ng-model="checkbox_item.value"
+                               tabindex="{{item.data.priority + '.' + Number($index + 1)}}" />
+                        <span></span>{{checkbox_item.title}}
+                    </label>
+                    <label ng-if="checkbox_item.hasPictureHelpFile == false">
                         <input type="checkbox"
                                ng-value="true" ng-model="checkbox_item.value"
                                tabindex="{{item.data.priority + '.' + Number($index + 1)}}" />

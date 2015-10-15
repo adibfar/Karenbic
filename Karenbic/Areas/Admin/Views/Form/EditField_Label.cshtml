@@ -1,0 +1,73 @@
+﻿<div class="row" ng-if="type == 12">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label class="control-label">عنوان:</label>
+            <input type="text"
+                   class="form-control text-danger"
+                   ng-model="field.title"
+                   required="" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">راهنما:</label>
+            <input type="file" nicefileinput="" id="pictureHelpFileInput"
+                   ng-file-select="addPictureHelpFile($files)" />
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label class="control-label">نوع فونت:</label>
+            <select chosen="fonts"
+                    ng-options="item.Title for item in fonts"
+                    ng-model="field.font"
+                    width="100%"></select>
+        </div>
+        <div class="form-group">
+            <label class="control-label">سایز فونت:</label>
+            <br />
+            <input type="text"
+                   style="width:60px;"
+                   value="120"
+                   min="1"
+                   max="300"
+                   stepper=""
+                   ng-model="field.size"
+                   required="" />
+        </div>
+        <div>
+            <label class="control-label">رنگ:</label>
+            <br />
+            <div class="input-group"
+                 colorpicker=""
+                 ng-model="field.color"
+                 style="position:relative;">
+                <input type="text"
+                       class="form-control"
+                       style="direction:ltr;"
+                       ng-model="field.color" />
+                <span class="input-group-addon"
+                      style="padding:0 1px;">
+                    <i style="background-color:#30b645;height:22px;position:relative;top:0;width:53px;"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="hidden-xs" style="height:16px;margin-bottom:5px;"></div>
+        <div class="form-group">
+            <div class="checkbox c-checkbox">
+                <label>
+                    <input type="checkbox" ng-model="field.underline">
+                    <span></span>خط زیر
+                </label>
+            </div>
+            <div class="checkbox c-checkbox">
+                <label>
+                    <input type="checkbox" ng-model="field.upline">
+                    <span></span>خط بالا
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

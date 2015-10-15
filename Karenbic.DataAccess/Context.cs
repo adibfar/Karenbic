@@ -42,6 +42,7 @@ namespace Karenbic.DataAccess
         public DbSet<DomainClasses.FormField_CheckBoxGroup_Item> FormField_CheckBoxGroup_Items { get; set; }
         public DbSet<DomainClasses.FormField_WebUrl> FormFields_WebUrl{ get; set; }
         public DbSet<DomainClasses.FormField_DatePicker> FormFields_DatePicker { get; set; }
+        public DbSet<DomainClasses.FormField_Label> FormFields_Label { get; set; }
 
 
         public DbSet<DomainClasses.OrderPrice> OrderPrices { get; set; }

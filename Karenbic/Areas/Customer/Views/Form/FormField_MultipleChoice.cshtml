@@ -18,7 +18,14 @@
                 <div class="radio c-radio"
                      style="margin-right:8px;"
                      ng-repeat="radio_item in item.data.items">
-                    <label>
+                    <label ng-if="radio_item.hasPictureHelpFile == true"
+                           style="cursor:pointer;"
+                           tooltipster="" tooltipster-title="<img src='{{radio_item.pictureHelpPath}}' />">
+                        <input type="radio" ng-value="radio_item" ng-model="item.value"
+                               tabindex="{{item.data.priority + '.' + Number($index + 1)}}" />
+                        <span></span>{{radio_item.title}}
+                    </label>
+                    <label ng-if="radio_item.hasPictureHelpFile == false">
                         <input type="radio" ng-value="radio_item" ng-model="item.value"
                                tabindex="{{item.data.priority + '.' + Number($index + 1)}}" />
                         <span></span>{{radio_item.title}}

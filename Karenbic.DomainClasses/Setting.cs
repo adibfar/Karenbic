@@ -24,5 +24,7 @@ namespace Karenbic.DomainClasses
         public string ContactUsText { get; set; }
 
         public string PublicHelpText { get; set; }
+
+        public string AdminMobile { get; set; }
     }
 }

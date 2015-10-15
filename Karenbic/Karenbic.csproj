@@ -348,6 +348,7 @@
     <Content Include="Fonts\BNazanin.svg" />
     <Content Include="Fonts\NexaBold.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\FormField\label.png" />
     <Content Include="Images\FormField\numeric.png" />
     <Content Include="Images\FormField\color-picker.png" />
     <Content Include="Images\FormField\text-area.png" />
@@ -425,6 +426,10 @@
     <Content Include="Images\Public\HomeSlider_2\1.png" />
     <Content Include="Images\Public\HomeSlider_2\2.jpg" />
     <Content Include="Images\Public\HomeSlider_2\3.jpg" />
+    <Content Include="Images\Public\Home\help-icon-step-1.png" />
+    <Content Include="Images\Public\Home\help-icon-step-2.png" />
+    <Content Include="Images\Public\Home\help-icon-step-3.png" />
+    <Content Include="Images\Public\Home\help-icon-step-4.png" />
     <Content Include="Images\Public\Home\solang-icon-creative.png" />
     <Content Include="Images\Public\Home\solang-icon-expertise.png" />
     <Content Include="Images\Public\Home\solang-icon-garanttee.png" />
@@ -437,10 +442,6 @@
     <Content Include="Images\Public\Home\service-icon-product.png" />
     <Content Include="Images\Public\Home\service-icon-tizer.png" />
     <Content Include="Images\Public\Home\service-icon-graphic.png" />
-    <Content Include="Images\Public\Home\help-icon-step-1.png" />
-    <Content Include="Images\Public\Home\help-icon-step-2.png" />
-    <Content Include="Images\Public\Home\help-icon-step-3.png" />
-    <Content Include="Images\Public\Home\help-icon-step-4.png" />
     <Content Include="Images\Public\Login\10.png" />
     <Content Include="Images\Public\Login\2.png" />
     <Content Include="Images\Public\Login\3.png" />
@@ -591,6 +592,7 @@
     <Content Include="Scripts\admin\app.init.js" />
     <Content Include="Scripts\admin\config.js" />
     <Content Include="Scripts\admin\constants.js" />
+    <Content Include="Scripts\admin\controllers\change-mobile-number.js" />
     <Content Include="Scripts\admin\controllers\change-password.js" />
     <Content Include="Scripts\admin\controllers\customer-group.js" />
     <Content Include="Scripts\admin\controllers\customer.js" />
@@ -713,6 +715,11 @@
     <Content Include="Areas\Admin\Views\Portfolio\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\FactorOfDesignOrder\FactorText.cshtml" />
     <Content Include="Areas\Admin\Views\FactorOfPrintOrder\FactorText.cshtml" />
+    <Content Include="Areas\Admin\Views\Profile\ChangeMobileNumber.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\NewField_Label.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\EditField_Label.cshtml" />
+    <Content Include="Areas\Admin\Views\Form\FormField_Label.cshtml" />
+    <Content Include="Areas\Customer\Views\Form\FormField_Label.cshtml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />

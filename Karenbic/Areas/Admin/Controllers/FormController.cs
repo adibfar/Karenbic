@@ -39,7 +39,8 @@ namespace Karenbic.Areas.Admin.Controllers
             DomainClasses.FormField_DropDown[] dropDowns,
             DomainClasses.FormField_RadioButtonGroup[] radioButtonGroups,
             DomainClasses.FormField_CheckBoxGroup[] checkBoxGroups,
-            DomainClasses.FormField_FileUploader2[] extendedFileUploaders)
+            DomainClasses.FormField_FileUploader2[] extendedFileUploaders,
+            DomainClasses.FormField_Label[] labels)
         {
             form.Group = _context.FormGroups.Find(groupId);
 
@@ -54,7 +55,8 @@ namespace Karenbic.Areas.Admin.Controllers
                 (dropDowns != null && dropDowns.Length > 0) ||
                 (radioButtonGroups != null && radioButtonGroups.Length > 0) ||
                 (checkBoxGroups != null && checkBoxGroups.Length > 0) ||
-                (extendedFileUploaders != null && extendedFileUploaders.Length > 0))
+                (extendedFileUploaders != null && extendedFileUploaders.Length > 0) ||
+                (labels != null && labels.Length > 0))
             {
                 form.Fields = new List<DomainClasses.FormField>();
             }
@@ -353,6 +355,27 @@ namespace Karenbic.Areas.Admin.Controllers
                         }
                     }
 
+                    foreach (DomainClasses.FormField_RadioButtonGroup_Item item in field.Items)
+                    {
+                        if (!string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Move(
+                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), item.PictureHelpFile),
+                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/Upload"), item.PictureHelpFile));
+                            }
+                            else
+                            {
+                                item.PictureHelpFile = string.Empty;
+                            }
+                        }
+                    }
+
                     form.Fields.Add(field);
                 }
             }
@@ -377,6 +400,27 @@ namespace Karenbic.Areas.Admin.Controllers
                         else
                         {
                             field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    foreach (DomainClasses.FormField_CheckBoxGroup_Item item in field.Items)
+                    {
+                        if (!string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Move(
+                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), item.PictureHelpFile),
+                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/Upload"), item.PictureHelpFile));
+                            }
+                            else
+                            {
+                                item.PictureHelpFile = string.Empty;
+                            }
                         }
                     }
 
@@ -439,6 +483,33 @@ namespace Karenbic.Areas.Admin.Controllers
                 }
             }
 
+            //Label
+            if (labels != null && labels.Length > 0)
+            {
+                foreach (DomainClasses.FormField_Label field in labels)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    form.Fields.Add(field);
+                }
+            }
+
             _context.Forms.Add(form);
             _context.SaveChanges();
 
@@ -485,6 +556,8 @@ namespace Karenbic.Areas.Admin.Controllers
             DomainClasses.FormField_CheckBoxGroup[] checkBoxGroups_new,
             DomainClasses.FormField_FileUploader2[] extendedFileUploaders,
             DomainClasses.FormField_FileUploader2[] extendedFileUploaders_new,
+            DomainClasses.FormField_Label[] labels,
+            DomainClasses.FormField_Label[] labels_new,
             int[] removedFields)
         {
             //Change Form data
@@ -1433,6 +1506,27 @@ namespace Karenbic.Areas.Admin.Controllers
                         }
                     }
 
+                    foreach (DomainClasses.FormField_RadioButtonGroup_Item item in field.Items)
+                    {
+                        if (!string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Move(
+                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), item.PictureHelpFile),
+                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/Upload"), item.PictureHelpFile));
+                            }
+                            else
+                            {
+                                item.PictureHelpFile = string.Empty;
+                            }
+                        }
+                    }
+                     
                     field.Form = formItem;
                     _context.FormFields_RadioButtonGroup.Add(field);
                 }
@@ -1483,7 +1577,16 @@ namespace Karenbic.Areas.Admin.Controllers
                                 {
                                     if (radioItem.CanDelete)
                                     {
-                                        _context.FormField_RadioButtonGroup_Items.Remove(_context.FormField_RadioButtonGroup_Items.Find(radioItem.Id));
+                                        DomainClasses.FormField_RadioButtonGroup_Item radioItem2 =
+                                            _context.FormField_RadioButtonGroup_Items.Find(radioItem.Id);
+
+                                        if (System.IO.File.Exists(HostingEnvironment.MapPath(radioItem2.PictureHelpPath)))
+                                        {
+                                            System.IO.File.Delete(HostingEnvironment.MapPath(radioItem2.PictureHelpPath));
+                                        }
+
+                                        _context.FormField_RadioButtonGroup_Items.Remove(radioItem2);
+
                                     }
                                     else
                                     {
@@ -1496,7 +1599,15 @@ namespace Karenbic.Areas.Admin.Controllers
                             {
                                 if (radioItem.CanDelete)
                                 {
-                                    _context.FormField_RadioButtonGroup_Items.Remove(_context.FormField_RadioButtonGroup_Items.Find(radioItem.Id));
+                                    DomainClasses.FormField_RadioButtonGroup_Item radioItem2 =
+                                            _context.FormField_RadioButtonGroup_Items.Find(radioItem.Id);
+
+                                    if (System.IO.File.Exists(HostingEnvironment.MapPath(radioItem2.PictureHelpPath)))
+                                    {
+                                        System.IO.File.Delete(HostingEnvironment.MapPath(radioItem2.PictureHelpPath));
+                                    }
+
+                                    _context.FormField_RadioButtonGroup_Items.Remove(radioItem2);
                                 }
                                 else
                                 {
@@ -1514,6 +1625,23 @@ namespace Karenbic.Areas.Admin.Controllers
                         {
                             if (!_context.FormField_RadioButtonGroup_Items.Any(x => x.Id == radioItem.Id))
                             {
+                                if (!string.IsNullOrEmpty(radioItem.PictureHelpFile))
+                                {
+                                    if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                        HostingEnvironment.MapPath("/Content/Upload"), radioItem.PictureHelpFile)))
+                                    {
+                                        System.IO.File.Move(
+                                            string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), radioItem.PictureHelpFile),
+                                            string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), radioItem.PictureHelpFile));
+
+                                        System.IO.File.Delete(string.Format("{0}/{1}",
+                                            HostingEnvironment.MapPath("/Content/Upload"), radioItem.PictureHelpFile));
+                                    }
+                                    else
+                                    {
+                                        radioItem.PictureHelpFile = string.Empty;
+                                    }
+                                }
                                 item.Items.Add(radioItem);
                             }
                             else
@@ -1522,6 +1650,37 @@ namespace Karenbic.Areas.Admin.Controllers
                                     _context.FormField_RadioButtonGroup_Items.Find(radioItem.Id);
                                 oldRadioItem.Title = radioItem.Title;
                                 oldRadioItem.Order = radioItem.Order;
+
+                                if (!string.IsNullOrEmpty(radioItem.PictureHelpFile) && radioItem.PictureHelpFile != oldRadioItem.PictureHelpFile)
+                                {
+                                    if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                        HostingEnvironment.MapPath("/Content/Upload"), radioItem.PictureHelpFile)))
+                                    {
+                                        System.IO.File.Move(
+                                            string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), radioItem.PictureHelpFile),
+                                            string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), radioItem.PictureHelpFile));
+
+                                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                            HostingEnvironment.MapPath("/Content/Upload"), oldRadioItem.PictureHelpFile)))
+                                        {
+                                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                                HostingEnvironment.MapPath("/Content/Upload"), oldRadioItem.PictureHelpFile));
+                                        }
+
+                                        oldRadioItem.PictureHelpFile = radioItem.PictureHelpFile;
+                                    }
+                                }
+                                else if (string.IsNullOrEmpty(radioItem.PictureHelpFile) && !string.IsNullOrEmpty(oldRadioItem.PictureHelpFile))
+                                {
+                                    if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                        HostingEnvironment.MapPath("/Content/FormField"), oldRadioItem.PictureHelpFile)))
+                                    {
+                                        System.IO.File.Delete(string.Format("{0}/{1}",
+                                            HostingEnvironment.MapPath("/Content/FormField"), oldRadioItem.PictureHelpFile));
+
+                                        oldRadioItem.PictureHelpFile = string.Empty;
+                                    }
+                                }
                             }
                         }
                     }
@@ -1578,6 +1737,27 @@ namespace Karenbic.Areas.Admin.Controllers
                         }
                     }
 
+                    foreach (DomainClasses.FormField_CheckBoxGroup_Item item in field.Items)
+                    {
+                        if (!string.IsNullOrEmpty(item.PictureHelpFile))
+                        {
+                            if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), item.PictureHelpFile)))
+                            {
+                                System.IO.File.Move(
+                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), item.PictureHelpFile),
+                                    string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                                System.IO.File.Delete(string.Format("{0}/{1}",
+                                    HostingEnvironment.MapPath("/Content/Upload"), item.PictureHelpFile));
+                            }
+                            else
+                            {
+                                item.PictureHelpFile = string.Empty;
+                            }
+                        }
+                    }
+
                     field.Form = formItem;
                     _context.FormFields_CheckBoxGroup.Add(field);
                 }
@@ -1627,8 +1807,15 @@ namespace Karenbic.Areas.Admin.Controllers
                                 {
                                     if (checkboxItem.CanDelete)
                                     {
-                                        _context.FormField_CheckBoxGroup_Items.Remove(
-                                            _context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id));
+                                        DomainClasses.FormField_CheckBoxGroup_Item checkboxItem2 =
+                                            _context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id);
+
+                                        if (System.IO.File.Exists(HostingEnvironment.MapPath(checkboxItem2.PictureHelpPath)))
+                                        {
+                                            System.IO.File.Delete(HostingEnvironment.MapPath(checkboxItem2.PictureHelpPath));
+                                        }
+
+                                        _context.FormField_CheckBoxGroup_Items.Remove(checkboxItem2);
                                     }
                                     else
                                     {
@@ -1641,8 +1828,15 @@ namespace Karenbic.Areas.Admin.Controllers
                             {
                                 if (checkboxItem.CanDelete)
                                 {
-                                    _context.FormField_CheckBoxGroup_Items.Remove(
-                                        _context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id));
+                                    DomainClasses.FormField_CheckBoxGroup_Item checkboxItem2 =
+                                            _context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id);
+
+                                    if (System.IO.File.Exists(HostingEnvironment.MapPath(checkboxItem2.PictureHelpPath)))
+                                    {
+                                        System.IO.File.Delete(HostingEnvironment.MapPath(checkboxItem2.PictureHelpPath));
+                                    }
+
+                                    _context.FormField_CheckBoxGroup_Items.Remove(checkboxItem2);
                                 }
                                 else
                                 {
@@ -1660,6 +1854,24 @@ namespace Karenbic.Areas.Admin.Controllers
                         {
                             if (!_context.FormField_CheckBoxGroup_Items.Any(x => x.Id == checkboxItem.Id))
                             {
+                                if (!string.IsNullOrEmpty(checkboxItem.PictureHelpFile))
+                                {
+                                    if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                        HostingEnvironment.MapPath("/Content/Upload"), checkboxItem.PictureHelpFile)))
+                                    {
+                                        System.IO.File.Move(
+                                            string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), checkboxItem.PictureHelpFile),
+                                            string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), checkboxItem.PictureHelpFile));
+
+                                        System.IO.File.Delete(string.Format("{0}/{1}",
+                                            HostingEnvironment.MapPath("/Content/Upload"), checkboxItem.PictureHelpFile));
+                                    }
+                                    else
+                                    {
+                                        checkboxItem.PictureHelpFile = string.Empty;
+                                    }
+                                }
+
                                 item.Items.Add(checkboxItem);
                             }
                             else
@@ -1668,6 +1880,37 @@ namespace Karenbic.Areas.Admin.Controllers
                                     _context.FormField_CheckBoxGroup_Items.Find(checkboxItem.Id);
                                 oldCheckboxItem.Title = checkboxItem.Title;
                                 oldCheckboxItem.Order = checkboxItem.Order;
+
+                                if (!string.IsNullOrEmpty(checkboxItem.PictureHelpFile) && checkboxItem.PictureHelpFile != oldCheckboxItem.PictureHelpFile)
+                                {
+                                    if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                        HostingEnvironment.MapPath("/Content/Upload"), checkboxItem.PictureHelpFile)))
+                                    {
+                                        System.IO.File.Move(
+                                            string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), checkboxItem.PictureHelpFile),
+                                            string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), checkboxItem.PictureHelpFile));
+
+                                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                        HostingEnvironment.MapPath("/Content/FormField"), oldCheckboxItem.PictureHelpFile)))
+                                        {
+                                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                                HostingEnvironment.MapPath("/Content/FormField"), oldCheckboxItem.PictureHelpFile));
+                                        }
+
+                                        oldCheckboxItem.PictureHelpFile = checkboxItem.PictureHelpFile;
+                                    }
+                                }
+                                else if (string.IsNullOrEmpty(checkboxItem.PictureHelpFile) && !string.IsNullOrEmpty(oldCheckboxItem.PictureHelpFile))
+                                {
+                                    if (System.IO.File.Exists(string.Format("{0}/{1}",
+                                        HostingEnvironment.MapPath("/Content/FormField"), oldCheckboxItem.PictureHelpFile)))
+                                    {
+                                        System.IO.File.Delete(string.Format("{0}/{1}",
+                                            HostingEnvironment.MapPath("/Content/FormField"), oldCheckboxItem.PictureHelpFile));
+
+                                        oldCheckboxItem.PictureHelpFile = string.Empty;
+                                    }
+                                }
                             }
                         }
                     }
@@ -1803,6 +2046,97 @@ namespace Karenbic.Areas.Admin.Controllers
                             }
                         }
                     }
+
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+
+                            item.PictureHelpFile = field.PictureHelpFile;
+                        }
+                    }
+                    else if (string.IsNullOrEmpty(field.PictureHelpFile) && !string.IsNullOrEmpty(item.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile)))
+                        {
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/FormField"), item.PictureHelpFile));
+
+                            item.PictureHelpFile = string.Empty;
+                        }
+                    }
+                }
+            }
+
+            //New Label
+            if (labels_new != null && labels_new.Length > 0)
+            {
+                foreach (DomainClasses.FormField_Label field in labels_new)
+                {
+                    if (!string.IsNullOrEmpty(field.PictureHelpFile))
+                    {
+                        if (System.IO.File.Exists(string.Format("{0}/{1}",
+                            HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile)))
+                        {
+                            System.IO.File.Move(
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile),
+                                string.Format("{0}/{1}", HostingEnvironment.MapPath("/Content/FormField"), field.PictureHelpFile));
+
+                            System.IO.File.Delete(string.Format("{0}/{1}",
+                                HostingEnvironment.MapPath("/Content/Upload"), field.PictureHelpFile));
+                        }
+                        else
+                        {
+                            field.PictureHelpFile = string.Empty;
+                        }
+                    }
+
+                    field.Form = formItem;
+                    _context.FormFields_Label.Add(field);
+                }
+            }
+
+            //Edit Label
+            if (labels != null && labels.Length > 0)
+            {
+                foreach (DomainClasses.FormField_Label field in labels)
+                {
+                    DomainClasses.FormField_Label item = _context.FormFields_Label
+                        .Include(x => x.DesktopPosition)
+                        .Include(x => x.TabletPosition)
+                        .Include(x => x.MobilePosition)
+                        .Single(x => x.Id == field.Id);
+
+                    item.Title = field.Title;
+                    item.Description = field.Description;
+                    item.ShowCustomer = field.ShowCustomer;
+                    item.Priority = field.Priority;
+                    item.FontFamily = field.FontFamily;
+                    item.FontSize = field.FontSize;
+                    item.Color = field.Color;
+                    item.Underline = field.Underline;
+                    item.Upline = field.Upline;
+
+                    item.DesktopPosition.SizeX = field.DesktopPosition.SizeX;
+                    item.DesktopPosition.SizeY = field.DesktopPosition.SizeY;
+                    item.DesktopPosition.Row = field.DesktopPosition.Row;
+                    item.DesktopPosition.Column = field.DesktopPosition.Column;
+
+                    item.TabletPosition.SizeX = field.TabletPosition.SizeX;
+                    item.TabletPosition.SizeY = field.TabletPosition.SizeY;
+                    item.TabletPosition.Row = field.TabletPosition.Row;
+                    item.TabletPosition.Column = field.TabletPosition.Column;
+
+                    item.MobilePosition.SizeY = field.MobilePosition.SizeY;
+                    item.MobilePosition.Row = field.MobilePosition.Row;
 
                     if (!string.IsNullOrEmpty(field.PictureHelpFile) && field.PictureHelpFile != item.PictureHelpFile)
                     {
@@ -2426,7 +2760,10 @@ namespace Karenbic.Areas.Admin.Controllers
                                 items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
                                 {
                                     id = c.Id,
-                                    title = c.Title
+                                    title = c.Title,
+                                    pictureHelpFile = c.PictureHelpFile,
+                                    pictureHelpPath = c.PictureHelpPath,
+                                    hasPictureHelpFile = c.HasPictureHelpFile
                                 })
                             },
                             desktop_position = new
@@ -2485,7 +2822,10 @@ namespace Karenbic.Areas.Admin.Controllers
                                 items = item.Items.Where(x => x.ShowAdmin).OrderBy(c => c.Order).Select(c => new
                                 {
                                     id = c.Id,
-                                    title = c.Title
+                                    title = c.Title,
+                                    pictureHelpFile = c.PictureHelpFile,
+                                    pictureHelpPath = c.PictureHelpPath,
+                                    hasPictureHelpFile = c.HasPictureHelpFile
                                 })
                             },
                             desktop_position = new
@@ -2548,6 +2888,62 @@ namespace Karenbic.Areas.Admin.Controllers
                                     Title = c.Title,
                                     Extention = c.Extention
                                 })
+                            },
+                            desktop_position = new
+                            {
+                                sizeX = item.DesktopPosition.SizeX,
+                                sizeY = item.DesktopPosition.SizeY,
+                                row = item.DesktopPosition.Row,
+                                col = item.DesktopPosition.Column
+                            },
+                            tablet_position = new
+                            {
+                                sizeX = item.TabletPosition.SizeX,
+                                sizeY = item.TabletPosition.SizeY,
+                                row = item.TabletPosition.Row,
+                                col = item.TabletPosition.Column
+                            },
+                            mobile_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = item.MobilePosition.SizeY,
+                                row = item.MobilePosition.Row,
+                                col = 0
+                            },
+                            factor_position = new
+                            {
+                                sizeX = 1,
+                                sizeY = 1,
+                                row = 0,
+                                col = 0
+                            }
+                        });
+                    }
+
+                    //Label
+                    if (field is DomainClasses.FormField_Label)
+                    {
+                        DomainClasses.FormField_Label item = (DomainClasses.FormField_Label)field;
+
+                        fields.Add(new
+                        {
+                            type = 12,
+                            data = new
+                            {
+                                id = item.Id,
+                                title = item.Title,
+                                showCustomer = item.ShowCustomer,
+                                description = item.Description,
+                                pictureHelpFile = item.PictureHelpFile,
+                                pictureHelpPath = item.PictureHelpPath,
+                                hasPictureHelpFile = item.HasPictureHelpFile,
+                                priority = item.Priority,
+                                canDelete = item.CanDelete,
+                                font = item.FontFamily,
+                                size = item.FontSize,
+                                color = item.Color,
+                                underline = item.Underline,
+                                upline = item.Upline
                             },
                             desktop_position = new
                             {

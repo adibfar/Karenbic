@@ -34,6 +34,26 @@ namespace Karenbic.DomainClasses
         [Required]
         public bool CanDelete { get; set; }
 
+        public string PictureHelpFile { get; set; }
+
+        [NotMapped]
+        public string PictureHelpPath
+        {
+            get
+            {
+                return string.Format("/Content/FormField/{0}", PictureHelpFile);
+            }
+        }
+
+        [NotMapped]
+        public bool HasPictureHelpFile
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(PictureHelpFile);
+            }
+        }
+
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 
         public virtual FormField_CheckBoxGroup CheckBoxGroup { get; set; }

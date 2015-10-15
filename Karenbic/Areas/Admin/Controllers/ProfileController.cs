@@ -18,6 +18,13 @@ namespace Karenbic.Areas.Admin.Controllers
     [UserInfrastructure.RACVAccess(Roles = "Admin")]
     public class ProfileController : Controller
     {
+        private DataAccess.Context _context;
+
+        public ProfileController(DataAccess.Context context)
+        {
+            _context = context;
+        }
+
         private IAuthenticationManager AuthManager
         {
             get
@@ -48,6 +55,30 @@ namespace Karenbic.Areas.Admin.Controllers
             {
                 return HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
+        }
+
+        [HttpGet]
+        public ActionResult ChangeMobileNumber()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetMobileNumber()
+        {
+            DomainClasses.Setting setting = _context.Setting.Find(1);
+
+            return Json(setting.AdminMobile, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeMobileNumber(string number)
+        {
+            DomainClasses.Setting setting = _context.Setting.Find(1);
+            setting.AdminMobile = number;
+            _context.SaveChanges();
+
+            return Json(number, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

@@ -92,6 +92,12 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                 value: 11,
                 description: "",
                 imageSrc: "/Images/FormField/file-uploader.png"
+            },
+            {
+                text: "Label",
+                value: 12,
+                description: "",
+                imageSrc: "/Images/FormField/label.png"
             }
         ];
 
@@ -153,6 +159,38 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                 Extention: 'rar'
             }
         ];
+
+        //Fonts
+        $scope.fonts = [
+            {
+                Id: 1,
+                Title: 'Arial'
+            },
+            {
+                Id: 2,
+                Title: 'BNAZANB'
+            },
+            {
+                Id: 3,
+                Title: 'BNazanin'
+            },
+            {
+                Id: 4,
+                Title: 'IranianSerifWeb'
+            },
+            {
+                Id: 5,
+                Title: 'NexaBold'
+            },
+            {
+                Id: 6,
+                Title: 'Tahoma'
+            },
+            {
+                Id: 7,
+                Title: 'yekan'
+            }
+        ];
         /*=-=-=-=-= End Define Variable =-=-=-=-=*/
         
         //Fetch Form Groups
@@ -204,6 +242,7 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
             $scope.newField_MultipleChoice_Reset();
             $scope.newField_MultipleChoice_Reset();
             $scope.newField_FileUploader2_Reset();
+            $scope.newField_Label_Reset();
         });
 
         /*=-=-=-=-= Start Help File =-=-=-=-=*/
@@ -638,7 +677,9 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
         $scope.newField_MultipleChoice_AddItem = function () {
             if ($scope.newField_MultipleChoice_NewItem.title == null || $scope.newField_MultipleChoice_NewItem.title == '') return;
             $scope.newField_MultipleChoice.items.push({
-                title: $scope.newField_MultipleChoice_NewItem.title
+                title: $scope.newField_MultipleChoice_NewItem.title,
+                hasPictureHelpFile: false,
+                pictureHelpFile: ''
             });
             $scope.newField_MultipleChoice_NewItem.title = '';
         };
@@ -661,6 +702,90 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
 
         $scope.newField_MultipleChoice_RemoveItem = function (index) {
             $scope.newField_MultipleChoice.items.splice(index, 1);
+        };
+
+        $scope.newField_MultipleChoice_PictureHelpFile = function (item, $event) {
+            if (item.hasPictureHelpFile == false) {
+                $($event.currentTarget).closest('td').find('input[type=file]').click();
+            }
+            else {
+                ngDialog.open({
+                    template: '<div style="font-family:yekan;font-size:14px;">' +
+                          '<form>' +
+                            '<div style="text-align:center;">' +
+                              '<button class="btn btn-lg btn-warning" ng-click="remove()" type="button">حذف فایل راهنما</button>' +
+                              '<button class="btn btn-lg btn-primary" ng-click="reselect()" type="button" style="margin-right:4px;">انتخاب مجدد فایل راهنما</button>' +
+                            '</div>' +
+                          '</form>' +
+                        '</div>',
+                    plain: true,
+                    showClose: false,
+                    className: 'ngdialog-theme-default ngdialog-theme1',
+                    controller: ['$scope', 'ngDialog', function ($scope, ngDialog) {
+                        $scope.paymentType = 1;
+
+                        $scope.remove = function () {
+                            $scope.closeThisDialog({
+                                response: 0,
+                                type: 0
+                            });
+                        };
+                        $scope.reselect = function () {
+                            $scope.closeThisDialog({
+                                response: 1,
+                                type: $scope.paymentType
+                            });
+                        };
+                    }],
+                    preCloseCallback: function (value) {
+                        if (value.response == 0) {
+                            $scope.newField_MultipleChoice_RemovePictureHelpFile(item);
+                        }
+                        else if (value.response == 1) {
+                            $($event.currentTarget).closest('td').find('input[type=file]').click();
+                        }
+                        return true;
+                    }
+                });
+            }
+        };
+
+        $scope.newField_MultipleChoice_AddPictureHelpFile = function (item, $files) {
+            var $file = $files[0];
+
+            if ($file.type != 'image/jpeg' && $file.type != 'image/jpg' && $file.type != 'image/png') {
+                toaster.pop('error', "فرمت فایل تصویر باید jpg یا png باشد");
+                return;
+            }
+
+            if ($file.size > 150 * 1024) {
+                toaster.pop('error', "حداکثر حجم فایل 150 کیلو بایت می باشد");
+                return;
+            }
+
+            item.uploadingPictureHelpFile = true;
+
+            $upload.upload({
+                url: baseUri + 'Form/UploadPicture',
+                file: $file
+            }).success(function (data, status, headers, config) {
+                item.pictureHelpFile = data;
+                item.hasPictureHelpFile = true;
+                item.uploadingPictureHelpFile = false;
+            }).error(function (data, status, headers, config) {
+                if (status == 403) {
+                    window.location = "/Account/Login";
+                }
+                else {
+                    toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
+                }
+                item.uploadingPictureHelpFile = false;
+            });
+        };
+
+        $scope.newField_MultipleChoice_RemovePictureHelpFile = function (item) {
+            item.pictureHelpFile = '';
+            item.hasPictureHelpFile = false;
         };
 
         $scope.newField_MultipleChoice_Reset = function () {
@@ -698,7 +823,9 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
         $scope.newField_CheckboxGroup_AddItem = function () {
             if ($scope.newField_CheckboxGroup_NewItem.title == null || $scope.newField_CheckboxGroup_NewItem.title == '') return;
             $scope.newField_CheckboxGroup.items.push({
-                title: $scope.newField_CheckboxGroup_NewItem.title
+                title: $scope.newField_CheckboxGroup_NewItem.title,
+                hasPictureHelpFile: false,
+                pictureHelpFile: ''
             });
             $scope.newField_CheckboxGroup_NewItem.title = '';
         };
@@ -721,6 +848,90 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
 
         $scope.newField_CheckboxGroup_RemoveItem = function (index) {
             $scope.newField_CheckboxGroup.items.splice(index, 1);
+        };
+
+        $scope.newField_CheckboxGroup_PictureHelpFile = function (item, $event) {
+            if (item.hasPictureHelpFile == false) {
+                $($event.currentTarget).closest('td').find('input[type=file]').click();
+            }
+            else {
+                ngDialog.open({
+                    template: '<div style="font-family:yekan;font-size:14px;">' +
+                          '<form>' +
+                            '<div style="text-align:center;">' +
+                              '<button class="btn btn-lg btn-warning" ng-click="remove()" type="button">حذف فایل راهنما</button>' +
+                              '<button class="btn btn-lg btn-primary" ng-click="reselect()" type="button" style="margin-right:4px;">انتخاب مجدد فایل راهنما</button>' +
+                            '</div>' +
+                          '</form>' +
+                        '</div>',
+                    plain: true,
+                    showClose: false,
+                    className: 'ngdialog-theme-default ngdialog-theme1',
+                    controller: ['$scope', 'ngDialog', function ($scope, ngDialog) {
+                        $scope.paymentType = 1;
+
+                        $scope.remove = function () {
+                            $scope.closeThisDialog({
+                                response: 0,
+                                type: 0
+                            });
+                        };
+                        $scope.reselect = function () {
+                            $scope.closeThisDialog({
+                                response: 1,
+                                type: $scope.paymentType
+                            });
+                        };
+                    }],
+                    preCloseCallback: function (value) {
+                        if (value.response == 0) {
+                            $scope.newField_CheckboxGroup_RemovePictureHelpFile(item);
+                        }
+                        else if (value.response == 1) {
+                            $($event.currentTarget).closest('td').find('input[type=file]').click();
+                        }
+                        return true;
+                    }
+                });
+            }
+        };
+
+        $scope.newField_CheckboxGroup_AddPictureHelpFile = function (item, $files) {
+            var $file = $files[0];
+
+            if ($file.type != 'image/jpeg' && $file.type != 'image/jpg' && $file.type != 'image/png') {
+                toaster.pop('error', "فرمت فایل تصویر باید jpg یا png باشد");
+                return;
+            }
+
+            if ($file.size > 150 * 1024) {
+                toaster.pop('error', "حداکثر حجم فایل 150 کیلو بایت می باشد");
+                return;
+            }
+
+            item.uploadingPictureHelpFile = true;
+
+            $upload.upload({
+                url: baseUri + 'Form/UploadPicture',
+                file: $file
+            }).success(function (data, status, headers, config) {
+                item.pictureHelpFile = data;
+                item.hasPictureHelpFile = true;
+                item.uploadingPictureHelpFile = false;
+            }).error(function (data, status, headers, config) {
+                if (status == 403) {
+                    window.location = "/Account/Login";
+                }
+                else {
+                    toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
+                }
+                item.uploadingPictureHelpFile = false;
+            });
+        };
+
+        $scope.newField_CheckboxGroup_RemovePictureHelpFile = function (item) {
+            item.pictureHelpFile = '';
+            item.hasPictureHelpFile = false;
         };
 
         $scope.newField_CheckboxGroup_Reset = function () {
@@ -785,6 +996,38 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
             };
         };
         /*=-=-=-=-= End New File Uploader 2 =-=-=-=-=*/
+
+        /*=-=-=-=-= Start New Label =-=-=-=-=*/
+        $scope.newField_Label = {
+            title: '',
+            color: '',
+            font: $scope.fonts[6],
+            size: 11,
+            underline: false,
+            upline: false,
+            pictureHelpFile: '',
+            pictureHelpPath: '',
+            hasPictureHelpFile: false,
+            description: '',
+            priority: 0
+        };
+
+        $scope.newField_Label_Reset = function () {
+            $scope.newField_Label = {
+                title: '',
+                color: '',
+                font: $scope.fonts[6],
+                size: 11,
+                underline: false,
+                upline: false,
+                pictureHelpFile: '',
+                pictureHelpPath: '',
+                hasPictureHelpFile: false,
+                description: '',
+                priority: 0
+            };
+        };
+        /*=-=-=-=-= End New Label =-=-=-=-=*/
 
         /*=-=-=-=-= Start Manage Fields =-=-=-=-=*/
         $scope.newFields = [];
@@ -1465,6 +1708,59 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                     $scope.newField_FileUploader2_Reset();
 
                     break;
+
+                case 12:
+                    if (pictureHelpFile != '') {
+                        $scope.newField_Label.pictureHelpFile = pictureHelpFile;
+                        $scope.newField_Label.pictureHelpPath = '/Content/Upload/' + pictureHelpFile;
+                        $scope.newField_Label.hasPictureHelpFile = true;
+                    }
+
+                    var obj = {
+                        type: 12,
+                        data: _.clone($scope.newField_Label),
+                        desktop_position: {
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 3
+                        },
+                        tablet_position: {
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 2
+                        },
+                        mobile_position: {
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
+                        },
+                        factor_position: {
+                            //sizeX: 1,
+                            //sizeY: 1,
+                            //row: 1,
+                            //col: 1
+                        }
+                    };
+
+                    if (obj.data.description == null || obj.data.description == '') {
+                        obj.desktop_position.sizeY = 7;
+                        obj.tablet_position.sizeY = 7;
+                        obj.mobile_position.sizeY = 7;
+                    }
+                    else {
+                        obj.desktop_position.sizeY = 9;
+                        obj.tablet_position.sizeY = 9;
+                        obj.mobile_position.sizeY = 9;
+                    }
+
+                    $scope.newFields.push(obj);
+
+                    $scope.newField_Label_Reset();
+
+                    break;
             }
         };
 
@@ -1476,6 +1772,9 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                 resolve: {
                     fileFormats: function(){
                         return $scope.fileFormats;
+                    },
+                    fonts: function () {
+                        return $scope.fonts;
                     },
                     field: function () {
                         var data = _.clone($scope.newFields[index].data);
@@ -1498,9 +1797,10 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
             });
         };
 
-        var EditFieldCtrl = ['$scope', '$http', '$modalInstance', 'fileFormats', 'field', 'type', function ($scope, $http, $modalInstance, fileFormats, field, type) {
+        var EditFieldCtrl = ['$scope', '$http', '$modalInstance', 'fileFormats', 'fonts', 'field', 'type', function ($scope, $http, $modalInstance, fileFormats, fonts, field, type) {
 
             $scope.fileFormats = fileFormats;
+            $scope.fonts = fonts;
             $scope.field = field;
             $scope.type = type;
             $scope.newItem = {
@@ -1561,6 +1861,90 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
 
             $scope.removeItem = function (index) {
                 $scope.field.items.splice(index, 1);
+            };
+
+            $scope.Item_PictureHelpFile = function (item, $event) {
+                if (item.hasPictureHelpFile == false) {
+                    $($event.currentTarget).closest('td').find('input[type=file]').click();
+                }
+                else {
+                    ngDialog.open({
+                        template: '<div style="font-family:yekan;font-size:14px;">' +
+                              '<form>' +
+                                '<div style="text-align:center;">' +
+                                  '<button class="btn btn-lg btn-warning" ng-click="remove()" type="button">حذف فایل راهنما</button>' +
+                                  '<button class="btn btn-lg btn-primary" ng-click="reselect()" type="button" style="margin-right:4px;">انتخاب مجدد فایل راهنما</button>' +
+                                '</div>' +
+                              '</form>' +
+                            '</div>',
+                        plain: true,
+                        showClose: false,
+                        className: 'ngdialog-theme-default ngdialog-theme1',
+                        controller: ['$scope', 'ngDialog', function ($scope, ngDialog) {
+                            $scope.paymentType = 1;
+
+                            $scope.remove = function () {
+                                $scope.closeThisDialog({
+                                    response: 0,
+                                    type: 0
+                                });
+                            };
+                            $scope.reselect = function () {
+                                $scope.closeThisDialog({
+                                    response: 1,
+                                    type: $scope.paymentType
+                                });
+                            };
+                        }],
+                        preCloseCallback: function (value) {
+                            if (value.response == 0) {
+                                $scope.Item_RemovePictureHelpFile(item);
+                            }
+                            else if (value.response == 1) {
+                                $($event.currentTarget).closest('td').find('input[type=file]').click();
+                            }
+                            return true;
+                        }
+                    });
+                }
+            };
+
+            $scope.Item_AddPictureHelpFile = function (item, $files) {
+                var $file = $files[0];
+
+                if ($file.type != 'image/jpeg' && $file.type != 'image/jpg' && $file.type != 'image/png') {
+                    toaster.pop('error', "فرمت فایل تصویر باید jpg یا png باشد");
+                    return;
+                }
+
+                if ($file.size > 150 * 1024) {
+                    toaster.pop('error', "حداکثر حجم فایل 150 کیلو بایت می باشد");
+                    return;
+                }
+
+                item.uploadingPictureHelpFile = true;
+
+                $upload.upload({
+                    url: baseUri + 'Form/UploadPicture',
+                    file: $file
+                }).success(function (data, status, headers, config) {
+                    item.pictureHelpFile = data;
+                    item.hasPictureHelpFile = true;
+                    item.uploadingPictureHelpFile = false;
+                }).error(function (data, status, headers, config) {
+                    if (status == 403) {
+                        window.location = "/Account/Login";
+                    }
+                    else {
+                        toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
+                    }
+                    item.uploadingPictureHelpFile = false;
+                });
+            };
+
+            $scope.Item_RemovePictureHelpFile = function (item) {
+                item.pictureHelpFile = '';
+                item.hasPictureHelpFile = false;
             };
 
             $scope.save = function () {
@@ -1711,7 +2095,8 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                 dropDowns: $scope.getFields(8),
                 radioButtonGroups: $scope.getFields(9),
                 checkBoxGroups: $scope.getFields(10),
-                extendedFileUploaders: $scope.getFields(11)
+                extendedFileUploaders: $scope.getFields(11),
+                labels: $scope.getFields(12)
             }).
             success(function (data, status, headers, config) {
                 $scope.addLoading = false;
@@ -1912,6 +2297,7 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                         obj.Items = _.map(item.data.items, function (data) {
                             return {
                                 Title: data.title,
+                                PictureHelpFile: data.pictureHelpFile,
                                 Order: order++
                             };
                         })
@@ -1932,6 +2318,7 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                         obj.Items = _.map(item.data.items, function (data) {
                             return {
                                 Title: data.title,
+                                PictureHelpFile: data.pictureHelpFile,
                                 Order: order++
                             };
                         })
@@ -1950,6 +2337,15 @@ App.controller('AddFormController', ['$scope', '$http', 'ngDialog', '$modal', 'A
                         else {
                             obj.FactorOrder = item.factor_position.row;
                         }
+                        break;
+
+                    //Label
+                    case 12:
+                        obj.FontFamily = item.data.font.Title;
+                        obj.FontSize = item.data.size;
+                        obj.Color = item.data.color;
+                        obj.Underline = item.data.underline;
+                        obj.Upline = item.data.upline;
                         break;
                 }
 

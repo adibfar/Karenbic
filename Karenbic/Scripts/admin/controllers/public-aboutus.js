@@ -45,6 +45,7 @@
             ],
             ImageBrowser: true,
             ImageBrowserURL: '/Vendors/ckeditor/finder/index.html',
+            filebrowserBrowseUrl: '/Vendors/ckeditor/finder/index.html',
             filebrowserImageBrowseUrl: '/Vendors/ckeditor/finder/index.html',
             filebrowserFlashBrowseUrl: '/Vendors/ckeditor/finder/index.html',
             filebrowserUploadUrl: '/Vendors/ckeditor/finder/connectors/ashx/filemanager.ashx',

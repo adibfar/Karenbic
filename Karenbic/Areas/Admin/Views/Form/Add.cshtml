@@ -166,6 +166,10 @@
     .no-resize-left .gridster-item-resizable-handler.handle-sw {
         display: none;
     }
+
+    .ngdialog.ngdialog-theme1 .ngdialog-content {
+        width: 378px;
+    }
 </style>
 
 <div class="container-fluid">
@@ -282,6 +286,7 @@
                     @Html.Partial("NewField_DropDown")
                     @Html.Partial("NewField_MultipleChoice")
                     @Html.Partial("NewField_CheckboxGroup")
+                    @Html.Partial("NewField_Label")
                     <!-- End New Fields -->
 
                     <div class="row">
@@ -374,6 +379,9 @@
                                         <img src="/Images/FormField/file-uploader.png"
                                              style="display:inline-block;height:25px;margin-left:2px;width:25px;"
                                              ng-if="item.type == 11" />
+                                        <img src="/Images/FormField/label.png"
+                                             style="display:inline-block;height:25px;margin-left:2px;width:25px;"
+                                             ng-if="item.type == 12" />
 
                                         <span style="font-family:Calibri;" ng-if="item.type == 0">TextBox</span>
                                         <span style="font-family:Calibri;" ng-if="item.type == 1">TextArea</span>
@@ -387,10 +395,12 @@
                                         <span style="font-family:Calibri;" ng-if="item.type == 9">Multiple Choice</span>
                                         <span style="font-family:Calibri;" ng-if="item.type == 10">Checkbox Group</span>
                                         <span style="font-family:Calibri;" ng-if="item.type == 11">Extended File Uploader</span>
+                                        <span style="font-family:Calibri;" ng-if="item.type == 12">Label</span>
                                     </td>
                                     <td class="visible-lg visible-md">
                                         <span ng-if="item.data.description.length <= 80">{{item.data.description}}</span>
                                         <span ng-if="item.data.description.length > 80">{{item.data.description.substr(0, 80) + ' ...'}}</span>
+                                        <span ng-if="item.type == 12">------</span>
                                     </td>
                                     <td style="text-align:left;">
                                         <button class="btn-img-info-1" type="button" ng-if="item.data.hasPictureHelpFile == true"
@@ -429,7 +439,8 @@
                                     @Html.Partial("FormField_DropDown")
                                     @Html.Partial("FormField_MultipleChoice")
                                     @Html.Partial("FormField_CheckboxGroup")
-                                    <div class="gridster-item-priority">{{item.data.priority}}</div>
+                                    @Html.Partial("FormField_Label")
+                                    <div class="gridster-item-priority" ng-if="item.type != 12">{{item.data.priority}}</div>
                                     <div class="gridster-item-overlay"></div>
                                 </li>
                             </ul>
@@ -462,7 +473,8 @@
                                     @Html.Partial("FormField_DropDown")
                                     @Html.Partial("FormField_MultipleChoice")
                                     @Html.Partial("FormField_CheckboxGroup")
-                                    @*<div class="gridster-item-priority">{{item.data.priority}}</div>*@
+                                    @Html.Partial("FormField_Label")
+                                    <div class="gridster-item-priority" ng-if="item.type != 12">{{item.data.priority}}</div>
                                     <div class="gridster-item-overlay"></div>
                                 </li>
                             </ul>
@@ -496,7 +508,8 @@
                                     @Html.Partial("FormField_DropDown")
                                     @Html.Partial("FormField_MultipleChoice")
                                     @Html.Partial("FormField_CheckboxGroup")
-                                    @*<div class="gridster-item-priority">{{item.data.priority}}</div>*@
+                                    @Html.Partial("FormField_Label")
+                                    <div class="gridster-item-priority" ng-if="item.type != 12">{{item.data.priority}}</div>
                                     <div class="gridster-item-overlay"></div>
                                 </li>
                             </ul>
@@ -570,6 +583,7 @@
             @Html.Partial("EditField_DropDown")
             @Html.Partial("EditField_MultipleChoice")
             @Html.Partial("EditField_CheckBoxGroup")
+            @Html.Partial("EditField_Label")
         </form>
     </div>
     <div class="modal-footer">

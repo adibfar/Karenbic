@@ -169,24 +169,24 @@
             .ico {
                 display:inline-block;
 				float: right;
-				height: 64px;
+				height: 62px;
                 margin: 2px 0 0 20px;
-				width: 64px;
+				width: 62px;
 
 				&.ico-step-1 {
-					background: transparent url(/Images/Public/Home/help-icon-step-1.png) no-repeat 0 -64px;
+					background: transparent url(/Images/Public/Home/help-icon-step-1.png) no-repeat 0 0;
 				}
 
 				&.ico-step-2 {
-					background: transparent url(/Images/Public/Home/help-icon-step-2.png) no-repeat 0 -64px;
+					background: transparent url(/Images/Public/Home/help-icon-step-2.png) no-repeat 0 0;
 				}
 
 				&.ico-step-3 {
-					background: transparent url(/Images/Public/Home/help-icon-step-3.png) no-repeat 0 -64px;
+					background: transparent url(/Images/Public/Home/help-icon-step-3.png) no-repeat 0 0;
 				}
 
 				&.ico-step-4 {
-					background: transparent url(/Images/Public/Home/help-icon-step-4.png) no-repeat 0 -64px;
+					background: transparent url(/Images/Public/Home/help-icon-step-4.png) no-repeat 0 0;
 				}
             }
         }
@@ -205,7 +205,7 @@
 
 		&:hover {
 			h4 .ico {
-				background-position: 0 0;
+				background-position: 0 -63px;
 			}
 		}
     }

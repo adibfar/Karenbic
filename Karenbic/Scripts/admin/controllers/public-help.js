@@ -9,7 +9,7 @@
             resize_enabled: false,
             height: 290,
             enterMode: CKEDITOR.ENTER_BR,
-            font_names: 'Arial;BNAZANB;BNazanin;IranianSerifWeb;NexaBold;Thoma;yekan;',// + config.font_names,
+            font_names: 'Arial;BNAZANB;BNazanin;IranianSerifWeb;NexaBold;Tahoma;yekan;',// + config.font_names,
             toolbar: [
 	            { name: 'document', groups: ['mode', 'document', 'doctools'], items: ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates'] },
 	            { name: 'clipboard', groups: ['clipboard', 'undo'], items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
@@ -45,6 +45,7 @@
             ],
             ImageBrowser: true,
             ImageBrowserURL: '/Vendors/ckeditor/finder/index.html',
+            filebrowserBrowseUrl: '/Vendors/ckeditor/finder/index.html',
             filebrowserImageBrowseUrl: '/Vendors/ckeditor/finder/index.html',
             filebrowserFlashBrowseUrl: '/Vendors/ckeditor/finder/index.html',
             filebrowserUploadUrl: '/Vendors/ckeditor/finder/connectors/ashx/filemanager.ashx',

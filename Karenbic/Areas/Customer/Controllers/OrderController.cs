@@ -16,10 +16,12 @@ namespace Karenbic.Areas.Customer.Controllers
     public class OrderController : Controller
     {
         private DataAccess.Context _context;
+        private SMSService.ISMSService _ISMSService;
 
-        public OrderController(DataAccess.Context context)
+        public OrderController(DataAccess.Context context, SMSService.ISMSService ISMSService)
         {
             _context = context;
+            _ISMSService = ISMSService;
         }
 
         [HttpGet]
@@ -47,6 +49,7 @@ namespace Karenbic.Areas.Customer.Controllers
             bool isDesignOrder = false;
             DomainClasses.DesignOrder designOrder = new DomainClasses.DesignOrder();
             DomainClasses.PrintOrder printOrder = new DomainClasses.PrintOrder();
+            DomainClasses.Customer customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
 
             //Get Price 
             int priceId = await Add_GetOrderPrice(formId, numerics, checkboxs, dropDowns, radioButtonGroups, checkBoxGroups);
@@ -62,7 +65,7 @@ namespace Karenbic.Areas.Customer.Controllers
                 designOrder.Form = form;
                 designOrder.SpecialCreativity = specialCreativity;
                 designOrder.RegisterDate = DateTime.Now;
-                designOrder.Customer = _context.Customers.Single(x => x.Username == User.Identity.Name); 
+                designOrder.Customer = customer; 
 
                 //Check Price
                 if (priceId != -1)
@@ -89,7 +92,7 @@ namespace Karenbic.Areas.Customer.Controllers
             {
                 printOrder.Form = form;
                 printOrder.RegisterDate = DateTime.Now;
-                printOrder.Customer = _context.Customers.Single(x => x.Username == User.Identity.Name);
+                printOrder.Customer = customer;
 
                 //Check Price
                 if (priceId != -1)
@@ -566,6 +569,13 @@ namespace Karenbic.Areas.Customer.Controllers
                     });
                 }
 
+                _ISMSService.Send(new string[] { _context.Setting.Find(1).AdminMobile },
+                                  string.Format(@"سفارش طراحی به شماره {0} توسط {1} در تاریخ {2} ثبت شد.",
+                                                 designOrder.Code,
+                                                 customer.Name + ' ' + customer.Surname,
+                                                 Api.ConvertDate.JulainToPersian(DateTime.Now)),
+                                  false);
+
                 return Json(new
                 {
                     Id = designOrder.Id
@@ -588,6 +598,13 @@ namespace Karenbic.Areas.Customer.Controllers
                         }
                     });
                 }
+
+                _ISMSService.Send(new string[] { _context.Setting.Find(1).AdminMobile },
+                                  string.Format(@"سفارش چاپ به شماره {0} توسط {1} در تاریخ {2} ثبت شد.",
+                                                 printOrder.Code,
+                                                 customer.Name + ' ' + customer.Surname,
+                                                 Api.ConvertDate.JulainToPersian(DateTime.Now)),
+                                  false);
 
                 return Json(new
                 {

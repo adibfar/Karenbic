@@ -124,8 +124,8 @@
                                 <img src="@item.PicturePath" alt=" " />
                                 <div class="item-img-overlay">
                                     <a class="portfolio-zoom fa fa-plus"
-                                       href="@item.PicturePath"
-                                       title="@Url.Action("Detail", "Portfolio", new { id = item.Id })"></a>
+                                       href="@Url.Action("Detail", "Portfolio", new { id = item.Id })"
+                                       title="@item.Title"></a>
                                 </div>
                             </div>
                             <div class="feature-content">

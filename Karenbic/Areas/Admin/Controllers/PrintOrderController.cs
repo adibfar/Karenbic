@@ -108,6 +108,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
                     RegisterDate = x.RegisterDate.ToShortDateString(),
                     PersianRegisterDate = x.PersianRegisterDate,
+                    TransportType = x.TransportType,
                     //Confirm Data
                     IsConfirm = x.IsConfirm,
                     ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
@@ -212,6 +213,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     RegisterDate = x.RegisterDate.ToShortDateString(),
                     PersianRegisterDate = x.PersianRegisterDate,
                     OrderState = x.OrderState,
+                    TransportType = x.TransportType,
                     //Confirm Data
                     IsConfirm = x.IsConfirm,
                     ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
@@ -330,6 +332,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
                     RegisterDate = x.RegisterDate.ToShortDateString(),
                     PersianRegisterDate = x.PersianRegisterDate,
+                    TransportType = x.TransportType,
                     //Confirm Data
                     IsConfirm = x.IsConfirm,
                     ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
@@ -446,6 +449,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
                     RegisterDate = x.RegisterDate.ToShortDateString(),
                     PersianRegisterDate = x.PersianRegisterDate,
+                    TransportType = x.TransportType,
                     //Confirm Data
                     IsConfirm = x.IsConfirm,
                     ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),
@@ -474,7 +478,7 @@ namespace Karenbic.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Confirm(int orderId, decimal printPrice, decimal packingPrice)
+        public ActionResult Confirm(int orderId, decimal printPrice)
         {
             bool result = false;
 
@@ -486,23 +490,24 @@ namespace Karenbic.Areas.Admin.Controllers
                 .Include(x => x.Customer)
                 .Single(x => x.Id == orderId);
 
-            if (order.IsCanceled == false && printPrice > 0 && packingPrice >= 0)
+            if (order.IsCanceled == false && printPrice > 0)
             {
                 order.IsConfirm = true;
                 order.OrderState = DomainClasses.PrintOrderState.Confirm;
                 order.ConfirmDate = DateTime.Now;
                 order.PrintPrice = printPrice;
-                order.PackingPrice = packingPrice;
 
                 if (order.Factor != null)
                 {
-                    order.Factor.Price = order.Price;
+                    order.Factor.PrintPrice = order.PrintPrice;
+                    order.Factor.TransportPrice = order.PackingPrice;
                     order.Factor.RegisterDate = DateTime.Now;
                 }
                 else
                 {
                     order.Factor = new DomainClasses.PrintFactor();
-                    order.Factor.Price = order.Price;
+                    order.Factor.PrintPrice = order.PrintPrice;
+                    order.Factor.TransportPrice = order.PackingPrice;
                     order.Factor.RegisterDate = DateTime.Now;
                     order.Factor.Order = order;
 

@@ -103,7 +103,7 @@ namespace Karenbic.Controllers
             var result = await SignInManager.PasswordSignInAsync(model.UserName,
                 model.Password,
                 model.RememberMe,
-                shouldLockout: false);
+                shouldLockout: true);
 
             if (result == SignInStatus.Success)
             {
@@ -123,13 +123,18 @@ namespace Karenbic.Controllers
                 }
                 else
                 {
-                    ViewBag.NotAuth = true;
+                    ViewBag.FailureAuth = true;
                     return View(model);
                 }
             }
+            else if (result == SignInStatus.LockedOut)
+            {
+                ViewBag.LockoutUser = true;
+                return View(model);
+            }
             else
             {
-                ViewBag.NotAuth = true;
+                ViewBag.FailureAuth = true;
                 return View(model);
             }
         }

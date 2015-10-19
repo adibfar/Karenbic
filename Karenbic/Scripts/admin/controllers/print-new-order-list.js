@@ -172,8 +172,7 @@ App.controller('NewPrintOrderListController', ['$scope', '$http', 'ngDialog', 'A
                 $http.post(baseUri + 'PrintOrder/Confirm',
                 {
                     orderId: $scope.order.Id,
-                    printPrice: $scope.order.PrintPrice,
-                    packingPrice: $scope.order.PackingPrice
+                    printPrice: $scope.order.PrintPrice
                 }).
                 success(function (data, status, headers, config) {
                     $scope.confirmLoading = false;

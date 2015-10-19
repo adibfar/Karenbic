@@ -26,5 +26,20 @@ namespace Karenbic.DomainClasses
         public string PublicHelpText { get; set; }
 
         public string AdminMobile { get; set; }
+
+        /// <summary>
+        /// هزینه پیک موتوری
+        /// </summary>
+        public decimal TransportPrice_BikeDelivery { get; set; }
+
+        /// <summary>
+        /// هزینه تیپاکس
+        /// </summary>
+        public decimal TransportPrice_Tipax { get; set; }
+
+        /// <summary>
+        /// هزینه تا بابری
+        /// </summary>
+        public decimal TransportPrice_Porterage { get; set; }
     }
 }

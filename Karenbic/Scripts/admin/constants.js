@@ -420,6 +420,10 @@ App
                         sref: "app.print.public-help"
                     },
                     {
+                        text: "هزینه های حمل و نقل",
+                        sref: "app.print.transport-price"
+                    },
+                    {
                         text: "تغییر شماره موبایل",
                         sref: "app.print.change-mobile-number"
                     },

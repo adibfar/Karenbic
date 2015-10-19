@@ -15,12 +15,18 @@ namespace Karenbic.DomainClasses
             PackingPrice = 0;
             IsPaid = false;
             OrderState = PrintOrderState.Register;
+            TransportType = DomainClasses.TransportType.None;
             
         }
 
         [Required]
         public decimal PrintPrice { get; set; }
 
+        /// <summary>
+        /// بسته بندی و حمل نقل
+        /// طی تغییرات نام به علت وابستگی های زیاد صروت نگرفت
+        /// دیوانه ها :|
+        /// </summary>
         [Required]
         public decimal PackingPrice { get; set; }
 
@@ -38,6 +44,9 @@ namespace Karenbic.DomainClasses
 
         [Required]
         public PrintOrderState OrderState { get; set; }
+
+        [Required]
+        public TransportType TransportType { get; set; }
 
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 

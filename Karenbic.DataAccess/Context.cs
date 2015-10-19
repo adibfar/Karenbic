@@ -114,6 +114,8 @@ namespace Karenbic.DataAccess
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new SettingConfiguration());
+            
             modelBuilder.Configurations.Add(new ProvinceConfiguration());
             modelBuilder.Configurations.Add(new CityConfiguration());
 

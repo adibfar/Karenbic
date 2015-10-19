@@ -12,7 +12,19 @@ namespace Karenbic.DomainClasses
         public int Id { get; set; }
 
         [Required]
-        public decimal Price { get; set; }
+        public decimal PrintPrice { get; set; }
+
+        [Required]
+        public decimal TransportPrice { get; set; }
+
+        [NotMapped]
+        public decimal Price
+        {
+            get
+            {
+                return PrintPrice + TransportPrice;
+            }
+        }
 
         [Required]
         public DateTime RegisterDate { get; set; }

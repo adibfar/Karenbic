@@ -251,6 +251,7 @@
     <Compile Include="Areas\Admin\Controllers\ReceiveMessageController.cs" />
     <Compile Include="Areas\Admin\Controllers\SendMessageController.cs" />
     <Compile Include="Areas\Admin\Controllers\PortfolioTypeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TransportPriceController.cs" />
     <Compile Include="Areas\Customer\Controllers\CityController.cs" />
     <Compile Include="Areas\Customer\Controllers\DesignFinalPaymentController.cs" />
     <Compile Include="Areas\Customer\Controllers\DesignOrderController.cs" />
@@ -488,6 +489,23 @@
     <Content Include="Images\Simbol\error-icon.gif" />
     <Content Include="Images\SketchSheets\iPad.png" />
     <Content Include="Images\SketchSheets\iPhone.png" />
+    <Content Include="Images\TransportPrice\0.png" />
+    <Content Include="Images\TransportPrice\1-xs.png" />
+    <Content Include="Images\TransportPrice\1.png" />
+    <Content Include="Images\TransportPrice\1h-xs.png" />
+    <Content Include="Images\TransportPrice\1h.png" />
+    <Content Include="Images\TransportPrice\2-xs.png" />
+    <Content Include="Images\TransportPrice\2.png" />
+    <Content Include="Images\TransportPrice\2h-xs.png" />
+    <Content Include="Images\TransportPrice\2h.png" />
+    <Content Include="Images\TransportPrice\3-xs.png" />
+    <Content Include="Images\TransportPrice\3.png" />
+    <Content Include="Images\TransportPrice\3h-xs.png" />
+    <Content Include="Images\TransportPrice\3h.png" />
+    <Content Include="Images\TransportPrice\4-xs.png" />
+    <Content Include="Images\TransportPrice\4.png" />
+    <Content Include="Images\TransportPrice\4h-xs.png" />
+    <Content Include="Images\TransportPrice\4h.png" />
     <Content Include="Images\UI\Button\btn-refresh-1.png" />
     <Content Include="Images\UI\Button\btn-file-uploader-1.png" />
     <Content Include="Images\Public\social-media\share-facebook%402x.png" />
@@ -614,6 +632,7 @@
     <Content Include="Scripts\admin\controllers\form-list.js" />
     <Content Include="Scripts\admin\controllers\portfolio-edit.js" />
     <Content Include="Scripts\admin\controllers\print-factor-text.js" />
+    <Content Include="Scripts\admin\controllers\print-transport-price.js" />
     <Content Include="Scripts\admin\controllers\public-home-slide-show.js" />
     <Content Include="Scripts\admin\controllers\main.js" />
     <Content Include="Scripts\admin\controllers\mobile-menu.js" />
@@ -720,6 +739,7 @@
     <Content Include="Areas\Admin\Views\Form\EditField_Label.cshtml" />
     <Content Include="Areas\Admin\Views\Form\FormField_Label.cshtml" />
     <Content Include="Areas\Customer\Views\Form\FormField_Label.cshtml" />
+    <Content Include="Areas\Admin\Views\TransportPrice\Index.cshtml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />

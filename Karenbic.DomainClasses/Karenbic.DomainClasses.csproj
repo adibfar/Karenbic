@@ -120,6 +120,7 @@
     <Compile Include="Order\PrintOrder.cs" />
     <Compile Include="Factor\PrintFactor.cs" />
     <Compile Include="Order\PrintOrderState.cs" />
+    <Compile Include="Order\TransportType.cs" />
     <Compile Include="Portal.cs" />
     <Compile Include="PriceList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

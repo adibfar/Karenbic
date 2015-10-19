@@ -319,6 +319,11 @@ App
                     controller: 'ReceiveMessageListController',
                     resolve: helper.resolveFor('ngDialog', 'froala')
                 })
+                .state('app.print.transport-price', {
+                    url: '/transport-pricer',
+                    templateUrl: helper.basepath('TransportPrice/Index'),
+                    controller: 'TransportPriceController'
+                })
                 .state('app.print.change-mobile-number', {
                     url: '/change-mobile-number',
                     templateUrl: helper.basepath('Profile/ChangeMobileNumber'),

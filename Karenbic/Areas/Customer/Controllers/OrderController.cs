@@ -44,7 +44,8 @@ namespace Karenbic.Areas.Customer.Controllers
             OrderValue_RadioButtonGroup[] radioButtonGroups,
             OrderValue_CheckboxGroup[] checkBoxGroups,
             OrderValue_FileUploader2[] extendedFileUploaders,
-            bool specialCreativity = false)
+            bool specialCreativity = false,
+            DomainClasses.TransportType transportType = DomainClasses.TransportType.None)
         {
             bool isDesignOrder = false;
             DomainClasses.DesignOrder designOrder = new DomainClasses.DesignOrder();
@@ -93,6 +94,15 @@ namespace Karenbic.Areas.Customer.Controllers
                 printOrder.Form = form;
                 printOrder.RegisterDate = DateTime.Now;
                 printOrder.Customer = customer;
+                printOrder.TransportType = transportType;
+
+                //Get Transport Price
+                DomainClasses.Setting setting = _context.Setting.First();
+                if (transportType == DomainClasses.TransportType.Bus) printOrder.PackingPrice = setting.TransportPrice_Porterage;
+                else if (transportType == DomainClasses.TransportType.Tipax) printOrder.PackingPrice = setting.TransportPrice_Tipax;
+                else if (transportType == DomainClasses.TransportType.BileCycle) printOrder.PackingPrice = setting.TransportPrice_BikeDelivery;
+                else if (transportType == DomainClasses.TransportType.Physical) printOrder.PackingPrice = 0;
+                else if (transportType == DomainClasses.TransportType.None) printOrder.PackingPrice = 0;
 
                 //Check Price
                 if (priceId != -1)
@@ -102,11 +112,11 @@ namespace Karenbic.Areas.Customer.Controllers
                     printOrder.IsConfirm = true;
                     printOrder.ConfirmDate = designOrder.RegisterDate;
                     printOrder.PrintPrice = orderPrice.PrintPrice;
-                    printOrder.PackingPrice = orderPrice.PackingPrice;
 
                     //Set Factor
                     printOrder.Factor = new DomainClasses.PrintFactor();
-                    printOrder.Factor.Price = orderPrice.Price;
+                    printOrder.Factor.PrintPrice = printOrder.PrintPrice;
+                    printOrder.Factor.TransportPrice = printOrder.PackingPrice;
                     printOrder.Factor.RegisterDate = designOrder.RegisterDate; ;
                 }
             }

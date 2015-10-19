@@ -88,6 +88,7 @@ namespace Karenbic.Areas.Customer.Controllers
                     Code = x.Code,
                     Time = string.Format("{0:D2}:{1:D2}", x.RegisterDate.Hour, x.RegisterDate.Minute),
                     PersianRegisterDate = x.PersianRegisterDate,
+                    TransportType = x.TransportType,
                     //Confirm Order
                     IsConfirm = x.IsConfirm,
                     ConfirmDate = Api.ConvertDate.JulainToPersian(Convert.ToDateTime(x.ConfirmDate)),

@@ -11,6 +11,7 @@ namespace Karenbic.DomainClasses
         public Customer()
         {
             RegisterDate = DateTime.Now;
+            IsActive = true;
         }
 
         [Key]
@@ -42,6 +43,9 @@ namespace Karenbic.DomainClasses
         public string Email { get; set; }
 
         public string Address { get; set; }
+
+        [Required]
+        public bool IsActive { get; set; }
 
         /*=-=-=-=-=-=-= Relations =-=-=-=-=-=-=*/
 

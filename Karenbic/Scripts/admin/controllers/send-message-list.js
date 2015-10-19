@@ -1,5 +1,5 @@
-﻿App.controller('SendMessageListController', ['$scope', '$http', 'APP_BASE_URI', 'toaster', '$modal', 'ngDialog',
-    function ($scope, $http, baseUri, toaster, $modal, ngDialog) {
+﻿App.controller('SendMessageListController', ['$scope', '$http', 'APP_BASE_URI', 'toaster', '$modal', 'ngDialog', '$sce',
+    function ($scope, $http, baseUri, toaster, $modal, ngDialog, $sce) {
         $scope.messages = [];
         $scope.pages = [];
         $scope.pageCount = 0;
@@ -79,6 +79,7 @@
         var MessageCtrl = ['$scope', '$http', '$modalInstance', 'message', function ($scope, $http, $modalInstance, message) {
 
             $scope.message = message;
+            $scope.message.Text2 = $sce.trustAsHtml($scope.message.Text);
 
             $scope.markAsRead = function () {
                 $http.post(baseUri + 'SendMessage/MarkAsRead',

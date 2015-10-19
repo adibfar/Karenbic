@@ -117,6 +117,7 @@ namespace Karenbic
                 "~/Scripts/admin/controllers/print-payment-list.js",
                 "~/Scripts/admin/controllers/print-factor-list.js",
                 "~/Scripts/admin/controllers/print-factor-text.js",
+                "~/Scripts/admin/controllers/print-transport-price.js",
                 "~/Scripts/admin/controllers/public-price.js",
                 "~/Scripts/admin/controllers/public-price-add.js",
                 "~/Scripts/admin/controllers/public-price-edit.js",

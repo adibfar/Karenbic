@@ -22,6 +22,17 @@
     <script type="text/javascript" language="javascript" src="/Vendors/jquery-validation-1.13.1/localization/messages_fa.js"></script>
 
     <style>
+        @@font-face{
+            font-family:'yekan';
+            src:url('/Fonts/yekan.eot');
+            src:url('/Fonts/yekan.eot#iefix') format('embedded-opentype'),
+                url('/Fonts/yekan.woff') format('woff'),
+                url('/Fonts/yekan.ttf') format('truetype'),
+                url('/Fonts/yekan.svg#CartoGothicStdBook') format('svg');
+            font-weight:normal;
+            font-style:normal;
+        }
+        
         body{
             background-color:#5e5e5e;
         }
@@ -133,7 +144,6 @@
             top: 8px;
             width: 11px;
         }
-
         .ez-checked {
             background-position: 0 -14px;
         }
@@ -146,11 +156,23 @@
             background: url(/Images/Public/Login/6.png) no-repeat 0px 0px;
         }
 
-        #not-auth {
+        #failure-auth {
             background: url(/Images/Public/Login/10.png) no-repeat center center;
             height: 11px;
             left: 0;
             position: absolute;
+            top: 11px;
+            width: 300px;
+        }
+
+        #lockout-user {
+            color: #ff6a00;
+            font-family: yekan;
+            font-size: 12px;
+            height: 11px;
+            left: 0;
+            position: absolute;
+            text-align: center;
             top: 11px;
             width: 300px;
         }
@@ -244,9 +266,13 @@
                 <img src="/Images/Public/Login/5.png" alt="مرا بخاطر بسپار" />
             </label>
             <a id="recovery-pass" href="@Url.Action("RecoveryPassword")"></a>
-            @if (ViewBag.NotAuth == true)
+            @if (ViewBag.FailureAuth == true)
             {
-                <div id="not-auth"></div>
+                <div id="failure-auth"></div>
+            }
+            @if (ViewBag.LockoutUser == true)
+            {
+                <div id="lockout-user">حساب کاربری شما غیر فعال می باشد، با دفتر کارن تماس بگیرید.</div>
             }
             <div class="bottom">
                 <input type="submit" class="btn-login" value="" />

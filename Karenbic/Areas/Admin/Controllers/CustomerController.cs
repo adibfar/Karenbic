@@ -186,6 +186,7 @@ namespace Karenbic.Areas.Admin.Controllers
                     Mobile = x.Mobile,
                     Email = x.Email,
                     Address = x.Address,
+                    IsActive = x.IsActive,
                     Group = x.Group != null ? new
                     {
                         Id = x.Group.Id,
@@ -221,6 +222,44 @@ namespace Karenbic.Areas.Admin.Controllers
 
             UserManager.RemovePassword(user.Id);
             UserManager.AddPassword(user.Id, newPassword);
+            result = true;
+
+            return Content(result.ToString());
+        }
+
+        [HttpPost]
+        public ActionResult DisableUser(int customerId)
+        {
+            bool result = false;
+
+            DomainClasses.Customer customer = _context.Customers.Find(customerId);
+            customer.IsActive = false;
+            _context.SaveChanges();
+
+            ApplicationUser user = UserManager.FindByName(customer.Username);
+            user.LockoutEnabled = true;
+            user.LockoutEndDateUtc = DateTime.Now.AddYears(100);
+            UserManager.Update(user);
+
+            result = true;
+
+            return Content(result.ToString());
+        }
+
+        [HttpPost]
+        public ActionResult EnableUser(int customerId)
+        {
+            bool result = false;
+
+            DomainClasses.Customer customer = _context.Customers.Find(customerId);
+            customer.IsActive = true;
+            _context.SaveChanges();
+
+            ApplicationUser user = UserManager.FindByName(customer.Username);
+            user.LockoutEnabled = false;
+            user.LockoutEndDateUtc = DateTime.Now;
+            UserManager.Update(user);
+
             result = true;
 
             return Content(result.ToString());

@@ -270,7 +270,7 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
-                    <span>مبلغ بسته بندی (ریال) :</span>
+                    <span>مبلغ ارسال (ریال) :</span>
                     &nbsp;
                     <span class="text-muted"
                           style="font-family:BNazanin;font-size:16px;">{{order.PackingPrice | riyal}}</span>
@@ -282,6 +282,19 @@
                     &nbsp;
                     <span class="text-muted"
                           style="font-family:BNazanin;font-size:16px;">{{order.Price | riyal}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <span>روش دریافت سفارش :</span>
+                    &nbsp;
+                    <span class="text-muted" ng-if="order.TransportType == 0">-----</span>
+                    <span class="text-muted" ng-if="order.TransportType == 1">از طریق باربری</span>
+                    <span class="text-muted" ng-if="order.TransportType == 2">از طریق تیپاکس</span>
+                    <span class="text-muted" ng-if="order.TransportType == 3">از طریق پیک موتوری</span>
+                    <span class="text-muted" ng-if="order.TransportType == 4">مراجعه حضوری</span>
                 </div>
             </div>
         </div>

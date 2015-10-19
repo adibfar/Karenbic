@@ -376,6 +376,22 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
         }];
         /*=-=-=-=-= End Extended File Uploader =-=-=-=-=*/
 
+        /*=-=-=-=-= Start Select Transport Type =-=-=-=-=*/
+        $scope.transportType = {
+            none: 0,
+            bus: 1,
+            tipax: 2,
+            bikeCycle: 3,
+            physical: 4
+        };
+
+        $scope.selectedTransport = $scope.transportType.none;
+
+        $scope.selectTransport = function (value) {
+            $scope.selectedTransport = value;
+        };
+        /*=-=-=-=-= End Select Transport Type =-=-=-=-=*/
+
         /*=-=-=-=-= Start Validate Field =-=-=-=-=*/
 
         $scope.validateForm = function () {
@@ -444,6 +460,10 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                         break;
                 }
             });
+
+            if ($scope.isPrintPortal() == true && $scope.selectedTransport == $scope.transportType.none) {
+                valide = false;
+            }
 
             return valide;
         };
@@ -629,6 +649,10 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                 }
             });
 
+            if ($scope.isPrintPortal() == true && $scope.selectedTransport == $scope.transportType.none) {
+                $scope.formErrors.unshift("روش دریافت سفارش انتخاب نشده است.");
+            }
+
             return $scope.formErrors;
         };
 
@@ -753,7 +777,6 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
 
         /*=-=-=-=-= End Form Error =-=-=-=-=*/
 
-
         /*=-=-=-=-= Start Send Data =-=-=-=-=*/
         $scope.fromSumbited = false;
 
@@ -777,7 +800,8 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                 radioButtonGroups: $scope.getFieldsValue(9),
                 checkBoxGroups: $scope.getFieldsValue(10),
                 extendedFileUploaders: $scope.getFieldsValue(11),
-                specialCreativity: $scope.specialCreativity
+                specialCreativity: $scope.specialCreativity,
+                transportType: $scope.selectedTransport
             }).
             success(function (data, status, headers, config) {
                 $scope.addLoading = false;
@@ -892,6 +916,7 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                         break;
                 }
             });
+            $scope.selectedTransport = $scope.transportType.none;
             $scope.fromSumbited = false;
             $scope.specialCreativity = false;
         };

@@ -310,6 +310,46 @@
             };
         }];
 
+        $scope.disableCustomer = function (index) {
+            $scope.fetchLoading = true;
+            $http.post(baseUri + 'Customer/DisableUser',
+            {
+                customerId: $scope.customers[index].Id
+            }).
+            success(function (data, status, headers, config) {
+                $scope.customers[index].IsActive = false;
+                $scope.fetchLoading = false;
+            }).error(function (data, status, headers, config) {
+                if (status == 403) {
+                    window.location = "/Account/Login";
+                }
+                else {
+                    toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
+                }
+                $scope.fetchLoading = false;
+            });
+        };
+
+        $scope.enableCustomer = function (index) {
+            $scope.fetchLoading = true;
+            $http.post(baseUri + 'Customer/EnableUser',
+            {
+                customerId: $scope.customers[index].Id
+            }).
+            success(function (data, status, headers, config) {
+                $scope.customers[index].IsActive = true;
+                $scope.fetchLoading = false;
+            }).error(function (data, status, headers, config) {
+                if (status == 403) {
+                    window.location = "/Account/Login";
+                }
+                else {
+                    toaster.pop('error', "خطایی رخ داده دوباره امتحان کنید");
+                }
+                $scope.fetchLoading = false;
+            });
+        };
+
         //init
         $scope.fetchCustomerGroups();
         $scope.fetchProvinces();

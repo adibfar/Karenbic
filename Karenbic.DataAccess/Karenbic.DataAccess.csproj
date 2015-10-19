@@ -106,6 +106,7 @@
     <Compile Include="Public\PortfolioCategoryConfiguration.cs" />
     <Compile Include="Public\PortfolioConfiguration.cs" />
     <Compile Include="Public\PortfolioTypeConfiguration.cs" />
+    <Compile Include="SettingConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

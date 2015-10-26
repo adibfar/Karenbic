@@ -96,6 +96,26 @@ namespace Karenbic.Areas.Customer.Controllers
                 .Take(pageSize)
                 .ToList();
 
+            int[] OrderIds = list.Select(c => c.Id).ToArray();
+
+            List<DomainClasses.Order_Value_FileUploader> fileUploaders =
+                _context.Order_Values_FileUploader
+                .Include(x => x.Order)
+                .Where(x => OrderIds.Contains(x.Order.Id)).ToList();
+
+            List<DomainClasses.Order_Value_FileUploader2> extendedFileUploaders =
+                _context.Order_Values_FileUploader2
+                .Include(x => x.Order)
+                .Where(x => OrderIds.Contains(x.Order.Id)).ToList();
+
+            int?[] extendedFileUploaders_RelatedDesignOrderIds = extendedFileUploaders
+                .Where(x => x.Type == 2 && x.DesignOrderId != null).Select(x => x.DesignOrderId).ToArray();
+
+            List<DomainClasses.DesignOrder_FinalDesign> finalDesigns = _context.DesignOrder_FinalDesigns
+                .Include(x => x.Order)
+                .Where(x => extendedFileUploaders_RelatedDesignOrderIds.Contains(x.Order.Id))
+                .ToList();
+
             result.Data = new
             {
                 ResultCount = resultCount,
@@ -123,6 +143,29 @@ namespace Karenbic.Areas.Customer.Controllers
                         Id = x.Form.Id,
                         Title = x.Form.Title
                     },
+                    //Files
+                    Files = fileUploaders.Where(c => c.Order.Id == x.Id).Select(c => new
+                    {
+                        HasFile = c.HasFile,
+                        FileName = c.FileName,
+                        FilePath = c.FilePath
+                    }),
+                    ExtendedFiles_File = extendedFileUploaders.Where(c => c.Type == 1 && c.Order.Id == x.Id).Select(c => new
+                    {
+                        HasFile = c.HasFile,
+                        FileName = c.FileName,
+                        FilePath = c.FilePath
+                    }),
+                    ExtendedFiles_Design = extendedFileUploaders.Where(c => c.Type == 2 && c.Order.Id == x.Id).Select(c => new
+                    {
+                        Name = c.Field.Title,
+                        Values = finalDesigns.Where(m => m.Order.Id == c.DesignOrderId)
+                        .Select(m => new
+                        {
+                            Title = m.Title,
+                            Link = m.Link
+                        }).ToArray()
+                    }),
                     //Factor
                     Factor = x.Factor != null ? new
                     {

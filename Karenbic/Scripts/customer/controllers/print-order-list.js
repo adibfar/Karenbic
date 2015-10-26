@@ -212,6 +212,50 @@ App.controller('PrintOrderListController', ['$scope', '$http', 'APP_BASE_URI', '
             };
         }];
 
+        //order files
+        $scope.fileType = {
+            Unknown: 0,
+            Image: 1,
+            Word: 2,
+            PDF: 3,
+            TXT: 4,
+            ZIP: 5,
+            RAR: 6,
+            TIFF: 7
+        };
+        $scope.checkFileType = function (filename) {
+            var extension = filename.substr(filename.lastIndexOf('.') + 1).toLowerCase();
+            switch (extension) {
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                case 'gif':
+                    return $scope.fileType.Image;
+                    break;
+                case 'doc':
+                case 'docx':
+                    return $scope.fileType.Word;
+                    break;
+                case 'pdf':
+                    return $scope.fileType.PDF;
+                    break;
+                case 'txt':
+                    return $scope.fileType.TXT;
+                    break;
+                case 'zip':
+                    return $scope.fileType.ZIP;
+                    break;
+                case 'rar':
+                    return $scope.fileType.RAR;
+                    break;
+                case 'tiff':
+                    return $scope.fileType.TIFF;
+                    break;
+                default:
+                    return $scope.fileType.Unknown;
+            }
+        };
+
         //Init
         $scope.fetchOrders(1);
     }]);

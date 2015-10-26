@@ -91,3 +91,13 @@
         top: 188px;
 	}
 }
+
+.whirl.shadow:after {
+	animation: none;
+	background: transparent url("/Vendors/whirl/loading.gif") no-repeat scroll 0 0;
+	border: none;
+	border-radius: 0;
+	margin: -32px 0 0 -79px;
+	height: 64px;
+	width: 158px;
+}

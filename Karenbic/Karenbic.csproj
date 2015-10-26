@@ -345,6 +345,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ChangeDB.txt" />
+    <Content Include="eNamadLogo.htm" />
     <Content Include="favicon.ico" />
     <Content Include="Fonts\BNazanin.svg" />
     <Content Include="Fonts\NexaBold.svg" />
@@ -2581,6 +2582,7 @@
     <Content Include="Vendors\tooltipster\js\jquery.tooltipster.js" />
     <Content Include="Vendors\tooltipster\js\jquery.tooltipster.min.js" />
     <Content Include="Vendors\ui-bootstrap\ui-bootstrap-tpls-0.12.1.min.js" />
+    <Content Include="Vendors\whirl\loading.gif" />
     <Content Include="Vendors\whirl\whirl.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -182,25 +182,25 @@ App
                     url: '/new-order-list',
                     templateUrl: helper.basepath('PrintOrder/NewOrderList'),
                     controller: 'NewPrintOrderListController',
-                    resolve: helper.resolveFor('ngDialog', 'jquery-ui', 'jquery-ui-datepicker')
+                    resolve: helper.resolveFor('ngDialog', 'jquery-ui', 'jquery-ui-datepicker', 'image-scale')
                 })
                 .state('app.print.ongoing-order-list', {
                     url: '/ongoing-order-list',
                     templateUrl: helper.basepath('PrintOrder/OngoingOrderList'),
                     controller: 'OngoingPrintOrderListController',
-                    resolve: helper.resolveFor('chosen', 'ngDialog', 'jquery-ui', 'jquery-ui-datepicker')
+                    resolve: helper.resolveFor('chosen', 'ngDialog', 'jquery-ui', 'jquery-ui-datepicker', 'image-scale')
                 })
                  .state('app.print.finished-order-list', {
                      url: '/finished-order-list',
                      templateUrl: helper.basepath('PrintOrder/FinishedOrderList'),
                      controller: 'FinishedPrintOrderListController',
-                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
+                     resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker', 'image-scale')
                  })
                 .state('app.print.canceled-order-list', {
                     url: '/canceled-order-list',
                     templateUrl: helper.basepath('PrintOrder/CanceledOrderList'),
                     controller: 'CanceledPrintOrderListController',
-                    resolve: helper.resolveFor('ngDialog', 'jquery-ui', 'jquery-ui-datepicker')
+                    resolve: helper.resolveFor('ngDialog', 'jquery-ui', 'jquery-ui-datepicker', 'image-scale')
                 })
                 .state('app.print.payment-list', {
                     url: '/payment-list',

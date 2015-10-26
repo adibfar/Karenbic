@@ -37,6 +37,59 @@
         -webkit-border-radius: 0;
         border-radius: 0;
     }
+
+    ul.files {
+        margin: 5px;
+        padding: 0;
+        list-style: none;
+        overflow: auto;
+    }
+        ul.files ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }    
+        ul.files li {
+            float: right;
+            margin: 0 0 0 10px;
+            padding: 0;
+        }
+            ul.files li a.image {
+                display: block;
+                height: 100px;
+                width: 100px;
+            }
+            ul.files li a.word,
+            ul.files li a.pdf,
+            ul.files li a.txt,
+            ul.files li a.zip,
+            ul.files li a.rar,
+            ul.files li a.tiff {
+                background-color: #f3f3f3;
+                border: 1px solid #6c6c6c;
+                color: #5e5e5e;
+                display: block;
+                font-family: NexaBold;
+                font-size: 23px;
+                height: 100px;
+                padding: 34px 0;
+                text-align: center;
+                text-decoration: none;
+                width: 100px;
+            }
+            ul.files li a.unknown {
+                background-color: #f3f3f3;
+                border: 1px solid #6c6c6c;
+                color: #5e5e5e;
+                display: block;
+                font-family: NexaBold;
+                font-size: 17px;
+                height: 100px;
+                padding: 41px 0;
+                text-align: center;
+                text-decoration: none;
+                width: 100px;
+            }
 </style>
 
 <div class="container-fluid">
@@ -110,8 +163,8 @@
                                 <th style="min-width:40px;width:40px;">نمایش</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr ng-repeat="item in orders">
+                        <tbody ng-repeat="item in orders">
+                            <tr>
                                 <td><span style="margin-right:4px;">{{((pageIndex - 1) * 20) + $index + 1}}</span></td>
                                 <td>{{item.Code}}</td>
                                 <td style="direction:ltr;text-align:right;">{{item.PersianRegisterDate + ' - ' + item.Time}}</td>
@@ -135,6 +188,101 @@
                                 </td>
                                 <td style="text-align:center;">
                                     <button class="btn-img-info-1" type="button" ng-click="showDetails($index)"></button>
+                                </td>
+                            </tr>
+                            <tr ng-if="item.Files.length > 0 || item.ExtendedFiles_File.length > 0 || item.ExtendedFiles_Design.length > 0">
+                                <td colspan="8">
+                                    <ul class="files">
+                                        <li ng-repeat="file in item.Files"
+                                            ng-if="file.HasFile == true">
+                                            <a class="image" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.Image">
+                                                <img src="{{file.FilePath}}" imagescale="" />
+                                            </a>
+
+                                            <a class="word" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.Word">WORD</a>
+
+                                            <a class="pdf" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.Pdf">PDF</a>
+
+                                            <a class="txt" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.TXT">TXT</a>
+
+                                            <a class="zip" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.ZIP">ZIP</a>
+
+                                            <a class="rar" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.RAR">RAR</a>
+
+                                            <a class="tiff" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.TIFF">TIFF</a>
+
+                                            <a class="unknown" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.Unknown">Unknown</a>
+                                        </li>
+
+                                        <li ng-repeat="file in item.ExtendedFiles_File"
+                                            ng-if="file.HasFile == true">
+                                            <a class="image" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.Image">
+                                                <img src="{{file.FilePath}}" imagescale="" />
+                                            </a>
+
+                                            <a class="word" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.Word">WORD</a>
+
+                                            <a class="pdf" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.Pdf">PDF</a>
+
+                                            <a class="txt" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.TXT">TXT</a>
+
+                                            <a class="zip" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.ZIP">ZIP</a>
+
+                                            <a class="rar" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.RAR">RAR</a>
+
+                                            <a class="tiff" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.TIFF">TIFF</a>
+
+                                            <a class="unknown" href="{{file.FilePath}}" target="_blank"
+                                               ng-if="checkFileType(file.FileName) == fileType.Unknown">Unknown</a>
+                                        </li>
+
+                                        <li ng-if="item.ExtendedFiles_Design.length > 0">
+                                            <ul ng-repeat="design in item.ExtendedFiles_Design">
+                                                <li ng-repeat="file in design.Values">
+                                                    <a class="image" href="{{file.Link}}" target="_blank"
+                                                       ng-if="checkFileType(file.Link) == fileType.Image">
+                                                        <img src="{{file.Link}}" ima imagescale="" />
+                                                    </a>
+
+                                                    <a class="word" href="{{file.Link}}" target="_blank"
+                                                       ng-if="checkFileType(file.Link) == fileType.Word">WORD</a>
+
+                                                    <a class="pdf" href="{{file.Link}}" target="_blank"
+                                                       ng-if="checkFileType(file.Link) == fileType.Pdf">PDF</a>
+
+                                                    <a class="txt" href="{{file.Link}}" target="_blank"
+                                                       ng-if="checkFileType(file.Link) == fileType.TXT">TXT</a>
+
+                                                    <a class="zip" href="{{file.Link}}" target="_blank"
+                                                       ng-if="checkFileType(file.Link) == fileType.ZIP">ZIP</a>
+
+                                                    <a class="rar" href="{{file.Link}}" target="_blank"
+                                                       ng-if="checkFileType(file.Link) == fileType.RAR">RAR</a>
+
+                                                    <a class="tiff" href="{{file.Link}}" target="_blank"
+                                                       ng-if="checkFileType(file.Link) == fileType.TIFF">TIFF</a>
+
+                                                    <a class="unknown" href="{{file.Link}}" target="_blank"
+                                                       ng-if="checkFileType(file.Link) == fileType.Unknown">Unknown</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </td>
                             </tr>
                         </tbody>

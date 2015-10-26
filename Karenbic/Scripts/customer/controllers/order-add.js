@@ -458,6 +458,12 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
 
                     case 10:
                         break;
+
+                    case 11:
+                        if ($scope.validateForm_ExtendedFileUploader(item) == false) {
+                            valide = false;
+                        }
+                        break;
                 }
             });
 
@@ -595,6 +601,15 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
             return valide;
         };
 
+        $scope.validateForm_ExtendedFileUploader = function (item) {
+            var valide = true;
+            if (item.data.isRequired == true &&
+                (item.value == null || item.value == undefined || item.value == '' || item.value.trim() == '')) {
+                valide = false;
+            }
+            return valide;
+        };
+
         /*=-=-=-=-= End Validate Field =-=-=-=-=*/
 
         /*=-=-=-=-= Start Form Error =-=-=-=-=*/
@@ -645,6 +660,10 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
                         break;
 
                     case 10:
+                        break;
+
+                    case 11:
+                        $scope.extendedFileUploader_error(item);
                         break;
                 }
             });
@@ -771,6 +790,13 @@ App.controller('AddOrderController', ['$scope', '$http', 'APP_BASE_URI', '$uploa
 
         $scope.multipleChoice_error = function (item) {
             if (item.data.isRequired == true && item.value == null) {
+                $scope.formErrors.unshift("فیلد " + item.data.title + " اجباری می باشد");
+            }
+        };
+
+        $scope.extendedFileUploader_error = function (item) {
+            if (item.data.isRequired == true &&
+                (item.value == null || item.value == undefined || item.value == '' || item.value.trim() == '')) {
                 $scope.formErrors.unshift("فیلد " + item.data.title + " اجباری می باشد");
             }
         };

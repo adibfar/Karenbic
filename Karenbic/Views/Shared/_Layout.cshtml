@@ -106,13 +106,13 @@
                         </div>
                         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                             <!-- Start Contact Us -->
-                            <div class="call-us top-bar-block" style="display:none;">
+                            <div class="call-us top-bar-block">
                                 <i class="icon-phone"></i>
                                 <span>
                                     Call us at 071 - 3234 1537
                                 </span>
                             </div>
-                            <div class="mail-us top-bar-block" style="display:none;">
+                            <div class="mail-us top-bar-block">
                                 <i class="icon-email"></i>
                                 <span>
                                     E-mail: info@karenads.com
@@ -193,6 +193,16 @@
                                                 <a href="@Url.Action("Index", "PriceList", new { id = 4 })">خدمات چاپ</a>
                                             </li>
                                         </ul>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Help", "Home")">
+                                            <span class="label-nav">
+                                                راهنما و قوانین
+                                            </span>
+                                            <span class="label-nav-sub" data-hover="FAQ">
+                                                FAQ
+                                            </span>
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="@Url.Action("AboutUs", "Home")">
@@ -364,5 +374,9 @@
             </div>
         </div>
     </footer>
+
+    <div style="position:fixed;bottom:0;left:0;width:151px;height:151px;">
+        <iframe src="/eNamadLogo.htm" frameborder="0" scrolling="no" allowtransparency="true" style="width: 150px; height:150px;"></iframe>
+    </div>
 </body>
 </html>

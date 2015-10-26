@@ -176,4 +176,39 @@ App.controller('AppController',
         };
     }];
     $scope.getUnReadMessages();
+
+      //get help text
+    $scope.ShowFaqModal = function () {
+        var modalInstance = $modal.open({
+            templateUrl: '/FAQModalContent.html',
+            controller: FAQCtrl,
+            size: 'lg'
+        });
+
+        modalInstance.result.then(function (result) {
+        }, function () {
+        });
+    };
+    var FAQCtrl = ['$scope', '$http', '$modalInstance', function ($scope, $http, $modalInstance) {
+        $scope.help = '';
+
+        $scope.fetchLoading = true;
+        $http.get(baseUri + 'Home/PublicHelpText')
+        .success(function (data, status, headers, config) {
+            $scope.help = $sce.trustAsHtml(data);
+            $scope.fetchLoading = false;
+        }).error(function (data, status, headers, config) {
+            if (status == 403) {
+                window.location = "/Account/Login";
+            }
+            else {
+                toaster.pop('error', "خطایی رخ داده صفحه را مجدداً بارگزاری کنید");
+            }
+            $scope.fetchLoading = false;
+        });
+
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    }];
 }]);

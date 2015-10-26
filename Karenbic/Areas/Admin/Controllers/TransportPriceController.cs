@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Karenbic.Areas.Admin.Controllers
 {
+    [UserInfrastructure.RACVAccess(Roles = "Admin")]
     public class TransportPriceController : Controller
     {
         private DataAccess.Context _context;

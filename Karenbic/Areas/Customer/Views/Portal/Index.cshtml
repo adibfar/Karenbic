@@ -6,7 +6,7 @@
 <div class="top-navbar">
     <div class="top-navbar-inner">
         <a class="home-nav icon-home176" href="/" tooltipster="" title="صفحه اصلی سایت"></a>
-        <a class="help-nav" tooltipster="" title="راهنما"></a>
+        <a class="help-nav" tooltipster="" title="راهنما" ng-click="ShowFaqModal()"></a>
         <div class="user-section">
             <div class="icon-male157"></div>
             <span class="user-name">{{user.Name + ' ' + user.Surname}}</span>
@@ -92,3 +92,31 @@
     </div>
 </script>
 <!-- End UnRead Message Modal -->
+
+<!-- Start FAQ Modal -->
+<script type="text/ng-template" id="/FAQModalContent.html">
+    <div class="modal-header">
+        <div class="modal-title">
+            <i></i>
+            راهنما و قوانین
+        </div>
+    </div>
+    <div class="modal-body"
+         ng-class="{'whirl': fetchLoading, 'shadow': fetchLoading}">
+        <div style="min-height:300px;" ng-bind-html="help"></div>
+    </div>
+    <div class="modal-footer">
+        <div class="clearfix">
+            <div class="pull-left">
+                <button class="btn btn-labeled btn-default"
+                        ng-click="close()">
+                    <span class=" btn-label btn-label-right">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    خروج
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End FAQ Modal -->

@@ -214,7 +214,7 @@ App
                     url: '/order-list',
                     templateUrl: helper.basepath('PrintOrder/List'),
                     controller: 'PrintOrderListController',
-                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker')
+                    resolve: helper.resolveFor('jquery-ui', 'jquery-ui-datepicker', 'image-scale')
                 })
                 .state('app.print.price-list', {
                     url: '/price-list',
